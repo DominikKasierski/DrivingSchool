@@ -6,6 +6,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import pl.lodz.p.it.dk.entities.Account;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 // TODO: Ogarnąć ToStringa
@@ -14,6 +15,7 @@ import java.util.Date;
 public abstract class AbstractEntity {
 
     @Getter
+    @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "creation_date", nullable = false, updatable = false)
     private Date creationDate;
@@ -25,6 +27,7 @@ public abstract class AbstractEntity {
 
     @Getter
     @Setter
+    @NotNull
     @OneToOne
     @JoinColumn(name = "created_by", nullable = false, updatable = false)
     private Account createdBy;

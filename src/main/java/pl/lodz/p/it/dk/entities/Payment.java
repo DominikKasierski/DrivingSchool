@@ -36,7 +36,7 @@ public class Payment extends AbstractEntity implements Serializable {
 
     @Getter
     @Setter
-    @JoinColumn(name = "course_id")
+    @JoinColumn(name = "course_id", updatable = false)
     @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE}, optional = false)
     private Course course;
 
@@ -45,7 +45,7 @@ public class Payment extends AbstractEntity implements Serializable {
     @NotNull
     @Min(value = 0)
     @Digits(integer = 4, fraction = 2)
-    @Column(name = "value", nullable = false)
+    @Column(name = "value", nullable = false, updatable = false)
     private BigDecimal value;
 
     @Getter

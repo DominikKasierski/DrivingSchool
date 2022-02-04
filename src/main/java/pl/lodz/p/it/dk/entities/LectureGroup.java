@@ -32,7 +32,7 @@ public class LectureGroup extends AbstractEntity implements Serializable {
     @Setter
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "course_category", nullable = false)
+    @Column(name = "course_category", nullable = false, updatable = false)
     private CourseCategory courseCategory;
 
     @Getter

@@ -29,7 +29,7 @@ public class Car extends AbstractEntity implements Serializable {
     @Setter
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "course_category", nullable = false)
+    @Column(name = "course_category", updatable = false, nullable = false)
     private CourseCategory courseCategory;
 
     @Getter
@@ -42,14 +42,14 @@ public class Car extends AbstractEntity implements Serializable {
     @Setter
     @NotNull
     @Size(min = 1, max = 31)
-    @Column(name = "brand", nullable = false)
+    @Column(name = "brand", updatable = false, nullable = false)
     private String brand;
 
     @Getter
     @Setter
     @NotNull
     @Size(min = 1, max = 31)
-    @Column(name = "model", nullable = false)
+    @Column(name = "model", updatable = false, nullable = false)
     private String model;
 
     @Getter
@@ -58,7 +58,7 @@ public class Car extends AbstractEntity implements Serializable {
     @Min(value = 2005)
     @Max(value = 2022)
     @Digits(integer = 4, fraction = 0)
-    @Column(name = "production_year", nullable = false)
+    @Column(name = "production_year", updatable = false, nullable = false)
     private Integer productionYear;
 
     @Getter

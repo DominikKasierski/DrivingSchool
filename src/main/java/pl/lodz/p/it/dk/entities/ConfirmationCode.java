@@ -80,6 +80,7 @@ public class ConfirmationCode extends AbstractEntity implements Serializable {
 
     @Getter
     @Setter
+    @NotNull
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "code_type", nullable = false)
     private CodeType codeType;

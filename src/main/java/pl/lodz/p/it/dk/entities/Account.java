@@ -104,6 +104,11 @@ public class Account extends AbstractEntity implements Serializable {
 
     @Getter
     @Setter
+    @Column(name = "language", nullable = false)
+    private String language;
+
+    @Getter
+    @Setter
     @Column(name = "phone_number")
     private String phoneNumber;
 

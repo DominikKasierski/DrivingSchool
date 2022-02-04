@@ -35,22 +35,22 @@ public abstract class Access extends AbstractEntity implements Serializable {
     @Column(name = "id", updatable = false, unique = true)
     private Long id;
 
-    @NotNull
     @Getter
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "access_type", updatable = false, nullable = false)
     private AccessType accessType;
 
-    @NotNull
     @Getter
     @Setter
+    @NotNull
     @Column(name = "activated", nullable = false)
     private boolean activated = true;
 
     @Getter
     @Setter
-    @ManyToOne(cascade = CascadeType.REFRESH, optional = false)
     @JoinColumn(name = "account_id", updatable = false)
+    @ManyToOne(cascade = CascadeType.REFRESH, optional = false)
     private Account account;
 
     @Override
