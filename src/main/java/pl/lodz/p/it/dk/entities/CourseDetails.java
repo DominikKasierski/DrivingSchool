@@ -3,6 +3,7 @@ package pl.lodz.p.it.dk.entities;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import pl.lodz.p.it.dk.entities.enums.CourseCategory;
 import pl.lodz.p.it.dk.utils.common.AbstractEntity;
 
@@ -23,7 +24,6 @@ import static pl.lodz.p.it.dk.entities.CourseDetails.COURSE_CATEGORY_CONSTRAINT;
         @UniqueConstraint(name = COURSE_CATEGORY_CONSTRAINT, columnNames = {"course_category"})
 })
 @NoArgsConstructor
-@Getter
 public class CourseDetails extends AbstractEntity implements Serializable {
 
     public static final String COURSE_CATEGORY_CONSTRAINT = "constraint_course_details_course_category";
@@ -35,12 +35,14 @@ public class CourseDetails extends AbstractEntity implements Serializable {
     @Column(name = "id", updatable = false, unique = true)
     private Long id;
 
+    @Getter
     @Setter
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "course_category", nullable = false)
     private CourseCategory courseCategory;
 
+    @Getter
     @Setter
     @NotNull
     @Min(value = 1000)
@@ -48,6 +50,7 @@ public class CourseDetails extends AbstractEntity implements Serializable {
     @Column(name = "price", nullable = false)
     private BigDecimal price;
 
+    @Getter
     @Setter
     @NotNull
     @Min(value = 5)
@@ -55,6 +58,7 @@ public class CourseDetails extends AbstractEntity implements Serializable {
     @Column(name = "lectures_hours", nullable = false)
     private Integer lecturesHours;
 
+    @Getter
     @Setter
     @NotNull
     @Min(value = 5)
@@ -62,9 +66,30 @@ public class CourseDetails extends AbstractEntity implements Serializable {
     @Column(name = "driving_hours", nullable = false)
     private Integer drivingHours;
 
+    @Getter
     @Setter
     @OneToMany(mappedBy = "course_details", cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     private Set<Course> courses = new HashSet<>();
+
+    public CourseDetails(CourseCategory courseCategory, BigDecimal price, Integer lecturesHours, Integer drivingHours) {
+        this.courseCategory = courseCategory;
+        this.price = price;
+        this.lecturesHours = lecturesHours;
+        this.drivingHours = drivingHours;
+    }
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append(super.toString())
+                .append("id", id)
+                .toString();
+    }
 }
 
 

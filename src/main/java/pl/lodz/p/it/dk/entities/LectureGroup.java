@@ -4,6 +4,7 @@ package pl.lodz.p.it.dk.entities;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import pl.lodz.p.it.dk.entities.enums.CourseCategory;
 import pl.lodz.p.it.dk.utils.common.AbstractEntity;
 
@@ -17,7 +18,6 @@ import java.util.Set;
 @Entity
 @Table(name = "lecture_group")
 @NoArgsConstructor
-@Getter
 public class LectureGroup extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -28,19 +28,40 @@ public class LectureGroup extends AbstractEntity implements Serializable {
     @Column(name = "id", updatable = false, unique = true)
     private Long id;
 
+    @Getter
     @Setter
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "course_category", nullable = false)
     private CourseCategory courseCategory;
 
+    @Getter
     @Setter
     @NotNull
     @OneToMany(mappedBy = "lecture_group", cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     private Set<Course> courses = new HashSet<>();
 
+    @Getter
     @Setter
     @NotNull
     @OneToMany(mappedBy = "lecture_group", cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     private Set<Lecture> lectures = new HashSet<>();
+
+    public LectureGroup(CourseCategory courseCategory, Set<Course> courses) {
+        this.courseCategory = courseCategory;
+        this.courses = courses;
+    }
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append(super.toString())
+                .append("id", id)
+                .toString();
+    }
 }

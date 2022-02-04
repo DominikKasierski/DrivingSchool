@@ -4,6 +4,7 @@ package pl.lodz.p.it.dk.entities;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import pl.lodz.p.it.dk.entities.enums.PaymentStatus;
 import pl.lodz.p.it.dk.utils.common.AbstractEntity;
 
@@ -18,7 +19,6 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "payment")
 @NoArgsConstructor
-@Getter
 public class Payment extends AbstractEntity implements Serializable {
 
     @Id
@@ -27,11 +27,20 @@ public class Payment extends AbstractEntity implements Serializable {
     @Column(name = "id", updatable = false, unique = true)
     private Long id;
 
+    @Getter
+    @Setter
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "payment_status", nullable = false)
+    private PaymentStatus paymentStatus = PaymentStatus.IN_PROGRESS;
+
+    @Getter
     @Setter
     @JoinColumn(name = "course_id")
     @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE}, optional = false)
     private Course course;
 
+    @Getter
     @Setter
     @NotNull
     @Min(value = 0)
@@ -39,14 +48,27 @@ public class Payment extends AbstractEntity implements Serializable {
     @Column(name = "value", nullable = false)
     private BigDecimal value;
 
+    @Getter
     @Setter
     @Size(min = 4, max = 255)
     @Column(name = "comment")
     private String comment;
 
-    @Setter
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "payment_status", nullable = false)
-    private PaymentStatus paymentStatus = PaymentStatus.IN_PROGRESS;
+    public Payment(Course course, BigDecimal value) {
+        this.course = course;
+        this.value = value;
+    }
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append(super.toString())
+                .append("id", id)
+                .toString();
+    }
 }

@@ -24,7 +24,6 @@ import static pl.lodz.p.it.dk.entities.Access.ACCESS_TYPE_ACCOUNT_ID_CONSTRAINT;
         @NamedQuery(name = "Access.findById", query = "SELECT r FROM Access r WHERE r.id = :id"),
         @NamedQuery(name = "Access.findByActivated", query = "SELECT r FROM Access r WHERE r.activated = :activated")})
 @NoArgsConstructor
-@Getter
 public abstract class Access extends AbstractEntity implements Serializable {
 
     public static final String ACCESS_TYPE_ACCOUNT_ID_CONSTRAINT = "constraint_access_access_type_account_id";
@@ -37,17 +36,33 @@ public abstract class Access extends AbstractEntity implements Serializable {
     private Long id;
 
     @NotNull
+    @Getter
     @Enumerated(EnumType.STRING)
     @Column(name = "access_type", updatable = false, nullable = false)
     private AccessType accessType;
 
     @NotNull
+    @Getter
     @Setter
     @Column(name = "activated", nullable = false)
     private boolean activated = true;
 
+    @Getter
     @Setter
     @ManyToOne(cascade = CascadeType.REFRESH, optional = false)
     @JoinColumn(name = "account_id", updatable = false)
     private Account account;
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append(super.toString())
+                .append("id", id)
+                .toString();
+    }
 }
