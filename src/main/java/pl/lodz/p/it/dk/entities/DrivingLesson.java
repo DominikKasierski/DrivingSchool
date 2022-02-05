@@ -64,7 +64,6 @@ public class DrivingLesson extends AbstractEntity implements Serializable {
     @Column(name = "date_to", nullable = false)
     private Date dateTo;
 
-
     public DrivingLesson(InstructorAccess instructor, Course course, Car car, Date dateFrom, Date dateTo) {
         this.instructor = instructor;
         this.course = course;

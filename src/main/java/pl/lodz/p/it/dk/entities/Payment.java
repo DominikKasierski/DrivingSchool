@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import pl.lodz.p.it.dk.entities.enums.PaymentStatus;
 import pl.lodz.p.it.dk.utils.common.AbstractEntity;
+import pl.lodz.p.it.dk.validation.annotations.Comment;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
@@ -51,6 +52,7 @@ public class Payment extends AbstractEntity implements Serializable {
     @Getter
     @Setter
     @Size(min = 4, max = 255)
+    @Comment
     @Column(name = "comment")
     private String comment;
 

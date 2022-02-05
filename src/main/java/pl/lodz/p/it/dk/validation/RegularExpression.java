@@ -8,6 +8,5 @@ public class RegularExpression {
     public static final String LASTNAME = "^[A-ZĆŁÓŚŹŻ\\s]{1}[a-ząęćńóśłźż]+$";
     public static final String LANGUAGE = "[a-z]{2}";
     public static final String PHONE_NUMBER = "^[0-9\\+][0-9]{8,14}$";
-
-    public static final String IMAGE = "^(?!\\/\\/)(\\/[A-Za-z0-9]+)+\\.(jpg|png)$";
+    public static final String IMAGE = "^[a-zA-Z0-9\\/]+\\.(jpg|png)$";
 }

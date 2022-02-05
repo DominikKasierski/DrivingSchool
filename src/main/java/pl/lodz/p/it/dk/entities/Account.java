@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import pl.lodz.p.it.dk.utils.common.AbstractEntity;
+import pl.lodz.p.it.dk.validation.annotations.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -70,45 +71,53 @@ public class Account extends AbstractEntity implements Serializable {
     @Getter
     @Setter
     @NotNull
+    @Login
     @Column(name = "login", updatable = false, nullable = false)
     private String login;
 
     @Getter
     @Setter
     @NotNull
+    @EmailAddress
     @Column(name = "email_address", nullable = false)
     private String emailAddress;
 
     @Getter
     @Setter
+    @EmailAddress
     @Column(name = "new_email_address")
     private String newEmailAddress = null;
 
     @Getter
     @Setter
     @NotNull
+    @HashedPassword
     @Column(name = "password", nullable = false, length = 64)
     private String password;
 
     @Getter
     @Setter
     @NotNull
+    @Firstname
     @Column(name = "firstname", nullable = false)
     private String firstname;
 
     @Getter
     @Setter
     @NotNull
+    @Lastname
     @Column(name = "lastname", nullable = false)
     private String lastname;
 
     @Getter
     @Setter
+    @Language
     @Column(name = "language", nullable = false)
     private String language;
 
     @Getter
     @Setter
+    @PhoneNumber
     @Column(name = "phone_number")
     private String phoneNumber;
 
@@ -178,7 +187,8 @@ public class Account extends AbstractEntity implements Serializable {
             mappedBy = "account", orphanRemoval = true)
     private Set<ConfirmationCode> confirmationCodes = new HashSet<>();
 
-    public Account(String login, String password, String firstname, String lastname, boolean confirmed, boolean blocked) {
+    public Account(String login, String password, String firstname, String lastname, boolean confirmed,
+                   boolean blocked) {
         this.login = login;
         this.password = password;
         this.firstname = firstname;

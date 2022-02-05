@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import pl.lodz.p.it.dk.entities.enums.CourseCategory;
 import pl.lodz.p.it.dk.utils.common.AbstractEntity;
+import pl.lodz.p.it.dk.validation.annotations.Image;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -35,6 +36,7 @@ public class Car extends AbstractEntity implements Serializable {
     @Getter
     @Setter
     @Size(min = 1, max = 31)
+    @Image
     @Column(name = "image")
     private String image;
 
