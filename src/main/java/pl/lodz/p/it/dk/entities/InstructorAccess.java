@@ -14,9 +14,6 @@ import java.util.Set;
 @Entity
 @Table(name = "instructor_access")
 @DiscriminatorValue("INSTRUCTOR")
-@NamedQueries({
-        @NamedQuery(name = "InstructorAccess.findAll", query = "SELECT m FROM InstructorAccess m"),
-        @NamedQuery(name = "InstructorAccess.findById", query = "SELECT m FROM InstructorAccess m WHERE m.id = :id")})
 @NoArgsConstructor
 @Getter
 @ToString(callSuper = true)
@@ -33,10 +30,10 @@ public class InstructorAccess extends Access implements Serializable {
     private Set<CourseCategory> permissions = new HashSet<>();
 
     @Setter
-    @OneToMany(mappedBy = "instructor_access", cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "instructor_access", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Lecture> lectures = new HashSet<>();
 
     @Setter
-    @OneToMany(mappedBy = "instructor_access", cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "instructor_access", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<DrivingLesson> drivingLessons = new HashSet<>();
 }

@@ -65,7 +65,7 @@ public class Car extends AbstractEntity implements Serializable {
 
     @Getter
     @Setter
-    @OneToMany(mappedBy = "car", cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "car", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<DrivingLesson> drivingLessons;
 
     public Car(CourseCategory courseCategory, String brand, String model, Integer productionYear) {

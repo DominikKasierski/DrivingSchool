@@ -1,6 +1,5 @@
 package pl.lodz.p.it.dk.entities;
 
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -38,7 +37,7 @@ public class Payment extends AbstractEntity implements Serializable {
     @Getter
     @Setter
     @JoinColumn(name = "course_id", updatable = false)
-    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE}, optional = false)
+    @ManyToOne(cascade = {CascadeType.MERGE}, optional = false)
     private Course course;
 
     @Getter

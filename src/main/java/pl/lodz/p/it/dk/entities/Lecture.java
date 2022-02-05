@@ -27,13 +27,13 @@ public class Lecture extends AbstractEntity implements Serializable {
     @Getter
     @Setter
     @JoinColumn(name = "instructor_id", updatable = false)
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, optional = false)
+    @ManyToOne(cascade = {CascadeType.MERGE}, optional = false)
     private InstructorAccess instructor;
 
     @Getter
     @Setter
     @JoinColumn(name = "lecture_group_id", updatable = false)
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, optional = false)
+    @ManyToOne(cascade = {CascadeType.MERGE}, optional = false)
     private LectureGroup lectureGroup;
 
     @Getter

@@ -23,25 +23,6 @@ import static pl.lodz.p.it.dk.entities.Account.*;
         @UniqueConstraint(name = EMAIL_ADDRESS_CONSTRAINT, columnNames = {"email_address"}),
         @UniqueConstraint(name = PHONE_NUMBER_CONSTRAINT, columnNames = {"phone_number"})
 })
-@NamedQueries({
-        @NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a"),
-        @NamedQuery(name = "Account.findById", query = "SELECT a FROM Account a WHERE a.id = :id"),
-        @NamedQuery(name = "Account.findByLogin", query = "SELECT a FROM Account a WHERE a.login = :login"),
-        @NamedQuery(name = "Account.findByEmailAddress",
-                query = "SELECT a FROM Account a WHERE a.emailAddress = :emailAddress"),
-        @NamedQuery(name = "Account.findByNewEmailAddress",
-                query = "SELECT a FROM Account a WHERE a.newEmailAddress = :newEmailAddress"),
-        @NamedQuery(name = "Account.findByEnabled", query = "SELECT a FROM Account a WHERE a.blocked = :blocked"),
-        @NamedQuery(name = "Account.findByConfirmed", query = "SELECT a FROM Account a WHERE a.confirmed = :confirmed"),
-        @NamedQuery(name = "Account.findByPhoneNumber",
-                query = "SELECT a FROM Account a WHERE a.phoneNumber = :phoneNumber"),
-        @NamedQuery(name = "Account.findUnverified",
-                query = "SELECT a FROM Account a WHERE a.confirmed = false AND a.creationDate < :date"),
-        @NamedQuery(name = "Account.findUnverifiedBetweenDate",
-                query = "SELECT a FROM Account a WHERE a.confirmed = false AND a.creationDate BETWEEN :startDate AND" +
-                        " :endDate AND a NOT IN (SELECT c.account FROM ConfirmationCode c WHERE used = false AND " +
-                        "codeType = 0)")
-})
 @NoArgsConstructor
 public class Account extends AbstractEntity implements Serializable {
 
@@ -177,14 +158,12 @@ public class Account extends AbstractEntity implements Serializable {
 
     @Getter
     @Setter
-    @OneToMany(mappedBy = "account",
-            cascade = {CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "account", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Access> accesses = new HashSet<>();
 
     @Getter
     @Setter
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE},
-            mappedBy = "account", orphanRemoval = true)
+    @OneToMany(mappedBy = "account", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<ConfirmationCode> confirmationCodes = new HashSet<>();
 
     public Account(String login, String password, String firstname, String lastname, boolean confirmed,

@@ -34,29 +34,29 @@ public class Course extends AbstractEntity implements Serializable {
     @Getter
     @Setter
     @JoinColumn(name = "trainee_id", updatable = false)
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, optional = false)
+    @ManyToOne(cascade = {CascadeType.MERGE}, optional = false)
     private TraineeAccess trainee;
 
     @Getter
     @Setter
     @JoinColumn(name = "course_details_id")
-    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.MERGE})
     private CourseDetails courseDetails;
 
     @Getter
     @Setter
     @JoinColumn(name = "lecture_group_id")
-    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.MERGE})
     private LectureGroup lectureGroup;
 
     @Getter
     @Setter
-    @OneToMany(mappedBy = "course", cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "course", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Payment> payments;
 
     @Getter
     @Setter
-    @OneToMany(mappedBy = "course", cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "course", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<DrivingLesson> drivingLessons;
 
     @Getter

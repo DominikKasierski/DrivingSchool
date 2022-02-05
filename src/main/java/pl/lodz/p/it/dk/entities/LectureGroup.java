@@ -1,6 +1,5 @@
 package pl.lodz.p.it.dk.entities;
 
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,7 +12,6 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-
 
 @Entity
 @Table(name = "lecture_group")
@@ -38,13 +36,13 @@ public class LectureGroup extends AbstractEntity implements Serializable {
     @Getter
     @Setter
     @NotNull
-    @OneToMany(mappedBy = "lecture_group", cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "lecture_group", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Course> courses = new HashSet<>();
 
     @Getter
     @Setter
     @NotNull
-    @OneToMany(mappedBy = "lecture_group", cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "lecture_group", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Lecture> lectures = new HashSet<>();
 
     public LectureGroup(CourseCategory courseCategory, Set<Course> courses) {

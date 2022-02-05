@@ -18,7 +18,6 @@ import java.util.Set;
 
 import static pl.lodz.p.it.dk.entities.CourseDetails.COURSE_CATEGORY_CONSTRAINT;
 
-
 @Entity
 @Table(name = "course_details", uniqueConstraints = {
         @UniqueConstraint(name = COURSE_CATEGORY_CONSTRAINT, columnNames = {"course_category"})
@@ -68,7 +67,7 @@ public class CourseDetails extends AbstractEntity implements Serializable {
 
     @Getter
     @Setter
-    @OneToMany(mappedBy = "course_details", cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "course_details", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Course> courses = new HashSet<>();
 
     public CourseDetails(CourseCategory courseCategory, BigDecimal price, Integer lecturesHours, Integer drivingHours) {

@@ -19,10 +19,6 @@ import static pl.lodz.p.it.dk.entities.Access.ACCESS_TYPE_ACCOUNT_ID_CONSTRAINT;
 })
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(discriminatorType = DiscriminatorType.STRING, name = "access_type")
-@NamedQueries({
-        @NamedQuery(name = "Access.findAll", query = "SELECT r FROM Access r"),
-        @NamedQuery(name = "Access.findById", query = "SELECT r FROM Access r WHERE r.id = :id"),
-        @NamedQuery(name = "Access.findByActivated", query = "SELECT r FROM Access r WHERE r.activated = :activated")})
 @NoArgsConstructor
 public abstract class Access extends AbstractEntity implements Serializable {
 
@@ -50,7 +46,7 @@ public abstract class Access extends AbstractEntity implements Serializable {
     @Getter
     @Setter
     @JoinColumn(name = "account_id", updatable = false)
-    @ManyToOne(cascade = CascadeType.REFRESH, optional = false)
+    @ManyToOne(cascade = {CascadeType.MERGE}, optional = false)
     private Account account;
 
     @Override
