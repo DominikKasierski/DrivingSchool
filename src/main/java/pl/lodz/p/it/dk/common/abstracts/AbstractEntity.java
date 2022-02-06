@@ -1,4 +1,4 @@
-package pl.lodz.p.it.dk.utils.common;
+package pl.lodz.p.it.dk.common.abstracts;
 
 import lombok.Getter;
 import lombok.Setter;

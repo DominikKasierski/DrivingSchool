@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+
+    <persistence-unit name="authPU" transaction-type="JTA">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <jta-data-source>java:app/jdbc/authDS</jta-data-source>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <properties>
+            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL10Dialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            <property name="hibernate.transaction.jta.platform"
+                      value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.cache.use_second_level_cache" value="false"/>
+            <property name="hibernate.jdbc.time_zone" value="UTC"/>
+        </properties>
+    </persistence-unit>
+
+    <persistence-unit name="mokPU" transaction-type="JTA">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <jta-data-source>java:app/jdbc/mokDS</jta-data-source>
+        <class>pl.lodz.p.it.dk.entities.enums.AccessType</class>
+        <class>pl.lodz.p.it.dk.entities.enums.CodeType</class>
+        <class>pl.lodz.p.it.dk.entities.enums.CourseCategory</class>
+        <class>pl.lodz.p.it.dk.entities.enums.LessonStatus</class>
+        <class>pl.lodz.p.it.dk.entities.enums.PaymentStatus</class>
+        <class>pl.lodz.p.it.dk.entities.Access</class>
+        <class>pl.lodz.p.it.dk.entities.Account</class>
+        <class>pl.lodz.p.it.dk.entities.AdminAccess</class>
+        <class>pl.lodz.p.it.dk.entities.Car</class>
+        <class>pl.lodz.p.it.dk.entities.ConfirmationCode</class>
+        <class>pl.lodz.p.it.dk.entities.Course</class>
+        <class>pl.lodz.p.it.dk.entities.CourseDetails</class>
+        <class>pl.lodz.p.it.dk.entities.DrivingLesson</class>
+        <class>pl.lodz.p.it.dk.entities.InstructorAccess</class>
+        <class>pl.lodz.p.it.dk.entities.Lecture</class>
+        <class>pl.lodz.p.it.dk.entities.LectureGroup</class>
+        <class>pl.lodz.p.it.dk.entities.Payment</class>
+        <class>pl.lodz.p.it.dk.entities.TraineeAccess</class>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <properties>
+            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL10Dialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            <property name="hibernate.transaction.jta.platform"
+                      value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.cache.use_second_level_cache" value="false"/>
+            <property name="hibernate.jdbc.time_zone" value="UTC"/>
+        </properties>
+    </persistence-unit>
+
+    <persistence-unit name="mosPU" transaction-type="JTA">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <jta-data-source>java:app/jdbc/mosDS</jta-data-source>
+        <class>pl.lodz.p.it.dk.entities.enums.AccessType</class>
+        <class>pl.lodz.p.it.dk.entities.enums.CodeType</class>
+        <class>pl.lodz.p.it.dk.entities.enums.CourseCategory</class>
+        <class>pl.lodz.p.it.dk.entities.enums.LessonStatus</class>
+        <class>pl.lodz.p.it.dk.entities.enums.PaymentStatus</class>
+        <class>pl.lodz.p.it.dk.entities.Access</class>
+        <class>pl.lodz.p.it.dk.entities.Account</class>
+        <class>pl.lodz.p.it.dk.entities.AdminAccess</class>
+        <class>pl.lodz.p.it.dk.entities.Car</class>
+        <class>pl.lodz.p.it.dk.entities.ConfirmationCode</class>
+        <class>pl.lodz.p.it.dk.entities.Course</class>
+        <class>pl.lodz.p.it.dk.entities.CourseDetails</class>
+        <class>pl.lodz.p.it.dk.entities.DrivingLesson</class>
+        <class>pl.lodz.p.it.dk.entities.InstructorAccess</class>
+        <class>pl.lodz.p.it.dk.entities.Lecture</class>
+        <class>pl.lodz.p.it.dk.entities.LectureGroup</class>
+        <class>pl.lodz.p.it.dk.entities.Payment</class>
+        <class>pl.lodz.p.it.dk.entities.TraineeAccess</class>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <properties>
+            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL10Dialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            <property name="hibernate.transaction.jta.platform"
+                      value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.cache.use_second_level_cache" value="false"/>
+            <property name="hibernate.jdbc.time_zone" value="UTC"/>
+        </properties>
+    </persistence-unit>
+</persistence>

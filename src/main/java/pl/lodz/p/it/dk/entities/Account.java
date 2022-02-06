@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import pl.lodz.p.it.dk.utils.common.AbstractEntity;
+import pl.lodz.p.it.dk.common.abstracts.AbstractEntity;
 import pl.lodz.p.it.dk.validation.annotations.*;
 
 import javax.persistence.*;
