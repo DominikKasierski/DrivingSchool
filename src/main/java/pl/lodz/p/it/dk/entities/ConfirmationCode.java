@@ -4,8 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import pl.lodz.p.it.dk.entities.enums.CodeType;
 import pl.lodz.p.it.dk.common.abstracts.AbstractEntity;
+import pl.lodz.p.it.dk.entities.enums.CodeType;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -16,6 +16,9 @@ import static pl.lodz.p.it.dk.entities.ConfirmationCode.CODE_CONSTRAINT;
 @Entity
 @Table(name = "confirmation_code", uniqueConstraints = {
         @UniqueConstraint(name = CODE_CONSTRAINT, columnNames = {"code"})
+})
+@NamedQueries({
+        @NamedQuery(name = "ConfirmationCode.findByCode", query = "SELECT c FROM ConfirmationCode c WHERE c.code = :code")
 })
 @NoArgsConstructor
 public class ConfirmationCode extends AbstractEntity implements Serializable {
