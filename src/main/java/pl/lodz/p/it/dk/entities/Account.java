@@ -23,6 +23,10 @@ import static pl.lodz.p.it.dk.entities.Account.*;
         @UniqueConstraint(name = EMAIL_ADDRESS_CONSTRAINT, columnNames = {"email_address"}),
         @UniqueConstraint(name = PHONE_NUMBER_CONSTRAINT, columnNames = {"phone_number"})
 })
+@NamedQueries({
+        @NamedQuery(name = "Account.findByLogin", query = "SELECT a FROM Account a WHERE a.login = :login"),
+        @NamedQuery(name = "Account.findByEmailAddress", query = "SELECT a FROM Account a WHERE a.emailAddress = :emailAddress")
+})
 @NoArgsConstructor
 public class Account extends AbstractEntity implements Serializable {
 

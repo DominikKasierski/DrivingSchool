@@ -36,7 +36,7 @@ public class ConfirmationCodeFacade extends AbstractFacade<ConfirmationCode> {
         try {
             super.create(entity);
         } catch (ConstraintViolationException e) {
-            if(e.getCause().getMessage().contains(ConfirmationCode.CODE_CONSTRAINT)){
+            if (e.getCause().getMessage().contains(ConfirmationCode.CODE_CONSTRAINT)) {
                 throw ConfirmationCodeException.codeExists(e.getCause());
             }
             throw DatabaseException.queryException(e.getCause());
@@ -49,7 +49,7 @@ public class ConfirmationCodeFacade extends AbstractFacade<ConfirmationCode> {
         try {
             super.edit(entity);
         } catch (ConstraintViolationException e) {
-            if(e.getCause().getMessage().contains(ConfirmationCode.CODE_CONSTRAINT)){
+            if (e.getCause().getMessage().contains(ConfirmationCode.CODE_CONSTRAINT)) {
                 throw ConfirmationCodeException.codeExists(e.getCause());
             }
             throw DatabaseException.queryException(e.getCause());
@@ -59,13 +59,14 @@ public class ConfirmationCodeFacade extends AbstractFacade<ConfirmationCode> {
     @PermitAll
     public ConfirmationCode findByCode(String code) throws BaseException {
         try {
-            TypedQuery<ConfirmationCode> query = em.createNamedQuery("ConfirmationCode.findByCode", ConfirmationCode.class);
-            query.setParameter("code", code);
-            return query.getSingleResult();
+            TypedQuery<ConfirmationCode> confirmationCodeTypedQuery =
+                    em.createNamedQuery("ConfirmationCode.findByCode", ConfirmationCode.class);
+            confirmationCodeTypedQuery.setParameter("code", code);
+            return confirmationCodeTypedQuery.getSingleResult();
         } catch (NoResultException e) {
-            throw NotFoundException.confirmationCodeNotFound(e);
+            throw NotFoundException.confirmationCodeNotFound(e.getCause());
         } catch (PersistenceException e) {
-            throw DatabaseException.queryException(e);
+            throw DatabaseException.queryException(e.getCause());
         }
     }
 

@@ -15,6 +15,9 @@ import java.util.Set;
 
 @Entity
 @Table(name = "car")
+@NamedQueries({
+        @NamedQuery(name = "Car.findByCategory", query = "SELECT c FROM Car c WHERE c.courseCategory = :category")
+})
 @NoArgsConstructor
 public class Car extends AbstractEntity implements Serializable {
 
@@ -67,6 +70,12 @@ public class Car extends AbstractEntity implements Serializable {
     @Setter
     @OneToMany(mappedBy = "car", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<DrivingLesson> drivingLessons;
+
+    @Getter
+    @Setter
+    @NotNull
+    @Column(name = "deleted", nullable = false)
+    private boolean deleted = false;
 
     public Car(CourseCategory courseCategory, String brand, String model, Integer productionYear) {
         this.courseCategory = courseCategory;

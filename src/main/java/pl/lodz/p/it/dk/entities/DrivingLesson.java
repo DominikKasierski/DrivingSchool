@@ -4,8 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import pl.lodz.p.it.dk.entities.enums.LessonStatus;
 import pl.lodz.p.it.dk.common.abstracts.AbstractEntity;
+import pl.lodz.p.it.dk.entities.enums.LessonStatus;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -14,6 +14,16 @@ import java.util.Date;
 
 @Entity
 @Table(name = "driving_lesson")
+@NamedQueries({
+        @NamedQuery(name = "DrivingLesson.findAllActive",
+                query = "SELECT d FROM DrivingLesson d WHERE d.lessonStatus = pl.lodz.p.it.dk.entities.enums" +
+                        ".LessonStatus.PENDING OR d.lessonStatus = pl.lodz.p.it.dk.entities.enums.LessonStatus" +
+                        ".IN_PROGRESS"),
+        @NamedQuery(name = "DrivingLesson.findAllArchive",
+                query = "SELECT d FROM DrivingLesson d WHERE d.lessonStatus = pl.lodz.p.it.dk.entities.enums" +
+                        ".LessonStatus.CANCELLED OR d.lessonStatus = pl.lodz.p.it.dk.entities.enums.LessonStatus" +
+                        ".FINISHED")
+})
 @NoArgsConstructor
 public class DrivingLesson extends AbstractEntity implements Serializable {
 

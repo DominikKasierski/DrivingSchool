@@ -22,6 +22,9 @@ import static pl.lodz.p.it.dk.entities.CourseDetails.COURSE_CATEGORY_CONSTRAINT;
 @Table(name = "course_details", uniqueConstraints = {
         @UniqueConstraint(name = COURSE_CATEGORY_CONSTRAINT, columnNames = {"course_category"})
 })
+@NamedQueries({
+        @NamedQuery(name = "CourseDetails.findByCategory", query = "SELECT c FROM CourseDetails c WHERE c.courseCategory = :category")
+})
 @NoArgsConstructor
 public class CourseDetails extends AbstractEntity implements Serializable {
 

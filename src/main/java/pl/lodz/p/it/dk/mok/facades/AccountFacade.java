@@ -4,18 +4,13 @@ import org.hibernate.exception.ConstraintViolationException;
 import pl.lodz.p.it.dk.common.abstracts.AbstractFacade;
 import pl.lodz.p.it.dk.entities.Access;
 import pl.lodz.p.it.dk.entities.Account;
-import pl.lodz.p.it.dk.exceptions.AccessException;
-import pl.lodz.p.it.dk.exceptions.AccountException;
-import pl.lodz.p.it.dk.exceptions.BaseException;
-import pl.lodz.p.it.dk.exceptions.DatabaseException;
+import pl.lodz.p.it.dk.exceptions.*;
 
-import javax.annotation.security.DenyAll;
 import javax.annotation.security.PermitAll;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.persistence.*;
 import java.util.List;
 
 @Stateless
@@ -57,6 +52,32 @@ public class AccountFacade extends AbstractFacade<Account> {
     }
 
     @PermitAll
+    public Account findByLogin(String login) throws BaseException {
+        try {
+            TypedQuery<Account> accountTypedQuery = em.createNamedQuery("Account.findByLogin", Account.class);
+            accountTypedQuery.setParameter("login", login);
+            return accountTypedQuery.getSingleResult();
+        } catch (NoResultException e) {
+            throw NotFoundException.accountNotFound(e.getCause());
+        } catch (PersistenceException e) {
+            throw DatabaseException.queryException(e.getCause());
+        }
+    }
+
+    @PermitAll
+    public Account findByEmail(String emailAddress) throws BaseException {
+        try {
+            TypedQuery<Account> accountTypedQuery = em.createNamedQuery("Account.findByEmailAddress", Account.class);
+            accountTypedQuery.setParameter("emailAddress", emailAddress);
+            return accountTypedQuery.getSingleResult();
+        } catch (NoResultException e) {
+            throw NotFoundException.accountNotFound(e.getCause());
+        } catch (PersistenceException e) {
+            throw DatabaseException.queryException(e.getCause());
+        }
+    }
+
+    @PermitAll
     private void handleConstraintViolationException(ConstraintViolationException e)
             throws BaseException {
         if (e.getCause().getMessage().contains(Account.LOGIN_CONSTRAINT)) {
@@ -76,16 +97,9 @@ public class AccountFacade extends AbstractFacade<Account> {
         super.remove(entity);
     }
 
-    @DenyAll
-    @Override
-    public Account find(Object id) throws BaseException {
-        return super.find(id);
-    }
-
     @Override
     @PermitAll
     public List<Account> findAll() throws BaseException {
         return super.findAll();
     }
-
 }
