@@ -31,26 +31,26 @@ public class CarFacade extends AbstractFacade<Car> {
         super(Car.class);
     }
 
-    @RolesAllowed("")
     @Override
+    @RolesAllowed("")
     public void create(Car entity) throws BaseException {
         super.create(entity);
     }
 
-    @RolesAllowed("")
     @Override
+    @RolesAllowed("")
     public void edit(Car entity) throws BaseException {
         super.edit(entity);
     }
 
-    @RolesAllowed("")
     @Override
+    @RolesAllowed("")
     public Car find(Object id) throws BaseException {
         return super.find(id);
     }
 
-    @PermitAll
     @Override
+    @PermitAll
     public List<Car> findAll() throws BaseException {
         return super.findAll();
     }

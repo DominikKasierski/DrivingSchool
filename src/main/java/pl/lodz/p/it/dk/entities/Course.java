@@ -18,6 +18,13 @@ import static pl.lodz.p.it.dk.entities.Course.TRAINEE_ID_COURSE_DETAILS_ID_CONST
         @UniqueConstraint(name = TRAINEE_ID_COURSE_DETAILS_ID_CONSTRAINT,
                 columnNames = {"trainee_id", "course_details_id"})
 })
+@NamedQueries({
+        @NamedQuery(name = "Course.findByCategory",
+                query = "SELECT c FROM Course c WHERE c.courseDetails.courseCategory = :category"),
+        @NamedQuery(name = "Course.findByTraineeId", query = "SELECT c FROM Course c WHERE c.trainee.id = :traineeId"),
+        @NamedQuery(name = "Course.findByLectureGroupId",
+                query = "SELECT c FROM Course c WHERE c.lectureGroup.id = :lectureGroupId")
+})
 @NoArgsConstructor
 public class Course extends AbstractEntity implements Serializable {
 

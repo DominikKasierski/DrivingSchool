@@ -29,20 +29,20 @@ public class DrivingLessonFacade extends AbstractFacade<DrivingLesson> {
         super(DrivingLesson.class);
     }
 
-    @RolesAllowed("")
     @Override
+    @RolesAllowed("")
     public void create(DrivingLesson entity) throws BaseException {
         super.create(entity);
     }
 
-    @RolesAllowed("")
     @Override
+    @RolesAllowed("")
     public void edit(DrivingLesson entity) throws BaseException {
         super.edit(entity);
     }
 
-    @RolesAllowed("")
     @Override
+    @RolesAllowed("")
     public DrivingLesson find(Object id) throws BaseException {
         return super.find(id);
     }
@@ -65,6 +65,34 @@ public class DrivingLessonFacade extends AbstractFacade<DrivingLesson> {
         try {
             TypedQuery<DrivingLesson>
                     drivingLessonTypedQuery = em.createNamedQuery("DrivingLesson.findAllArchive", DrivingLesson.class);
+            return drivingLessonTypedQuery.getResultList();
+        } catch (NoResultException e) {
+            throw NotFoundException.accountNotFound(e.getCause());
+        } catch (PersistenceException e) {
+            throw DatabaseException.queryException(e.getCause());
+        }
+    }
+
+    @RolesAllowed({""})
+    public List<DrivingLesson> findByTraineeId(long traineeId) throws BaseException {
+        try {
+            TypedQuery<DrivingLesson>
+                    drivingLessonTypedQuery = em.createNamedQuery("DrivingLesson.findByTraineeId", DrivingLesson.class);
+            drivingLessonTypedQuery.setParameter("traineeId", traineeId);
+            return drivingLessonTypedQuery.getResultList();
+        } catch (NoResultException e) {
+            throw NotFoundException.accountNotFound(e.getCause());
+        } catch (PersistenceException e) {
+            throw DatabaseException.queryException(e.getCause());
+        }
+    }
+
+    @RolesAllowed({""})
+    public List<DrivingLesson> findByInstructorId(long instructorId) throws BaseException {
+        try {
+            TypedQuery<DrivingLesson>
+                    drivingLessonTypedQuery = em.createNamedQuery("DrivingLesson.findByInstructorId", DrivingLesson.class);
+            drivingLessonTypedQuery.setParameter("instructorId", instructorId);
             return drivingLessonTypedQuery.getResultList();
         } catch (NoResultException e) {
             throw NotFoundException.accountNotFound(e.getCause());

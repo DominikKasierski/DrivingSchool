@@ -26,6 +26,4 @@ public class AccountException extends BaseException {
     public static AccountException phoneNumberExists(Throwable cause) {
         return new AccountException(PHONE_NUMBER_EXISTS_EXCEPTION, cause);
     }
-
-
 }

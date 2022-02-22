@@ -13,6 +13,11 @@ import java.util.Date;
 
 @Entity
 @Table(name = "lecture")
+@NamedQueries({
+        @NamedQuery(name = "Lecture.findByInstructorId", query = "SELECT l FROM Lecture l WHERE l.instructor.id = :instructorId"),
+        @NamedQuery(name = "Lecture.findByLectureGroupId",
+                query = "SELECT l FROM Lecture l WHERE l.lectureGroup.id = :lectureGroupId")
+})
 @NoArgsConstructor
 public class Lecture extends AbstractEntity implements Serializable {
 

@@ -91,8 +91,8 @@ public class AccountFacade extends AbstractFacade<Account> {
         }
     }
 
-    @PermitAll
     @Override
+    @PermitAll
     public void remove(Account entity) throws BaseException {
         super.remove(entity);
     }

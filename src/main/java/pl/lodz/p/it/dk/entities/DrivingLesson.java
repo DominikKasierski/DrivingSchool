@@ -22,7 +22,9 @@ import java.util.Date;
         @NamedQuery(name = "DrivingLesson.findAllArchive",
                 query = "SELECT d FROM DrivingLesson d WHERE d.lessonStatus = pl.lodz.p.it.dk.entities.enums" +
                         ".LessonStatus.CANCELLED OR d.lessonStatus = pl.lodz.p.it.dk.entities.enums.LessonStatus" +
-                        ".FINISHED")
+                        ".FINISHED"),
+        @NamedQuery(name = "DrivingLesson.findByTraineeId", query = "SELECT d FROM DrivingLesson d WHERE d.course.trainee.id = :traineeId"),
+        @NamedQuery(name = "DrivingLesson.findByInstructorId", query = "SELECT d FROM DrivingLesson d WHERE d.instructor.id = :instructorId")
 })
 @NoArgsConstructor
 public class DrivingLesson extends AbstractEntity implements Serializable {

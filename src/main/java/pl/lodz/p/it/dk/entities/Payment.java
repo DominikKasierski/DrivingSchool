@@ -18,6 +18,10 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "payment")
+@NamedQueries({
+        @NamedQuery(name = "Payment.findByTraineeId", query = "SELECT p FROM Payment p WHERE p.course.trainee.id = :traineeId"),
+        @NamedQuery(name = "Payment.findByStatus", query = "SELECT p FROM Payment p WHERE p.paymentStatus = :status")
+})
 @NoArgsConstructor
 public class Payment extends AbstractEntity implements Serializable {
 

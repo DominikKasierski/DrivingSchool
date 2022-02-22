@@ -42,8 +42,8 @@ public class CourseDetailsFacade extends AbstractFacade<CourseDetails> {
         }
     }
 
-    @PermitAll
     @Override
+    @PermitAll
     public CourseDetails find(Object id) throws BaseException {
         return super.find(id);
     }

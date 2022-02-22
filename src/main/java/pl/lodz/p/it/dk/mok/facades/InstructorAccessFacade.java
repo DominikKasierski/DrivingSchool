@@ -27,8 +27,8 @@ public class InstructorAccessFacade extends AbstractFacade<InstructorAccess> {
         super(InstructorAccess.class);
     }
 
-    @PermitAll
     @Override
+    @PermitAll
     public InstructorAccess find(Object id) throws BaseException {
         return super.find(id);
     }

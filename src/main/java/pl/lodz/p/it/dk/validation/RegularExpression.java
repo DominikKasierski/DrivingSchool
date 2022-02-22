@@ -9,4 +9,5 @@ public class RegularExpression {
     public static final String LANGUAGE = "[a-z]{2}";
     public static final String PHONE_NUMBER = "^[0-9\\+][0-9]{8,14}$";
     public static final String IMAGE = "^[a-zA-Z0-9\\/]+\\.(jpg|png)$";
+    public static final String REGISTRATION_NUMBER = "^[A-Z0-9]{4,7}$";
 }

@@ -7,6 +7,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import pl.lodz.p.it.dk.entities.enums.CourseCategory;
 import pl.lodz.p.it.dk.common.abstracts.AbstractEntity;
 import pl.lodz.p.it.dk.validation.annotations.Image;
+import pl.lodz.p.it.dk.validation.annotations.RegistrationNumber;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -16,7 +17,7 @@ import java.util.Set;
 @Entity
 @Table(name = "car")
 @NamedQueries({
-        @NamedQuery(name = "Car.findByCategory", query = "SELECT c FROM Car c WHERE c.courseCategory = :category")
+        @NamedQuery(name = "Car.findByCategory", query = "SELECT c FROM Car c WHERE c.courseCategory = :category AND c.deleted = false")
 })
 @NoArgsConstructor
 public class Car extends AbstractEntity implements Serializable {
@@ -56,6 +57,13 @@ public class Car extends AbstractEntity implements Serializable {
     @Size(min = 1, max = 31)
     @Column(name = "model", updatable = false, nullable = false)
     private String model;
+
+    @Getter
+    @Setter
+    @NotNull
+    @RegistrationNumber
+    @Column(name = "registration_number", nullable = false)
+    private String registrationNumber;
 
     @Getter
     @Setter
