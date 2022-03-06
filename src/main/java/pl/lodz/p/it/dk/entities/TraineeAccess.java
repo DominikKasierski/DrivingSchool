@@ -24,6 +24,6 @@ public class TraineeAccess extends Access implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Setter
-    @OneToMany(mappedBy = "trainee_access", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "trainee", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Course> courses = new HashSet<>();
 }

@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import pl.lodz.p.it.dk.common.abstracts.AbstractEntity;
 import pl.lodz.p.it.dk.entities.enums.CodeType;
+import pl.lodz.p.it.dk.validation.annotations.Code;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -35,6 +36,7 @@ public class ConfirmationCode extends AbstractEntity implements Serializable {
     @Getter
     @Setter
     @NotNull
+    @Code
     @Column(name = "code", nullable = false, updatable = false)
     private String code;
 
@@ -47,7 +49,7 @@ public class ConfirmationCode extends AbstractEntity implements Serializable {
     @Getter
     @Setter
     @NotNull
-    @Column(name = "send_attempt", nullable = false)
+    @Column(name = "send_attempts", nullable = false)
     private int sendAttempt = 0;
 
     @Getter

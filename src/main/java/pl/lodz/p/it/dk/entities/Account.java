@@ -71,7 +71,7 @@ public class Account extends AbstractEntity implements Serializable {
     @Setter
     @EmailAddress
     @Column(name = "new_email_address")
-    private String newEmailAddress = null;
+    private String newEmailAddress;
 
     @Getter
     @Setter

@@ -54,13 +54,13 @@ public class LectureGroup extends AbstractEntity implements Serializable {
     @Getter
     @Setter
     @NotNull
-    @OneToMany(mappedBy = "lecture_group", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "lectureGroup", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Course> courses = new HashSet<>();
 
     @Getter
     @Setter
     @NotNull
-    @OneToMany(mappedBy = "lecture_group", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "lectureGroup", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Lecture> lectures = new HashSet<>();
 
     public LectureGroup(CourseCategory courseCategory, Set<Course> courses) {

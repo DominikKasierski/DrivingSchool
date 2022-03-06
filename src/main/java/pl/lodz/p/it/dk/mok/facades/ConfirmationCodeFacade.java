@@ -18,7 +18,7 @@ import javax.persistence.*;
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
 public class ConfirmationCodeFacade extends AbstractFacade<ConfirmationCode> {
 
-    @PersistenceContext(unitName = "ssbd06mokPU")
+    @PersistenceContext(unitName = "mokPU")
     private EntityManager em;
 
     @Override

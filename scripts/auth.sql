@@ -3,6 +3,6 @@ select a.login,
        a.password,
        ac.access_type as access
 from account a join access ac on a.id = ac.account_id
-where a.confirmed = true
-  and a.enabled = true
-  and ac.enabled = true;
+where a.blocked = false
+  and a.confirmed = true
+  and ac.activated = true;

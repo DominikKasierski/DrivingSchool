@@ -11,5 +11,4 @@ import javax.security.enterprise.identitystore.DatabaseIdentityStoreDefinition;
         hashAlgorithm = PasswordUtils.class
 )
 public class AuthenticationIdentityStore {
-
 }

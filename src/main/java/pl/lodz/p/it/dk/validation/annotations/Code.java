@@ -11,8 +11,8 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.PARAMETER})
-@Size(min = 3, max = 20, message = "validation.login.size")
-@Pattern(regexp = RegularExpression.LOGIN, message = "validation.login.pattern")
-public @interface Login {
-    String value() default "validation.login";
+@Size(min = 1, max = 128, message = "validation.confirmation.code.size")
+@Pattern(regexp = RegularExpression.CONFIRMATION_CODE, message = "validation.confirmation.code.pattern")
+public @interface Code {
+    String value() default "validation.confirmation.code";
 }

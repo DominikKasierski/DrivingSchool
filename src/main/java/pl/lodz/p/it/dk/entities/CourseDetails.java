@@ -70,7 +70,7 @@ public class CourseDetails extends AbstractEntity implements Serializable {
 
     @Getter
     @Setter
-    @OneToMany(mappedBy = "course_details", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "courseDetails", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Course> courses = new HashSet<>();
 
     public CourseDetails(CourseCategory courseCategory, BigDecimal price, Integer lecturesHours, Integer drivingHours) {
