@@ -37,6 +37,8 @@ import java.sql.Connection;
         maxPoolSize = 32,
         minPoolSize = 8)
 
+//TODO: Pozmieniać użytkowników
+
 @Stateless
 public class JDBCConfig {
 

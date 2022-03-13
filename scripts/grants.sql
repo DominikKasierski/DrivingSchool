@@ -1,0 +1,53 @@
+GRANT SELECT, UPDATE, DELETE, INSERT ON account TO mok;
+GRANT SELECT, UPDATE, DELETE, INSERT ON confirmation_code TO mok;
+GRANT SELECT, UPDATE, DELETE, INSERT ON access TO mok;
+GRANT SELECT, UPDATE, DELETE, INSERT ON admin_access TO mok;
+GRANT SELECT, UPDATE, DELETE, INSERT ON instructor_access TO mok;
+GRANT SELECT, UPDATE, DELETE, INSERT ON trainee_access TO mok;
+GRANT SELECT ON car TO mok;
+GRANT SELECT ON course TO mok;
+GRANT SELECT ON course_details TO mok;
+GRANT SELECT ON driving_lesson TO mok;
+GRANT SELECT ON instructor_permissions TO mok;
+GRANT SELECT ON lecture TO mok;
+GRANT SELECT ON lecture_group TO mok;
+GRANT SELECT ON payment TO mok;
+
+GRANT SELECT ON account TO moh;
+GRANT SELECT ON confirmation_code TO moh;
+GRANT SELECT, UPDATE ON access TO moh;
+GRANT SELECT ON admin_access TO moh;
+GRANT SELECT, UPDATE ON instructor_access TO moh;
+GRANT SELECT, UPDATE ON trainee_access TO moh;
+GRANT SELECT, UPDATE, DELETE, INSERT ON car TO moh;
+GRANT SELECT, UPDATE, DELETE, INSERT ON course TO moh;
+GRANT SELECT, UPDATE, DELETE, INSERT ON course_details TO moh;
+GRANT SELECT, UPDATE, DELETE, INSERT ON driving_lesson TO moh;
+GRANT SELECT, UPDATE, DELETE, INSERT ON instructor_permissions TO moh;
+GRANT SELECT, UPDATE, DELETE, INSERT ON lecture TO moh;
+GRANT SELECT, UPDATE, DELETE, INSERT ON lecture_group TO moh;
+GRANT SELECT, UPDATE, DELETE, INSERT ON payment TO moh;
+
+GRANT SELECT ON auth_view TO auth;
+
+GRANT SELECT, USAGE ON SEQUENCE sequance_access_id TO mok;
+GRANT SELECT, USAGE ON SEQUENCE sequance_account_id TO mok;
+GRANT SELECT, USAGE ON SEQUENCE sequance_car_id TO mok;
+GRANT SELECT, USAGE ON SEQUENCE sequance_confirmation_code_id TO mok;
+GRANT SELECT, USAGE ON SEQUENCE sequance_course_details_id TO mok;
+GRANT SELECT, USAGE ON SEQUENCE sequance_course_id TO mok;
+GRANT SELECT, USAGE ON SEQUENCE sequance_driving_lesson_id TO mok;
+GRANT SELECT, USAGE ON SEQUENCE sequance_lecture_group_id TO mok;
+GRANT SELECT, USAGE ON SEQUENCE sequance_lecture_id TO mok;
+GRANT SELECT, USAGE ON SEQUENCE sequance_payment_id TO mok;
+
+GRANT SELECT, USAGE ON SEQUENCE sequance_access_id TO moh;
+GRANT SELECT, USAGE ON SEQUENCE sequance_account_id TO moh;
+GRANT SELECT, USAGE ON SEQUENCE sequance_car_id TO moh;
+GRANT SELECT, USAGE ON SEQUENCE sequance_confirmation_code_id TO moh;
+GRANT SELECT, USAGE ON SEQUENCE sequance_course_details_id TO moh;
+GRANT SELECT, USAGE ON SEQUENCE sequance_course_id TO moh;
+GRANT SELECT, USAGE ON SEQUENCE sequance_driving_lesson_id TO moh;
+GRANT SELECT, USAGE ON SEQUENCE sequance_lecture_group_id TO moh;
+GRANT SELECT, USAGE ON SEQUENCE sequance_lecture_id TO moh;
+GRANT SELECT, USAGE ON SEQUENCE sequance_payment_id TO moh;

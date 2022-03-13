@@ -278,14 +278,14 @@ create table lecture_group
 create table lecture
 (
     id                bigint    not null,
-    creation_date     timestamp not null,
-    modification_date timestamp,
-    version           bigint    not null,
     instructor_id     bigint    not null,
     lecture_group_id  bigint    not null,
     date_from         timestamp not null,
     date_to           timestamp not null,
+    version           bigint    not null,
+    creation_date     timestamp not null,
     created_by        bigint    not null,
+    modification_date timestamp,
     modified_by       bigint,
     constraint pk_lecture_id
         primary key (id),
@@ -296,7 +296,9 @@ create table lecture
     constraint fk_lecture_instructor_id
         foreign key (instructor_id) references instructor_access,
     constraint fk_lecture_lecture_group_id
-        foreign key (lecture_group_id) references lecture_group
+        foreign key (lecture_group_id) references lecture_group,
+    constraint booking_dates_check
+        check (date_from < date_to)
 );
 
 create table course
@@ -354,7 +356,9 @@ create table driving_lesson
     constraint fk_driving_lesson_created_by
         foreign key (created_by) references account,
     constraint fk_driving_lesson_modified_by
-        foreign key (modified_by) references account
+        foreign key (modified_by) references account,
+    constraint booking_dates_check
+        check (date_from < date_to)
 );
 
 create table payment
@@ -389,4 +393,3 @@ from account a join access ac on a.id = ac.account_id
 where a.blocked = false
   and a.confirmed = true
   and ac.activated = true;
-
