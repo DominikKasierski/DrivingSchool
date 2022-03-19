@@ -39,7 +39,7 @@ public class AuthenticationMechanism implements HttpAuthenticationMechanism {
 
         String token = authorizationHeader.substring(BEARER.length());
 
-        if (jwtUtils.verifyToken(token)) {
+        if (jwtUtils.verify(token)) {
             return getAuthenticationStatus(httpMessageContext, token);
         }
         return httpMessageContext.responseUnauthorized();
