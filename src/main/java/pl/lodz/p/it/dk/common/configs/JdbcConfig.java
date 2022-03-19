@@ -40,6 +40,6 @@ import java.sql.Connection;
 //TODO: Pozmieniać użytkowników
 
 @Stateless
-public class JDBCConfig {
+public class JdbcConfig {
 
 }

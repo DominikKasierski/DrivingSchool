@@ -10,5 +10,6 @@ import javax.security.enterprise.identitystore.DatabaseIdentityStoreDefinition;
         groupsQuery = "SELECT access FROM auth_view WHERE login = ?",
         hashAlgorithm = PasswordUtils.class
 )
-public class AuthenticationIdentityStore {
+public class DatabaseIdentityStore {
+
 }
