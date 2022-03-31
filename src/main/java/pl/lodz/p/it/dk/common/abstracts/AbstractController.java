@@ -2,16 +2,14 @@ package pl.lodz.p.it.dk.common.abstracts;
 
 import lombok.extern.java.Log;
 import pl.lodz.p.it.dk.common.configs.AppConfig;
-import pl.lodz.p.it.dk.common.interfaces.CallingClass;
 import pl.lodz.p.it.dk.common.interfaces.ReturnMethodExecutor;
+import pl.lodz.p.it.dk.common.interfaces.TransactionStarter;
 import pl.lodz.p.it.dk.common.interfaces.VoidMethodExecutor;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.exceptions.DatabaseException;
 
 import javax.ejb.EJBTransactionRolledbackException;
 import javax.inject.Inject;
-import javax.servlet.ServletContext;
-import javax.ws.rs.core.Context;
 import java.util.logging.Level;
 
 //  TODO: Sprawdzać czy callCounter > repeatTransactionLimit ?
@@ -19,13 +17,10 @@ import java.util.logging.Level;
 @Log
 public abstract class AbstractController {
 
-    @Context
-    ServletContext servletContext;
-
     @Inject
     private AppConfig appConfig;
 
-    protected void repeat(VoidMethodExecutor executor, CallingClass callingClass) throws BaseException {
+    protected void repeat(VoidMethodExecutor executor, TransactionStarter transactionStarter) throws BaseException {
         int repeatTransactionLimit = appConfig.getEjbRepeatTransactionLimit();
         int callCounter = 0;
         boolean rollback;
@@ -33,20 +28,21 @@ public abstract class AbstractController {
         do {
             try {
                 executor.execute();
-                rollback = callingClass.isLastTransactionRollback();
+                rollback = transactionStarter.isLastTransactionRollback();
             } catch (EJBTransactionRolledbackException | DatabaseException e) {
                 rollback = true;
             }
 
             if (callCounter > 0) {
                 log.log(Level.WARNING, "Transaction with ID: {0} is being repeated {1} time",
-                        new Object[]{callingClass.getTransactionId(), callCounter});
+                        new Object[]{transactionStarter.getTransactionId(), callCounter});
             }
             callCounter++;
         } while (rollback && callCounter <= repeatTransactionLimit);
     }
 
-    protected <T> T repeat(ReturnMethodExecutor<T> executor, CallingClass callingClass) throws BaseException {
+    protected <T> T repeat(ReturnMethodExecutor<T> executor, TransactionStarter transactionStarter)
+            throws BaseException {
         int repeatTransactionLimit = appConfig.getEjbRepeatTransactionLimit();
         int callCounter = 0;
         boolean rollback;
@@ -55,13 +51,13 @@ public abstract class AbstractController {
         do {
             try {
                 result = executor.execute();
-                rollback = callingClass.isLastTransactionRollback();
+                rollback = transactionStarter.isLastTransactionRollback();
             } catch (EJBTransactionRolledbackException | DatabaseException e) {
                 rollback = true;
             }
             if (callCounter > 0) {
                 log.log(Level.WARNING, "Transaction with ID: {0} is being repeated {1} time",
-                        new Object[]{callingClass.getTransactionId(), callCounter});
+                        new Object[]{transactionStarter.getTransactionId(), callCounter});
             }
             callCounter++;
         } while (rollback && callCounter <= repeatTransactionLimit);
