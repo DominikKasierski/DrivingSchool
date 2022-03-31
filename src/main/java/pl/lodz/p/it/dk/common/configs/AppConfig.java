@@ -19,6 +19,7 @@ public class AppConfig implements Serializable {
     private static final String JWT_EXPIRE_TIMEOUT = "jwt.expireTimeout";
     private static final String JWT_ISSUER = "jwt.issuer";
     private static final String ETAG_SECRET_KEY = "etag.secretKey";
+    private static final String EJB_REPEAT_TRANSACTION_LIMIT = "ejb.repeatTransactionLimit";
 
     @PostConstruct
     private void init() {
@@ -37,6 +38,10 @@ public class AppConfig implements Serializable {
         return Long.parseLong(get(key));
     }
 
+    private int getInt(String key) {
+        return Integer.parseInt(get(key));
+    }
+
     public String getJwtSecretKey() {
         return get(JWT_SECRET_KEY);
     }
@@ -53,5 +58,8 @@ public class AppConfig implements Serializable {
         return get(ETAG_SECRET_KEY);
     }
 
+    public int getEjbRepeatTransactionLimit() {
+        return getInt(EJB_REPEAT_TRANSACTION_LIMIT);
+    }
 
 }
