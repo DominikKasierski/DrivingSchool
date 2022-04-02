@@ -16,6 +16,11 @@
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
 
+    <context-param>
+        <param-name>repeatTransactionLimit</param-name>
+        <param-value>5</param-value>
+    </context-param>
+
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>Common</web-resource-name>

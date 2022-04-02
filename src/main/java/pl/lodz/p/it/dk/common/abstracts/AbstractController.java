@@ -1,7 +1,6 @@
 package pl.lodz.p.it.dk.common.abstracts;
 
 import lombok.extern.java.Log;
-import pl.lodz.p.it.dk.common.configs.AppConfig;
 import pl.lodz.p.it.dk.common.interfaces.ReturnMethodExecutor;
 import pl.lodz.p.it.dk.common.interfaces.TransactionStarter;
 import pl.lodz.p.it.dk.common.interfaces.VoidMethodExecutor;
@@ -10,17 +9,18 @@ import pl.lodz.p.it.dk.exceptions.DatabaseException;
 import pl.lodz.p.it.dk.exceptions.TransactionException;
 
 import javax.ejb.EJBTransactionRolledbackException;
-import javax.inject.Inject;
+import javax.servlet.ServletContext;
+import javax.ws.rs.core.Context;
 import java.util.logging.Level;
 
 @Log
 public abstract class AbstractController {
 
-    @Inject
-    private AppConfig appConfig;
+    @Context
+    ServletContext servletContext;
 
     protected void repeat(VoidMethodExecutor executor, TransactionStarter transactionStarter) throws BaseException {
-        int repeatTransactionLimit = appConfig.getEjbRepeatTransactionLimit();
+        int repeatTransactionLimit = Integer.parseInt(servletContext.getInitParameter("repeatTransactionLimit"));
         int callCounter = 0;
         boolean rollback;
 
@@ -46,7 +46,7 @@ public abstract class AbstractController {
 
     protected <T> T repeat(ReturnMethodExecutor<T> executor, TransactionStarter transactionStarter)
             throws BaseException {
-        int repeatTransactionLimit = appConfig.getEjbRepeatTransactionLimit();
+        int repeatTransactionLimit = Integer.parseInt(servletContext.getInitParameter("repeatTransactionLimit"));
         int callCounter = 0;
         boolean rollback;
         T result = null;
