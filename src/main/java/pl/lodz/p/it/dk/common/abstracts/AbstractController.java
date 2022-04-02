@@ -7,12 +7,11 @@ import pl.lodz.p.it.dk.common.interfaces.TransactionStarter;
 import pl.lodz.p.it.dk.common.interfaces.VoidMethodExecutor;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.exceptions.DatabaseException;
+import pl.lodz.p.it.dk.exceptions.TransactionException;
 
 import javax.ejb.EJBTransactionRolledbackException;
 import javax.inject.Inject;
 import java.util.logging.Level;
-
-//  TODO: Sprawdzać czy callCounter > repeatTransactionLimit ?
 
 @Log
 public abstract class AbstractController {
@@ -39,6 +38,10 @@ public abstract class AbstractController {
             }
             callCounter++;
         } while (rollback && callCounter <= repeatTransactionLimit);
+
+        if (callCounter > repeatTransactionLimit) {
+            throw TransactionException.limitExceeded();
+        }
     }
 
     protected <T> T repeat(ReturnMethodExecutor<T> executor, TransactionStarter transactionStarter)
@@ -62,6 +65,9 @@ public abstract class AbstractController {
             callCounter++;
         } while (rollback && callCounter <= repeatTransactionLimit);
 
+        if (callCounter > repeatTransactionLimit) {
+            throw TransactionException.limitExceeded();
+        }
         return result;
     }
 }
