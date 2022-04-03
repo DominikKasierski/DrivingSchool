@@ -11,7 +11,6 @@ import pl.lodz.p.it.dk.exceptions.TransactionException;
 import javax.ejb.EJBTransactionRolledbackException;
 import javax.servlet.ServletContext;
 import javax.ws.rs.core.Context;
-import java.util.logging.Level;
 
 @Log
 public abstract class AbstractController {
@@ -33,8 +32,8 @@ public abstract class AbstractController {
             }
 
             if (callCounter > 0) {
-                log.log(Level.WARNING, "Transaction with ID: {0} is being repeated {1} time",
-                        new Object[]{transactionStarter.getTransactionId(), callCounter});
+                log.warning(String.format("Transaction with ID: %s is being repeated %d time.",
+                        transactionStarter.getTransactionId(), callCounter));
             }
             callCounter++;
         } while (rollback && callCounter <= repeatTransactionLimit);
@@ -59,8 +58,8 @@ public abstract class AbstractController {
                 rollback = true;
             }
             if (callCounter > 0) {
-                log.log(Level.WARNING, "Transaction with ID: {0} is being repeated {1} time",
-                        new Object[]{transactionStarter.getTransactionId(), callCounter});
+                log.warning(String.format("Transaction with ID: %s is being repeated %d time.",
+                        transactionStarter.getTransactionId(), callCounter));
             }
             callCounter++;
         } while (rollback && callCounter <= repeatTransactionLimit);

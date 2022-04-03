@@ -71,7 +71,7 @@ create sequence sequence_payment_id
 create table account
 (
     id                         bigint       not null,
-    blocked                    boolean      not null,
+    enabled                    boolean      not null,
     confirmed                  boolean      not null,
     login                      varchar(20)  not null,
     email_address              varchar(127) not null,
@@ -82,8 +82,8 @@ create table account
     language                   varchar(2)   not null,
     phone_number               varchar(15),
     failed_login_attempts      integer default 0,
-    lock_modification_date     timestamp,
-    lock_modification_by       bigint,
+    enable_modification_date   timestamp,
+    enable_modification_by     bigint,
     confirm_modification_date  timestamp,
     confirm_modification_by    bigint,
     email_modification_date    timestamp,
@@ -103,8 +103,8 @@ create table account
         unique (email_address),
     constraint constraint_account_phone_number
         unique (phone_number),
-    constraint fk_account_lock_modification_by
-        foreign key (lock_modification_by) references account,
+    constraint fk_account_enable_modification_by
+        foreign key (enable_modification_by) references account,
     constraint fk_account_confirm_modification_by
         foreign key (confirm_modification_by) references account,
     constraint fk_account_email_modification_by
@@ -390,6 +390,6 @@ select a.login,
        a.password,
        ac.access_type as access
 from account a join access ac on a.id = ac.account_id
-where a.blocked = false
+where a.enabled = true
   and a.confirmed = true
   and ac.activated = true;

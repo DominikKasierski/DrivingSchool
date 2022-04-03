@@ -13,7 +13,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import java.security.Principal;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.logging.Level;
 
 @Log
 public abstract class AbstractEndpoint {
@@ -43,15 +42,15 @@ public abstract class AbstractEndpoint {
     public void afterBegin() {
         transactionId =
                 Long.toString(System.currentTimeMillis()) + ThreadLocalRandom.current().nextLong(Long.MAX_VALUE);
-        log.log(Level.INFO, "Transaction with ID: {0} started in {1}, account: {2}",
-                new Object[]{transactionId, this.getClass().getName(), getLogin()});
+        log.info(String.format("Transaction with ID: %s started in %s, account: %s.",
+                transactionId, this.getClass().getName(), getLogin()));
     }
 
     @AfterCompletion
     public void afterCompletion(boolean committed) {
         lastTransactionRollback = !committed;
-        log.log(Level.INFO, "Transaction with ID: {0} ended in {1}, account: {2}, result: {3}",
-                new Object[]{transactionId, this.getClass().getName(), getLogin(), getResult()});
+        log.info(String.format("Transaction with ID: %s ended in %s, account: %s, result: %s.",
+                transactionId, this.getClass().getName(), getLogin(), getResult()));
     }
 
     protected String getLogin() {

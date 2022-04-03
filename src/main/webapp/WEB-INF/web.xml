@@ -21,6 +21,11 @@
         <param-value>5</param-value>
     </context-param>
 
+    <context-param>
+        <param-name>failedLoginAttemptsLimit</param-name>
+        <param-value>5</param-value>
+    </context-param>
+
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>Common</web-resource-name>

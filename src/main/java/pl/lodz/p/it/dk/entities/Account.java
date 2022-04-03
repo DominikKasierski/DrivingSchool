@@ -44,8 +44,8 @@ public class Account extends AbstractEntity implements Serializable {
     @Getter
     @Setter
     @NotNull
-    @Column(name = "blocked", nullable = false)
-    private boolean blocked;
+    @Column(name = "enabled", nullable = false)
+    private boolean enabled;
 
     @Getter
     @Setter
@@ -115,14 +115,14 @@ public class Account extends AbstractEntity implements Serializable {
     @Getter
     @Setter
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "lock_modification_date")
-    private Date lockModificationDate;
+    @Column(name = "enable_modification_date")
+    private Date enableModificationDate;
 
     @Getter
     @Setter
     @OneToOne
-    @JoinColumn(name = "lock_modification_by")
-    private Account lockModificationBy;
+    @JoinColumn(name = "enable_modification_by")
+    private Account enableModificationBy;
 
     @Getter
     @Setter
@@ -171,13 +171,13 @@ public class Account extends AbstractEntity implements Serializable {
     private Set<ConfirmationCode> confirmationCodes = new HashSet<>();
 
     public Account(String login, String password, String firstname, String lastname, boolean confirmed,
-                   boolean blocked) {
+                   boolean enabled) {
         this.login = login;
         this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
         this.confirmed = confirmed;
-        this.blocked = blocked;
+        this.enabled = enabled;
     }
 
     @Override

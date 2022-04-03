@@ -29,7 +29,7 @@ public class AccountDto implements EntityToSign {
     @PhoneNumber
     private String phoneNumber;
 
-    private boolean blocked;
+    private boolean enabled;
 
     private boolean confirmed;
 

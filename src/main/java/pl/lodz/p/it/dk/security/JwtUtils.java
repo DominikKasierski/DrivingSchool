@@ -53,7 +53,7 @@ public class JwtUtils {
         try {
             JWSSigner signer = new MACSigner(JWT_SECRET_KEY);
             JWSHeader jwsHeader = new JWSHeader.Builder(JWSAlgorithm.HS256).type(JOSEObjectType.JWT).build();
-            JWTClaimsSet oldClaimSet = SignedJWT.parse(tokenToUpdate).getJWTClaimsSet();
+            JWTClaimsSet oldClaimSet = SignedJWT.parse(tokenToUpdate.substring(7)).getJWTClaimsSet();
 
             String subject = oldClaimSet.getSubject();
             Object roles = oldClaimSet.getClaim("roles");
@@ -73,6 +73,15 @@ public class JwtUtils {
             JWSVerifier jwsVerifier = new MACVerifier(JWT_SECRET_KEY);
             return jwsObject.verify(jwsVerifier);
         } catch (ParseException | JOSEException e) {
+            throw AppRuntimeException.jwtException(e);
+        }
+    }
+
+    public String getCallerGroups(String token) {
+        try {
+            SignedJWT jwtToken = SignedJWT.parse(token);
+            return jwtToken.getJWTClaimsSet().getStringClaim("roles");
+        } catch (ParseException e) {
             throw AppRuntimeException.jwtException(e);
         }
     }
