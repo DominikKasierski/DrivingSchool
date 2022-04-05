@@ -8,14 +8,12 @@ import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.exceptions.NotFoundException;
 import pl.lodz.p.it.dk.mok.endpoints.AccountEndpointLocal;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -51,5 +49,18 @@ public class AuthController extends AbstractController {
         }
     }
 
+    @GET
+    @RolesAllowed("logout")
+    @Path("logout")
+    public Response logout() {
+        authEndpoint.logout();
+        return Response.ok().build();
+    }
 
+    @POST
+    @Path("updateToken")
+    public Response updateToken(@NotNull String currentToken) {
+        String updatedToken = authEndpoint.updateToken(currentToken);
+        return Response.ok().entity(updatedToken).build();
+    }
 }

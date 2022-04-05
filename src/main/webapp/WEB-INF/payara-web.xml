@@ -3,4 +3,38 @@
         "https://raw.githubusercontent.com/payara/Payara-Community-Documentation/master/docs/modules/ROOT/pages/schemas/payara-web-app_4.dtd">
 <payara-web-app error-url="">
 
+    <security-role-mapping>
+        <role-name>Admin</role-name>
+        <group-name>ADMIN</group-name>
+    </security-role-mapping>
+
+    <security-role-mapping>
+        <role-name>Instructor</role-name>
+        <group-name>INSTRUCTOR</group-name>
+    </security-role-mapping>
+
+    <security-role-mapping>
+        <role-name>Trainee</role-name>
+        <group-name>TRAINEE</group-name>
+    </security-role-mapping>
+
+    <security-role-mapping>
+        <role-name>System</role-name>
+        <group-name>SYSTEM</group-name>
+    </security-role-mapping>
+
+    <security-role-mapping>
+        <role-name>logout</role-name>
+        <group-name>ADMIN</group-name>
+        <group-name>INSTRUCTOR</group-name>
+        <group-name>TRAINEE</group-name>
+    </security-role-mapping>
+
+    <security-role-mapping>
+        <role-name>updateToken</role-name>
+        <group-name>ADMIN</group-name>
+        <group-name>INSTRUCTOR</group-name>
+        <group-name>TRAINEE</group-name>
+    </security-role-mapping>
+
 </payara-web-app>
