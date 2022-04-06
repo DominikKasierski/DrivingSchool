@@ -13,13 +13,22 @@ import java.util.Properties;
 public class AppConfig implements Serializable {
 
     private final Properties properties = new Properties();
+
     private static final String CONFIG_FILE = "app.config.properties";
 
     private static final String JWT_SECRET_KEY = "jwt.secretKey";
     private static final String JWT_EXPIRE_TIMEOUT = "jwt.expireTimeout";
     private static final String JWT_ISSUER = "jwt.issuer";
+
     private static final String ETAG_SECRET_KEY = "etag.secretKey";
-    private static final String EJB_REPEAT_TRANSACTION_LIMIT = "ejb.repeatTransactionLimit";
+
+    private static final String ACTIVATION_ENDPOINT = "email.endpoint.activation";
+
+    private static final String EMAIL_URI = "email.property.uri";
+    private static final String EMAIL_HOST = "email.property.host";
+    private static final String EMAIL_PORT = "email.property.port";
+    private static final String EMAIL_SENDER = "email.property.sender";
+    private static final String EMAIL_PASSWORD = "email.property.password";
 
     @PostConstruct
     private void init() {
@@ -58,8 +67,27 @@ public class AppConfig implements Serializable {
         return get(ETAG_SECRET_KEY);
     }
 
-    public int getEjbRepeatTransactionLimit() {
-        return getInt(EJB_REPEAT_TRANSACTION_LIMIT);
+    public String getActivationEndpoint() {
+        return get(ACTIVATION_ENDPOINT);
     }
 
+    public String getEmailUri() {
+        return get(EMAIL_URI);
+    }
+
+    public String getEmailHost() {
+        return get(EMAIL_HOST);
+    }
+
+    public String getEmailPort() {
+        return get(EMAIL_PORT);
+    }
+
+    public String getEmailSender() {
+        return get(EMAIL_SENDER);
+    }
+
+    public String getEmailPassword() {
+        return get(EMAIL_PASSWORD);
+    }
 }

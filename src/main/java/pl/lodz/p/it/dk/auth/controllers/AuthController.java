@@ -36,7 +36,7 @@ public class AuthController extends AbstractController {
     public Response login(@NotNull @Valid LoginDataDto loginDataDto) throws BaseException {
         try {
             String token = authEndpoint.login(loginDataDto);
-            String language = servletRequest.getLocale().toString().substring(0, 2);
+            String language = servletRequest.getLocale().getLanguage().toLowerCase();
             repeat(() -> accountEndpoint.updateAuthInfo(loginDataDto.getLogin(), language), accountEndpoint);
             return Response.ok().type("application/json").entity(token).build();
         } catch (AuthException e) {

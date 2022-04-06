@@ -17,7 +17,7 @@ public class PasswordUtils implements PasswordHash {
         return hashedPassword.equals(toVerify);
     }
 
-    public String generate(String password) {
+    public static String generate(String password) {
         return DigestUtils.sha256Hex(password);
     }
 
