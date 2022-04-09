@@ -13,6 +13,7 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.text.MessageFormat;
+import java.util.Locale;
 import java.util.Properties;
 
 @Stateless
@@ -28,30 +29,36 @@ public class EmailService {
     private static final String EMAIL_SUBJECT_FORMAT = "email.%s.subject";
     private static final String EMAIL_CONTENT_FORMAT = "email.%s.content";
 
+    public void sendAccountLockingEmail(Account account) throws BaseException {
+        String language = account.getLanguage();
+        String subject = getEmailSubject(language, EmailType.LOCK_EMAIL);
+        String content = getEmailContent(language, EmailType.LOCK_EMAIL, account.getLogin());
+        sendEmail(account.getEmailAddress(), subject, content);
+    }
+
     public void sendActivationEmail(Account account, String activationCode) throws BaseException {
         String language = account.getLanguage();
         String url = prepareUrl(appConfig.getActivationEndpoint(), activationCode);
-        String subject = getEmailSubject(language, EmailType.ACTIVATION_MAIL);
-        String content = getEmailContent(language, EmailType.ACTIVATION_MAIL, account.getLogin(), url);
+        String subject = getEmailSubject(language, EmailType.ACTIVATION_EMAIL);
+        String content = getEmailContent(language, EmailType.ACTIVATION_EMAIL, account.getLogin(), url);
         sendEmail(account.getEmailAddress(), subject, content);
     }
 
     public void sendSuccessfulActivationEmail(Account account) throws BaseException {
         String language = account.getLanguage();
-        String subject = getEmailSubject(language, EmailType.SUCCESSFUL_ACTIVATION_MAIL);
-        String content = getEmailContent(language, EmailType.SUCCESSFUL_ACTIVATION_MAIL, account.getLogin());
+        String subject = getEmailSubject(language, EmailType.SUCCESSFUL_ACTIVATION_EMAIL);
+        String content = getEmailContent(language, EmailType.SUCCESSFUL_ACTIVATION_EMAIL, account.getLogin());
         sendEmail(account.getEmailAddress(), subject, content);
     }
 
     private String getEmailSubject(String language, EmailType emailType) {
         String mailType = String.format(EMAIL_SUBJECT_FORMAT, emailType.getValue());
-        return "";
-//        return i18n.getMessage(new Locale(language), mailType);
+        return i18n.getMessage(new Locale(language), mailType);
     }
 
     private String getEmailContent(String language, EmailType emailType, String... params) {
         String mailType = String.format(EMAIL_CONTENT_FORMAT, emailType.getValue());
-//        String pattern = i18n.getMessage(new Locale(language), mailType);
+        String pattern = i18n.getMessage(new Locale(language), mailType);
         return MessageFormat.format("pattern", (Object[]) params);
     }
 

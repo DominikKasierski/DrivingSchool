@@ -7,8 +7,9 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum EmailType {
 
-    ACTIVATION_MAIL("activation"),
-    SUCCESSFUL_ACTIVATION_MAIL("successful_activation");
+    ACTIVATION_EMAIL("activation"),
+    SUCCESSFUL_ACTIVATION_EMAIL("successful_activation"),
+    LOCK_EMAIL("lock");
 
     private final String value;
 }

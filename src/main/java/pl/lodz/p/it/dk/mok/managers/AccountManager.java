@@ -57,7 +57,7 @@ public class AccountManager {
         account.getConfirmationCodes().add(confirmationCode);
 
         accountFacade.create(account);
-        //TODO: WYSYLAC EMAIL
+        emailService.sendActivationEmail(account, confirmationCode.getCode());
     }
 
     @PermitAll
@@ -77,7 +77,7 @@ public class AccountManager {
             account.setEnabled(false);
             account.setEnableModificationDate(Date.from(Instant.now()));
             account.setEnableModificationBy(null);
-            //TODO: WYSŁAĆ EMAIL!
+            emailService.sendAccountLockingEmail(account);
         }
 
         account.setFailedLoginAttempts(failedLoginAttempts);
