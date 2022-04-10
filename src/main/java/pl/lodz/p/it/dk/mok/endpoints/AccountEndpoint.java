@@ -74,4 +74,18 @@ public class AccountEndpoint extends AbstractEndpoint implements AccountEndpoint
         Account adminAccount = accountManager.findByLogin(getLogin());
         accountManager.unlockAccount(account, adminAccount);
     }
+
+    @Override
+    @RolesAllowed("getOwnAccountDetails")
+    public AccountDto getOwnAccountDetails() throws BaseException {
+        Account account = accountManager.getAccountDetails(getLogin());
+        return Mappers.getMapper(AccountMapper.class).toAccountDto(account);
+    }
+
+    @Override
+    @RolesAllowed("getOtherAccountDetails")
+    public AccountDto getOtherAccountDetails(String login) throws BaseException {
+        Account account = accountManager.getAccountDetails(login);
+        return Mappers.getMapper(AccountMapper.class).toAccountDto(account);
+    }
 }

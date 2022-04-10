@@ -145,4 +145,9 @@ public class AccountManager {
         accountFacade.edit(account);
         emailService.sendAccountUnlockingEmail(account);
     }
+
+    @RolesAllowed({"getOwnAccountDetails", "getOtherAccountDetails"})
+    public Account getAccountDetails(String login) throws BaseException {
+        return accountFacade.findByLogin(login);
+    }
 }

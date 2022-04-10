@@ -12,5 +12,4 @@ public interface AccountMapper {
     void toAccount(RegisterAccountDto registerAccountDto, @MappingTarget Account account);
 
     AccountDto toAccountDto(Account account);
-
 }

@@ -2,6 +2,7 @@ package pl.lodz.p.it.dk.mok.endpoints;
 
 import pl.lodz.p.it.dk.common.interfaces.TransactionStarter;
 import pl.lodz.p.it.dk.exceptions.BaseException;
+import pl.lodz.p.it.dk.mok.dtos.AccountDto;
 import pl.lodz.p.it.dk.mok.dtos.RegisterAccountDto;
 
 import javax.annotation.security.PermitAll;
@@ -28,4 +29,10 @@ public interface AccountEndpointLocal extends TransactionStarter {
 
     @RolesAllowed("unlockAccount")
     void unlockAccount(String login) throws BaseException;
+
+    @RolesAllowed("getOwnAccountDetails")
+    AccountDto getOwnAccountDetails() throws BaseException;
+
+    @RolesAllowed("getOtherAccountDetails")
+    AccountDto getOtherAccountDetails(String login) throws BaseException;
 }

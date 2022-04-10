@@ -47,4 +47,16 @@
         <group-name>ADMIN</group-name>
     </security-role-mapping>
 
+    <security-role-mapping>
+        <role-name>getOwnAccountDetails</role-name>
+        <group-name>ADMIN</group-name>
+        <group-name>INSTRUCTOR</group-name>
+        <group-name>TRAINEE</group-name>
+    </security-role-mapping>
+
+    <security-role-mapping>
+        <role-name>getOtherAccountDetails</role-name>
+        <group-name>ADMIN</group-name>
+    </security-role-mapping>
+
 </payara-web-app>

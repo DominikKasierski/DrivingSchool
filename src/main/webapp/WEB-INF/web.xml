@@ -51,6 +51,12 @@
     <security-role>
         <role-name>unlockAccount</role-name>
     </security-role>
+    <security-role>
+        <role-name>getOwnAccountDetails</role-name>
+    </security-role>
+    <security-role>
+        <role-name>getOtherAccountDetails</role-name>
+    </security-role>
 
     <security-constraint>
         <web-resource-collection>
