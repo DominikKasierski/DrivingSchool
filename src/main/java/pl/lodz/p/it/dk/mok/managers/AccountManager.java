@@ -22,7 +22,9 @@ import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.ws.rs.core.Context;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Stateless
@@ -149,5 +151,22 @@ public class AccountManager {
     @RolesAllowed({"getOwnAccountDetails", "getOtherAccountDetails"})
     public Account getAccountDetails(String login) throws BaseException {
         return accountFacade.findByLogin(login);
+    }
+
+    @RolesAllowed("getAllAccounts")
+    public List<Account> getAllAccounts() throws BaseException {
+        return new ArrayList<>(accountFacade.findAll());
+    }
+
+    @RolesAllowed("editPersonalData")
+    public void editPersonalData(Account account) throws BaseException {
+        account.setModificationDate(Date.from(Instant.now()));
+        account.setModifiedBy(account);
+        accountFacade.edit(account);
+    }
+
+    @RolesAllowed({"editOwnEmail", "editOtherEmail"})
+    public void editEmail(String login, String newEmail) throws BaseException {
+        //TODO: Zaczac tutaj, dodac role do xmla
     }
 }

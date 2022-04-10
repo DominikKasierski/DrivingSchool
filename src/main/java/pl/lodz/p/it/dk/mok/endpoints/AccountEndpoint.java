@@ -7,6 +7,8 @@ import pl.lodz.p.it.dk.entities.Account;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.mappers.AccountMapper;
 import pl.lodz.p.it.dk.mok.dtos.AccountDto;
+import pl.lodz.p.it.dk.mok.dtos.NewEmailDto;
+import pl.lodz.p.it.dk.mok.dtos.PersonalDataDto;
 import pl.lodz.p.it.dk.mok.dtos.RegisterAccountDto;
 import pl.lodz.p.it.dk.mok.managers.AccountManager;
 
@@ -17,6 +19,8 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 @Log
 @Stateful
@@ -87,5 +91,44 @@ public class AccountEndpoint extends AbstractEndpoint implements AccountEndpoint
     public AccountDto getOtherAccountDetails(String login) throws BaseException {
         Account account = accountManager.getAccountDetails(login);
         return Mappers.getMapper(AccountMapper.class).toAccountDto(account);
+    }
+
+    @Override
+    @RolesAllowed("getAllAccounts")
+    public List<AccountDto> getAllAccounts() throws BaseException {
+        List<Account> accounts = accountManager.getAllAccounts();
+        List<AccountDto> accountsDto = new ArrayList<>();
+        for (Account account : accounts) {
+            accountsDto.add(Mappers.getMapper(AccountMapper.class).toAccountDto(account));
+        }
+        return accountsDto;
+    }
+
+    @Override
+    @RolesAllowed("editPersonalData")
+    public void editPersonalData(PersonalDataDto personalDataDto) throws BaseException {
+        Account account = accountManager.findByLogin(getLogin());
+        AccountDto accountDto = Mappers.getMapper(AccountMapper.class).toAccountDto(account);
+        verifyEntityIntegrity(accountDto);
+        Mappers.getMapper(AccountMapper.class).toAccount(personalDataDto, account);
+        accountManager.editPersonalData(account);
+    }
+
+    @Override
+    @RolesAllowed("editOwnEmail")
+    public void editOwnEmail(NewEmailDto newEmailDto) throws BaseException {
+        Account account = accountManager.findByLogin(getLogin());
+        AccountDto accountDto = Mappers.getMapper(AccountMapper.class).toAccountDto(account);
+        verifyEntityIntegrity(accountDto);
+        accountManager.editEmail(getLogin(), newEmailDto.getNewEmailAddress());
+    }
+
+    @Override
+    @RolesAllowed("editOtherEmail")
+    public void editOtherEmail(String login, NewEmailDto newEmailDto) throws BaseException {
+        Account account = accountManager.findByLogin(login);
+        AccountDto accountDto = Mappers.getMapper(AccountMapper.class).toAccountDto(account);
+        verifyEntityIntegrity(accountDto);
+        accountManager.editEmail(login, newEmailDto.getNewEmailAddress());
     }
 }

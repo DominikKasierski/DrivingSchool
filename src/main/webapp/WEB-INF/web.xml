@@ -57,6 +57,12 @@
     <security-role>
         <role-name>getOtherAccountDetails</role-name>
     </security-role>
+    <security-role>
+        <role-name>getAllAccounts</role-name>
+    </security-role>
+    <security-role>
+        <role-name>editPersonalData</role-name>
+    </security-role>
 
     <security-constraint>
         <web-resource-collection>
