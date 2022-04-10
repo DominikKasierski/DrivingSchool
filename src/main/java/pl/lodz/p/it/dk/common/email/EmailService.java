@@ -29,13 +29,6 @@ public class EmailService {
     private static final String EMAIL_SUBJECT_FORMAT = "email.%s.subject";
     private static final String EMAIL_CONTENT_FORMAT = "email.%s.content";
 
-    public void sendAccountLockingEmail(Account account) throws BaseException {
-        String language = account.getLanguage();
-        String subject = getEmailSubject(language, EmailType.LOCK_EMAIL);
-        String content = getEmailContent(language, EmailType.LOCK_EMAIL, account.getLogin());
-        sendEmail(account.getEmailAddress(), subject, content);
-    }
-
     public void sendActivationEmail(Account account, String activationCode) throws BaseException {
         String language = account.getLanguage();
         String url = prepareUrl(appConfig.getActivationEndpoint(), activationCode);
@@ -48,6 +41,20 @@ public class EmailService {
         String language = account.getLanguage();
         String subject = getEmailSubject(language, EmailType.SUCCESSFUL_ACTIVATION_EMAIL);
         String content = getEmailContent(language, EmailType.SUCCESSFUL_ACTIVATION_EMAIL, account.getLogin());
+        sendEmail(account.getEmailAddress(), subject, content);
+    }
+
+    public void sendAccountLockingEmail(Account account) throws BaseException {
+        String language = account.getLanguage();
+        String subject = getEmailSubject(language, EmailType.LOCK_EMAIL);
+        String content = getEmailContent(language, EmailType.LOCK_EMAIL, account.getLogin());
+        sendEmail(account.getEmailAddress(), subject, content);
+    }
+
+    public void sendAccountUnlockingEmail(Account account) throws BaseException {
+        String language = account.getLanguage();
+        String subject = getEmailSubject(language, EmailType.UNLOCK_EMAIL);
+        String content = getEmailContent(language, EmailType.UNLOCK_EMAIL, account.getLogin());
         sendEmail(account.getEmailAddress(), subject, content);
     }
 

@@ -2,6 +2,7 @@ package pl.lodz.p.it.dk.common.abstracts;
 
 import lombok.Getter;
 import lombok.extern.java.Log;
+import pl.lodz.p.it.dk.exceptions.AppOptimisticLockException;
 import pl.lodz.p.it.dk.security.etag.EntityToSign;
 import pl.lodz.p.it.dk.security.etag.Signer;
 
@@ -32,10 +33,12 @@ public abstract class AbstractEndpoint {
     @Getter
     private boolean lastTransactionRollback;
 
-    public boolean verifyIntegrity(EntityToSign signable) {
+    public void verifyEntityIntegrity(EntityToSign signable) throws AppOptimisticLockException {
         String headerValue = httpHeaders.getRequestHeader("If-Match").get(0);
         String signerValue = signer.sign(signable);
-        return signerValue.equals(headerValue);
+        if (!signerValue.equals(headerValue)) {
+            throw AppOptimisticLockException.optimisticLockException();
+        }
     }
 
     @AfterBegin

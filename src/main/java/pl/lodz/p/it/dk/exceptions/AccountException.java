@@ -6,6 +6,7 @@ public class AccountException extends BaseException {
     private static final String EMAIL_EXISTS_EXCEPTION = "exception.account_exception.email_invalid_exception";
     private static final String PHONE_NUMBER_EXISTS_EXCEPTION =
             "exception.account_exception.phone_number_invalid_exception";
+    private static final String ALREADY_ACTIVATED_EXCEPTION = "exception.account_exception.already_activated_exception";
 
     private AccountException(String message) {
         super(message);
@@ -25,5 +26,9 @@ public class AccountException extends BaseException {
 
     public static AccountException phoneNumberExists(Throwable cause) {
         return new AccountException(PHONE_NUMBER_EXISTS_EXCEPTION, cause);
+    }
+
+    public static AccountException alreadyActivated() {
+        return new AccountException(ALREADY_ACTIVATED_EXCEPTION);
     }
 }

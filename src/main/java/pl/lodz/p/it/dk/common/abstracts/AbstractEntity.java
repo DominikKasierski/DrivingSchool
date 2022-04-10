@@ -21,6 +21,7 @@ public abstract class AbstractEntity {
     private Date creationDate;
 
     @Getter
+    @Setter
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "modification_date")
     private Date modificationDate;

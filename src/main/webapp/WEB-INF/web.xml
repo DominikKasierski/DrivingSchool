@@ -45,6 +45,12 @@
     <security-role>
         <role-name>updateToken</role-name>
     </security-role>
+    <security-role>
+        <role-name>lockAccount</role-name>
+    </security-role>
+    <security-role>
+        <role-name>unlockAccount</role-name>
+    </security-role>
 
     <security-constraint>
         <web-resource-collection>

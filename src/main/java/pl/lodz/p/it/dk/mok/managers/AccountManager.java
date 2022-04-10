@@ -3,13 +3,18 @@ package pl.lodz.p.it.dk.mok.managers;
 import pl.lodz.p.it.dk.common.email.EmailService;
 import pl.lodz.p.it.dk.entities.Account;
 import pl.lodz.p.it.dk.entities.ConfirmationCode;
+import pl.lodz.p.it.dk.entities.TraineeAccess;
 import pl.lodz.p.it.dk.entities.enums.CodeType;
+import pl.lodz.p.it.dk.exceptions.AccountException;
 import pl.lodz.p.it.dk.exceptions.BaseException;
+import pl.lodz.p.it.dk.exceptions.ConfirmationCodeException;
 import pl.lodz.p.it.dk.mok.facades.AccountFacade;
+import pl.lodz.p.it.dk.mok.facades.ConfirmationCodeFacade;
 import pl.lodz.p.it.dk.security.PasswordUtils;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -28,10 +33,14 @@ public class AccountManager {
     ServletContext servletContext;
 
     @Inject
+    private EmailService emailService;
+
+    @Inject
     private AccountFacade accountFacade;
 
     @Inject
-    private EmailService emailService;
+    private ConfirmationCodeFacade confirmationCodeFacade;
+
 
     private static int FAILED_LOGIN_ATTEMPTS_LIMIT;
 
@@ -61,6 +70,36 @@ public class AccountManager {
     }
 
     @PermitAll
+    public void confirmAccount(String code) throws BaseException {
+        ConfirmationCode confirmationCode = confirmationCodeFacade.findByCode(code);
+        Account account = confirmationCode.getAccount();
+
+        if (account.isConfirmed()) {
+            throw AccountException.alreadyActivated();
+        } else if (confirmationCode.isUsed()) {
+            throw ConfirmationCodeException.codeUsed();
+        } else if (!confirmationCode.getCodeType().equals(CodeType.ACCOUNT_ACTIVATION)) {
+            throw ConfirmationCodeException.wrongCodeType();
+        }
+
+        TraineeAccess traineeAccess = new TraineeAccess();
+        traineeAccess.setAccount(account);
+        traineeAccess.setCreatedBy(account);
+
+        account.setConfirmed(true);
+        account.getAccesses().add(traineeAccess);
+        account.setConfirmModificationDate(Date.from(Instant.now()));
+        account.setConfirmModificationBy(account);
+
+        confirmationCode.setUsed(true);
+        confirmationCode.setModificationDate(Date.from(Instant.now()));
+        confirmationCode.setModifiedBy(account);
+
+        accountFacade.edit(account);
+        emailService.sendSuccessfulActivationEmail(account);
+    }
+
+    @PermitAll
     public void updateAuthInfo(String login, String language) throws BaseException {
         Account account = accountFacade.findByLogin(login);
         account.setFailedLoginAttempts(0);
@@ -82,5 +121,28 @@ public class AccountManager {
 
         account.setFailedLoginAttempts(failedLoginAttempts);
         accountFacade.edit(account);
+    }
+
+    @PermitAll
+    public Account findByLogin(String login) throws BaseException {
+        return accountFacade.findByLogin(login);
+    }
+
+    @RolesAllowed("lockAccount")
+    public void lockAccount(Account account, Account adminAccount) throws BaseException {
+        account.setEnabled(false);
+        account.setEnableModificationDate(Date.from(Instant.now()));
+        account.setEnableModificationBy(adminAccount);
+        accountFacade.edit(account);
+        emailService.sendAccountLockingEmail(account);
+    }
+
+    @RolesAllowed("unlockAccount")
+    public void unlockAccount(Account account, Account adminAccount) throws BaseException {
+        account.setEnabled(true);
+        account.setEnableModificationDate(Date.from(Instant.now()));
+        account.setEnableModificationBy(adminAccount);
+        accountFacade.edit(account);
+        emailService.sendAccountUnlockingEmail(account);
     }
 }
