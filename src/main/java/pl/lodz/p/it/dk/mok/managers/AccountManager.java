@@ -19,6 +19,7 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
+import javax.security.enterprise.SecurityContext;
 import javax.servlet.ServletContext;
 import javax.ws.rs.core.Context;
 import java.time.Instant;
@@ -43,6 +44,9 @@ public class AccountManager {
     @Inject
     private ConfirmationCodeFacade confirmationCodeFacade;
 
+    @Inject
+    private SecurityContext securityContext;
+
 
     private static int FAILED_LOGIN_ATTEMPTS_LIMIT;
 
@@ -53,12 +57,8 @@ public class AccountManager {
 
     @PermitAll
     public void registerAccount(Account account, String language) throws BaseException {
-        ConfirmationCode confirmationCode = new ConfirmationCode();
-        confirmationCode.setCode(UUID.randomUUID().toString());
-        confirmationCode.setUsed(false);
-        confirmationCode.setAccount(account);
-        confirmationCode.setCodeType(CodeType.ACCOUNT_ACTIVATION);
-        confirmationCode.setCreatedBy(account);
+        ConfirmationCode confirmationCode =
+                new ConfirmationCode(UUID.randomUUID().toString(), account, CodeType.ACCOUNT_ACTIVATION, account);
 
         account.setEnabled(true);
         account.setConfirmed(false);
@@ -121,8 +121,8 @@ public class AccountManager {
             emailService.sendAccountLockingEmail(account);
         }
 
-        account.setFailedLoginAttempts(failedLoginAttempts);
         accountFacade.edit(account);
+        account.setFailedLoginAttempts(failedLoginAttempts);
     }
 
     @PermitAll
@@ -135,6 +135,7 @@ public class AccountManager {
         account.setEnabled(false);
         account.setEnableModificationDate(Date.from(Instant.now()));
         account.setEnableModificationBy(adminAccount);
+
         accountFacade.edit(account);
         emailService.sendAccountLockingEmail(account);
     }
@@ -144,6 +145,7 @@ public class AccountManager {
         account.setEnabled(true);
         account.setEnableModificationDate(Date.from(Instant.now()));
         account.setEnableModificationBy(adminAccount);
+
         accountFacade.edit(account);
         emailService.sendAccountUnlockingEmail(account);
     }
@@ -167,6 +169,53 @@ public class AccountManager {
 
     @RolesAllowed({"editOwnEmail", "editOtherEmail"})
     public void editEmail(String login, String newEmail) throws BaseException {
-        //TODO: Zaczac tutaj, dodac role do xmla
+        if (accountFacade.checkEmailOccurrence(newEmail)) {
+            throw AccountException.emailExists();
+        }
+
+        Account account = accountFacade.findByLogin(login);
+        Account changingAccount = accountFacade.findByLogin(securityContext.getCallerPrincipal().getName());
+
+        for (ConfirmationCode confirmationCode : account.getConfirmationCodes()) {
+            if (confirmationCode.getCodeType().equals(CodeType.EMAIL_CHANGE) && !confirmationCode.isUsed()) {
+                confirmationCode.setUsed(true);
+                confirmationCode.setModificationDate(Date.from(Instant.now()));
+                confirmationCode.setModifiedBy(changingAccount);
+            }
+        }
+
+        ConfirmationCode confirmationCode =
+                new ConfirmationCode(UUID.randomUUID().toString(), account, CodeType.EMAIL_CHANGE, changingAccount);
+
+        account.setNewEmailAddress(newEmail);
+        account.getConfirmationCodes().add(confirmationCode);
+        account.setEmailModificationDate(Date.from(Instant.now()));
+        account.setEmailModificationBy(changingAccount);
+
+        accountFacade.edit(account);
+        emailService.sendEmailChangingEmail(account, confirmationCode.getCode());
+    }
+
+    @PermitAll
+    public void confirmEmail(String code) throws BaseException {
+        ConfirmationCode confirmationCode = confirmationCodeFacade.findByCode(code);
+
+        if (confirmationCode.isUsed()) {
+            throw ConfirmationCodeException.codeUsed();
+        } else if (!confirmationCode.getCodeType().equals(CodeType.EMAIL_CHANGE)) {
+            throw ConfirmationCodeException.wrongCodeType();
+        }
+
+        Account account = confirmationCode.getAccount();
+        account.setEmailAddress(account.getNewEmailAddress());
+        account.setNewEmailAddress(null);
+        account.setEmailModificationDate(Date.from(Instant.now()));
+        account.setEmailModificationBy(account);
+
+        confirmationCode.setUsed(true);
+        confirmationCode.setModificationDate(Date.from(Instant.now()));
+        confirmationCode.setModifiedBy(account);
+
+        accountFacade.edit(account);
     }
 }

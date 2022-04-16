@@ -65,9 +65,9 @@ public class ConfirmationCode extends AbstractEntity implements Serializable {
     @Column(name = "code_type", nullable = false)
     private CodeType codeType;
 
-    public ConfirmationCode(String code, boolean used, Account account, CodeType codeType, Account createdBy) {
+    public ConfirmationCode(String code, Account account, CodeType codeType, Account createdBy) {
         this.code = code;
-        this.used = used;
+        this.used = false;
         this.account = account;
         this.codeType = codeType;
         this.setCreatedBy(createdBy);

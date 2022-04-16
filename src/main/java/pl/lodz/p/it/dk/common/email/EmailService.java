@@ -58,6 +58,14 @@ public class EmailService {
         sendEmail(account.getEmailAddress(), subject, content);
     }
 
+    public void sendEmailChangingEmail(Account account, String emailChangeCode) throws BaseException {
+        String language = account.getLanguage();
+        String url = prepareUrl(appConfig.getEmailChangeEndpoint(), emailChangeCode);
+        String subject = getEmailSubject(language, EmailType.EMAIL_CHANGE_EMAIL);
+        String content = getEmailContent(language, EmailType.EMAIL_CHANGE_EMAIL, account.getLogin());
+        sendEmail(account.getEmailAddress(), subject, content);
+    }
+
     private String getEmailSubject(String language, EmailType emailType) {
         String mailType = String.format(EMAIL_SUBJECT_FORMAT, emailType.getValue());
         return i18n.getMessage(new Locale(language), mailType);

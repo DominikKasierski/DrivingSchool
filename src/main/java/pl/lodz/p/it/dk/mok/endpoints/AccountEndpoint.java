@@ -131,4 +131,10 @@ public class AccountEndpoint extends AbstractEndpoint implements AccountEndpoint
         verifyEntityIntegrity(accountDto);
         accountManager.editEmail(login, newEmailDto.getNewEmailAddress());
     }
+
+    @Override
+    @PermitAll
+    public void confirmEmail(String code) throws BaseException {
+        accountManager.confirmEmail(code);
+    }
 }

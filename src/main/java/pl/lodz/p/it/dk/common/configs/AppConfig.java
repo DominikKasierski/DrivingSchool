@@ -23,6 +23,7 @@ public class AppConfig implements Serializable {
     private static final String ETAG_SECRET_KEY = "etag.secretKey";
 
     private static final String ACTIVATION_ENDPOINT = "email.endpoint.activation";
+    private static final String EMAIL_CHANGE_ENDPOINT = "email.endpoint.email_change";
 
     private static final String EMAIL_URI = "email.property.uri";
     private static final String EMAIL_HOST = "email.property.host";
@@ -69,6 +70,10 @@ public class AppConfig implements Serializable {
 
     public String getActivationEndpoint() {
         return get(ACTIVATION_ENDPOINT);
+    }
+
+    public String getEmailChangeEndpoint() {
+        return get(EMAIL_CHANGE_ENDPOINT);
     }
 
     public String getEmailUri() {

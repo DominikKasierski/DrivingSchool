@@ -7,6 +7,7 @@ import pl.lodz.p.it.dk.entities.Account;
 import pl.lodz.p.it.dk.exceptions.*;
 
 import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -101,5 +102,15 @@ public class AccountFacade extends AbstractFacade<Account> {
     @PermitAll
     public List<Account> findAll() throws BaseException {
         return super.findAll();
+    }
+
+    @RolesAllowed({"editOwnEmail", "editOtherEmail"})
+    public boolean checkEmailOccurrence(String email) throws BaseException {
+        try {
+            Account account = findByEmail(email);
+        } catch (NoResultException e) {
+            return false;
+        }
+        return true;
     }
 }

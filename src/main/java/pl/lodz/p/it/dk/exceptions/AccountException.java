@@ -20,6 +20,10 @@ public class AccountException extends BaseException {
         return new AccountException(LOGIN_EXISTS_EXCEPTION, cause);
     }
 
+    public static AccountException emailExists() {
+        return new AccountException(EMAIL_EXISTS_EXCEPTION);
+    }
+
     public static AccountException emailExists(Throwable cause) {
         return new AccountException(EMAIL_EXISTS_EXCEPTION, cause);
     }

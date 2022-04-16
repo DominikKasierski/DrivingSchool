@@ -50,4 +50,7 @@ public interface AccountEndpointLocal extends TransactionStarter {
 
     @RolesAllowed("editOtherEmail")
     void editOtherEmail(String login, NewEmailDto newEmailDto) throws BaseException;
+
+    @PermitAll
+    void confirmEmail(String code) throws BaseException;
 }

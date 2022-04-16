@@ -38,8 +38,8 @@ public class AccountController extends AbstractController {
     }
 
     @POST
-    @Path("/confirm/{code}")
-    public void confirmEmail(@NotNull @Code @PathParam("code") @Valid String code) throws BaseException {
+    @Path("/confirmAccount/{code}")
+    public void confirmAccount(@NotNull @Code @PathParam("code") @Valid String code) throws BaseException {
         repeat(() -> accountEndpoint.confirmAccount(code), accountEndpoint);
     }
 
@@ -114,6 +114,12 @@ public class AccountController extends AbstractController {
     public void editOtherEmail(@NotNull @Login @PathParam("login") @Valid String login,
                                @NotNull @Valid NewEmailDto newEmailDto) throws BaseException {
         repeat(() -> accountEndpoint.editOtherEmail(login, newEmailDto), accountEndpoint);
+    }
+
+    @POST
+    @Path("/confirmEmail/{code}")
+    public void confirmEmail(@NotNull @Code @PathParam("code") @Valid String code) throws BaseException {
+        repeat(() -> accountEndpoint.confirmEmail(code), accountEndpoint);
     }
 
 }

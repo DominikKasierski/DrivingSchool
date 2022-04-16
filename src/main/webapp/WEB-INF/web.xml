@@ -63,6 +63,12 @@
     <security-role>
         <role-name>editPersonalData</role-name>
     </security-role>
+    <security-role>
+        <role-name>editOwnEmail</role-name>
+    </security-role>
+    <security-role>
+        <role-name>editOtherEmail</role-name>
+    </security-role>
 
     <security-constraint>
         <web-resource-collection>
