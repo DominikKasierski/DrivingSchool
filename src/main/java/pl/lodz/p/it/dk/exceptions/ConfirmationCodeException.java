@@ -6,6 +6,7 @@ public class ConfirmationCodeException extends BaseException {
     private static final String CODE_USED_EXCEPTION = "exception.confirmation_code_exception.code_used_exception";
     private static final String WRONG_CODE_TYPE_EXCEPTION =
             "exception.confirmation_code_exception.wrong_code_type_exception";
+    private static final String CODE_EXPIRED_EXCEPTION = "exception.confirmation_code_exception.code_expired_exception";
 
     private ConfirmationCodeException(String message) {
         super(message);
@@ -25,6 +26,10 @@ public class ConfirmationCodeException extends BaseException {
 
     public static ConfirmationCodeException wrongCodeType() {
         return new ConfirmationCodeException(WRONG_CODE_TYPE_EXCEPTION);
+    }
+
+    public static ConfirmationCodeException codeExpired() {
+        return new ConfirmationCodeException(CODE_EXPIRED_EXCEPTION);
     }
 
 }

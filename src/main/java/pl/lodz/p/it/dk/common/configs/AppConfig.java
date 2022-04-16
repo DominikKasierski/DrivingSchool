@@ -16,20 +16,23 @@ public class AppConfig implements Serializable {
 
     private static final String CONFIG_FILE = "app.config.properties";
 
-    private static final String JWT_SECRET_KEY = "jwt.secretKey";
-    private static final String JWT_EXPIRE_TIMEOUT = "jwt.expireTimeout";
+    private static final String JWT_SECRET_KEY = "jwt.secret_key";
+    private static final String JWT_EXPIRE_TIMEOUT = "jwt.expire_timeout";
     private static final String JWT_ISSUER = "jwt.issuer";
 
-    private static final String ETAG_SECRET_KEY = "etag.secretKey";
+    private static final String ETAG_SECRET_KEY = "etag.secret_key";
 
     private static final String ACTIVATION_ENDPOINT = "email.endpoint.activation";
     private static final String EMAIL_CHANGE_ENDPOINT = "email.endpoint.email_change";
+    private static final String PASSWORD_RESET_ENDPOINT = "email.endpoint.password_reset";
 
     private static final String EMAIL_URI = "email.property.uri";
     private static final String EMAIL_HOST = "email.property.host";
     private static final String EMAIL_PORT = "email.property.port";
     private static final String EMAIL_SENDER = "email.property.sender";
     private static final String EMAIL_PASSWORD = "email.property.password";
+
+    private static final String PASSWORD_RESET_SECONDS_LIMIT = "password.reset_seconds_limit";
 
     @PostConstruct
     private void init() {
@@ -46,10 +49,6 @@ public class AppConfig implements Serializable {
 
     private long getLong(String key) {
         return Long.parseLong(get(key));
-    }
-
-    private int getInt(String key) {
-        return Integer.parseInt(get(key));
     }
 
     public String getJwtSecretKey() {
@@ -76,6 +75,10 @@ public class AppConfig implements Serializable {
         return get(EMAIL_CHANGE_ENDPOINT);
     }
 
+    public String getPasswordResetEndpoint() {
+        return get(PASSWORD_RESET_ENDPOINT);
+    }
+
     public String getEmailUri() {
         return get(EMAIL_URI);
     }
@@ -94,5 +97,9 @@ public class AppConfig implements Serializable {
 
     public String getEmailPassword() {
         return get(EMAIL_PASSWORD);
+    }
+
+    public Long getPasswordResetSecondsLimit() {
+        return getLong(PASSWORD_RESET_SECONDS_LIMIT);
     }
 }

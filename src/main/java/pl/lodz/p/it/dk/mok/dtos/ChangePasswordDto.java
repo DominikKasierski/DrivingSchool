@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ChangeOwnPasswordDto {
+public class ChangePasswordDto {
 
     @NotNull
     @Password

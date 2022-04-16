@@ -11,7 +11,8 @@ public enum EmailType {
     SUCCESSFUL_ACTIVATION_EMAIL("successful_activation"),
     LOCK_EMAIL("lock"),
     UNLOCK_EMAIL("unlock"),
-    EMAIL_CHANGE_EMAIL("email_change");
+    EMAIL_CHANGE_EMAIL("email_change"),
+    PASSWORD_RESET_EMAIL("password_reset");
 
     private final String value;
 }

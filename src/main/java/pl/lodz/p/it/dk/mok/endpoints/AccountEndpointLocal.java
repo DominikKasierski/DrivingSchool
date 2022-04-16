@@ -2,10 +2,7 @@ package pl.lodz.p.it.dk.mok.endpoints;
 
 import pl.lodz.p.it.dk.common.interfaces.TransactionStarter;
 import pl.lodz.p.it.dk.exceptions.BaseException;
-import pl.lodz.p.it.dk.mok.dtos.AccountDto;
-import pl.lodz.p.it.dk.mok.dtos.NewEmailDto;
-import pl.lodz.p.it.dk.mok.dtos.PersonalDataDto;
-import pl.lodz.p.it.dk.mok.dtos.RegisterAccountDto;
+import pl.lodz.p.it.dk.mok.dtos.*;
 
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
@@ -53,4 +50,13 @@ public interface AccountEndpointLocal extends TransactionStarter {
 
     @PermitAll
     void confirmEmail(String code) throws BaseException;
+
+    @RolesAllowed("changePassword")
+    void changePassword(ChangePasswordDto passwordChangeDto) throws BaseException;
+
+    @PermitAll
+    void resetPassword(String email) throws BaseException;
+
+    @PermitAll
+    void confirmPasswordChange(ConfirmPasswordChangeDto confirmPasswordChangeDto) throws BaseException;
 }

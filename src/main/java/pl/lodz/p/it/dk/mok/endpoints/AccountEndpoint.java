@@ -6,10 +6,7 @@ import pl.lodz.p.it.dk.common.abstracts.AbstractEndpoint;
 import pl.lodz.p.it.dk.entities.Account;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.mappers.AccountMapper;
-import pl.lodz.p.it.dk.mok.dtos.AccountDto;
-import pl.lodz.p.it.dk.mok.dtos.NewEmailDto;
-import pl.lodz.p.it.dk.mok.dtos.PersonalDataDto;
-import pl.lodz.p.it.dk.mok.dtos.RegisterAccountDto;
+import pl.lodz.p.it.dk.mok.dtos.*;
 import pl.lodz.p.it.dk.mok.managers.AccountManager;
 
 import javax.annotation.security.PermitAll;
@@ -136,5 +133,27 @@ public class AccountEndpoint extends AbstractEndpoint implements AccountEndpoint
     @PermitAll
     public void confirmEmail(String code) throws BaseException {
         accountManager.confirmEmail(code);
+    }
+
+    @Override
+    @RolesAllowed("changePassword")
+    public void changePassword(ChangePasswordDto changePasswordDto) throws BaseException {
+        Account account = accountManager.findByLogin(getLogin());
+        AccountDto accountDto = Mappers.getMapper(AccountMapper.class).toAccountDto(account);
+        verifyEntityIntegrity(accountDto);
+        accountManager.changePassword(account, changePasswordDto.getOldPassword(), changePasswordDto.getNewPassword());
+    }
+
+    @Override
+    @PermitAll
+    public void resetPassword(String email) throws BaseException {
+        accountManager.resetPassword(email);
+    }
+
+    @Override
+    @PermitAll
+    public void confirmPasswordChange(ConfirmPasswordChangeDto confirmPasswordChangeDto) throws BaseException {
+        accountManager
+                .confirmPasswordChange(confirmPasswordChangeDto.getResetCode(), confirmPasswordChangeDto.getPassword());
     }
 }

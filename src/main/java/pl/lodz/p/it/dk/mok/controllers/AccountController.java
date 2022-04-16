@@ -2,14 +2,12 @@ package pl.lodz.p.it.dk.mok.controllers;
 
 import pl.lodz.p.it.dk.common.abstracts.AbstractController;
 import pl.lodz.p.it.dk.exceptions.BaseException;
-import pl.lodz.p.it.dk.mok.dtos.AccountDto;
-import pl.lodz.p.it.dk.mok.dtos.NewEmailDto;
-import pl.lodz.p.it.dk.mok.dtos.PersonalDataDto;
-import pl.lodz.p.it.dk.mok.dtos.RegisterAccountDto;
+import pl.lodz.p.it.dk.mok.dtos.*;
 import pl.lodz.p.it.dk.mok.endpoints.AccountEndpointLocal;
 import pl.lodz.p.it.dk.security.etag.EtagFilterBinding;
 import pl.lodz.p.it.dk.security.etag.Signer;
 import pl.lodz.p.it.dk.validation.annotations.Code;
+import pl.lodz.p.it.dk.validation.annotations.EmailAddress;
 import pl.lodz.p.it.dk.validation.annotations.Login;
 
 import javax.annotation.security.RolesAllowed;
@@ -122,4 +120,25 @@ public class AccountController extends AbstractController {
         repeat(() -> accountEndpoint.confirmEmail(code), accountEndpoint);
     }
 
+    @PUT
+    @RolesAllowed("changePassword")
+    @EtagFilterBinding
+    @Path("/changePassword")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void changePassword(@NotNull @Valid ChangePasswordDto changePasswordDto) throws BaseException {
+        repeat(() -> accountEndpoint.changePassword(changePasswordDto), accountEndpoint);
+    }
+
+    @PUT
+    @Path("/resetPassword/{email}")
+    public void resetPassword(@NotNull @EmailAddress @PathParam("email") @Valid String email) throws BaseException {
+        repeat(() -> accountEndpoint.resetPassword(email), accountEndpoint);
+    }
+
+    @POST
+    @Path("/confirmPassword")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void confirmPasswordChange(@NotNull @Valid ConfirmPasswordChangeDto confirmPasswordChangeDto) throws BaseException {
+        repeat(() -> accountEndpoint.confirmPasswordChange(confirmPasswordChangeDto), accountEndpoint);
+    }
 }

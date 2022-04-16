@@ -21,7 +21,7 @@ public class PasswordUtils implements PasswordHash {
         return DigestUtils.sha256Hex(password);
     }
 
-    public boolean verify(String password, String hashedPassword) {
+    public static boolean verify(String password, String hashedPassword) {
         String toVerify = generate(password);
         return hashedPassword.equals(toVerify);
     }

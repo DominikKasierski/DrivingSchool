@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import pl.lodz.p.it.dk.validation.annotations.Login;
+import pl.lodz.p.it.dk.validation.annotations.Code;
 import pl.lodz.p.it.dk.validation.annotations.Password;
 
 import javax.validation.constraints.NotNull;
@@ -12,14 +12,14 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ChangeOtherPasswordDto {
-
-    @NotNull
-    @Login
-    private String login;
+public class ConfirmPasswordChangeDto {
 
     @NotNull
     @Password
     @ToString.Exclude
-    private String newPassword;
+    private String password;
+
+    @NotNull
+    @Code
+    private String resetCode;
 }
