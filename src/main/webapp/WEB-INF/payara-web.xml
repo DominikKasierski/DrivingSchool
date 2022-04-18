@@ -83,4 +83,19 @@
         <group-name>ADMIN</group-name>
     </security-role-mapping>
 
+    <security-role-mapping>
+        <role-name>switchAccessType</role-name>
+        <group-name>ADMIN</group-name>
+    </security-role-mapping>
+
+    <security-role-mapping>
+        <role-name>grantAccessType</role-name>
+        <group-name>ADMIN</group-name>
+    </security-role-mapping>
+
+    <security-role-mapping>
+        <role-name>revokeAccessType</role-name>
+        <group-name>ADMIN</group-name>
+    </security-role-mapping>
+
 </payara-web-app>

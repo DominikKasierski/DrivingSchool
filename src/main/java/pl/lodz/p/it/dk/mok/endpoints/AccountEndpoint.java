@@ -1,6 +1,5 @@
 package pl.lodz.p.it.dk.mok.endpoints;
 
-import lombok.extern.java.Log;
 import org.mapstruct.factory.Mappers;
 import pl.lodz.p.it.dk.common.abstracts.AbstractEndpoint;
 import pl.lodz.p.it.dk.entities.Account;
@@ -19,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
-@Log
 @Stateful
 @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 public class AccountEndpoint extends AbstractEndpoint implements AccountEndpointLocal {

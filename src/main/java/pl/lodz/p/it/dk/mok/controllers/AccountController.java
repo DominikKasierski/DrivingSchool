@@ -23,10 +23,10 @@ import java.util.List;
 public class AccountController extends AbstractController {
 
     @Inject
-    private AccountEndpointLocal accountEndpoint;
+    private Signer signer;
 
     @Inject
-    private Signer signer;
+    private AccountEndpointLocal accountEndpoint;
 
     @POST
     @Path("/register")
@@ -35,7 +35,7 @@ public class AccountController extends AbstractController {
         repeat(() -> accountEndpoint.registerAccount(registerAccountDto), accountEndpoint);
     }
 
-    @POST
+    @PUT
     @Path("/confirmAccount/{code}")
     public void confirmAccount(@NotNull @Code @PathParam("code") @Valid String code) throws BaseException {
         repeat(() -> accountEndpoint.confirmAccount(code), accountEndpoint);
@@ -114,7 +114,7 @@ public class AccountController extends AbstractController {
         repeat(() -> accountEndpoint.editOtherEmail(login, newEmailDto), accountEndpoint);
     }
 
-    @POST
+    @PUT
     @Path("/confirmEmail/{code}")
     public void confirmEmail(@NotNull @Code @PathParam("code") @Valid String code) throws BaseException {
         repeat(() -> accountEndpoint.confirmEmail(code), accountEndpoint);
@@ -135,10 +135,11 @@ public class AccountController extends AbstractController {
         repeat(() -> accountEndpoint.resetPassword(email), accountEndpoint);
     }
 
-    @POST
+    @PUT
     @Path("/confirmPassword")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void confirmPasswordChange(@NotNull @Valid ConfirmPasswordChangeDto confirmPasswordChangeDto) throws BaseException {
+    public void confirmPasswordChange(@NotNull @Valid ConfirmPasswordChangeDto confirmPasswordChangeDto)
+            throws BaseException {
         repeat(() -> accountEndpoint.confirmPasswordChange(confirmPasswordChangeDto), accountEndpoint);
     }
 }

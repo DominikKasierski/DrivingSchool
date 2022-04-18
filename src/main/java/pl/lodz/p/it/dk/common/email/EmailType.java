@@ -12,7 +12,9 @@ public enum EmailType {
     LOCK_EMAIL("lock"),
     UNLOCK_EMAIL("unlock"),
     EMAIL_CHANGE_EMAIL("email_change"),
-    PASSWORD_RESET_EMAIL("password_reset");
+    PASSWORD_RESET_EMAIL("password_reset"),
+    ACCESS_GRANT_EMAIL("access_grant"),
+    ACCESS_REVOKE_EMAIL("access_revoke");
 
     private final String value;
 }

@@ -69,6 +69,15 @@
     <security-role>
         <role-name>editOtherEmail</role-name>
     </security-role>
+    <security-role>
+        <role-name>switchAccessType</role-name>
+    </security-role>
+    <security-role>
+        <role-name>grantAccessType</role-name>
+    </security-role>
+    <security-role>
+        <role-name>revokeAccessType</role-name>
+    </security-role>
 
     <security-constraint>
         <web-resource-collection>
