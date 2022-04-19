@@ -22,12 +22,6 @@ public interface AccessMapper {
     })
     AccessDto toAccessDto(Access access);
 
-    /**
-     * Przeprowadza proces mapowania z klasy Account na klasę RolesDto
-     *
-     * @param account obiekt klasy Account
-     * @return obiekt klasy RolesDto
-     */
     default AccessesDto toAccessesDto(Account account) {
         List<AccessDto> accessesGranted = account.getAccesses().stream()
                 .filter(Access::isActivated)

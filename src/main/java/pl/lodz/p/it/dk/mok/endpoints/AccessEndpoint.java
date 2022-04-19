@@ -47,6 +47,20 @@ public class AccessEndpoint extends AbstractEndpoint implements AccessEndpointLo
     }
 
     @Override
+    @RolesAllowed("getOwnAccesses")
+    public AccessesDto getOwnAccesses() throws BaseException {
+        Account account = accountManager.findByLogin(getLogin());
+        return Mappers.getMapper(AccessMapper.class).toAccessesDto(account);
+    }
+
+    @Override
+    @RolesAllowed("getOtherAccesses")
+    public AccessesDto getOtherAccesses(String login) throws BaseException {
+        Account account = accountManager.findByLogin(login);
+        return Mappers.getMapper(AccessMapper.class).toAccessesDto(account);
+    }
+
+    @Override
     public void switchAccessType(AccessType accessType) {
         log.info(String.format("User %s switched access type to %s.", getLogin(), accessType.toString()));
     }

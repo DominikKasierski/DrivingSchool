@@ -78,6 +78,12 @@
     <security-role>
         <role-name>revokeAccessType</role-name>
     </security-role>
+    <security-role>
+        <role-name>getOwnRoles</role-name>
+    </security-role>
+    <security-role>
+        <role-name>getOtherRoles</role-name>
+    </security-role>
 
     <security-constraint>
         <web-resource-collection>

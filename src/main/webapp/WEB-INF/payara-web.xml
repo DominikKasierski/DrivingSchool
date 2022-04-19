@@ -98,4 +98,16 @@
         <group-name>ADMIN</group-name>
     </security-role-mapping>
 
+    <security-role-mapping>
+        <role-name>getOwnAccesses</role-name>
+        <group-name>ADMIN</group-name>
+        <group-name>INSTRUCTOR</group-name>
+        <group-name>TRAINEE</group-name>
+    </security-role-mapping>
+
+    <security-role-mapping>
+        <role-name>getOtherAccesses</role-name>
+        <group-name>ADMIN</group-name>
+    </security-role-mapping>
+
 </payara-web-app>
