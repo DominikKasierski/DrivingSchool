@@ -7,8 +7,11 @@ VALUES (-1, true, true, 'kszczesniak', 'kszczeniak@gmail.com', null,
 
 ---- Create user accesses ----
 INSERT INTO access (id, access_type, activated, account_id, creation_date, modification_date, created_by, modified_by, version)
-VALUES (-1, 'ADMIN', true, -1, now(), null, -1, null, 1);
+VALUES (-1, 'ADMIN', true, -1, now(), null, -1, null, 1),
+       (-2, 'INSTRUCTOR', true, -1, now(), null, -1, null, 1);
 
 ---- Create access extension tables ----
 INSERT INTO admin_access (id)
 VALUES (-1);
+INSERT INTO instructor_access (id)
+VALUES (-2);

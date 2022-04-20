@@ -75,6 +75,9 @@
         <role-name>editOtherEmail</role-name>
     </security-role>
     <security-role>
+        <role-name>changePassword</role-name>
+    </security-role>
+    <security-role>
         <role-name>switchAccessType</role-name>
     </security-role>
     <security-role>
@@ -84,10 +87,10 @@
         <role-name>revokeAccessType</role-name>
     </security-role>
     <security-role>
-        <role-name>getOwnRoles</role-name>
+        <role-name>getOwnAccesses</role-name>
     </security-role>
     <security-role>
-        <role-name>getOtherRoles</role-name>
+        <role-name>getOtherAccesses</role-name>
     </security-role>
 
     <security-constraint>

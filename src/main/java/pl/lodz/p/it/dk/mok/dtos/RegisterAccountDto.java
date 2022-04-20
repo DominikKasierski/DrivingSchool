@@ -36,5 +36,5 @@ public class RegisterAccountDto {
 
     @NotNull
     @PhoneNumber
-    private String contactNumber;
+    private String phoneNumber;
 }
