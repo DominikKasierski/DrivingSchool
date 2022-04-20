@@ -12,6 +12,7 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Stateless
@@ -102,6 +103,19 @@ public class AccountFacade extends AbstractFacade<Account> {
     @PermitAll
     public List<Account> findAll() throws BaseException {
         return super.findAll();
+    }
+
+    @PermitAll
+    public List<Account> findUnverifiedAccounts(Date expirationDate) throws BaseException {
+        try {
+            TypedQuery<Account> accountTypedQuery = em.createNamedQuery("Account.findUnverifiedAccounts", Account.class);
+            accountTypedQuery.setParameter("date", expirationDate);
+            return accountTypedQuery.getResultList();
+        } catch (NoResultException e) {
+            throw NotFoundException.accountNotFound(e);
+        } catch (PersistenceException e) {
+            throw DatabaseException.queryException(e);
+        }
     }
 
     @RolesAllowed({"editOwnEmail", "editOtherEmail"})

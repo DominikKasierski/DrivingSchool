@@ -44,6 +44,13 @@ public class EmailService {
         sendEmail(account.getEmailAddress(), subject, content);
     }
 
+    public void sendAccountDeletingEmail(Account account) throws BaseException {
+        String language = account.getLanguage();
+        String subject = getEmailSubject(language, EmailType.DELETE_ACCOUNT_EMAIL);
+        String content = getEmailContent(language, EmailType.DELETE_ACCOUNT_EMAIL);
+        sendEmail(account.getEmailAddress(), subject, content);
+    }
+
     public void sendAccountLockingEmail(Account account) throws BaseException {
         String language = account.getLanguage();
         String subject = getEmailSubject(language, EmailType.LOCK_EMAIL);

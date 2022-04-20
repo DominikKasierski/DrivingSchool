@@ -19,7 +19,8 @@ import static pl.lodz.p.it.dk.entities.ConfirmationCode.CODE_CONSTRAINT;
         @UniqueConstraint(name = CODE_CONSTRAINT, columnNames = {"code"})
 })
 @NamedQueries({
-        @NamedQuery(name = "ConfirmationCode.findByCode", query = "SELECT c FROM ConfirmationCode c WHERE c.code = :code")
+        @NamedQuery(name = "ConfirmationCode.findByCode", query = "SELECT c FROM ConfirmationCode c WHERE c.code = :code"),
+        @NamedQuery(name = "ConfirmationCode.findCodesToResend", query = "SELECT c FROM ConfirmationCode c WHERE c.used = false AND c.codeType = :type AND c.creationDate < :date AND c.sendAttempt = :attempts")
 })
 @NoArgsConstructor
 public class ConfirmationCode extends AbstractEntity implements Serializable {

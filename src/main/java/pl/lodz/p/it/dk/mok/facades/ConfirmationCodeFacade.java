@@ -3,6 +3,7 @@ package pl.lodz.p.it.dk.mok.facades;
 import org.hibernate.exception.ConstraintViolationException;
 import pl.lodz.p.it.dk.common.abstracts.AbstractFacade;
 import pl.lodz.p.it.dk.entities.ConfirmationCode;
+import pl.lodz.p.it.dk.entities.enums.CodeType;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.exceptions.ConfirmationCodeException;
 import pl.lodz.p.it.dk.exceptions.DatabaseException;
@@ -13,6 +14,8 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
 
 @Stateless
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
@@ -70,5 +73,19 @@ public class ConfirmationCodeFacade extends AbstractFacade<ConfirmationCode> {
         }
     }
 
-    //TODO: Tutaj pewnie dojdzie sporo metod od scheduler'a
+    @PermitAll
+    public List<ConfirmationCode> findCodesToResend(CodeType codeType, Date halfExpirationDate) throws BaseException {
+        try {
+            TypedQuery<ConfirmationCode> query = em.createNamedQuery("ConfirmationCode.findCodesToResend", ConfirmationCode.class);
+            query.setParameter("type", codeType);
+            query.setParameter("date", halfExpirationDate);
+            query.setParameter("attempts", 0);
+            return query.getResultList();
+        } catch (NoResultException e) {
+            throw NotFoundException.confirmationCodeNotFound(e);
+        } catch (PersistenceException e) {
+            throw DatabaseException.queryException(e.getCause());
+        }
+    }
+
 }
