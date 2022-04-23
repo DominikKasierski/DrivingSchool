@@ -3,6 +3,7 @@ package pl.lodz.p.it.dk.mok.endpoints;
 import lombok.extern.java.Log;
 import org.mapstruct.factory.Mappers;
 import pl.lodz.p.it.dk.common.abstracts.AbstractEndpoint;
+import pl.lodz.p.it.dk.common.utils.LoggingInterceptor;
 import pl.lodz.p.it.dk.entities.Account;
 import pl.lodz.p.it.dk.entities.enums.AccessType;
 import pl.lodz.p.it.dk.exceptions.BaseException;
@@ -16,10 +17,12 @@ import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
+import javax.interceptor.Interceptors;
 
 @Log
 @Stateful
 @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+@Interceptors({LoggingInterceptor.class})
 public class AccessEndpoint extends AbstractEndpoint implements AccessEndpointLocal {
 
     @Inject

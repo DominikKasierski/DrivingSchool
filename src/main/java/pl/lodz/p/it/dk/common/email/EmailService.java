@@ -1,6 +1,7 @@
 package pl.lodz.p.it.dk.common.email;
 
 import pl.lodz.p.it.dk.common.configs.AppConfig;
+import pl.lodz.p.it.dk.common.utils.LoggingInterceptor;
 import pl.lodz.p.it.dk.entities.Account;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.exceptions.EmailException;
@@ -9,6 +10,7 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
+import javax.interceptor.Interceptors;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -18,6 +20,7 @@ import java.util.Properties;
 
 @Stateless
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
+@Interceptors({LoggingInterceptor.class})
 public class EmailService {
 
     @Inject

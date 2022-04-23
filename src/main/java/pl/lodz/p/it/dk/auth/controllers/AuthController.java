@@ -3,6 +3,7 @@ package pl.lodz.p.it.dk.auth.controllers;
 import pl.lodz.p.it.dk.auth.dtos.LoginDataDto;
 import pl.lodz.p.it.dk.auth.endpoints.AuthEndpointLocal;
 import pl.lodz.p.it.dk.common.abstracts.AbstractController;
+import pl.lodz.p.it.dk.common.utils.LoggingInterceptor;
 import pl.lodz.p.it.dk.exceptions.AuthException;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.exceptions.NotFoundException;
@@ -10,6 +11,7 @@ import pl.lodz.p.it.dk.mok.endpoints.AccountEndpointLocal;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
+import javax.interceptor.Interceptors;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -18,6 +20,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("/auth")
+@Interceptors({LoggingInterceptor.class})
 public class AuthController extends AbstractController {
 
     @Inject

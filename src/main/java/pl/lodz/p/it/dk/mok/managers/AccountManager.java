@@ -2,6 +2,7 @@ package pl.lodz.p.it.dk.mok.managers;
 
 import pl.lodz.p.it.dk.common.configs.AppConfig;
 import pl.lodz.p.it.dk.common.email.EmailService;
+import pl.lodz.p.it.dk.common.utils.LoggingInterceptor;
 import pl.lodz.p.it.dk.entities.Account;
 import pl.lodz.p.it.dk.entities.ConfirmationCode;
 import pl.lodz.p.it.dk.entities.TraineeAccess;
@@ -20,6 +21,7 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
+import javax.interceptor.Interceptors;
 import javax.security.enterprise.SecurityContext;
 import javax.servlet.ServletContext;
 import javax.ws.rs.core.Context;
@@ -31,6 +33,7 @@ import java.util.UUID;
 
 @Stateless
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
+@Interceptors({LoggingInterceptor.class})
 public class AccountManager {
 
     @Context

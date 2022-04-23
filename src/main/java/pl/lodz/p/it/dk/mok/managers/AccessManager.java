@@ -1,6 +1,7 @@
 package pl.lodz.p.it.dk.mok.managers;
 
 import pl.lodz.p.it.dk.common.email.EmailService;
+import pl.lodz.p.it.dk.common.utils.LoggingInterceptor;
 import pl.lodz.p.it.dk.entities.*;
 import pl.lodz.p.it.dk.entities.enums.AccessType;
 import pl.lodz.p.it.dk.exceptions.AccessException;
@@ -13,6 +14,7 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
+import javax.interceptor.Interceptors;
 import java.time.Instant;
 import java.util.Date;
 import java.util.HashSet;
@@ -22,6 +24,7 @@ import java.util.stream.Collectors;
 
 @Stateless
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
+@Interceptors({LoggingInterceptor.class})
 public class AccessManager {
 
     @Inject

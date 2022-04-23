@@ -3,12 +3,14 @@ package pl.lodz.p.it.dk.auth.endpoints;
 import lombok.extern.java.Log;
 import pl.lodz.p.it.dk.auth.dtos.LoginDataDto;
 import pl.lodz.p.it.dk.common.abstracts.AbstractEndpoint;
+import pl.lodz.p.it.dk.common.utils.LoggingInterceptor;
 import pl.lodz.p.it.dk.exceptions.AuthException;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.security.JwtUtils;
 
 import javax.ejb.Stateful;
 import javax.inject.Inject;
+import javax.interceptor.Interceptors;
 import javax.security.enterprise.credential.Credential;
 import javax.security.enterprise.credential.UsernamePasswordCredential;
 import javax.security.enterprise.identitystore.CredentialValidationResult;
@@ -16,6 +18,7 @@ import javax.security.enterprise.identitystore.IdentityStoreHandler;
 
 @Log
 @Stateful
+@Interceptors({LoggingInterceptor.class})
 public class AuthEndpoint extends AbstractEndpoint implements AuthEndpointLocal {
 
     @Inject

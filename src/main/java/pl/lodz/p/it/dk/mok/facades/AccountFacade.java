@@ -2,6 +2,7 @@ package pl.lodz.p.it.dk.mok.facades;
 
 import org.hibernate.exception.ConstraintViolationException;
 import pl.lodz.p.it.dk.common.abstracts.AbstractFacade;
+import pl.lodz.p.it.dk.common.utils.LoggingInterceptor;
 import pl.lodz.p.it.dk.entities.Access;
 import pl.lodz.p.it.dk.entities.Account;
 import pl.lodz.p.it.dk.exceptions.*;
@@ -11,12 +12,14 @@ import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import javax.interceptor.Interceptors;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
 @Stateless
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
+@Interceptors({LoggingInterceptor.class})
 public class AccountFacade extends AbstractFacade<Account> {
 
     @PersistenceContext(unitName = "mokPU")

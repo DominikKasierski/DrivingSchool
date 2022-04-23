@@ -3,6 +3,7 @@ package pl.lodz.p.it.dk.mok.managers;
 import lombok.extern.java.Log;
 import pl.lodz.p.it.dk.common.abstracts.AbstractEndpoint;
 import pl.lodz.p.it.dk.common.email.EmailService;
+import pl.lodz.p.it.dk.common.utils.LoggingInterceptor;
 import pl.lodz.p.it.dk.entities.Account;
 import pl.lodz.p.it.dk.entities.ConfirmationCode;
 import pl.lodz.p.it.dk.entities.enums.CodeType;
@@ -14,6 +15,7 @@ import javax.annotation.Resource;
 import javax.annotation.security.PermitAll;
 import javax.ejb.*;
 import javax.inject.Inject;
+import javax.interceptor.Interceptors;
 import javax.servlet.ServletContext;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -24,6 +26,7 @@ import java.util.logging.Level;
 @Log
 @Stateful
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
+@Interceptors({LoggingInterceptor.class})
 public class ScheduledTasksManager extends AbstractEndpoint {
 
     @Resource

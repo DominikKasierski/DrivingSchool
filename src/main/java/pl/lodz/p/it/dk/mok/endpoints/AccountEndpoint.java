@@ -2,6 +2,7 @@ package pl.lodz.p.it.dk.mok.endpoints;
 
 import org.mapstruct.factory.Mappers;
 import pl.lodz.p.it.dk.common.abstracts.AbstractEndpoint;
+import pl.lodz.p.it.dk.common.utils.LoggingInterceptor;
 import pl.lodz.p.it.dk.entities.Account;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.mappers.AccountMapper;
@@ -14,12 +15,14 @@ import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
+import javax.interceptor.Interceptors;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
 @Stateful
 @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+@Interceptors({LoggingInterceptor.class})
 public class AccountEndpoint extends AbstractEndpoint implements AccountEndpointLocal {
 
     @Inject

@@ -1,4 +1,4 @@
-package pl.lodz.p.it.dk.mok.utils;
+package pl.lodz.p.it.dk.common.utils;
 
 import lombok.extern.java.Log;
 import pl.lodz.p.it.dk.exceptions.BaseException;
@@ -10,11 +10,13 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.ejb.Timer;
 import javax.inject.Inject;
+import javax.interceptor.Interceptors;
 
 @Log
 @Startup
 @Singleton
 @RunAs("System")
+@Interceptors({LoggingInterceptor.class})
 public class ScheduledTaskRunner {
 
     @Inject
