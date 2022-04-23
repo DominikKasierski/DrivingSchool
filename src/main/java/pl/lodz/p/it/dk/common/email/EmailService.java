@@ -72,7 +72,7 @@ public class EmailService {
         String language = account.getLanguage();
         String url = prepareUrl(appConfig.getEmailChangeEndpoint(), emailChangeCode);
         String subject = getEmailSubject(language, EmailType.EMAIL_CHANGE_EMAIL);
-        String content = getEmailContent(language, EmailType.EMAIL_CHANGE_EMAIL, account.getLogin());
+        String content = getEmailContent(language, EmailType.EMAIL_CHANGE_EMAIL, account.getLogin(), url);
         sendEmail(account.getEmailAddress(), subject, content);
     }
 
@@ -80,7 +80,7 @@ public class EmailService {
         String language = account.getLanguage();
         String url = prepareUrl(appConfig.getPasswordResetEndpoint(), passwordResetCode);
         String subject = getEmailSubject(language, EmailType.PASSWORD_RESET_EMAIL);
-        String content = getEmailContent(language, EmailType.PASSWORD_RESET_EMAIL, account.getLogin());
+        String content = getEmailContent(language, EmailType.PASSWORD_RESET_EMAIL, account.getLogin(), url);
         sendEmail(account.getEmailAddress(), subject, content);
     }
 
@@ -106,7 +106,7 @@ public class EmailService {
     private String getEmailContent(String language, EmailType emailType, String... params) {
         String mailType = String.format(EMAIL_CONTENT_FORMAT, emailType.getValue());
         String pattern = i18n.getMessage(new Locale(language), mailType);
-        return MessageFormat.format("pattern", (Object[]) params);
+        return MessageFormat.format(pattern, (Object[]) params);
     }
 
     private String prepareUrl(String endpoint, String activationCode) {

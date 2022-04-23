@@ -19,7 +19,7 @@ public class RegisterAccountDto {
 
     @NotNull
     @EmailAddress
-    private String email;
+    private String emailAddress;
 
     @NotNull
     @Password

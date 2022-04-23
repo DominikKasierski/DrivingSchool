@@ -2,24 +2,24 @@ package pl.lodz.p.it.dk.common.utils;
 
 import lombok.extern.java.Log;
 
-import javax.annotation.Resource;
-import javax.ejb.SessionContext;
+import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
+import javax.security.enterprise.SecurityContext;
 import java.security.Principal;
 
 @Log
 public class LoggingInterceptor {
 
-    @Resource
-    private SessionContext sessionContext;
+    @Inject
+    private SecurityContext securityContext;
 
     @AroundInvoke
     public Object intercept(InvocationContext invocationContext) throws Exception {
         String className = invocationContext.getTarget().getClass().getName();
         String methodName = invocationContext.getMethod().getName();
-        Principal principal = sessionContext.getCallerPrincipal();
-        String caller = principal != null ? sessionContext.getCallerPrincipal().getName() : "Guest";
+        Principal principal = securityContext.getCallerPrincipal();
+        String caller = principal != null ? securityContext.getCallerPrincipal().getName() : "Guest";
 
         StringBuilder parameters = new StringBuilder();
 
@@ -30,8 +30,7 @@ public class LoggingInterceptor {
             parameters.delete(parameters.length() - 2, parameters.length());
         }
 
-        log.info(String.format("%s.%s(%s) is called by %s", className, methodName, parameters.toString(),
-                parameters.toString()));
+        log.info(String.format("%s.%s(%s) is called by %s", className, methodName, parameters.toString(), caller));
 
         Object result;
 
@@ -44,6 +43,7 @@ public class LoggingInterceptor {
             throw e;
         }
 
+        //TODO: Mozna sie pokusic o rozroznienie miedzy void a reszta
         log.info(String.format("%s.%s(%s) returned %s", className, methodName, parameters.toString(), result));
         return result;
     }

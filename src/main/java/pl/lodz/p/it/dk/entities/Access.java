@@ -32,9 +32,8 @@ public abstract class Access extends AbstractEntity implements Serializable {
     private Long id;
 
     @Getter
-    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "access_type", updatable = false, nullable = false)
+    @Column(name = "access_type", updatable = false, nullable = false, insertable = false)
     private AccessType accessType;
 
     @Getter

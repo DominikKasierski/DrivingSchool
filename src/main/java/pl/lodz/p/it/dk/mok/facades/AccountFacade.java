@@ -125,7 +125,7 @@ public class AccountFacade extends AbstractFacade<Account> {
     public boolean checkEmailOccurrence(String email) throws BaseException {
         try {
             Account account = findByEmail(email);
-        } catch (NoResultException e) {
+        } catch (NotFoundException e) {
             return false;
         }
         return true;

@@ -49,8 +49,8 @@ public class AccessManager {
                 .map(Access::getAccessType)
                 .collect(Collectors.toSet());
 
-        if (accessType.equals(AccessType.TRAINEE) && (accessesGranted.contains(AccessType.INSTRUCTOR)) ||
-                (accessesGranted.contains(AccessType.ADMIN))) {
+        if (accessType.equals(AccessType.TRAINEE) && ((accessesGranted.contains(AccessType.INSTRUCTOR)) ||
+                (accessesGranted.contains(AccessType.ADMIN)))) {
             throw AccessException.unsupportedCombination();
         } else if ((accessType.equals(AccessType.INSTRUCTOR) || accessType.equals(AccessType.ADMIN)) &&
                 accessesGranted.contains(AccessType.TRAINEE)) {

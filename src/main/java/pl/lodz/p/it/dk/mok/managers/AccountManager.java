@@ -25,7 +25,9 @@ import javax.interceptor.Interceptors;
 import javax.security.enterprise.SecurityContext;
 import javax.servlet.ServletContext;
 import javax.ws.rs.core.Context;
+import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -270,7 +272,8 @@ public class AccountManager {
         }
 
         Date codeExpirationDate = new Date(confirmationCode.getCreationDate().getTime() + PASSWORD_RESET_SECONDS_LIMIT);
-        Date currentDate = Date.from(Instant.now());
+        Date currentDate = Timestamp.valueOf(LocalDateTime.now());
+        Date currentDate1 = Date.from(Instant.now());
 
         if (currentDate.after(codeExpirationDate)) {
             throw ConfirmationCodeException.codeExpired();
