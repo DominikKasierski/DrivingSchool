@@ -169,7 +169,7 @@ public class Account extends AbstractEntity implements Serializable {
 
     @Getter
     @Setter
-    @OneToMany(mappedBy = "account", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "account", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private Set<ConfirmationCode> confirmationCodes = new HashSet<>();
 
     public Account(String login, String password, String firstname, String lastname, boolean confirmed,

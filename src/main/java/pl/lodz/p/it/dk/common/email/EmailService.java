@@ -50,7 +50,7 @@ public class EmailService {
     public void sendAccountDeletingEmail(Account account) throws BaseException {
         String language = account.getLanguage();
         String subject = getEmailSubject(language, EmailType.DELETE_ACCOUNT_EMAIL);
-        String content = getEmailContent(language, EmailType.DELETE_ACCOUNT_EMAIL);
+        String content = getEmailContent(language, EmailType.DELETE_ACCOUNT_EMAIL, account.getLogin());
         sendEmail(account.getEmailAddress(), subject, content);
     }
 
