@@ -56,8 +56,15 @@ public class Payment extends AbstractEntity implements Serializable {
     @Setter
     @Size(min = 4, max = 255)
     @Comment
-    @Column(name = "comment")
-    private String comment;
+    @Column(name = "trainee_comment")
+    private String traineeComment;
+
+    @Getter
+    @Setter
+    @Size(min = 4, max = 255)
+    @Comment
+    @Column(name = "admin_comment")
+    private String adminComment;
 
     public Payment(Course course, BigDecimal value) {
         this.course = course;

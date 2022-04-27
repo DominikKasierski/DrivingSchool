@@ -8,6 +8,7 @@ public class AccessException extends BaseException {
             "exception.access_exception.unsupported_combination_exception";
     private static final String UNSUPPORTED_ACCESS_TYPE_EXCEPTION =
             "exception.access_exception.unsupported_access_type_exception";
+    private static final String NO_PROPER_ACCESS = "exception.access_exception.no_proper_access_exception";
 
     private AccessException(String message) {
         super(message);
@@ -35,5 +36,9 @@ public class AccessException extends BaseException {
 
     public static AccessException unsupportedAccessType() {
         return new AccessException(UNSUPPORTED_ACCESS_TYPE_EXCEPTION);
+    }
+
+    public static AccessException noProperAccess() {
+        return new AccessException(NO_PROPER_ACCESS);
     }
 }

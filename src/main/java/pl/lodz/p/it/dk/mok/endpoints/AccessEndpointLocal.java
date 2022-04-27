@@ -4,6 +4,7 @@ import pl.lodz.p.it.dk.common.interfaces.TransactionStarter;
 import pl.lodz.p.it.dk.entities.enums.AccessType;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.mok.dtos.AccessesDto;
+import pl.lodz.p.it.dk.mok.dtos.TraineeAccessDto;
 
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
@@ -26,4 +27,7 @@ public interface AccessEndpointLocal extends TransactionStarter {
 
     @PermitAll
     void switchAccessType(AccessType accessType);
+
+    @RolesAllowed("getTraineeAccess")
+    TraineeAccessDto getTraineeAccess() throws BaseException;
 }

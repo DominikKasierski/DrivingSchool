@@ -116,7 +116,7 @@ create table account
     constraint fk_account_modified_by
         foreign key (modified_by) references account,
     constraint account_failed_login_attempts_check
-            check (failed_login_attempts >= 0)
+        check (failed_login_attempts >= 0)
 );
 
 create table access
@@ -174,7 +174,7 @@ create table confirmation_code
     id                bigint       not null,
     code              varchar(128) not null,
     used              boolean      not null,
-    send_attempts     integer      default 0,
+    send_attempts     integer default 0,
     account_id        bigint       not null,
     code_type         integer      not null,
     version           bigint       not null,
@@ -196,17 +196,17 @@ create table confirmation_code
 
 create table car
 (
-    id                  bigint       not null,
-    course_category     varchar(1)   not null,
+    id                  bigint      not null,
+    course_category     varchar(1)  not null,
     image               varchar(31),
-    brand               varchar(31)  not null,
-    model               varchar(31)  not null,
-    registration_number varchar(7)   not null,
-    production_year     integer      not null,
-    deleted             boolean      not null,
-    version             bigint       not null,
-    creation_date       timestamp    not null,
-    created_by          bigint       not null,
+    brand               varchar(31) not null,
+    model               varchar(31) not null,
+    registration_number varchar(7)  not null,
+    production_year     integer     not null,
+    deleted             boolean     not null,
+    version             bigint      not null,
+    creation_date       timestamp   not null,
+    created_by          bigint      not null,
     modification_date   timestamp,
     modified_by         bigint,
     constraint pk_car_id
@@ -221,14 +221,14 @@ create table car
 
 create table course_details
 (
-    id                bigint       not null,
-    course_category   varchar(1)   not null,
-    price             numeric(4)   not null,
-    lectures_hours    integer      not null,
-    driving_hours     integer      not null,
-    version           bigint       not null,
-    creation_date     timestamp    not null,
-    created_by        bigint       not null,
+    id                bigint     not null,
+    course_category   varchar(1) not null,
+    price             numeric(4) not null,
+    lectures_hours    integer    not null,
+    driving_hours     integer    not null,
+    version           bigint     not null,
+    creation_date     timestamp  not null,
+    created_by        bigint     not null,
     modification_date timestamp,
     modified_by       bigint,
     constraint pk_course_details_id
@@ -249,20 +249,20 @@ create table course_details
 
 create table instructors_permissions
 (
-    instructor_id     bigint       not null,
-    permissions       varchar(255),
+    instructor_id bigint not null,
+    permissions   varchar(255),
     constraint fk_instructors_permissions_instructor_id
         foreign key (instructor_id) references instructor_access
 );
 
 create table lecture_group
 (
-    id                bigint       not null,
-    name              varchar(31)  not null,
-    course_category   varchar(1)   not null,
+    id                bigint      not null,
+    name              varchar(31) not null,
+    course_category   varchar(1)  not null,
     version           bigint,
-    creation_date     timestamp    not null,
-    created_by        bigint       not null,
+    creation_date     timestamp   not null,
+    created_by        bigint      not null,
     modification_date timestamp,
     modified_by       bigint,
     constraint pk_lecture_group_id
@@ -333,16 +333,16 @@ create table course
 
 create table driving_lesson
 (
-    id                bigint       not null,
-    lesson_status     varchar(11)  not null,
-    instructor_id     bigint       not null,
-    course_id         bigint       not null,
-    car_id            bigint       not null,
-    date_from         timestamp    not null,
-    date_to           timestamp    not null,
-    version           bigint       not null,
-    creation_date     timestamp    not null,
-    created_by        bigint       not null,
+    id                bigint      not null,
+    lesson_status     varchar(11) not null,
+    instructor_id     bigint      not null,
+    course_id         bigint      not null,
+    car_id            bigint      not null,
+    date_from         timestamp   not null,
+    date_to           timestamp   not null,
+    version           bigint      not null,
+    creation_date     timestamp   not null,
+    created_by        bigint      not null,
     modification_date timestamp,
     modified_by       bigint,
     constraint pk_driving_lesson_id
@@ -367,7 +367,8 @@ create table payment
     payment_status    varchar(11)   not null,
     course_id         bigint        not null,
     value             numeric(4, 2) not null,
-    comment           varchar(255),
+    trainee_comment   varchar(255),
+    admin_comment     varchar(255),
     version           bigint        not null,
     creation_date     timestamp     not null,
     created_by        bigint        not null,
@@ -389,7 +390,8 @@ create view auth_view (login, password, access) as
 select a.login,
        a.password,
        ac.access_type as access
-from account a join access ac on a.id = ac.account_id
+from account a
+         join access ac on a.id = ac.account_id
 where a.enabled = true
   and a.confirmed = true
   and ac.activated = true;

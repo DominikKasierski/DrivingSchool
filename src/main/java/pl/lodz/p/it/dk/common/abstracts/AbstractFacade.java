@@ -52,7 +52,6 @@ public abstract class AbstractFacade<T extends AbstractEntity> {
         }
     }
 
-    //TODO: Czy będzie potrzebne?
     protected void remove(T entity) throws BaseException {
         try {
             getEntityManager().remove(getEntityManager().merge(entity));

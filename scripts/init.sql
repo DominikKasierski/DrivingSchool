@@ -27,3 +27,9 @@ INSERT INTO instructor_access (id)
 VALUES (-3);
 INSERT INTO trainee_access (id)
 VALUES (-4);
+
+---- Create course details ----
+INSERT INTO course_details (id, course_category, price, lectures_hours, driving_hours, creation_date, modification_date, created_by, modified_by, version)
+VALUES (-1, 'A', 2000, 30, 20, now(), null, -1, null, 1),
+       (-2, 'B', 2200, 30, 30, now(), null, -1, null, 1),
+       (-3, 'C', 3000, 20, 30, now(), null, -1, null, 1);

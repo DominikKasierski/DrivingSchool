@@ -4,6 +4,7 @@ import pl.lodz.p.it.dk.common.abstracts.AbstractController;
 import pl.lodz.p.it.dk.entities.enums.AccessType;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.mok.dtos.AccessesDto;
+import pl.lodz.p.it.dk.mok.dtos.TraineeAccessDto;
 import pl.lodz.p.it.dk.mok.endpoints.AccessEndpointLocal;
 import pl.lodz.p.it.dk.security.etag.EtagFilterBinding;
 import pl.lodz.p.it.dk.security.etag.Signer;
@@ -68,5 +69,14 @@ public class AccessController extends AbstractController {
     public Response switchAccessType(@NotNull @PathParam("accessType") AccessType accessType) {
         accessEndpoint.switchAccessType(accessType);
         return Response.ok().build();
+    }
+
+    @GET
+    @RolesAllowed("getTraineeAccess")
+    @Path("getTraineeAccess")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getTraineeAccess() throws BaseException {
+        TraineeAccessDto traineeAccessDto = repeat(() -> accessEndpoint.getTraineeAccess(), accessEndpoint);
+        return Response.ok().entity(traineeAccessDto).header("ETag", signer.sign(traineeAccessDto)).build();
     }
 }

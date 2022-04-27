@@ -92,6 +92,12 @@
     <security-role>
         <role-name>getOtherAccesses</role-name>
     </security-role>
+    <security-role>
+        <role-name>getTraineeAccess</role-name>
+    </security-role>
+    <security-role>
+        <role-name>createCourse</role-name>
+    </security-role>
 
     <security-constraint>
         <web-resource-collection>

@@ -16,10 +16,10 @@ import java.util.stream.Collectors;
 public class AccessesDto implements EntityToSign {
 
     private Long userId;
-    private List<AccessDto> accessesGranted;
-    private List<AccessDto> accessesRevoked;
+    private List<SingleAccessDto> accessesGranted;
+    private List<SingleAccessDto> accessesRevoked;
 
-    private static String stringify(List<AccessDto> accesses) {
+    private static String stringify(List<SingleAccessDto> accesses) {
         return accesses.stream()
                 .map(x -> x.getAccessType() + ":" + x.getVersion())
                 .collect(Collectors.joining("|"));

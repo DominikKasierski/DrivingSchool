@@ -4,11 +4,15 @@ import lombok.extern.java.Log;
 import org.mapstruct.factory.Mappers;
 import pl.lodz.p.it.dk.common.abstracts.AbstractEndpoint;
 import pl.lodz.p.it.dk.common.utils.LoggingInterceptor;
+import pl.lodz.p.it.dk.entities.Access;
 import pl.lodz.p.it.dk.entities.Account;
+import pl.lodz.p.it.dk.entities.TraineeAccess;
 import pl.lodz.p.it.dk.entities.enums.AccessType;
+import pl.lodz.p.it.dk.exceptions.AccessException;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.mappers.AccessMapper;
 import pl.lodz.p.it.dk.mok.dtos.AccessesDto;
+import pl.lodz.p.it.dk.mok.dtos.TraineeAccessDto;
 import pl.lodz.p.it.dk.mok.managers.AccessManager;
 import pl.lodz.p.it.dk.mok.managers.AccountManager;
 
@@ -66,5 +70,18 @@ public class AccessEndpoint extends AbstractEndpoint implements AccessEndpointLo
     @Override
     public void switchAccessType(AccessType accessType) {
         log.info(String.format("User %s switched access type to %s.", getLogin(), accessType.toString()));
+    }
+
+    @Override
+    @RolesAllowed("getTraineeAccess")
+    public TraineeAccessDto getTraineeAccess() throws BaseException {
+        Account account = accountManager.findByLogin(getLogin());
+        Access access = account.getAccesses().stream()
+                .filter(x -> x.getAccessType() == AccessType.TRAINEE)
+                .findAny()
+                .orElseThrow(AccessException::noProperAccess);
+
+        TraineeAccess traineeAccess = accessManager.find(access.getId());
+        return Mappers.getMapper(AccessMapper.class).toTraineeAccessDto(traineeAccess);
     }
 }

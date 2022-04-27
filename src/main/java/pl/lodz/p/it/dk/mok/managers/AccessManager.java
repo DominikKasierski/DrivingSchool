@@ -8,6 +8,7 @@ import pl.lodz.p.it.dk.exceptions.AccessException;
 import pl.lodz.p.it.dk.exceptions.AccountException;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.mok.facades.AccountFacade;
+import pl.lodz.p.it.dk.mok.facades.TraineeAccessFacade;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
@@ -29,6 +30,9 @@ public class AccessManager {
 
     @Inject
     private AccountFacade accountFacade;
+
+    @Inject
+    private TraineeAccessFacade traineeAccessFacade;
 
     @Inject
     private EmailService emailService;
@@ -107,6 +111,11 @@ public class AccessManager {
 
         accountFacade.edit(account);
         emailService.sendAccessRevokingEmail(account, accessType.toString());
+    }
+
+    @RolesAllowed("getTraineeAccess")
+    public TraineeAccess find(Long id) throws BaseException {
+        return traineeAccessFacade.find(id);
     }
 
     private Access createAccess(AccessType accessType) throws AccessException {
