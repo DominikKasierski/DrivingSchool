@@ -25,4 +25,9 @@ public class CourseDetailsManager {
     public CourseDetails findByCategory(CourseCategory courseCategory) throws BaseException {
         return courseDetailsFacade.findByCategory(courseCategory);
     }
+
+    @RolesAllowed("createCourse")
+    public void edit(CourseDetails courseDetails) throws BaseException {
+        courseDetailsFacade.edit(courseDetails);
+    }
 }

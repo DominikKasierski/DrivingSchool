@@ -15,7 +15,7 @@ import javax.interceptor.Interceptors;
 @Stateless
 @Interceptors({LoggingInterceptor.class})
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
-public class AccessManager {
+public class TraineeAccessManager {
 
     @Inject
     private TraineeAccessFacade traineeAccessFacade;
@@ -23,5 +23,10 @@ public class AccessManager {
     @RolesAllowed("createCourse")
     public TraineeAccess find(Long id) throws BaseException {
         return traineeAccessFacade.find(id);
+    }
+
+    @RolesAllowed("createCourse")
+    public void edit(TraineeAccess traineeAccess) throws BaseException {
+        traineeAccessFacade.edit(traineeAccess);
     }
 }

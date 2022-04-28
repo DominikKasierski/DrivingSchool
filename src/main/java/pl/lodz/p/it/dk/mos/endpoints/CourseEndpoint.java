@@ -12,9 +12,9 @@ import pl.lodz.p.it.dk.exceptions.AccessException;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.mappers.AccessMapper;
 import pl.lodz.p.it.dk.mok.dtos.TraineeAccessDto;
-import pl.lodz.p.it.dk.mos.managers.AccessManager;
 import pl.lodz.p.it.dk.mos.managers.AccountManager;
 import pl.lodz.p.it.dk.mos.managers.CourseManager;
+import pl.lodz.p.it.dk.mos.managers.TraineeAccessManager;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateful;
@@ -32,7 +32,7 @@ public class CourseEndpoint extends AbstractEndpoint implements CourseEndpointLo
     AccountManager accountManager;
 
     @Inject
-    AccessManager accessManager;
+    TraineeAccessManager traineeAccessManager;
 
     @Inject
     CourseManager courseManager;
@@ -46,7 +46,7 @@ public class CourseEndpoint extends AbstractEndpoint implements CourseEndpointLo
                 .findAny()
                 .orElseThrow(AccessException::noProperAccess);
 
-        TraineeAccess traineeAccess = accessManager.find(access.getId());
+        TraineeAccess traineeAccess = traineeAccessManager.find(access.getId());
         TraineeAccessDto traineeAccessDto = Mappers.getMapper(AccessMapper.class).toTraineeAccessDto(traineeAccess);
         verifyEntityIntegrity(traineeAccessDto);
 

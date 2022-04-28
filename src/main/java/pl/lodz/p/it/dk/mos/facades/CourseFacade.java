@@ -33,7 +33,7 @@ public class CourseFacade extends AbstractFacade<Course> {
     }
 
     @Override
-    @RolesAllowed({""})
+    @RolesAllowed("createCourse")
     public void create(Course entity) throws BaseException {
         try {
             super.create(entity);
