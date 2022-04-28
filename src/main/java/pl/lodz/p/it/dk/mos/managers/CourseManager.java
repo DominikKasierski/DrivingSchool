@@ -1,12 +1,14 @@
 package pl.lodz.p.it.dk.mos.managers;
 
 import pl.lodz.p.it.dk.common.utils.LoggingInterceptor;
+import pl.lodz.p.it.dk.entities.Account;
 import pl.lodz.p.it.dk.entities.Course;
 import pl.lodz.p.it.dk.entities.CourseDetails;
 import pl.lodz.p.it.dk.entities.TraineeAccess;
 import pl.lodz.p.it.dk.entities.enums.CourseCategory;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.exceptions.CourseException;
+import pl.lodz.p.it.dk.mos.facades.CourseFacade;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
@@ -28,14 +30,20 @@ public class CourseManager {
     @Inject
     TraineeAccessManager traineeAccessManager;
 
+    @Inject
+    AccountManager accountManager;
+
+    @Inject
+    CourseFacade courseFacade;
+
     @RolesAllowed("createCourse")
     public void createCourse(CourseCategory courseCategory, TraineeAccess traineeAccess) throws BaseException {
-        boolean hasOngoingCourses = traineeAccess.getCourses().stream()
+        boolean hasOngoingCourse = traineeAccess.getCourses().stream()
                 .anyMatch(x -> !x.isCourseCompletion());
         boolean hasSameCourseCompleted = traineeAccess.getCourses().stream()
                 .anyMatch(x -> x.getCourseDetails().getCourseCategory().equals(courseCategory));
 
-        if (hasOngoingCourses) {
+        if (hasOngoingCourse) {
             throw CourseException.alreadyAssigned();
         } else if (hasSameCourseCompleted) {
             throw CourseException.alreadyCompleted();
@@ -55,5 +63,12 @@ public class CourseManager {
 
         traineeAccessManager.edit(traineeAccess);
         courseDetailsManager.edit(courseDetails);
+    }
+
+    @RolesAllowed({"getOwnCourse", "getOtherCourse"})
+    public Course getOngoingCourse(String login) throws BaseException {
+        Account account = accountManager.findByLogin(login);
+        TraineeAccess traineeAccess = traineeAccessManager.find(account);
+        return courseFacade.findByTraineeId(traineeAccess.getId());
     }
 }

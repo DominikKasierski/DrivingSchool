@@ -5,7 +5,7 @@ import pl.lodz.p.it.dk.entities.Account;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.mos.facades.AccountFacade;
 
-import javax.annotation.security.RolesAllowed;
+import javax.annotation.security.PermitAll;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -20,7 +20,7 @@ public class AccountManager {
     @Inject
     private AccountFacade accountFacade;
 
-    @RolesAllowed("createCourse")
+    @PermitAll
     public Account findByLogin(String login) throws BaseException {
         return accountFacade.findByLogin(login);
     }

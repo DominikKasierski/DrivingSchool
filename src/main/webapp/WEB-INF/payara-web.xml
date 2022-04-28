@@ -127,4 +127,14 @@
         <group-name>TRAINEE</group-name>
     </security-role-mapping>
 
+    <security-role-mapping>
+        <role-name>getOwnCourse</role-name>
+        <group-name>TRAINEE</group-name>
+    </security-role-mapping>
+
+    <security-role-mapping>
+        <role-name>getOtherCourse</role-name>
+        <group-name>ADMIN</group-name>
+    </security-role-mapping>
+
 </payara-web-app>

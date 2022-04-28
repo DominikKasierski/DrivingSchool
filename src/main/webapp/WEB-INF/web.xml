@@ -98,6 +98,12 @@
     <security-role>
         <role-name>createCourse</role-name>
     </security-role>
+    <security-role>
+        <role-name>getOwnCourse</role-name>
+    </security-role>
+    <security-role>
+        <role-name>getOtherCourse</role-name>
+    </security-role>
 
     <security-constraint>
         <web-resource-collection>

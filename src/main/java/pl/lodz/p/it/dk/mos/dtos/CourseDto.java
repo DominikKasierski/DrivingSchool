@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import pl.lodz.p.it.dk.security.etag.EntityToSign;
 
-//TODO: Tutaj pewnie będzie trzeba dorobić Paymenty i Wykłady
+//TODO: Dorobić Paymenty i Wykłady. Może zamiast courseDetailsId to kategorię kursu?
 
 @Data
 @NoArgsConstructor

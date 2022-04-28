@@ -114,8 +114,13 @@ public class AccessManager {
     }
 
     @RolesAllowed("getTraineeAccess")
-    public TraineeAccess find(Long id) throws BaseException {
-        return traineeAccessFacade.find(id);
+    public TraineeAccess findTraineeAccess(Account account) throws BaseException {
+        Access access = account.getAccesses().stream()
+                .filter(x -> x.getAccessType() == AccessType.TRAINEE)
+                .findAny()
+                .orElseThrow(AccessException::noProperAccess);
+
+        return traineeAccessFacade.find(access.getId());
     }
 
     private Access createAccess(AccessType accessType) throws AccessException {

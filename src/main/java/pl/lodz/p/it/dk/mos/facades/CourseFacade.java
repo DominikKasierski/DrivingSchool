@@ -78,7 +78,7 @@ public class CourseFacade extends AbstractFacade<Course> {
         }
     }
 
-    @RolesAllowed({""})
+    @RolesAllowed({"getOwnCourse", "getOtherCourse"})
     public Course findByTraineeId(long traineeId) throws BaseException {
         try {
             TypedQuery<Course>
