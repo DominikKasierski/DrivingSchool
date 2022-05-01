@@ -147,4 +147,9 @@
         <group-name>TRAINEE</group-name>
     </security-role-mapping>
 
+    <security-role-mapping>
+        <role-name>getPaymentsHistory</role-name>
+        <group-name>TRAINEE</group-name>
+    </security-role-mapping>
+
 </payara-web-app>

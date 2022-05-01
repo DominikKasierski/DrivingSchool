@@ -4,6 +4,7 @@ import pl.lodz.p.it.dk.common.utils.LoggingInterceptor;
 import pl.lodz.p.it.dk.entities.Account;
 import pl.lodz.p.it.dk.entities.Course;
 import pl.lodz.p.it.dk.entities.Payment;
+import pl.lodz.p.it.dk.entities.enums.CourseCategory;
 import pl.lodz.p.it.dk.entities.enums.PaymentStatus;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.exceptions.PaymentException;
@@ -18,6 +19,7 @@ import javax.inject.Inject;
 import javax.interceptor.Interceptors;
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -67,6 +69,7 @@ public class PaymentManager {
     @RolesAllowed("cancelPayment")
     public void cancelPayment(Course course) throws BaseException {
         Payment payment = course.getPayments().stream()
+                .filter(x -> x.getPaymentStatus().equals(PaymentStatus.IN_PROGRESS))
                 .findAny()
                 .orElseThrow(PaymentException::noPaymentInProgress);
 
@@ -78,5 +81,13 @@ public class PaymentManager {
         course.setModificationDate(Date.from(Instant.now()));
         course.setModifiedBy(account);
         courseManager.edit(course);
+    }
+
+    @RolesAllowed("getPaymentsHistory")
+    public List<Payment> getPayments(String login, CourseCategory courseCategory) throws BaseException {
+        Course course = courseManager.getOngoingCourse(login);
+        List<Payment> payments = paymentFacade.findByCourseId(course.getId());
+        payments.sort(Comparator.comparing(Payment::getCreationDate));
+        return payments;
     }
 }

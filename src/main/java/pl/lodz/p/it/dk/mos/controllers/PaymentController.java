@@ -1,8 +1,10 @@
 package pl.lodz.p.it.dk.mos.controllers;
 
 import pl.lodz.p.it.dk.common.abstracts.AbstractController;
+import pl.lodz.p.it.dk.entities.enums.CourseCategory;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.mos.dtos.NewPaymentDto;
+import pl.lodz.p.it.dk.mos.dtos.PaymentDto;
 import pl.lodz.p.it.dk.mos.endpoints.PaymentEndpointLocal;
 import pl.lodz.p.it.dk.security.etag.EtagFilterBinding;
 
@@ -10,11 +12,9 @@ import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 @Path("/payment")
 public class PaymentController extends AbstractController {
@@ -38,5 +38,14 @@ public class PaymentController extends AbstractController {
     @Consumes(MediaType.APPLICATION_JSON)
     public void cancelPayment() throws BaseException {
         repeat(() -> paymentEndpoint.cancelPayment(), paymentEndpoint);
+    }
+
+    @GET
+    @RolesAllowed("getPaymentsHistory")
+    @Path("/getPaymentsHistory/{courseCategory}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<PaymentDto> getPaymentsHistory(@NotNull @PathParam("courseCategory") CourseCategory courseCategory)
+            throws BaseException {
+        return repeat(() -> paymentEndpoint.getPaymentsHistory(courseCategory), paymentEndpoint);
     }
 }

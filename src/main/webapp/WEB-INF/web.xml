@@ -110,6 +110,9 @@
     <security-role>
         <role-name>cancelPayment</role-name>
     </security-role>
+    <security-role>
+        <role-name>getPaymentsHistory</role-name>
+    </security-role>
 
     <security-constraint>
         <web-resource-collection>
