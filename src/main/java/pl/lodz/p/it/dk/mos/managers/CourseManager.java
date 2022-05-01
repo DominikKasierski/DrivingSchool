@@ -18,6 +18,7 @@ import javax.inject.Inject;
 import javax.interceptor.Interceptors;
 import java.time.Instant;
 import java.util.Date;
+import java.util.List;
 
 @Stateless
 @Interceptors({LoggingInterceptor.class})
@@ -69,6 +70,22 @@ public class CourseManager {
     public Course getOngoingCourse(String login) throws BaseException {
         Account account = accountManager.findByLogin(login);
         TraineeAccess traineeAccess = traineeAccessManager.find(account);
-        return courseFacade.findByTraineeId(traineeAccess.getId());
+        List<Course> courses = courseFacade.findByTraineeId(traineeAccess.getId());
+
+        return courses.stream()
+                .filter(x -> !x.isCourseCompletion())
+                .findAny()
+                .orElseThrow(CourseException::noOngoingCourse);
     }
+
+    @RolesAllowed("createPayment")
+    public Course findById(Long id) throws BaseException {
+        return courseFacade.find(id);
+    }
+
+    @RolesAllowed("createPayment")
+    public void edit(Course course) throws BaseException {
+        courseFacade.edit(course);
+    }
+
 }

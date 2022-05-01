@@ -104,6 +104,9 @@
     <security-role>
         <role-name>getOtherCourse</role-name>
     </security-role>
+    <security-role>
+        <role-name>createPayment</role-name>
+    </security-role>
 
     <security-constraint>
         <web-resource-collection>

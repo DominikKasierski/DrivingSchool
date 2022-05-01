@@ -20,7 +20,8 @@ import java.math.BigDecimal;
 @Table(name = "payment")
 @NamedQueries({
         @NamedQuery(name = "Payment.findByTraineeId", query = "SELECT p FROM Payment p WHERE p.course.trainee.id = :traineeId"),
-        @NamedQuery(name = "Payment.findByStatus", query = "SELECT p FROM Payment p WHERE p.paymentStatus = :status")
+        @NamedQuery(name = "Payment.findByStatus", query = "SELECT p FROM Payment p WHERE p.paymentStatus = :status"),
+        @NamedQuery(name = "Payment.findByCourseId", query = "SELECT p FROM Payment p WHERE p.course.id = :courseId")
 })
 @NoArgsConstructor
 public class Payment extends AbstractEntity implements Serializable {
@@ -48,7 +49,7 @@ public class Payment extends AbstractEntity implements Serializable {
     @Setter
     @NotNull
     @Min(value = 0)
-    @Digits(integer = 4, fraction = 2)
+    @Digits(integer = 4, fraction = 0)
     @Column(name = "value", nullable = false, updatable = false)
     private BigDecimal value;
 
@@ -66,9 +67,10 @@ public class Payment extends AbstractEntity implements Serializable {
     @Column(name = "admin_comment")
     private String adminComment;
 
-    public Payment(Course course, BigDecimal value) {
+    public Payment(Course course, BigDecimal value, String traineeComment) {
         this.course = course;
         this.value = value;
+        this.traineeComment = traineeComment;
     }
 
     @Override

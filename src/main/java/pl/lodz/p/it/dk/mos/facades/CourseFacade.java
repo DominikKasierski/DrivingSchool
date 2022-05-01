@@ -15,6 +15,7 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.*;
+import java.util.List;
 
 @Stateless
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
@@ -67,8 +68,7 @@ public class CourseFacade extends AbstractFacade<Course> {
     @RolesAllowed({""})
     public Course findByCategory(CourseCategory courseCategory) throws BaseException {
         try {
-            TypedQuery<Course>
-                    courseTypedQuery = em.createNamedQuery("Course.findByCategory", Course.class);
+            TypedQuery<Course> courseTypedQuery = em.createNamedQuery("Course.findByCategory", Course.class);
             courseTypedQuery.setParameter("category", courseCategory);
             return courseTypedQuery.getSingleResult();
         } catch (NoResultException e) {
@@ -79,12 +79,11 @@ public class CourseFacade extends AbstractFacade<Course> {
     }
 
     @RolesAllowed({"getOwnCourse", "getOtherCourse"})
-    public Course findByTraineeId(long traineeId) throws BaseException {
+    public List<Course> findByTraineeId(long traineeId) throws BaseException {
         try {
-            TypedQuery<Course>
-                    courseTypedQuery = em.createNamedQuery("Course.findByTraineeId", Course.class);
+            TypedQuery<Course> courseTypedQuery = em.createNamedQuery("Course.findByTraineeId", Course.class);
             courseTypedQuery.setParameter("traineeId", traineeId);
-            return courseTypedQuery.getSingleResult();
+            return courseTypedQuery.getResultList();
         } catch (NoResultException e) {
             throw NotFoundException.courseNotFound(e.getCause());
         } catch (PersistenceException e) {

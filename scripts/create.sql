@@ -366,7 +366,7 @@ create table payment
     id                bigint        not null,
     payment_status    varchar(11)   not null,
     course_id         bigint        not null,
-    value             numeric(4, 2) not null,
+    value             numeric(4) not null,
     trainee_comment   varchar(255),
     admin_comment     varchar(255),
     version           bigint        not null,

@@ -60,5 +60,4 @@ public class CourseEndpoint extends AbstractEndpoint implements CourseEndpointLo
         Course course = courseManager.getOngoingCourse(login);
         return Mappers.getMapper(CourseMapper.class).toCourseDto(course);
     }
-
 }
