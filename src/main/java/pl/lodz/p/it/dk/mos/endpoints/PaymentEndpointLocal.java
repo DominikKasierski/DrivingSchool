@@ -12,4 +12,7 @@ public interface PaymentEndpointLocal extends TransactionStarter {
 
     @RolesAllowed("createPayment")
     public void createPayment(NewPaymentDto newPaymentDto) throws BaseException;
+
+    @RolesAllowed("cancelPayment")
+    public void cancelPayment() throws BaseException;
 }

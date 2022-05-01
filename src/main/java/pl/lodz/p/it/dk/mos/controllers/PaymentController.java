@@ -12,6 +12,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 
@@ -28,5 +29,14 @@ public class PaymentController extends AbstractController {
     @Consumes(MediaType.APPLICATION_JSON)
     public void createPayment(@NotNull @Valid NewPaymentDto newPaymentDto) throws BaseException {
         repeat(() -> paymentEndpoint.createPayment(newPaymentDto), paymentEndpoint);
+    }
+
+    @PUT
+    @EtagFilterBinding
+    @RolesAllowed("cancelPayment")
+    @Path("/cancelPayment")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void cancelPayment() throws BaseException {
+        repeat(() -> paymentEndpoint.cancelPayment(), paymentEndpoint);
     }
 }

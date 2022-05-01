@@ -37,10 +37,10 @@ public class PaymentManager {
 
     @RolesAllowed("createPayment")
     public void createPayment(NewPaymentDto newPaymentDto, Course course, String login) throws BaseException {
-        boolean hasInProgressPayment = course.getPayments().stream()
+        boolean hasPaymentInProgress = course.getPayments().stream()
                 .anyMatch(x -> x.getPaymentStatus().equals(PaymentStatus.IN_PROGRESS));
 
-        if (hasInProgressPayment) {
+        if (hasPaymentInProgress) {
             throw PaymentException.paymentInProgress();
         }
 
@@ -64,5 +64,19 @@ public class PaymentManager {
         courseManager.edit(course);
     }
 
+    @RolesAllowed("cancelPayment")
+    public void cancelPayment(Course course) throws BaseException {
+        Payment payment = course.getPayments().stream()
+                .findAny()
+                .orElseThrow(PaymentException::noPaymentInProgress);
 
+        Account account = payment.getCreatedBy();
+        payment.setPaymentStatus(PaymentStatus.CANCELLED);
+        payment.setModificationDate(Date.from(Instant.now()));
+        payment.setModifiedBy(account);
+
+        course.setModificationDate(Date.from(Instant.now()));
+        course.setModifiedBy(account);
+        courseManager.edit(course);
+    }
 }

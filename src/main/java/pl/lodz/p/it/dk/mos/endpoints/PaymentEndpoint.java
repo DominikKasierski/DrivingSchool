@@ -37,4 +37,13 @@ public class PaymentEndpoint extends AbstractEndpoint implements PaymentEndpoint
         verifyEntityIntegrity(courseDto);
         paymentManager.createPayment(newPaymentDto, course, getLogin());
     }
+
+    @Override
+    @RolesAllowed("cancelPayment")
+    public void cancelPayment() throws BaseException {
+        Course course = courseManager.getOngoingCourse(getLogin());
+        CourseDto courseDto = Mappers.getMapper(CourseMapper.class).toCourseDto(course);
+        verifyEntityIntegrity(courseDto);
+        paymentManager.cancelPayment(course);
+    }
 }
