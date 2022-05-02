@@ -9,6 +9,9 @@ VALUES (-1, true, true, 'kszczesniak', 'kszczeniak@gmail.com', null,
         now(), null, -1, null, 1),
        (-3, true, true, 'marbor', 'marbor123@gmail.com', null,
         'bdd2297f93550f01452cbd838c276f0dd22f498b4661394f1528ab88d6e63e6f', 'Marcin', 'Borowski', 'pl', '999888555', 0,
+        now(), null, -1, null, 1),
+       (-4, true, true, 'antek', 'antek123@gmail.com', null,
+        'bdd2297f93550f01452cbd838c276f0dd22f498b4661394f1528ab88d6e63e6f', 'Antoni', 'Domagalski', 'pl', '999222555', 0,
         now(), null, -1, null, 1);
 
 ---- Create user accesses ----
@@ -16,7 +19,8 @@ INSERT INTO access (id, access_type, activated, account_id, creation_date, modif
 VALUES (-1, 'ADMIN', true, -1, now(), null, -1, null, 1),
        (-2, 'INSTRUCTOR', true, -1, now(), null, -1, null, 1),
        (-3, 'INSTRUCTOR', true, -2, now(), null, -1, null, 1),
-       (-4, 'TRAINEE', true, -3, now(), null, -1, null, 1);
+       (-4, 'TRAINEE', true, -3, now(), null, -1, null, 1),
+       (-5, 'TRAINEE', true, -4, now(), null, -1, null, 1);
 
 ---- Create access extension tables ----
 INSERT INTO admin_access (id)
@@ -27,9 +31,12 @@ INSERT INTO instructor_access (id)
 VALUES (-3);
 INSERT INTO trainee_access (id)
 VALUES (-4);
+INSERT INTO trainee_access (id)
+VALUES (-5);
 
 ---- Create course details ----
-INSERT INTO course_details (id, course_category, price, lectures_hours, driving_hours, creation_date, modification_date, created_by, modified_by, version)
+INSERT INTO course_details (id, course_category, price, lectures_hours, driving_hours, creation_date, modification_date,
+                            created_by, modified_by, version)
 VALUES (-1, 'A', 2000, 30, 20, now(), null, -1, null, 1),
        (-2, 'B', 2200, 30, 30, now(), null, -1, null, 1),
        (-3, 'C', 3000, 20, 30, now(), null, -1, null, 1);

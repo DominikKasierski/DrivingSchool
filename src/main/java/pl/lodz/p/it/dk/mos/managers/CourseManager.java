@@ -66,7 +66,7 @@ public class CourseManager {
         courseDetailsManager.edit(courseDetails);
     }
 
-    @RolesAllowed({"getOwnCourse", "getOtherCourse"})
+    @RolesAllowed({"getOwnCourse", "getOtherCourse", "createPayment"})
     public Course getOngoingCourse(String login) throws BaseException {
         Account account = accountManager.findByLogin(login);
         TraineeAccess traineeAccess = traineeAccessManager.find(account);

@@ -49,20 +49,6 @@ public class PaymentFacade extends AbstractFacade<Payment> {
         return super.find(id);
     }
 
-    @RolesAllowed("createPayment")
-    public List<Payment> findByCourseId(Long courseId) throws BaseException {
-        try {
-            TypedQuery<Payment> paymentTypedQuery =
-                    em.createNamedQuery("Payment.findByCourseId", Payment.class);
-            paymentTypedQuery.setParameter("courseId", courseId);
-            return paymentTypedQuery.getResultList();
-        } catch (NoResultException e) {
-            throw NotFoundException.paymentNotFound(e.getCause());
-        } catch (PersistenceException e) {
-            throw DatabaseException.queryException(e.getCause());
-        }
-    }
-
     @RolesAllowed("")
     public List<Payment> findByTraineeId(String traineeId) throws BaseException {
         try {

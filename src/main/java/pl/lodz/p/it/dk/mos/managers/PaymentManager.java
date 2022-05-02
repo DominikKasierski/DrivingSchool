@@ -19,6 +19,7 @@ import javax.inject.Inject;
 import javax.interceptor.Interceptors;
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -34,9 +35,6 @@ public class PaymentManager {
     @Inject
     AccountManager accountManager;
 
-    @Inject
-    PaymentFacade paymentFacade;
-
     @RolesAllowed("createPayment")
     public void createPayment(NewPaymentDto newPaymentDto, Course course, String login) throws BaseException {
         boolean hasPaymentInProgress = course.getPayments().stream()
@@ -46,9 +44,10 @@ public class PaymentManager {
             throw PaymentException.paymentInProgress();
         }
 
-        List<Payment> payments = paymentFacade.findByCourseId(course.getId());
+        List<Payment> payments = new ArrayList<>(course.getPayments());
         BigDecimal newValue = new BigDecimal(String.valueOf(newPaymentDto.getValue()));
         BigDecimal totalValue = payments.stream()
+                .filter(x -> x.getPaymentStatus().equals(PaymentStatus.CONFIRMED))
                 .map(Payment::getValue)
                 .reduce(newValue, BigDecimal::add);
 
@@ -86,7 +85,7 @@ public class PaymentManager {
     @RolesAllowed("getPaymentsHistory")
     public List<Payment> getPayments(String login, CourseCategory courseCategory) throws BaseException {
         Course course = courseManager.getOngoingCourse(login);
-        List<Payment> payments = paymentFacade.findByCourseId(course.getId());
+        List<Payment> payments = new ArrayList<>(course.getPayments());
         payments.sort(Comparator.comparing(Payment::getCreationDate));
         return payments;
     }

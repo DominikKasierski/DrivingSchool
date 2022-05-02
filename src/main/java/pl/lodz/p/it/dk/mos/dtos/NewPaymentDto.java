@@ -16,9 +16,6 @@ import java.math.BigDecimal;
 public class NewPaymentDto {
 
     @NotNull
-    private Long courseId;
-
-    @NotNull
     @Min(value = 0)
     @Digits(integer = 4, fraction = 0)
     private BigDecimal value;

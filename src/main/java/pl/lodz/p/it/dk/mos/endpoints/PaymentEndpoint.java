@@ -38,7 +38,7 @@ public class PaymentEndpoint extends AbstractEndpoint implements PaymentEndpoint
     @Override
     @RolesAllowed("createPayment")
     public void createPayment(NewPaymentDto newPaymentDto) throws BaseException {
-        Course course = courseManager.findById(newPaymentDto.getCourseId());
+        Course course = courseManager.getOngoingCourse(getLogin());
         CourseDto courseDto = Mappers.getMapper(CourseMapper.class).toCourseDto(course);
         verifyEntityIntegrity(courseDto);
         paymentManager.createPayment(newPaymentDto, course, getLogin());
