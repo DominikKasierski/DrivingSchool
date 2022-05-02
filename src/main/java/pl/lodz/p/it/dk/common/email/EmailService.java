@@ -98,6 +98,20 @@ public class EmailService {
         sendEmail(account.getEmailAddress(), subject, content);
     }
 
+    public void sendPaymentConfirmationEmail(Account account, String value) throws BaseException {
+        String language = account.getLanguage();
+        String subject = getEmailSubject(language, EmailType.PAYMENT_CONFIRM_EMAIL);
+        String content = getEmailContent(language, EmailType.PAYMENT_CONFIRM_EMAIL, account.getLogin(), value);
+        sendEmail(account.getEmailAddress(), subject, content);
+    }
+
+    public void sendCoursePaidEmail(Account account, String value) throws BaseException {
+        String language = account.getLanguage();
+        String subject = getEmailSubject(language, EmailType.COURSE_PAID_EMAIL);
+        String content = getEmailContent(language, EmailType.COURSE_PAID_EMAIL, account.getLogin(), value);
+        sendEmail(account.getEmailAddress(), subject, content);
+    }
+
     private String getEmailSubject(String language, EmailType emailType) {
         String mailType = String.format(EMAIL_SUBJECT_FORMAT, emailType.getValue());
         return i18n.getMessage(new Locale(language), mailType);

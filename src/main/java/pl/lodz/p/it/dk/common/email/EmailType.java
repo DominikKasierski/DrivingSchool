@@ -15,7 +15,9 @@ public enum EmailType {
     EMAIL_CHANGE_EMAIL("email_change"),
     PASSWORD_RESET_EMAIL("password_reset"),
     ACCESS_GRANT_EMAIL("access_grant"),
-    ACCESS_REVOKE_EMAIL("access_revoke");
+    ACCESS_REVOKE_EMAIL("access_revoke"),
+    PAYMENT_CONFIRM_EMAIL("payment_confirm"),
+    COURSE_PAID_EMAIL("course_paid");
 
     private final String value;
 }

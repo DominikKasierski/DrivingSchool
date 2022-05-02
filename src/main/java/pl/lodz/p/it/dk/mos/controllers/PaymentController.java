@@ -7,6 +7,7 @@ import pl.lodz.p.it.dk.mos.dtos.NewPaymentDto;
 import pl.lodz.p.it.dk.mos.dtos.PaymentDto;
 import pl.lodz.p.it.dk.mos.endpoints.PaymentEndpointLocal;
 import pl.lodz.p.it.dk.security.etag.EtagFilterBinding;
+import pl.lodz.p.it.dk.validation.annotations.Login;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
@@ -47,5 +48,14 @@ public class PaymentController extends AbstractController {
     public List<PaymentDto> getPaymentsHistory(@NotNull @PathParam("courseCategory") CourseCategory courseCategory)
             throws BaseException {
         return repeat(() -> paymentEndpoint.getPaymentsHistory(courseCategory), paymentEndpoint);
+    }
+
+    @PUT
+    @EtagFilterBinding
+    @RolesAllowed("confirmPayment")
+    @Path("/confirmPayment/{login}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void confirmPayment(@NotNull @Login @PathParam("login") @Valid String login) throws BaseException {
+        repeat(() -> paymentEndpoint.confirmPayment(login), paymentEndpoint);
     }
 }

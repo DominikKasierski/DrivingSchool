@@ -20,7 +20,7 @@ public class PaymentException extends BaseException {
         return new PaymentException(COURSE_OVERPAID_EXCEPTION);
     }
 
-    public static PaymentException noPaymentInProgress() {
+    public static PaymentException noInProgressPayment() {
         return new PaymentException(NO_PAYMENT_IN_PROGRESS_EXCEPTION);
     }
 }
