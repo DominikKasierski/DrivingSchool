@@ -12,6 +12,7 @@ import pl.lodz.p.it.dk.mappers.PaymentMapper;
 import pl.lodz.p.it.dk.mos.dtos.CourseDto;
 import pl.lodz.p.it.dk.mos.dtos.NewPaymentDto;
 import pl.lodz.p.it.dk.mos.dtos.PaymentDto;
+import pl.lodz.p.it.dk.mos.dtos.RejectPaymentDto;
 import pl.lodz.p.it.dk.mos.managers.CourseManager;
 import pl.lodz.p.it.dk.mos.managers.PaymentManager;
 
@@ -73,5 +74,14 @@ public class PaymentEndpoint extends AbstractEndpoint implements PaymentEndpoint
         CourseDto courseDto = Mappers.getMapper(CourseMapper.class).toCourseDto(course);
         verifyEntityIntegrity(courseDto);
         paymentManager.confirmPayment(course, getLogin());
+    }
+
+    @Override
+    @RolesAllowed("rejectPayment")
+    public void rejectPayment(RejectPaymentDto rejectPaymentDto) throws BaseException {
+        Course course = courseManager.getOngoingCourse(rejectPaymentDto.getLogin());
+        CourseDto courseDto = Mappers.getMapper(CourseMapper.class).toCourseDto(course);
+        verifyEntityIntegrity(courseDto);
+        paymentManager.rejectPayment(rejectPaymentDto.getAdminComment(), course, getLogin());
     }
 }

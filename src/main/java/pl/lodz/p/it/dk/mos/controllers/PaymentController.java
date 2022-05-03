@@ -5,6 +5,7 @@ import pl.lodz.p.it.dk.entities.enums.CourseCategory;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.mos.dtos.NewPaymentDto;
 import pl.lodz.p.it.dk.mos.dtos.PaymentDto;
+import pl.lodz.p.it.dk.mos.dtos.RejectPaymentDto;
 import pl.lodz.p.it.dk.mos.endpoints.PaymentEndpointLocal;
 import pl.lodz.p.it.dk.security.etag.EtagFilterBinding;
 import pl.lodz.p.it.dk.validation.annotations.Login;
@@ -57,5 +58,14 @@ public class PaymentController extends AbstractController {
     @Consumes(MediaType.APPLICATION_JSON)
     public void confirmPayment(@NotNull @Login @PathParam("login") @Valid String login) throws BaseException {
         repeat(() -> paymentEndpoint.confirmPayment(login), paymentEndpoint);
+    }
+
+    @PUT
+    @EtagFilterBinding
+    @RolesAllowed("rejectPayment")
+    @Path("/rejectPayment")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void rejectPayment(@NotNull @Valid RejectPaymentDto rejectPaymentDto) throws BaseException {
+        repeat(() -> paymentEndpoint.rejectPayment(rejectPaymentDto), paymentEndpoint);
     }
 }

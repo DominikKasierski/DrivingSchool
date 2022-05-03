@@ -120,6 +120,22 @@ public class PaymentManager {
         }
     }
 
+    @RolesAllowed("rejectPayment")
+    public void rejectPayment(String adminComment, Course course, String login) throws BaseException {
+        Payment payment = getInProgressPayment(course);
+        Account adminAccount = accountManager.findByLogin(login);
+
+        payment.setPaymentStatus(PaymentStatus.REJECTED);
+        payment.setAdminComment(adminComment);
+        payment.setModificationDate(Date.from(Instant.now()));
+        payment.setModifiedBy(adminAccount);
+
+        course.setModificationDate(Date.from(Instant.now()));
+        course.setModifiedBy(adminAccount);
+        courseManager.edit(course);
+        emailService.sendPaymentRejectionEmail(course.getTrainee().getAccount(), payment.getValue().toString());
+    }
+
     private Payment getInProgressPayment(Course course) throws PaymentException {
         return course.getPayments().stream()
                 .filter(x -> x.getPaymentStatus().equals(PaymentStatus.IN_PROGRESS))

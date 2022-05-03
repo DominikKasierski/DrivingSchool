@@ -5,6 +5,7 @@ import pl.lodz.p.it.dk.entities.enums.CourseCategory;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.mos.dtos.NewPaymentDto;
 import pl.lodz.p.it.dk.mos.dtos.PaymentDto;
+import pl.lodz.p.it.dk.mos.dtos.RejectPaymentDto;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Local;
@@ -24,5 +25,8 @@ public interface PaymentEndpointLocal extends TransactionStarter {
 
     @RolesAllowed("confirmPayment")
     public void confirmPayment(String login) throws BaseException;
+
+    @RolesAllowed("rejectPayment")
+    public void rejectPayment(RejectPaymentDto rejectPaymentDto) throws BaseException;
 
 }

@@ -66,7 +66,7 @@ public class CourseManager {
         courseDetailsManager.edit(courseDetails);
     }
 
-    @RolesAllowed({"getOwnCourse", "getOtherCourse", "createPayment"})
+    @RolesAllowed({"createPayment", "cancelPayment", "confirmPayment", "rejectPayment"})
     public Course getOngoingCourse(String login) throws BaseException {
         Account account = accountManager.findByLogin(login);
         TraineeAccess traineeAccess = traineeAccessManager.find(account);
@@ -83,7 +83,7 @@ public class CourseManager {
         return courseFacade.find(id);
     }
 
-    @RolesAllowed("createPayment")
+    @RolesAllowed({"createPayment", "cancelPayment", "confirmPayment", "rejectPayment"})
     public void edit(Course course) throws BaseException {
         courseFacade.edit(course);
     }
