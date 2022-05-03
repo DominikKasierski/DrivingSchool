@@ -63,7 +63,7 @@ public class PaymentFacade extends AbstractFacade<Payment> {
         }
     }
 
-    @RolesAllowed("")
+    @RolesAllowed("getPaymentsForApproval")
     public List<Payment> findByStatus(PaymentStatus paymentStatus) throws BaseException {
         try {
             TypedQuery<Payment> paymentTypedQuery =

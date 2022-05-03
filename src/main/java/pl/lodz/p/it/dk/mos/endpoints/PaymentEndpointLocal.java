@@ -3,6 +3,7 @@ package pl.lodz.p.it.dk.mos.endpoints;
 import pl.lodz.p.it.dk.common.interfaces.TransactionStarter;
 import pl.lodz.p.it.dk.entities.enums.CourseCategory;
 import pl.lodz.p.it.dk.exceptions.BaseException;
+import pl.lodz.p.it.dk.mos.dtos.PaymentsForApprovalDto;
 import pl.lodz.p.it.dk.mos.dtos.NewPaymentDto;
 import pl.lodz.p.it.dk.mos.dtos.PaymentDto;
 import pl.lodz.p.it.dk.mos.dtos.RejectPaymentDto;
@@ -28,5 +29,8 @@ public interface PaymentEndpointLocal extends TransactionStarter {
 
     @RolesAllowed("rejectPayment")
     public void rejectPayment(RejectPaymentDto rejectPaymentDto) throws BaseException;
+
+    @RolesAllowed("getPaymentsForApproval")
+    public List<PaymentsForApprovalDto> getPaymentsForApproval() throws BaseException;
 
 }

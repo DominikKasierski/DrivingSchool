@@ -10,6 +10,7 @@ import pl.lodz.p.it.dk.entities.enums.PaymentStatus;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.exceptions.PaymentException;
 import pl.lodz.p.it.dk.mos.dtos.NewPaymentDto;
+import pl.lodz.p.it.dk.mos.facades.PaymentFacade;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
@@ -34,6 +35,9 @@ public class PaymentManager {
 
     @Inject
     AccountManager accountManager;
+
+    @Inject
+    PaymentFacade paymentFacade;
 
     @Inject
     private EmailService emailService;
@@ -134,6 +138,11 @@ public class PaymentManager {
         course.setModifiedBy(adminAccount);
         courseManager.edit(course);
         emailService.sendPaymentRejectionEmail(course.getTrainee().getAccount(), payment.getValue().toString());
+    }
+
+    @RolesAllowed("getPaymentsForApproval")
+    public List<Payment> getInProgressPayments() throws BaseException {
+        return paymentFacade.findByStatus(PaymentStatus.IN_PROGRESS);
     }
 
     private Payment getInProgressPayment(Course course) throws PaymentException {

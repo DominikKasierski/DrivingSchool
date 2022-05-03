@@ -3,6 +3,7 @@ package pl.lodz.p.it.dk.mos.controllers;
 import pl.lodz.p.it.dk.common.abstracts.AbstractController;
 import pl.lodz.p.it.dk.entities.enums.CourseCategory;
 import pl.lodz.p.it.dk.exceptions.BaseException;
+import pl.lodz.p.it.dk.mos.dtos.PaymentsForApprovalDto;
 import pl.lodz.p.it.dk.mos.dtos.NewPaymentDto;
 import pl.lodz.p.it.dk.mos.dtos.PaymentDto;
 import pl.lodz.p.it.dk.mos.dtos.RejectPaymentDto;
@@ -67,5 +68,13 @@ public class PaymentController extends AbstractController {
     @Consumes(MediaType.APPLICATION_JSON)
     public void rejectPayment(@NotNull @Valid RejectPaymentDto rejectPaymentDto) throws BaseException {
         repeat(() -> paymentEndpoint.rejectPayment(rejectPaymentDto), paymentEndpoint);
+    }
+
+    @GET
+    @RolesAllowed("getPaymentsForApproval")
+    @Path("/getPaymentsForApproval")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<PaymentsForApprovalDto> getPaymentsForApproval() throws BaseException {
+        return repeat(() -> paymentEndpoint.getPaymentsForApproval(), paymentEndpoint);
     }
 }
