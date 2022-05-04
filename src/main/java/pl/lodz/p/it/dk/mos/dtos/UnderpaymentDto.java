@@ -5,17 +5,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PaymentsForApprovalDto {
+public class UnderpaymentDto {
 
-    private Date creationDate;
+    private String login;
     private String firstname;
     private String lastname;
-    private String courseCategory;
-    private BigDecimal value;
-    private String traineeComment;
+    private BigDecimal paid;
+    private BigDecimal price;
 }

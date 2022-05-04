@@ -122,6 +122,9 @@
     <security-role>
         <role-name>getPaymentsForApproval</role-name>
     </security-role>
+    <security-role>
+        <role-name>getUnderpayments</role-name>
+    </security-role>
 
     <security-constraint>
         <web-resource-collection>

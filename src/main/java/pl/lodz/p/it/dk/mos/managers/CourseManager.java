@@ -88,4 +88,9 @@ public class CourseManager {
         courseFacade.edit(course);
     }
 
+    @RolesAllowed("getUnderpayments")
+    public List<Course> findByCategory(CourseCategory courseCategory) throws BaseException {
+        return courseFacade.findByCategory(courseCategory);
+    }
+
 }

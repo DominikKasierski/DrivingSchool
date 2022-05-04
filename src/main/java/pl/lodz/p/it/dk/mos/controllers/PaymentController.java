@@ -3,10 +3,7 @@ package pl.lodz.p.it.dk.mos.controllers;
 import pl.lodz.p.it.dk.common.abstracts.AbstractController;
 import pl.lodz.p.it.dk.entities.enums.CourseCategory;
 import pl.lodz.p.it.dk.exceptions.BaseException;
-import pl.lodz.p.it.dk.mos.dtos.PaymentsForApprovalDto;
-import pl.lodz.p.it.dk.mos.dtos.NewPaymentDto;
-import pl.lodz.p.it.dk.mos.dtos.PaymentDto;
-import pl.lodz.p.it.dk.mos.dtos.RejectPaymentDto;
+import pl.lodz.p.it.dk.mos.dtos.*;
 import pl.lodz.p.it.dk.mos.endpoints.PaymentEndpointLocal;
 import pl.lodz.p.it.dk.security.etag.EtagFilterBinding;
 import pl.lodz.p.it.dk.validation.annotations.Login;
@@ -74,7 +71,16 @@ public class PaymentController extends AbstractController {
     @RolesAllowed("getPaymentsForApproval")
     @Path("/getPaymentsForApproval")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<PaymentsForApprovalDto> getPaymentsForApproval() throws BaseException {
+    public List<PaymentForApprovalDto> getPaymentsForApproval() throws BaseException {
         return repeat(() -> paymentEndpoint.getPaymentsForApproval(), paymentEndpoint);
+    }
+
+    @GET
+    @RolesAllowed("getUnderpayments")
+    @Path("/getUnderpayments/{courseCategory}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<UnderpaymentDto> getUnderpayments(@NotNull @PathParam("courseCategory") CourseCategory courseCategory)
+            throws BaseException {
+        return repeat(() -> paymentEndpoint.getUnderpayments(courseCategory), paymentEndpoint);
     }
 }

@@ -65,12 +65,12 @@ public class CourseFacade extends AbstractFacade<Course> {
         return super.find(id);
     }
 
-    @RolesAllowed({""})
-    public Course findByCategory(CourseCategory courseCategory) throws BaseException {
+    @RolesAllowed("getUnderpayments")
+    public List<Course> findByCategory(CourseCategory courseCategory) throws BaseException {
         try {
             TypedQuery<Course> courseTypedQuery = em.createNamedQuery("Course.findByCategory", Course.class);
             courseTypedQuery.setParameter("category", courseCategory);
-            return courseTypedQuery.getSingleResult();
+            return courseTypedQuery.getResultList();
         } catch (NoResultException e) {
             throw NotFoundException.courseNotFound(e.getCause());
         } catch (PersistenceException e) {

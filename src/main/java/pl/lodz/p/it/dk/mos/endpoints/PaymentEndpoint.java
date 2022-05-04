@@ -84,14 +84,20 @@ public class PaymentEndpoint extends AbstractEndpoint implements PaymentEndpoint
 
     @Override
     @RolesAllowed("getPaymentsForApproval")
-    public List<PaymentsForApprovalDto> getPaymentsForApproval() throws BaseException {
+    public List<PaymentForApprovalDto> getPaymentsForApproval() throws BaseException {
         List<Payment> inProgressPayments = paymentManager.getInProgressPayments();
-        List<PaymentsForApprovalDto> paymentsForApproval = new ArrayList<>();
+        List<PaymentForApprovalDto> paymentsForApproval = new ArrayList<>();
 
         for (Payment payment : inProgressPayments) {
-            paymentsForApproval.add(Mappers.getMapper(PaymentMapper.class).toPaymentsForApprovalDto(payment));
+            paymentsForApproval.add(Mappers.getMapper(PaymentMapper.class).toPaymentForApprovalDto(payment));
         }
 
         return paymentsForApproval;
+    }
+
+    @Override
+    @RolesAllowed("getUnderpayments")
+    public List<UnderpaymentDto> getUnderpayments(CourseCategory courseCategory) throws BaseException {
+        return paymentManager.getUnderpayments(courseCategory);
     }
 }

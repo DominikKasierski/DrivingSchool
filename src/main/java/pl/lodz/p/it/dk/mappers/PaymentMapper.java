@@ -5,7 +5,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import pl.lodz.p.it.dk.entities.Payment;
 import pl.lodz.p.it.dk.mos.dtos.PaymentDto;
-import pl.lodz.p.it.dk.mos.dtos.PaymentsForApprovalDto;
+import pl.lodz.p.it.dk.mos.dtos.PaymentForApprovalDto;
 
 @Mapper
 public interface PaymentMapper {
@@ -17,6 +17,6 @@ public interface PaymentMapper {
             @Mapping(target = "lastname", source = "createdBy.lastname"),
             @Mapping(target = "courseCategory", source = "course.courseDetails.courseCategory"),
     })
-    PaymentsForApprovalDto toPaymentsForApprovalDto(Payment payment);
+    PaymentForApprovalDto toPaymentForApprovalDto(Payment payment);
 }
 

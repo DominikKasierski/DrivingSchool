@@ -10,6 +10,7 @@ import pl.lodz.p.it.dk.entities.enums.PaymentStatus;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.exceptions.PaymentException;
 import pl.lodz.p.it.dk.mos.dtos.NewPaymentDto;
+import pl.lodz.p.it.dk.mos.dtos.UnderpaymentDto;
 import pl.lodz.p.it.dk.mos.facades.PaymentFacade;
 
 import javax.annotation.security.RolesAllowed;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Stateless
 @Interceptors({LoggingInterceptor.class})
@@ -103,11 +105,7 @@ public class PaymentManager {
         payment.setModificationDate(Date.from(Instant.now()));
         payment.setModifiedBy(account);
 
-        List<Payment> payments = new ArrayList<>(course.getPayments());
-        BigDecimal valueOfPayments = payments.stream()
-                .filter(x -> x.getPaymentStatus().equals(PaymentStatus.CONFIRMED))
-                .map(Payment::getValue)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal valueOfPayments = getValueOfPayments(course);
 
         if (valueOfPayments.compareTo(course.getCourseDetails().getPrice()) == 0) {
             course.setPaid(true);
@@ -145,10 +143,38 @@ public class PaymentManager {
         return paymentFacade.findByStatus(PaymentStatus.IN_PROGRESS);
     }
 
+    @RolesAllowed("getUnderpayments")
+    public List<UnderpaymentDto> getUnderpayments(CourseCategory courseCategory) throws BaseException {
+        List<Course> courses = courseManager.findByCategory(courseCategory);
+        List<Course> unpaidCourses = courses.stream()
+                .filter(x -> !x.isPaid())
+                .collect(Collectors.toList());
+
+        List<UnderpaymentDto> underpayments = new ArrayList<>();
+
+        for (Course course : unpaidCourses) {
+            String login = course.getCreatedBy().getLogin();
+            String firstname = course.getCreatedBy().getFirstname();
+            String lastname = course.getCreatedBy().getLastname();
+            BigDecimal price = course.getCourseDetails().getPrice();
+            BigDecimal valueOfPayments = getValueOfPayments(course);
+            underpayments.add(new UnderpaymentDto(login, firstname, lastname, price, valueOfPayments));
+        }
+
+        return underpayments;
+    }
+
     private Payment getInProgressPayment(Course course) throws PaymentException {
         return course.getPayments().stream()
                 .filter(x -> x.getPaymentStatus().equals(PaymentStatus.IN_PROGRESS))
                 .findAny()
                 .orElseThrow(PaymentException::noInProgressPayment);
+    }
+
+    private BigDecimal getValueOfPayments(Course course) {
+        return course.getPayments().stream()
+                .filter(x -> x.getPaymentStatus().equals(PaymentStatus.CONFIRMED))
+                .map(Payment::getValue)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }
