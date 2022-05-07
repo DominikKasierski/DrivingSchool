@@ -131,6 +131,15 @@
     <security-role>
         <role-name>addCar</role-name>
     </security-role>
+    <security-role>
+        <role-name>removeCar</role-name>
+    </security-role>
+    <security-role>
+        <role-name>editCar</role-name>
+    </security-role>
+    <security-role>
+        <role-name>getCar</role-name>
+    </security-role>
 
     <security-constraint>
         <web-resource-collection>

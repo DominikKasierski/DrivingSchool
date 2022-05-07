@@ -26,6 +26,7 @@ public class CarEndpoint extends AbstractEndpoint implements CarEndpointLocal {
     @Inject
     CarManager carManager;
 
+    @Override
     @RolesAllowed("addCar")
     public void addCar(NewCarDto newCarDto) throws BaseException {
         Car car = new Car();
@@ -33,6 +34,16 @@ public class CarEndpoint extends AbstractEndpoint implements CarEndpointLocal {
         carManager.addCar(car, getLogin());
     }
 
+    @Override
+    @RolesAllowed("removeCar")
+    public void removeCar(Long id) throws BaseException {
+        Car car = carManager.find(id);
+        CarDto carDto = Mappers.getMapper(CarMapper.class).toCarDto(car);
+        verifyEntityIntegrity(carDto);
+        carManager.removeCar(car, getLogin());
+    }
+
+    @Override
     @RolesAllowed("editCar")
     public void editCar(EditCarDto editCarDto) throws BaseException {
         Car car = carManager.find(editCarDto.getId());
@@ -40,6 +51,13 @@ public class CarEndpoint extends AbstractEndpoint implements CarEndpointLocal {
         verifyEntityIntegrity(carDto);
         Mappers.getMapper(CarMapper.class).toCar(editCarDto, car);
         carManager.editCar(car, getLogin());
+    }
+
+    @Override
+    @RolesAllowed("getCar")
+    public CarDto getCar(Long id) throws BaseException {
+        Car car = carManager.find(id);
+        return Mappers.getMapper(CarMapper.class).toCarDto(car);
     }
 
 }
