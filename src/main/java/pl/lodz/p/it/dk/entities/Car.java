@@ -4,8 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import pl.lodz.p.it.dk.entities.enums.CourseCategory;
 import pl.lodz.p.it.dk.common.abstracts.AbstractEntity;
+import pl.lodz.p.it.dk.entities.enums.CourseCategory;
 import pl.lodz.p.it.dk.validation.annotations.Image;
 import pl.lodz.p.it.dk.validation.annotations.RegistrationNumber;
 
@@ -17,7 +17,8 @@ import java.util.Set;
 @Entity
 @Table(name = "car")
 @NamedQueries({
-        @NamedQuery(name = "Car.findByCategory", query = "SELECT c FROM Car c WHERE c.courseCategory = :category AND c.deleted = false")
+        @NamedQuery(name = "Car.findByCategory",
+                query = "SELECT c FROM Car c WHERE c.courseCategory = :category AND c.deleted = false")
 })
 @NoArgsConstructor
 public class Car extends AbstractEntity implements Serializable {

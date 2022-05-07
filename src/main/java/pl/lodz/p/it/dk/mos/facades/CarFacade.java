@@ -32,7 +32,7 @@ public class CarFacade extends AbstractFacade<Car> {
     }
 
     @Override
-    @RolesAllowed("")
+    @RolesAllowed("addCar")
     public void create(Car entity) throws BaseException {
         super.create(entity);
     }
