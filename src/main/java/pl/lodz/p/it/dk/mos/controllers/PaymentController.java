@@ -83,4 +83,14 @@ public class PaymentController extends AbstractController {
             throws BaseException {
         return repeat(() -> paymentEndpoint.getUnderpayments(courseCategory), paymentEndpoint);
     }
+
+    @PUT
+    @EtagFilterBinding
+    @RolesAllowed("addPayment")
+    @Path("/addPayment/{login}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void addPayment(@NotNull @Login @PathParam("login") @Valid String login,
+                           @NotNull @Valid NewPaymentDto newPaymentDto) throws BaseException {
+        repeat(() -> paymentEndpoint.addPayment(login, newPaymentDto), paymentEndpoint);
+    }
 }

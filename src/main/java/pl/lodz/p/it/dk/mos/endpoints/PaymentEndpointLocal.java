@@ -33,4 +33,6 @@ public interface PaymentEndpointLocal extends TransactionStarter {
     @RolesAllowed("getUnderpayments")
     public List<UnderpaymentDto> getUnderpayments(CourseCategory courseCategory) throws BaseException;
 
+    @RolesAllowed("addPayment")
+    public void addPayment(String login, NewPaymentDto newPaymentDto) throws BaseException;
 }

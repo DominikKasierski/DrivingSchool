@@ -100,4 +100,13 @@ public class PaymentEndpoint extends AbstractEndpoint implements PaymentEndpoint
     public List<UnderpaymentDto> getUnderpayments(CourseCategory courseCategory) throws BaseException {
         return paymentManager.getUnderpayments(courseCategory);
     }
+
+    @Override
+    @RolesAllowed("addPayment")
+    public void addPayment(String login, NewPaymentDto newPaymentDto) throws BaseException {
+        Course course = courseManager.getOngoingCourse(login);
+        CourseDto courseDto = Mappers.getMapper(CourseMapper.class).toCourseDto(course);
+        verifyEntityIntegrity(courseDto);
+        paymentManager.addPayment(newPaymentDto, course, getLogin());
+    }
 }

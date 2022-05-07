@@ -53,19 +53,15 @@ public class PaymentManager {
             throw PaymentException.paymentInProgress();
         }
 
-        List<Payment> payments = new ArrayList<>(course.getPayments());
-        BigDecimal newValue = new BigDecimal(String.valueOf(newPaymentDto.getValue()));
-        BigDecimal totalValue = payments.stream()
-                .filter(x -> x.getPaymentStatus().equals(PaymentStatus.CONFIRMED))
-                .map(Payment::getValue)
-                .reduce(newValue, BigDecimal::add);
+        BigDecimal valueOfPayments = getValueOfPayments(course, newPaymentDto.getValue());
 
-        if (totalValue.compareTo(course.getCourseDetails().getPrice()) > 0) {
+        if (valueOfPayments.compareTo(course.getCourseDetails().getPrice()) > 0) {
             throw PaymentException.courseOverpaid();
         }
 
         Account account = accountManager.findByLogin(login);
-        Payment payment = new Payment(course, newPaymentDto.getValue(), newPaymentDto.getTraineeComment());
+        Payment payment = new Payment(course, newPaymentDto.getValue());
+        payment.setTraineeComment(newPaymentDto.getComment());
         payment.setCreatedBy(account);
 
         course.getPayments().add(payment);
@@ -105,7 +101,7 @@ public class PaymentManager {
         payment.setModificationDate(Date.from(Instant.now()));
         payment.setModifiedBy(account);
 
-        BigDecimal valueOfPayments = getValueOfPayments(course);
+        BigDecimal valueOfPayments = getValueOfPayments(course, BigDecimal.ZERO);
 
         if (valueOfPayments.compareTo(course.getCourseDetails().getPrice()) == 0) {
             course.setPaid(true);
@@ -157,11 +153,32 @@ public class PaymentManager {
             String firstname = course.getCreatedBy().getFirstname();
             String lastname = course.getCreatedBy().getLastname();
             BigDecimal price = course.getCourseDetails().getPrice();
-            BigDecimal valueOfPayments = getValueOfPayments(course);
+            BigDecimal valueOfPayments = getValueOfPayments(course, BigDecimal.ZERO);
             underpayments.add(new UnderpaymentDto(login, firstname, lastname, price, valueOfPayments));
         }
 
         return underpayments;
+    }
+
+    @RolesAllowed("addPayment")
+    public void addPayment(NewPaymentDto newPaymentDto, Course course, String login) throws BaseException {
+        BigDecimal valueOfPayments = getValueOfPayments(course, newPaymentDto.getValue());
+
+        if (valueOfPayments.compareTo(course.getCourseDetails().getPrice()) > 0) {
+            throw PaymentException.courseOverpaid();
+        }
+
+        Account account = accountManager.findByLogin(login);
+        Payment payment = new Payment(course, newPaymentDto.getValue());
+        payment.setAdminComment(newPaymentDto.getComment());
+        payment.setCreatedBy(account);
+        payment.setPaymentStatus(PaymentStatus.CONFIRMED);
+
+        course.getPayments().add(payment);
+        course.setModificationDate(Date.from(Instant.now()));
+        course.setModifiedBy(account);
+        courseManager.edit(course);
+
     }
 
     private Payment getInProgressPayment(Course course) throws PaymentException {
@@ -171,10 +188,10 @@ public class PaymentManager {
                 .orElseThrow(PaymentException::noInProgressPayment);
     }
 
-    private BigDecimal getValueOfPayments(Course course) {
+    private BigDecimal getValueOfPayments(Course course, BigDecimal initialValue) {
         return course.getPayments().stream()
                 .filter(x -> x.getPaymentStatus().equals(PaymentStatus.CONFIRMED))
                 .map(Payment::getValue)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+                .reduce(initialValue, BigDecimal::add);
     }
 }

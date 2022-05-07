@@ -66,10 +66,9 @@ public class Payment extends AbstractEntity implements Serializable {
     @Column(name = "admin_comment")
     private String adminComment;
 
-    public Payment(Course course, BigDecimal value, String traineeComment) {
+    public Payment(Course course, BigDecimal value) {
         this.course = course;
         this.value = value;
-        this.traineeComment = traineeComment;
     }
 
     @Override

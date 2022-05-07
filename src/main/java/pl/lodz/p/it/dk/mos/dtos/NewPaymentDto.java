@@ -21,5 +21,5 @@ public class NewPaymentDto {
     private BigDecimal value;
 
     @Comment
-    private String traineeComment;
+    private String comment;
 }
