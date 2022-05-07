@@ -26,6 +26,6 @@ public class CourseDto implements EntityToSign {
 
     @Override
     public String getMessageToSign() {
-        return String.format("%d", version);
+        return String.format("%d;%d", id, version);
     }
 }

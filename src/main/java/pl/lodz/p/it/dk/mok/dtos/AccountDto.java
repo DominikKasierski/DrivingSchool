@@ -37,6 +37,6 @@ public class AccountDto implements EntityToSign {
 
     @Override
     public String getMessageToSign() {
-        return String.format("%d", version);
+        return String.format("%s;%d", login, version);
     }
 }

@@ -47,7 +47,7 @@ public class Course extends AbstractEntity implements Serializable {
     @Getter
     @Setter
     @JoinColumn(name = "course_details_id")
-    @ManyToOne(cascade = {CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.MERGE}, optional = false)
     private CourseDetails courseDetails;
 
     @Getter

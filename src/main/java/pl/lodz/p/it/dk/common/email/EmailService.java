@@ -114,8 +114,15 @@ public class EmailService {
 
     public void sendPaymentRejectionEmail(Account account, String value) throws BaseException {
         String language = account.getLanguage();
-        String subject = getEmailSubject(language, EmailType.COURSE_PAID_EMAIL);
-        String content = getEmailContent(language, EmailType.COURSE_PAID_EMAIL, account.getLogin(), value);
+        String subject = getEmailSubject(language, EmailType.PAYMENT_REJECT_EMAIL);
+        String content = getEmailContent(language, EmailType.PAYMENT_REJECT_EMAIL, account.getLogin(), value);
+        sendEmail(account.getEmailAddress(), subject, content);
+    }
+
+    public void sendPaymentAddingEmail(Account account, String value) throws BaseException {
+        String language = account.getLanguage();
+        String subject = getEmailSubject(language, EmailType.PAYMENT_ADD_EMAIL);
+        String content = getEmailContent(language, EmailType.PAYMENT_CONFIRM_EMAIL, account.getLogin(), value);
         sendEmail(account.getEmailAddress(), subject, content);
     }
 

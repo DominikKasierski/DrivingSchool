@@ -305,7 +305,7 @@ create table course
 (
     id                  bigint    not null,
     trainee_id          bigint    not null,
-    course_details_id   bigint,
+    course_details_id   bigint    not null,
     lecture_group_id    bigint,
     paid                boolean   not null,
     lectures_completion boolean   not null,

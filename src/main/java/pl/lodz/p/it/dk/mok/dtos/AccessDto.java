@@ -18,6 +18,6 @@ public abstract class AccessDto implements EntityToSign {
 
     @Override
     public String getMessageToSign() {
-        return String.format("%d", version);
+        return String.format("%d;%d", id, version);
     }
 }

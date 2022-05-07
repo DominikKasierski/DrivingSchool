@@ -166,19 +166,26 @@ public class PaymentManager {
 
         if (valueOfPayments.compareTo(course.getCourseDetails().getPrice()) > 0) {
             throw PaymentException.courseOverpaid();
+        } else if (valueOfPayments.compareTo(course.getCourseDetails().getPrice()) == 0) {
+            course.setPaid(true);
         }
 
         Account account = accountManager.findByLogin(login);
         Payment payment = new Payment(course, newPaymentDto.getValue());
+        payment.setPaymentStatus(PaymentStatus.CONFIRMED);
         payment.setAdminComment(newPaymentDto.getComment());
         payment.setCreatedBy(account);
-        payment.setPaymentStatus(PaymentStatus.CONFIRMED);
 
         course.getPayments().add(payment);
         course.setModificationDate(Date.from(Instant.now()));
         course.setModifiedBy(account);
         courseManager.edit(course);
 
+        if (!course.isPaid()) {
+            emailService.sendPaymentAddingEmail(course.getTrainee().getAccount(), payment.getValue().toString());
+        } else {
+            emailService.sendCoursePaidEmail(course.getTrainee().getAccount(), payment.getValue().toString());
+        }
     }
 
     private Payment getInProgressPayment(Course course) throws PaymentException {

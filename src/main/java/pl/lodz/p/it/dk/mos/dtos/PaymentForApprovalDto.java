@@ -13,6 +13,7 @@ import java.util.Date;
 public class PaymentForApprovalDto {
 
     private Date creationDate;
+    private String login;
     private String firstname;
     private String lastname;
     private String courseCategory;

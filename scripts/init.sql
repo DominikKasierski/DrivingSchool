@@ -40,3 +40,15 @@ INSERT INTO course_details (id, course_category, price, lectures_hours, driving_
 VALUES (-1, 'A', 2000, 30, 20, now(), null, -1, null, 1),
        (-2, 'B', 2200, 30, 30, now(), null, -1, null, 1),
        (-3, 'C', 3000, 20, 30, now(), null, -1, null, 1);
+
+INSERT INTO course (id, trainee_id, course_details_id, paid, lectures_completion, course_completion, creation_date,
+                    modification_date, created_by, modified_by, version)
+VALUES (-1, -4, -1, false, false, false, now(), null, -3, null, 1),
+       (-2, -5, -2, false, false, false, now(), null, -4, null, 1);
+
+INSERT INTO payment (id, payment_status, course_id, value, trainee_comment, admin_comment, creation_date, modification_date,
+                     created_by, modified_by, version)
+VALUES (-1, 'REJECTED', -1, 750, 'Pierwsza wpłata', 'Błędna kwota', now(), null, -3, null, 1),
+       (-2, 'IN_PROGRESS', -1, 700, 'Pierwsza wpłata - poprawiona', null, now(), null, -3, null, 1),
+       (-3, 'CONFIRMED', -2, 500, 'Wpłata za kurs', null, now(), null, -4, null, 1),
+       (-4, 'IN_PROGRESS', -2, 500, 'Wpłata z 8.05.2021r.', null, now(), null, -4, null, 1);

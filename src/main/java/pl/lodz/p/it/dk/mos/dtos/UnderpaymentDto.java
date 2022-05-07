@@ -14,6 +14,6 @@ public class UnderpaymentDto {
     private String login;
     private String firstname;
     private String lastname;
-    private BigDecimal paid;
     private BigDecimal price;
+    private BigDecimal paid;
 }

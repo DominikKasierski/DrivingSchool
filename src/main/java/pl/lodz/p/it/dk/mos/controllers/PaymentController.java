@@ -49,6 +49,14 @@ public class PaymentController extends AbstractController {
         return repeat(() -> paymentEndpoint.getPaymentsHistory(courseCategory), paymentEndpoint);
     }
 
+    @GET
+    @RolesAllowed("getPaymentsForApproval")
+    @Path("/getPaymentsForApproval")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<PaymentForApprovalDto> getPaymentsForApproval() throws BaseException {
+        return repeat(() -> paymentEndpoint.getPaymentsForApproval(), paymentEndpoint);
+    }
+
     @PUT
     @EtagFilterBinding
     @RolesAllowed("confirmPayment")
@@ -65,14 +73,6 @@ public class PaymentController extends AbstractController {
     @Consumes(MediaType.APPLICATION_JSON)
     public void rejectPayment(@NotNull @Valid RejectPaymentDto rejectPaymentDto) throws BaseException {
         repeat(() -> paymentEndpoint.rejectPayment(rejectPaymentDto), paymentEndpoint);
-    }
-
-    @GET
-    @RolesAllowed("getPaymentsForApproval")
-    @Path("/getPaymentsForApproval")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<PaymentForApprovalDto> getPaymentsForApproval() throws BaseException {
-        return repeat(() -> paymentEndpoint.getPaymentsForApproval(), paymentEndpoint);
     }
 
     @GET

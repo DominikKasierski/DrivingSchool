@@ -13,6 +13,7 @@ public interface PaymentMapper {
     PaymentDto toPaymentDto(Payment payment);
 
     @Mappings({
+            @Mapping(target = "login", source = "createdBy.login"),
             @Mapping(target = "firstname", source = "createdBy.firstname"),
             @Mapping(target = "lastname", source = "createdBy.lastname"),
             @Mapping(target = "courseCategory", source = "course.courseDetails.courseCategory"),
