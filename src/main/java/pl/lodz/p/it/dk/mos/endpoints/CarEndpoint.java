@@ -6,6 +6,8 @@ import pl.lodz.p.it.dk.common.utils.LoggingInterceptor;
 import pl.lodz.p.it.dk.entities.Car;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.mappers.CarMapper;
+import pl.lodz.p.it.dk.mos.dtos.CarDto;
+import pl.lodz.p.it.dk.mos.dtos.EditCarDto;
 import pl.lodz.p.it.dk.mos.dtos.NewCarDto;
 import pl.lodz.p.it.dk.mos.managers.CarManager;
 
@@ -29,6 +31,15 @@ public class CarEndpoint extends AbstractEndpoint implements CarEndpointLocal {
         Car car = new Car();
         Mappers.getMapper(CarMapper.class).toCar(newCarDto, car);
         carManager.addCar(car, getLogin());
+    }
+
+    @RolesAllowed("editCar")
+    public void editCar(EditCarDto editCarDto) throws BaseException {
+        Car car = carManager.find(editCarDto.getId());
+        CarDto carDto = Mappers.getMapper(CarMapper.class).toCarDto(car);
+        verifyEntityIntegrity(carDto);
+        Mappers.getMapper(CarMapper.class).toCar(editCarDto, car);
+        carManager.editCar(car, getLogin());
     }
 
 }

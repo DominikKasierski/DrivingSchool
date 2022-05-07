@@ -15,6 +15,9 @@ public class CarDto implements EntityToSign {
     private String image;
     private String brand;
     private String model;
+    private String registrationNumber;
+    private int productionYear;
+    private boolean delete;
     private Long version;
 
     @Override

@@ -11,6 +11,8 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
+import java.time.Instant;
+import java.util.Date;
 
 @Stateless
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
@@ -27,6 +29,18 @@ public class CarManager {
     public void addCar(Car car, String login) throws BaseException {
         car.setCreatedBy(accountManager.findByLogin(login));
         carFacade.create(car);
+    }
+
+    @RolesAllowed("editCar")
+    public Car find(Object id) throws BaseException {
+        return carFacade.find(id);
+    }
+
+    @RolesAllowed("editCar")
+    public void editCar(Car car, String login) throws BaseException {
+        car.setModificationDate(Date.from(Instant.now()));
+        car.setModifiedBy(accountManager.findByLogin(login));
+        carFacade.edit(car);
     }
 
 }

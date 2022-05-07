@@ -38,13 +38,13 @@ public class CarFacade extends AbstractFacade<Car> {
     }
 
     @Override
-    @RolesAllowed("")
+    @RolesAllowed("editCar")
     public void edit(Car entity) throws BaseException {
         super.edit(entity);
     }
 
     @Override
-    @RolesAllowed("")
+    @RolesAllowed("editCar")
     public Car find(Object id) throws BaseException {
         return super.find(id);
     }
