@@ -36,11 +36,13 @@ public class CarManager {
 
     @RolesAllowed("removeCar")
     public void removeCar(Car car, String login) throws BaseException {
-        car.getDrivingLessons().stream()
+        boolean carInUse = car.getDrivingLessons().stream()
                 .map(DrivingLesson::getLessonStatus)
-                .filter(x -> x.equals(LessonStatus.IN_PROGRESS) || x.equals(LessonStatus.PENDING))
-                .findAny()
-                .orElseThrow(CarException::carInUse);
+                .anyMatch(x -> x.equals(LessonStatus.IN_PROGRESS) || x.equals(LessonStatus.PENDING));
+
+        if (carInUse) {
+            throw CarException.carInUse();
+        }
 
         car.setDeleted(true);
         car.setModificationDate(Date.from(Instant.now()));

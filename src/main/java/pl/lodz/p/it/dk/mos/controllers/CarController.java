@@ -27,7 +27,6 @@ public class CarController extends AbstractController {
     private CarEndpointLocal carEndpoint;
 
     @POST
-    @EtagFilterBinding
     @RolesAllowed("addCar")
     @Path("/addCar")
     @Consumes(MediaType.APPLICATION_JSON)
