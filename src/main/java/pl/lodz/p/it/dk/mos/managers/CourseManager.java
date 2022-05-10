@@ -95,7 +95,7 @@ public class CourseManager {
     }
 
     @RolesAllowed("getTraineeForGroup")
-    public List<Course> getCoursesForGroup(CourseCategory courseCategory) throws BaseException {
+    public List<Course> getPaidCoursesWithoutLectureGroup(CourseCategory courseCategory) throws BaseException {
         List<Course> courses = courseFacade.findByCategory(courseCategory);
         return courses.stream()
                 .filter(x -> x.isPaid() && x.getLectureGroup() == null)

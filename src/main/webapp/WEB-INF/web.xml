@@ -143,6 +143,9 @@
     <security-role>
         <role-name>getTraineeForGroup</role-name>
     </security-role>
+    <security-role>
+        <role-name>createLectureGroup</role-name>
+    </security-role>
 
     <security-constraint>
         <web-resource-collection>
