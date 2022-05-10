@@ -12,6 +12,7 @@ import pl.lodz.p.it.dk.mappers.AccessMapper;
 import pl.lodz.p.it.dk.mappers.CourseMapper;
 import pl.lodz.p.it.dk.mok.dtos.TraineeAccessDto;
 import pl.lodz.p.it.dk.mos.dtos.CourseDto;
+import pl.lodz.p.it.dk.mos.dtos.TraineeForGroupDto;
 import pl.lodz.p.it.dk.mos.managers.AccountManager;
 import pl.lodz.p.it.dk.mos.managers.CourseManager;
 import pl.lodz.p.it.dk.mos.managers.TraineeAccessManager;
@@ -22,6 +23,8 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
+import java.util.ArrayList;
+import java.util.List;
 
 @Stateful
 @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
@@ -59,5 +62,18 @@ public class CourseEndpoint extends AbstractEndpoint implements CourseEndpointLo
     public CourseDto getOtherCourse(String login) throws BaseException {
         Course course = courseManager.getOngoingCourse(login);
         return Mappers.getMapper(CourseMapper.class).toCourseDto(course);
+    }
+
+    @Override
+    @RolesAllowed("getTraineeForGroup")
+    public List<TraineeForGroupDto> getTraineesForGroup(CourseCategory courseCategory) throws BaseException {
+        List<Course> coursesForGroup = courseManager.getCoursesForGroup(courseCategory);
+        List<TraineeForGroupDto> traineesForGroup = new ArrayList<>();
+
+        for (Course course : coursesForGroup) {
+            traineesForGroup.add(Mappers.getMapper(CourseMapper.class).toTraineeForGroup(course));
+        }
+
+        return traineesForGroup;
     }
 }

@@ -65,7 +65,7 @@ public class CourseFacade extends AbstractFacade<Course> {
         return super.find(id);
     }
 
-    @RolesAllowed("getUnderpayments")
+    @RolesAllowed({"getUnderpayments", "getTraineeForGroup"})
     public List<Course> findByCategory(CourseCategory courseCategory) throws BaseException {
         try {
             TypedQuery<Course> courseTypedQuery = em.createNamedQuery("Course.findByCategory", Course.class);

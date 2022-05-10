@@ -9,6 +9,7 @@ import pl.lodz.p.it.dk.entities.Course;
 import pl.lodz.p.it.dk.entities.Payment;
 import pl.lodz.p.it.dk.mos.dtos.CourseDto;
 import pl.lodz.p.it.dk.mos.dtos.PaymentDto;
+import pl.lodz.p.it.dk.mos.dtos.TraineeForGroupDto;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -22,6 +23,14 @@ public interface CourseMapper {
             @Mapping(target = "lectureGroupId", source = "lectureGroup.id")
     })
     CourseDto toCourseDto(Course course);
+
+    @Mappings({
+            @Mapping(target = "login", source = "createdBy.login"),
+            @Mapping(target = "firstname", source = "createdBy.firstname"),
+            @Mapping(target = "lastname", source = "createdBy.lastname"),
+            @Mapping(target = "courseId", source = "id"),
+    })
+    TraineeForGroupDto toTraineeForGroup(Course course);
 
     @Named("mapPayments")
     default Set<PaymentDto> mapPayments(Set<Payment> payments) {

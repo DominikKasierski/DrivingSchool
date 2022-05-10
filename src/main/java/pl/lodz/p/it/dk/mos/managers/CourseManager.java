@@ -19,6 +19,7 @@ import javax.interceptor.Interceptors;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Stateless
 @Interceptors({LoggingInterceptor.class})
@@ -91,6 +92,14 @@ public class CourseManager {
     @RolesAllowed("getUnderpayments")
     public List<Course> findByCategory(CourseCategory courseCategory) throws BaseException {
         return courseFacade.findByCategory(courseCategory);
+    }
+
+    @RolesAllowed("getTraineeForGroup")
+    public List<Course> getCoursesForGroup(CourseCategory courseCategory) throws BaseException {
+        List<Course> courses = courseFacade.findByCategory(courseCategory);
+        return courses.stream()
+                .filter(x -> x.isPaid() && x.getLectureGroup() == null)
+                .collect(Collectors.toList());
     }
 
 }
