@@ -74,4 +74,14 @@ public class LectureGroupEndpoint extends AbstractEndpoint implements LectureGro
         LectureGroup lectureGroup = lectureGroupManager.findById(id);
         return Mappers.getMapper(LectureGroupMapper.class).toLectureGroupDto(lectureGroup);
     }
+
+    @Override
+    @RolesAllowed("assignToLectureGroup")
+    public void assignToLectureGroup(Long lectureGroupId, Long courseId) throws BaseException {
+        LectureGroup lectureGroup = lectureGroupManager.findById(lectureGroupId);
+        LectureGroupDto lectureGroupDto = Mappers.getMapper(LectureGroupMapper.class).toLectureGroupDto(lectureGroup);
+        verifyEntityIntegrity(lectureGroupDto);
+        lectureGroupManager.assignToLectureGroup(lectureGroup, courseId, getLogin());
+    }
+
 }

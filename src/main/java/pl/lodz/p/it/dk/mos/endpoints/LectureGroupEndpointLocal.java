@@ -25,4 +25,8 @@ public interface LectureGroupEndpointLocal extends TransactionStarter {
 
     @RolesAllowed("getLectureGroup")
     public LectureGroupDto getLectureGroup(Long id) throws BaseException;
+
+    @RolesAllowed("assignToLectureGroup")
+    public void assignToLectureGroup(Long lectureGroupId, Long courseId) throws BaseException;
+
 }

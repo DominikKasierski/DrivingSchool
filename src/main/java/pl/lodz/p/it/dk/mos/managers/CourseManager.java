@@ -79,7 +79,7 @@ public class CourseManager {
                 .orElseThrow(CourseException::noOngoingCourse);
     }
 
-    @RolesAllowed("createPayment")
+    @RolesAllowed({"createPayment", "assignToLectureGroup"})
     public Course findById(Long id) throws BaseException {
         return courseFacade.find(id);
     }

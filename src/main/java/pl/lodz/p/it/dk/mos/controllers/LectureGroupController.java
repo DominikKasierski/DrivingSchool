@@ -7,6 +7,7 @@ import pl.lodz.p.it.dk.mos.dtos.LectureGroupDto;
 import pl.lodz.p.it.dk.mos.dtos.NewLectureGroupDto;
 import pl.lodz.p.it.dk.mos.dtos.TraineeForGroupDto;
 import pl.lodz.p.it.dk.mos.endpoints.LectureGroupEndpointLocal;
+import pl.lodz.p.it.dk.security.etag.EtagFilterBinding;
 import pl.lodz.p.it.dk.security.etag.Signer;
 
 import javax.annotation.security.RolesAllowed;
@@ -60,5 +61,15 @@ public class LectureGroupController extends AbstractController {
     public Response getLectureGroup(@NotNull @PathParam("id") Long id) throws BaseException {
         LectureGroupDto lectureGroupDto = repeat(() -> lectureGroupEndpoint.getLectureGroup(id), lectureGroupEndpoint);
         return Response.ok().entity(lectureGroupDto).header("ETag", signer.sign(lectureGroupDto)).build();
+    }
+
+    @PUT
+    @EtagFilterBinding
+    @RolesAllowed("assignToLectureGroup")
+    @Path("/assignToLectureGroup/{lectureGroupId}/{courseId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public void assignToLectureGroup(@NotNull @PathParam("lectureGroupId") Long lectureGroupId,
+                                     @NotNull @PathParam("courseId") Long courseId) throws BaseException {
+        repeat(() -> lectureGroupEndpoint.assignToLectureGroup(lectureGroupId, courseId), lectureGroupEndpoint);
     }
 }
