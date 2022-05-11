@@ -9,6 +9,7 @@ import pl.lodz.p.it.dk.entities.enums.CourseCategory;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.mappers.CourseMapper;
 import pl.lodz.p.it.dk.mappers.LectureGroupMapper;
+import pl.lodz.p.it.dk.mos.dtos.LectureGroupDto;
 import pl.lodz.p.it.dk.mos.dtos.NewLectureGroupDto;
 import pl.lodz.p.it.dk.mos.dtos.TraineeForGroupDto;
 import pl.lodz.p.it.dk.mos.managers.CourseManager;
@@ -35,7 +36,7 @@ public class LectureGroupEndpoint extends AbstractEndpoint implements LectureGro
     LectureGroupManager lectureGroupManager;
 
     @Override
-    @RolesAllowed("getTraineeForGroup")
+    @RolesAllowed("getTraineesForGroup")
     public List<TraineeForGroupDto> getTraineesForGroup(CourseCategory courseCategory) throws BaseException {
         List<Course> coursesForGroup = courseManager.getPaidCoursesWithoutLectureGroup(courseCategory);
         List<TraineeForGroupDto> traineesForGroup = new ArrayList<>();
@@ -53,5 +54,24 @@ public class LectureGroupEndpoint extends AbstractEndpoint implements LectureGro
         LectureGroup lectureGroup = new LectureGroup();
         Mappers.getMapper(LectureGroupMapper.class).toLectureGroup(newLectureGroupDto, lectureGroup);
         lectureGroupManager.createLectureGroup(lectureGroup, getLogin());
+    }
+
+    @RolesAllowed("getLectureGroups")
+    public List<LectureGroupDto> getLectureGroups() throws BaseException {
+        List<LectureGroup> lectureGroups = lectureGroupManager.getOpenLectureGroups();
+        List<LectureGroupDto> lectureGroupsDto = new ArrayList<>();
+
+        for (LectureGroup lectureGroup : lectureGroups) {
+            lectureGroupsDto.add(Mappers.getMapper(LectureGroupMapper.class).toLectureGroupDto(lectureGroup));
+        }
+
+        return lectureGroupsDto;
+    }
+
+    @Override
+    @RolesAllowed("getLectureGroup")
+    public LectureGroupDto getLectureGroup(Long id) throws BaseException {
+        LectureGroup lectureGroup = lectureGroupManager.findById(id);
+        return Mappers.getMapper(LectureGroupMapper.class).toLectureGroupDto(lectureGroup);
     }
 }

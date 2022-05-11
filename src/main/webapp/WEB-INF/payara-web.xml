@@ -198,12 +198,27 @@
     </security-role-mapping>
 
     <security-role-mapping>
-        <role-name>getTraineeForGroup</role-name>
+        <role-name>getTraineesForGroup</role-name>
         <group-name>ADMIN</group-name>
     </security-role-mapping>
 
     <security-role-mapping>
         <role-name>createLectureGroup</role-name>
+        <group-name>ADMIN</group-name>
+    </security-role-mapping>
+
+    <security-role-mapping>
+        <role-name>createLectureGroup</role-name>
+        <group-name>ADMIN</group-name>
+    </security-role-mapping>
+
+    <security-role-mapping>
+        <role-name>getLectureGroups</role-name>
+        <group-name>ADMIN</group-name>
+    </security-role-mapping>
+
+    <security-role-mapping>
+        <role-name>getLectureGroup</role-name>
         <group-name>ADMIN</group-name>
     </security-role-mapping>
 

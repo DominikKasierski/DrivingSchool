@@ -7,7 +7,7 @@ import pl.lodz.p.it.dk.security.etag.EntityToSign;
 
 import java.util.Set;
 
-//TODO: Dorobić Paymenty i Wykłady. Może zamiast courseDetailsId to kategorię kursu?
+//TODO: Dorobić wykłady. Może zamiast courseDetailsId to kategorię kursu?
 
 @Data
 @NoArgsConstructor

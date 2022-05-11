@@ -11,6 +11,8 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
+import java.util.ArrayList;
+import java.util.List;
 
 @Stateless
 @Interceptors({LoggingInterceptor.class})
@@ -28,4 +30,25 @@ public class LectureGroupManager {
         lectureGroup.setCreatedBy(accountManager.findByLogin(login));
         lectureGroupFacade.create(lectureGroup);
     }
+
+    @RolesAllowed("getLectureGroups")
+    public List<LectureGroup> getOpenLectureGroups() throws BaseException {
+        List<LectureGroup> lectureGroups = lectureGroupFacade.findAll();
+        List<LectureGroup> openLectureGroups = new ArrayList<>();
+
+        for (LectureGroup lectureGroup : lectureGroups) {
+            if (lectureGroup.getCourses().isEmpty() ||
+                    !lectureGroup.getCourses().iterator().next().isLecturesCompletion()) {
+                openLectureGroups.add(lectureGroup);
+            }
+        }
+
+        return openLectureGroups;
+    }
+
+    @RolesAllowed("getLectureGroup")
+    public LectureGroup findById(Long id) throws BaseException {
+        return lectureGroupFacade.find(id);
+    }
+
 }
