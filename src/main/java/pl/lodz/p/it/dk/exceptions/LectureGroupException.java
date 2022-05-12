@@ -9,6 +9,15 @@ public class LectureGroupException extends BaseException {
             "exception.lecture_group_exception.already_assigned_exception";
     private static final String LECTURES_STARTED_EXCEPTION =
             "exception.lecture_group_exception.already_assigned_exception";
+    private static final String INVALID_DATE_RANGE_EXCEPTION =
+            "exception.lecture_group_exception.invalid_date_range_exception";
+    private static final String TIME_FOR_ADDING_EXCEEDED_EXCEPTION =
+            "exception.lecture_group_exception.time_for_adding_exceeded_exception";
+    private static final String NO_PERMITS_EXCEPTION = "exception.lecture_group_exception.no_permits_exception";
+    private static final String DATE_RANGES_OVERLAP_EXCEPTION =
+            "exception.lecture_group_exception.date_ranges_overlap_exception";
+    private static final String TOO_MANY_LECTURE_HOURS_EXCEPTION =
+            "exception.lecture_group_exception.date_ranges_overlap_exception";
 
     private LectureGroupException(String message) {
         super(message);
@@ -32,5 +41,25 @@ public class LectureGroupException extends BaseException {
 
     public static LectureGroupException lecturesStarted() {
         return new LectureGroupException(LECTURES_STARTED_EXCEPTION);
+    }
+
+    public static LectureGroupException invalidDateRange() {
+        return new LectureGroupException(INVALID_DATE_RANGE_EXCEPTION);
+    }
+
+    public static LectureGroupException timeForAddingExceeded() {
+        return new LectureGroupException(TIME_FOR_ADDING_EXCEEDED_EXCEPTION);
+    }
+
+    public static LectureGroupException noPermits() {
+        return new LectureGroupException(NO_PERMITS_EXCEPTION);
+    }
+
+    public static LectureGroupException dateRangesOverlap() {
+        return new LectureGroupException(DATE_RANGES_OVERLAP_EXCEPTION);
+    }
+
+    public static LectureGroupException tooManyLectureHours() {
+        return new LectureGroupException(TOO_MANY_LECTURE_HOURS_EXCEPTION);
     }
 }

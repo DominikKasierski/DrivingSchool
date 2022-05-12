@@ -10,6 +10,7 @@ import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.mappers.CourseMapper;
 import pl.lodz.p.it.dk.mappers.LectureGroupMapper;
 import pl.lodz.p.it.dk.mos.dtos.LectureGroupDto;
+import pl.lodz.p.it.dk.mos.dtos.NewLectureDto;
 import pl.lodz.p.it.dk.mos.dtos.NewLectureGroupDto;
 import pl.lodz.p.it.dk.mos.dtos.TraineeForGroupDto;
 import pl.lodz.p.it.dk.mos.managers.CourseManager;
@@ -21,6 +22,8 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,6 +85,16 @@ public class LectureGroupEndpoint extends AbstractEndpoint implements LectureGro
         LectureGroupDto lectureGroupDto = Mappers.getMapper(LectureGroupMapper.class).toLectureGroupDto(lectureGroup);
         verifyEntityIntegrity(lectureGroupDto);
         lectureGroupManager.assignToLectureGroup(lectureGroup, courseId, getLogin());
+    }
+
+    @Override
+    @RolesAllowed("addLectureForGroup")
+    public void addLectureForGroup(@NotNull @Valid NewLectureDto newLectureDto) throws BaseException {
+        LectureGroup lectureGroup = lectureGroupManager.findById(newLectureDto.getLectureGroupId());
+        LectureGroupDto lectureGroupDto = Mappers.getMapper(LectureGroupMapper.class).toLectureGroupDto(lectureGroup);
+        verifyEntityIntegrity(lectureGroupDto);
+        lectureGroupManager.addLectureForGroup(lectureGroup, newLectureDto.getDateFrom(), newLectureDto.getDateTo(),
+                newLectureDto.getInstructorLogin(), getLogin());
     }
 
 }

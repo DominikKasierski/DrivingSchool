@@ -4,6 +4,7 @@ import pl.lodz.p.it.dk.common.abstracts.AbstractController;
 import pl.lodz.p.it.dk.entities.enums.CourseCategory;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.mos.dtos.LectureGroupDto;
+import pl.lodz.p.it.dk.mos.dtos.NewLectureDto;
 import pl.lodz.p.it.dk.mos.dtos.NewLectureGroupDto;
 import pl.lodz.p.it.dk.mos.dtos.TraineeForGroupDto;
 import pl.lodz.p.it.dk.mos.endpoints.LectureGroupEndpointLocal;
@@ -71,5 +72,14 @@ public class LectureGroupController extends AbstractController {
     public void assignToLectureGroup(@NotNull @PathParam("lectureGroupId") Long lectureGroupId,
                                      @NotNull @PathParam("courseId") Long courseId) throws BaseException {
         repeat(() -> lectureGroupEndpoint.assignToLectureGroup(lectureGroupId, courseId), lectureGroupEndpoint);
+    }
+
+    @PUT
+    @EtagFilterBinding
+    @RolesAllowed("addLectureForGroup")
+    @Path("/addLectureForGroup")
+    @Produces(MediaType.APPLICATION_JSON)
+    public void addLectureForGroup(@NotNull @Valid NewLectureDto newLectureDto) throws BaseException {
+        repeat(() -> lectureGroupEndpoint.addLectureForGroup(newLectureDto), lectureGroupEndpoint);
     }
 }

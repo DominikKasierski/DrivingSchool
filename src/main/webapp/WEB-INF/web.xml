@@ -155,6 +155,9 @@
     <security-role>
         <role-name>assignToLectureGroup</role-name>
     </security-role>
+    <security-role>
+        <role-name>addLectureForGroup</role-name>
+    </security-role>
 
     <security-constraint>
         <web-resource-collection>

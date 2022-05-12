@@ -4,11 +4,14 @@ import pl.lodz.p.it.dk.common.interfaces.TransactionStarter;
 import pl.lodz.p.it.dk.entities.enums.CourseCategory;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.mos.dtos.LectureGroupDto;
+import pl.lodz.p.it.dk.mos.dtos.NewLectureDto;
 import pl.lodz.p.it.dk.mos.dtos.NewLectureGroupDto;
 import pl.lodz.p.it.dk.mos.dtos.TraineeForGroupDto;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Local;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Local
@@ -28,5 +31,8 @@ public interface LectureGroupEndpointLocal extends TransactionStarter {
 
     @RolesAllowed("assignToLectureGroup")
     public void assignToLectureGroup(Long lectureGroupId, Long courseId) throws BaseException;
+
+    @RolesAllowed("addLectureForGroup")
+    public void addLectureForGroup(@NotNull @Valid NewLectureDto newLectureDto) throws BaseException;
 
 }

@@ -21,7 +21,7 @@ public class CourseDetailsManager {
     @Inject
     private CourseDetailsFacade courseDetailsFacade;
 
-    @RolesAllowed("createCourse")
+    @RolesAllowed({"createCourse", "addLectureForGroup"})
     public CourseDetails findByCategory(CourseCategory courseCategory) throws BaseException {
         return courseDetailsFacade.findByCategory(courseCategory);
     }

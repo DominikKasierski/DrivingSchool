@@ -46,7 +46,7 @@ public class LectureGroupFacade extends AbstractFacade<LectureGroup> {
         }
     }
 
-    @RolesAllowed({""})
+    @RolesAllowed({"addLectureForGroup"})
     @Override
     public void edit(LectureGroup entity) throws BaseException {
         try {
