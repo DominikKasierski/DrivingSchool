@@ -6,7 +6,7 @@ public class LectureGroupException extends BaseException {
     private static final String ALREADY_ASSIGNED_EXCEPTION =
             "exception.lecture_group_exception.already_assigned_exception";
     private static final String UNPAID_COURSE_EXCEPTION =
-            "exception.lecture_group_exception.already_assigned_exception";
+            "exception.lecture_group_exception.unpaid_course_exception";
     private static final String LECTURES_STARTED_EXCEPTION =
             "exception.lecture_group_exception.already_assigned_exception";
     private static final String INVALID_DATE_RANGE_EXCEPTION =
@@ -17,7 +17,7 @@ public class LectureGroupException extends BaseException {
     private static final String DATE_RANGES_OVERLAP_EXCEPTION =
             "exception.lecture_group_exception.date_ranges_overlap_exception";
     private static final String TOO_MANY_LECTURE_HOURS_EXCEPTION =
-            "exception.lecture_group_exception.date_ranges_overlap_exception";
+            "exception.lecture_group_exception.too_many_lecture_hours_exception";
 
     private LectureGroupException(String message) {
         super(message);

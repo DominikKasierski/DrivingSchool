@@ -84,7 +84,7 @@ public class CourseManager {
         return courseFacade.find(id);
     }
 
-    @RolesAllowed({"createPayment", "cancelPayment", "confirmPayment", "rejectPayment"})
+    @RolesAllowed({"createPayment", "cancelPayment", "confirmPayment", "rejectPayment", "addLectureForGroup"})
     public void edit(Course course) throws BaseException {
         courseFacade.edit(course);
     }

@@ -31,7 +31,7 @@ public class LectureFacade extends AbstractFacade<Lecture> {
     }
 
     @Override
-    @RolesAllowed("")
+    @RolesAllowed("addLectureForGroup")
     public void create(Lecture entity) throws BaseException {
         super.create(entity);
     }

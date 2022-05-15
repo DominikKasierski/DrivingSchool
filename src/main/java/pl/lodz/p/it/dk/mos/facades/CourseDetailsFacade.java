@@ -48,7 +48,7 @@ public class CourseDetailsFacade extends AbstractFacade<CourseDetails> {
         return super.find(id);
     }
 
-    @RolesAllowed("createCourse")
+    @RolesAllowed({"createCourse", "addLectureForGroup"})
     public CourseDetails findByCategory(CourseCategory courseCategory) throws BaseException {
         try {
             TypedQuery<CourseDetails>

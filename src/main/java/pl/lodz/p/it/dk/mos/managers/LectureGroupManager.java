@@ -4,6 +4,7 @@ import pl.lodz.p.it.dk.common.utils.LoggingInterceptor;
 import pl.lodz.p.it.dk.entities.*;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.exceptions.LectureGroupException;
+import pl.lodz.p.it.dk.mos.facades.LectureFacade;
 import pl.lodz.p.it.dk.mos.facades.LectureGroupFacade;
 
 import javax.annotation.security.RolesAllowed;
@@ -13,7 +14,6 @@ import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
 import java.time.Instant;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -38,6 +38,9 @@ public class LectureGroupManager {
 
     @Inject
     LectureGroupFacade lectureGroupFacade;
+
+    @Inject
+    LectureFacade lectureFacade;
 
     @RolesAllowed("createLectureGroup")
     public void createLectureGroup(LectureGroup lectureGroup, String login) throws BaseException {
@@ -90,15 +93,13 @@ public class LectureGroupManager {
     @RolesAllowed("addLectureForGroup")
     public void addLectureForGroup(LectureGroup lectureGroup, Date dateFrom, Date dateTo, String instructorLogin,
                                    String adminLogin) throws BaseException {
-        Date from = new Date(dateFrom.toInstant().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
-        Date to = new Date(dateTo.toInstant().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
-        Date now = new Date(new Date().toInstant().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+        Date now = new Date(new Date().getTime());
 
-        if (from.after(to) || now.after(from)) {
+        if (!dateFrom.before(dateTo) || now.after(dateFrom)) {
             throw LectureGroupException.invalidDateRange();
         }
 
-        long diffInMillis = Math.abs(from.getTime() - now.getTime());
+        long diffInMillis = dateFrom.getTime() - now.getTime();
         long diffInDays = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
 
         if (diffInDays < 3) {
@@ -113,21 +114,21 @@ public class LectureGroupManager {
         }
 
         for (Lecture lecture : lectureGroup.getLectures()) {
-            ifTwoDateRangesOverlap(from, to, lecture.getDateFrom(), lecture.getDateTo());
+            ifTwoDateRangesOverlap(dateFrom, dateTo, lecture.getDateFrom(), lecture.getDateTo());
         }
 
         for (Lecture lecture : instructorAccess.getLectures()) {
-            ifTwoDateRangesOverlap(from, to, lecture.getDateFrom(), lecture.getDateTo());
+            ifTwoDateRangesOverlap(dateFrom, dateTo, lecture.getDateFrom(), lecture.getDateTo());
         }
 
         for (DrivingLesson drivingLesson : instructorAccess.getDrivingLessons()) {
-            ifTwoDateRangesOverlap(from, to, drivingLesson.getDateFrom(), drivingLesson.getDateTo());
+            ifTwoDateRangesOverlap(dateFrom, dateTo, drivingLesson.getDateFrom(), drivingLesson.getDateTo());
         }
 
         Account adminAccount = accountManager.findByLogin(adminLogin);
-        checkNumberOfHours(lectureGroup, from, to, adminAccount);
+        checkNumberOfHours(lectureGroup, dateFrom, dateTo, adminAccount);
 
-        Lecture lecture = new Lecture(instructorAccess, lectureGroup, from, to);
+        Lecture lecture = new Lecture(instructorAccess, lectureGroup, dateFrom, dateTo);
         lecture.setCreatedBy(adminAccount);
 
         lectureGroup.getLectures().add(lecture);
@@ -142,7 +143,7 @@ public class LectureGroupManager {
     }
 
     private void ifTwoDateRangesOverlap(Date startA, Date endA, Date startB, Date endB) throws LectureGroupException {
-        if (!(startA.getTime() <= endB.getTime() && endA.getTime() >= startB.getTime())) {
+        if ((startA.getTime() < endB.getTime() && startB.getTime() < endA.getTime()) || (startA.getTime() == startB.getTime())) {
             throw LectureGroupException.dateRangesOverlap();
         }
     }
@@ -154,20 +155,21 @@ public class LectureGroupManager {
                 courseDetailsManager.findByCategory(lectureGroup.getCourseCategory()).getLecturesHours();
 
         for (Lecture lecture : lectureGroup.getLectures()) {
-            long diffInMillis = lecture.getDateFrom().getTime() - lecture.getDateTo().getTime();
+            long diffInMillis = lecture.getDateTo().getTime() - lecture.getDateFrom().getTime();
             totalNumberOfHours += TimeUnit.HOURS.convert(diffInMillis, TimeUnit.MILLISECONDS);
         }
 
-        totalNumberOfHours += TimeUnit.HOURS.convert((from.getTime() - to.getTime()), TimeUnit.MILLISECONDS);
+        totalNumberOfHours += TimeUnit.HOURS.convert((to.getTime() - from.getTime()), TimeUnit.MILLISECONDS);
 
         if (totalNumberOfHours > lectureHoursLimit) {
             throw LectureGroupException.tooManyLectureHours();
         } else if (totalNumberOfHours == lectureHoursLimit) {
-            lectureGroup.getCourses().forEach(x -> {
-                x.setCourseCompletion(true);
+            for (Course x : lectureGroup.getCourses()) {
+                x.setLecturesCompletion(true);
                 x.setModificationDate(Date.from(Instant.now()));
                 x.setModifiedBy(adminAccount);
-            });
+                courseManager.edit(x);
+            }
         }
     }
 }

@@ -251,6 +251,8 @@ create table instructors_permissions
 (
     instructor_id bigint not null,
     permissions   varchar(255),
+    constraint constraint_instructors_permissions_instructor_id_permission
+        unique (instructor_id, permissions),
     constraint fk_instructors_permissions_instructor_id
         foreign key (instructor_id) references instructor_access
 );
