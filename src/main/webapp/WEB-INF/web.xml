@@ -161,6 +161,9 @@
     <security-role>
         <role-name>addDrivingLesson</role-name>
     </security-role>
+    <security-role>
+        <role-name>cancelDrivingLesson</role-name>
+    </security-role>
 
     <security-constraint>
         <web-resource-collection>

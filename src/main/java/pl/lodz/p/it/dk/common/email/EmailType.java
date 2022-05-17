@@ -19,7 +19,8 @@ public enum EmailType {
     PAYMENT_CONFIRM_EMAIL("payment_confirm"),
     COURSE_PAID_EMAIL("course_paid"),
     PAYMENT_REJECT_EMAIL("payment_reject"),
-    PAYMENT_ADD_EMAIL("payment_add");
+    PAYMENT_ADD_EMAIL("payment_add"),
+    LESSON_CANCEL_EMAIL("lesson_cancel");
 
     private final String value;
 }

@@ -9,6 +9,12 @@ public class DrivingLessonException extends BaseException {
     private static final String NO_PERMITS_EXCEPTION = "exception.driving_lesson_exception.no_permits_exception";
     private static final String TIME_FOR_ADDING_EXCEEDED_EXCEPTION =
             "exception.driving_lesson_exception.time_for_adding_exceeded_exception";
+    private static final String TOO_MANY_DRIVING_HOURS_EXCEPTION =
+            "exception.driving_lesson_exception.too_many_driving_hours_exception";
+    private static final String TIME_FOR_CANCELLATION_EXCEEDED_EXCEPTION =
+            "exception.driving_lesson_exception.time_for_cancellation_exceeded_exception";
+    private static final String INCORRECT_LESSON_STATUS_EXCEPTION =
+            "exception.driving_lesson_exception.incorrect_lesson_status_exception";
 
 
     private DrivingLessonException(String message) {
@@ -29,6 +35,18 @@ public class DrivingLessonException extends BaseException {
 
     public static DrivingLessonException timeForAddingExceeded() {
         return new DrivingLessonException(TIME_FOR_ADDING_EXCEEDED_EXCEPTION);
+    }
+
+    public static DrivingLessonException tooManyDrivingHours() {
+        return new DrivingLessonException(TOO_MANY_DRIVING_HOURS_EXCEPTION);
+    }
+
+    public static DrivingLessonException timeForCancellationExceeded() {
+        return new DrivingLessonException(TIME_FOR_CANCELLATION_EXCEEDED_EXCEPTION);
+    }
+
+    public static DrivingLessonException incorrectLessonStatus() {
+        return new DrivingLessonException(INCORRECT_LESSON_STATUS_EXCEPTION);
     }
 
 }

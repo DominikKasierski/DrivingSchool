@@ -126,6 +126,13 @@ public class EmailService {
         sendEmail(account.getEmailAddress(), subject, content);
     }
 
+    public void sendDrivingLessonCancellationEmail(Account account, String value) throws BaseException {
+        String language = account.getLanguage();
+        String subject = getEmailSubject(language, EmailType.LESSON_CANCEL_EMAIL);
+        String content = getEmailContent(language, EmailType.LESSON_CANCEL_EMAIL, account.getLogin(), value);
+        sendEmail(account.getEmailAddress(), subject, content);
+    }
+
     private String getEmailSubject(String language, EmailType emailType) {
         String mailType = String.format(EMAIL_SUBJECT_FORMAT, emailType.getValue());
         return i18n.getMessage(new Locale(language), mailType);

@@ -1,7 +1,9 @@
 package pl.lodz.p.it.dk.mos.managers;
 
+import pl.lodz.p.it.dk.common.email.EmailService;
 import pl.lodz.p.it.dk.common.utils.LoggingInterceptor;
 import pl.lodz.p.it.dk.entities.*;
+import pl.lodz.p.it.dk.entities.enums.LessonStatus;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.exceptions.DrivingLessonException;
 import pl.lodz.p.it.dk.exceptions.LectureGroupException;
@@ -38,7 +40,13 @@ public class DrivingLessonManager {
     private CarManager carManager;
 
     @Inject
+    CourseDetailsManager courseDetailsManager;
+
+    @Inject
     DrivingLessonFacade drivingLessonFacade;
+
+    @Inject
+    private EmailService emailService;
 
     @RolesAllowed("addDrivingLesson")
     public void addDrivingLesson(Course course, int numberOfHours, Date dateFrom, String instructorLogin)
@@ -54,8 +62,7 @@ public class DrivingLessonManager {
                 .truncatedTo(ChronoUnit.HOURS)
                 .toInstant()
                 .toEpochMilli());
-
-        Date endDate = checkHoursAndReturnEndDate(truncatedDateFrom, numberOfHours);
+        Date endDate = checkHoursConditionsAndReturnEndDate(truncatedDateFrom, numberOfHours);
 
         Account account = accountManager.findByLogin(instructorLogin);
         InstructorAccess instructorAccess = instructorAccessManager.find(account);
@@ -65,20 +72,22 @@ public class DrivingLessonManager {
         }
 
         for (Lecture lecture : instructorAccess.getLectures()) {
-            ifTwoDateRangesOverlap(dateFrom, endDate, lecture.getDateFrom(), lecture.getDateTo());
+            ifTwoDateRangesOverlap(truncatedDateFrom, endDate, lecture.getDateFrom(), lecture.getDateTo());
         }
 
         for (DrivingLesson drivingLesson : instructorAccess.getDrivingLessons()) {
-            ifTwoDateRangesOverlap(dateFrom, endDate, drivingLesson.getDateFrom(), drivingLesson.getDateTo());
+            ifTwoDateRangesOverlap(truncatedDateFrom, endDate, drivingLesson.getDateFrom(), drivingLesson.getDateTo());
         }
 
         for (Lecture lecture : course.getLectureGroup().getLectures()) {
-            ifTwoDateRangesOverlap(dateFrom, endDate, lecture.getDateFrom(), lecture.getDateTo());
+            ifTwoDateRangesOverlap(truncatedDateFrom, endDate, lecture.getDateFrom(), lecture.getDateTo());
         }
 
         for (DrivingLesson drivingLesson : course.getDrivingLessons()) {
-            ifTwoDateRangesOverlap(dateFrom, endDate, drivingLesson.getDateFrom(), drivingLesson.getDateTo());
+            ifTwoDateRangesOverlap(truncatedDateFrom, endDate, drivingLesson.getDateFrom(), drivingLesson.getDateTo());
         }
+
+        checkNumberOfHours(course, truncatedDateFrom, endDate, course.getCreatedBy());
 
         Car car =
                 carManager.findAvailableCar(truncatedDateFrom, endDate, course.getCourseDetails().getCourseCategory());
@@ -101,7 +110,32 @@ public class DrivingLessonManager {
         carManager.edit(car);
     }
 
-    private Date checkHoursAndReturnEndDate(Date dateToCheck, int numberOfHours) throws DrivingLessonException {
+    @RolesAllowed("cancelDrivingLesson")
+    public void cancelDrivingLesson(Long id) throws BaseException {
+        DrivingLesson drivingLesson = drivingLessonFacade.find(id);
+
+        Date now = new Date(new Date().getTime());
+        long diffInMillis = drivingLesson.getDateFrom().getTime() - now.getTime();
+        long diffInDays = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
+
+        if (diffInDays < 2) {
+            throw DrivingLessonException.timeForCancellationExceeded();
+        }
+
+        if (drivingLesson.getLessonStatus().equals(LessonStatus.PENDING)) {
+            drivingLesson.setLessonStatus(LessonStatus.CANCELLED);
+            drivingLesson.setModificationDate(Date.from(Instant.now()));
+            drivingLesson.setModifiedBy(drivingLesson.getCreatedBy());
+            drivingLessonFacade.edit(drivingLesson);
+            emailService.sendDrivingLessonCancellationEmail(drivingLesson.getInstructor().getAccount(),
+                    drivingLesson.getDateFrom().toString());
+        } else {
+            throw DrivingLessonException.incorrectLessonStatus();
+        }
+    }
+
+    private Date checkHoursConditionsAndReturnEndDate(Date dateToCheck, int numberOfHours)
+            throws DrivingLessonException {
         Date now = new Date(new Date().getTime());
         long diffInMillis = dateToCheck.getTime() - now.getTime();
         long diffInDays = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
@@ -136,6 +170,25 @@ public class DrivingLessonManager {
         if ((startA.getTime() < endB.getTime() && startB.getTime() < endA.getTime()) ||
                 (startA.getTime() == startB.getTime())) {
             throw LectureGroupException.dateRangesOverlap();
+        }
+    }
+
+    private void checkNumberOfHours(Course course, Date from, Date to, Account adminAccount) throws BaseException {
+        long totalNumberOfHours = 0;
+        long drivingHoursLimit =
+                courseDetailsManager.findByCategory(course.getCourseDetails().getCourseCategory()).getDrivingHours();
+
+        for (DrivingLesson drivingLesson : course.getDrivingLessons()) {
+            if (!drivingLesson.getLessonStatus().equals(LessonStatus.CANCELLED)) {
+                long diffInMillis = drivingLesson.getDateTo().getTime() - drivingLesson.getDateFrom().getTime();
+                totalNumberOfHours += TimeUnit.HOURS.convert(diffInMillis, TimeUnit.MILLISECONDS);
+            }
+        }
+
+        totalNumberOfHours += TimeUnit.HOURS.convert((to.getTime() - from.getTime()), TimeUnit.MILLISECONDS);
+
+        if (totalNumberOfHours > drivingHoursLimit) {
+            throw DrivingLessonException.tooManyDrivingHours();
         }
     }
 }

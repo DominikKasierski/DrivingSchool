@@ -38,4 +38,13 @@ public class DrivingLessonEndpoint extends AbstractEndpoint implements DrivingLe
         drivingLessonManager.addDrivingLesson(course, newDrivingLesson.getNumberOfHours(), newDrivingLesson.getDateFrom(),
                 newDrivingLesson.getInstructorLogin());
     }
+
+    @Override
+    @RolesAllowed("cancelDrivingLesson")
+    public void cancelDrivingLesson(Long id) throws BaseException {
+        Course course = courseManager.getOngoingCourse(getLogin());
+        CourseDto courseDto = Mappers.getMapper(CourseMapper.class).toCourseDto(course);
+        verifyEntityIntegrity(courseDto);
+        drivingLessonManager.cancelDrivingLesson(id);
+    }
 }

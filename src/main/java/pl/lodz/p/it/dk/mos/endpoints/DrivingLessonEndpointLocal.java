@@ -12,4 +12,7 @@ public interface DrivingLessonEndpointLocal extends TransactionStarter {
 
     @RolesAllowed("addDrivingLesson")
     public void addDrivingLesson(NewDrivingLesson newDrivingLesson) throws BaseException;
+
+    @RolesAllowed("cancelDrivingLesson")
+    public void cancelDrivingLesson(Long id) throws BaseException;
 }
