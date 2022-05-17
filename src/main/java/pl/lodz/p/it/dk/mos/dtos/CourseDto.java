@@ -7,7 +7,7 @@ import pl.lodz.p.it.dk.security.etag.EntityToSign;
 
 import java.util.Set;
 
-//TODO: Dorobić wykłady. Może zamiast courseDetailsId to kategorię kursu?
+//TODO: Czy potrzebne tutaj wykłady/lekcje jazdy? Może zamiast courseDetailsId to kategorię kursu?
 
 @Data
 @NoArgsConstructor

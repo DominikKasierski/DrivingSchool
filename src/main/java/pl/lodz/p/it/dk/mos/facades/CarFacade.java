@@ -55,7 +55,7 @@ public class CarFacade extends AbstractFacade<Car> {
         return super.findAll();
     }
 
-    @RolesAllowed({""})
+    @RolesAllowed({"addDrivingLesson"})
     public List<Car> findByCategory(CourseCategory courseCategory) throws BaseException {
         try {
             TypedQuery<Car>

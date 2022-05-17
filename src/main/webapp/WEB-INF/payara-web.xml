@@ -232,4 +232,9 @@
         <group-name>ADMIN</group-name>
     </security-role-mapping>
 
+    <security-role-mapping>
+        <role-name>addDrivingLesson</role-name>
+        <group-name>TRAINEE</group-name>
+    </security-role-mapping>
+
 </payara-web-app>

@@ -34,6 +34,6 @@ public class InstructorAccess extends Access implements Serializable {
     private Set<Lecture> lectures = new HashSet<>();
 
     @Setter
-    @OneToMany(mappedBy = "instructor", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "instructor")
     private Set<DrivingLesson> drivingLessons = new HashSet<>();
 }

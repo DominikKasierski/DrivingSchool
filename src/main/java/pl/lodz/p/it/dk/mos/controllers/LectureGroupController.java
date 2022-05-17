@@ -74,7 +74,7 @@ public class LectureGroupController extends AbstractController {
         repeat(() -> lectureGroupEndpoint.assignToLectureGroup(lectureGroupId, courseId), lectureGroupEndpoint);
     }
 
-    @PUT
+    @POST
     @EtagFilterBinding
     @RolesAllowed("addLectureForGroup")
     @Path("/addLectureForGroup")
