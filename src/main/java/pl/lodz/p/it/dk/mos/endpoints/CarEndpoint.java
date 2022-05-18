@@ -6,17 +6,21 @@ import pl.lodz.p.it.dk.common.utils.LoggingInterceptor;
 import pl.lodz.p.it.dk.entities.Car;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.mappers.CarMapper;
+import pl.lodz.p.it.dk.mos.dtos.BriefCarInfoDto;
 import pl.lodz.p.it.dk.mos.dtos.CarDto;
 import pl.lodz.p.it.dk.mos.dtos.EditCarDto;
 import pl.lodz.p.it.dk.mos.dtos.NewCarDto;
 import pl.lodz.p.it.dk.mos.managers.CarManager;
 
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
+import java.util.ArrayList;
+import java.util.List;
 
 @Stateful
 @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
@@ -58,6 +62,19 @@ public class CarEndpoint extends AbstractEndpoint implements CarEndpointLocal {
     public CarDto getCar(Long id) throws BaseException {
         Car car = carManager.find(id);
         return Mappers.getMapper(CarMapper.class).toCarDto(car);
+    }
+
+    @Override
+    @PermitAll
+    public List<BriefCarInfoDto> getAllCars() throws BaseException {
+        List<Car> cars = carManager.findAllUndeleted();
+        List<BriefCarInfoDto> briefCarsInfoDto = new ArrayList<>();
+
+        for (Car car : cars) {
+            briefCarsInfoDto.add(Mappers.getMapper(CarMapper.class).toBriefCarInfoDto(car));
+        }
+
+        return briefCarsInfoDto;
     }
 
 }

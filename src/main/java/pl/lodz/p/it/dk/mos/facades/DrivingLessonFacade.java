@@ -42,7 +42,7 @@ public class DrivingLessonFacade extends AbstractFacade<DrivingLesson> {
     }
 
     @Override
-    @RolesAllowed("")
+    @RolesAllowed("cancelDrivingLesson")
     public DrivingLesson find(Object id) throws BaseException {
         return super.find(id);
     }
@@ -91,7 +91,8 @@ public class DrivingLessonFacade extends AbstractFacade<DrivingLesson> {
     public List<DrivingLesson> findByInstructorId(long instructorId) throws BaseException {
         try {
             TypedQuery<DrivingLesson>
-                    drivingLessonTypedQuery = em.createNamedQuery("DrivingLesson.findByInstructorId", DrivingLesson.class);
+                    drivingLessonTypedQuery =
+                    em.createNamedQuery("DrivingLesson.findByInstructorId", DrivingLesson.class);
             drivingLessonTypedQuery.setParameter("instructorId", instructorId);
             return drivingLessonTypedQuery.getResultList();
         } catch (NoResultException e) {

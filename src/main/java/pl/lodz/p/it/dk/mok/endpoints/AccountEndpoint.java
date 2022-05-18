@@ -96,9 +96,11 @@ public class AccountEndpoint extends AbstractEndpoint implements AccountEndpoint
     public List<AccountDto> getAllAccounts() throws BaseException {
         List<Account> accounts = accountManager.getAllAccounts();
         List<AccountDto> accountsDto = new ArrayList<>();
+
         for (Account account : accounts) {
             accountsDto.add(Mappers.getMapper(AccountMapper.class).toAccountDto(account));
         }
+
         return accountsDto;
     }
 

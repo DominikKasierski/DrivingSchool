@@ -9,6 +9,7 @@ import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.exceptions.CarException;
 import pl.lodz.p.it.dk.mos.facades.CarFacade;
 
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -18,6 +19,7 @@ import javax.interceptor.Interceptors;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Stateless
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
@@ -80,6 +82,13 @@ public class CarManager {
     @RolesAllowed("addDrivingLesson")
     public void edit(Car car) throws BaseException {
         carFacade.edit(car);
+    }
+
+    @PermitAll
+    public List<Car> findAllUndeleted() throws BaseException {
+        return carFacade.findAll().stream()
+                .filter(x -> !x.isDeleted())
+                .collect(Collectors.toList());
     }
 
     private boolean isCarAvailable(Date dateFrom, Date dateTo, Car car) {

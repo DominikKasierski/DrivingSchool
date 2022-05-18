@@ -9,12 +9,14 @@ import pl.lodz.p.it.dk.exceptions.DrivingLessonException;
 import pl.lodz.p.it.dk.exceptions.LectureGroupException;
 import pl.lodz.p.it.dk.mos.facades.DrivingLessonFacade;
 
+import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
+import javax.security.enterprise.SecurityContext;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
@@ -22,6 +24,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+@DeclareRoles("Trainee")
 @Stateless
 @Interceptors({LoggingInterceptor.class})
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
@@ -44,6 +47,9 @@ public class DrivingLessonManager {
 
     @Inject
     DrivingLessonFacade drivingLessonFacade;
+
+    @Inject
+    private SecurityContext securityContext;
 
     @Inject
     private EmailService emailService;
@@ -111,8 +117,14 @@ public class DrivingLessonManager {
     }
 
     @RolesAllowed("cancelDrivingLesson")
-    public void cancelDrivingLesson(Long id) throws BaseException {
+    public void cancelDrivingLesson(Long id, String login) throws BaseException {
         DrivingLesson drivingLesson = drivingLessonFacade.find(id);
+        String traineeLogin = drivingLesson.getCourse().getTrainee().getAccount().getLogin();
+        String instructorLogin = drivingLesson.getInstructor().getAccount().getLogin();
+
+        if (!login.equals(traineeLogin) && !login.equals(instructorLogin)) {
+            throw DrivingLessonException.accessDenied();
+        }
 
         if (!drivingLesson.getLessonStatus().equals(LessonStatus.PENDING)) {
             throw DrivingLessonException.incorrectLessonStatus();
@@ -122,16 +134,22 @@ public class DrivingLessonManager {
         long diffInMillis = drivingLesson.getDateFrom().getTime() - now.getTime();
         long diffInDays = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
 
-        if (diffInDays < 2) {
+        if (securityContext.isCallerInRole("Trainee") && diffInDays < 2) {
             throw DrivingLessonException.timeForCancellationExceeded();
         }
 
         drivingLesson.setLessonStatus(LessonStatus.CANCELLED);
         drivingLesson.setModificationDate(Date.from(Instant.now()));
-        drivingLesson.setModifiedBy(drivingLesson.getCreatedBy());
+        drivingLesson.setModifiedBy(accountManager.findByLogin(login));
         drivingLessonFacade.edit(drivingLesson);
-        emailService.sendDrivingLessonCancellationEmail(drivingLesson.getInstructor().getAccount(),
-                drivingLesson.getDateFrom().toString());
+
+        if (securityContext.isCallerInRole("Trainee")) {
+            emailService.sendDrivingLessonCancellationEmail(accountManager.findByLogin(instructorLogin),
+                    drivingLesson.getDateFrom().toString());
+        } else {
+            emailService.sendDrivingLessonCancellationEmail(accountManager.findByLogin(traineeLogin),
+                    drivingLesson.getDateFrom().toString());
+        }
     }
 
     private Date checkHoursConditionsAndReturnEndDate(Date dateToCheck, int numberOfHours)

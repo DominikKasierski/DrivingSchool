@@ -2,6 +2,7 @@ package pl.lodz.p.it.dk.mos.controllers;
 
 import pl.lodz.p.it.dk.common.abstracts.AbstractController;
 import pl.lodz.p.it.dk.exceptions.BaseException;
+import pl.lodz.p.it.dk.mos.dtos.BriefCarInfoDto;
 import pl.lodz.p.it.dk.mos.dtos.CarDto;
 import pl.lodz.p.it.dk.mos.dtos.EditCarDto;
 import pl.lodz.p.it.dk.mos.dtos.NewCarDto;
@@ -16,6 +17,7 @@ import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Path("/car")
 public class CarController extends AbstractController {
@@ -59,6 +61,13 @@ public class CarController extends AbstractController {
     public Response getCar(@NotNull @PathParam("id") Long id) throws BaseException {
         CarDto carDto = carEndpoint.getCar(id);
         return Response.ok().entity(carDto).header("ETag", signer.sign(carDto)).build();
+    }
+
+    @GET
+    @Path("/getCars")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<BriefCarInfoDto> getAllCars() throws BaseException {
+        return repeat(() -> carEndpoint.getAllCars(), carEndpoint);
     }
 
 }

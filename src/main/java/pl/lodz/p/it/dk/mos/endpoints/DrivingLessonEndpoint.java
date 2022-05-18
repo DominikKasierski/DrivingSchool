@@ -45,6 +45,6 @@ public class DrivingLessonEndpoint extends AbstractEndpoint implements DrivingLe
         Course course = courseManager.getOngoingCourse(getLogin());
         CourseDto courseDto = Mappers.getMapper(CourseMapper.class).toCourseDto(course);
         verifyEntityIntegrity(courseDto);
-        drivingLessonManager.cancelDrivingLesson(id);
+        drivingLessonManager.cancelDrivingLesson(id, getLogin());
     }
 }

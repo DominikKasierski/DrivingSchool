@@ -15,7 +15,8 @@ public class DrivingLessonException extends BaseException {
             "exception.driving_lesson_exception.time_for_cancellation_exceeded_exception";
     private static final String INCORRECT_LESSON_STATUS_EXCEPTION =
             "exception.driving_lesson_exception.incorrect_lesson_status_exception";
-
+    private static final String ACCESS_DENIED_EXCEPTION =
+            "exception.driving_lesson_exception.access_denied_exception";
 
     private DrivingLessonException(String message) {
         super(message);
@@ -49,4 +50,7 @@ public class DrivingLessonException extends BaseException {
         return new DrivingLessonException(INCORRECT_LESSON_STATUS_EXCEPTION);
     }
 
+    public static DrivingLessonException accessDenied() {
+        return new DrivingLessonException(ACCESS_DENIED_EXCEPTION);
+    }
 }
