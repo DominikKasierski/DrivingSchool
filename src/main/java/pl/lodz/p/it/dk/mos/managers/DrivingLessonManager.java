@@ -114,6 +114,10 @@ public class DrivingLessonManager {
     public void cancelDrivingLesson(Long id) throws BaseException {
         DrivingLesson drivingLesson = drivingLessonFacade.find(id);
 
+        if (!drivingLesson.getLessonStatus().equals(LessonStatus.PENDING)) {
+            throw DrivingLessonException.incorrectLessonStatus();
+        }
+
         Date now = new Date(new Date().getTime());
         long diffInMillis = drivingLesson.getDateFrom().getTime() - now.getTime();
         long diffInDays = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
@@ -122,16 +126,12 @@ public class DrivingLessonManager {
             throw DrivingLessonException.timeForCancellationExceeded();
         }
 
-        if (drivingLesson.getLessonStatus().equals(LessonStatus.PENDING)) {
-            drivingLesson.setLessonStatus(LessonStatus.CANCELLED);
-            drivingLesson.setModificationDate(Date.from(Instant.now()));
-            drivingLesson.setModifiedBy(drivingLesson.getCreatedBy());
-            drivingLessonFacade.edit(drivingLesson);
-            emailService.sendDrivingLessonCancellationEmail(drivingLesson.getInstructor().getAccount(),
-                    drivingLesson.getDateFrom().toString());
-        } else {
-            throw DrivingLessonException.incorrectLessonStatus();
-        }
+        drivingLesson.setLessonStatus(LessonStatus.CANCELLED);
+        drivingLesson.setModificationDate(Date.from(Instant.now()));
+        drivingLesson.setModifiedBy(drivingLesson.getCreatedBy());
+        drivingLessonFacade.edit(drivingLesson);
+        emailService.sendDrivingLessonCancellationEmail(drivingLesson.getInstructor().getAccount(),
+                drivingLesson.getDateFrom().toString());
     }
 
     private Date checkHoursConditionsAndReturnEndDate(Date dateToCheck, int numberOfHours)

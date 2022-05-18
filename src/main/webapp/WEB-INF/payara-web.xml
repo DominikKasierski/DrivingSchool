@@ -242,4 +242,9 @@
         <group-name>TRAINEE</group-name>
     </security-role-mapping>
 
+    <security-role-mapping>
+        <role-name>getBriefCourseInfo</role-name>
+        <group-name>TRAINEE</group-name>
+    </security-role-mapping>
+
 </payara-web-app>

@@ -11,6 +11,7 @@ import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.mappers.AccessMapper;
 import pl.lodz.p.it.dk.mappers.CourseMapper;
 import pl.lodz.p.it.dk.mok.dtos.TraineeAccessDto;
+import pl.lodz.p.it.dk.mos.dtos.BriefCourseInfoDto;
 import pl.lodz.p.it.dk.mos.dtos.CourseDto;
 import pl.lodz.p.it.dk.mos.managers.AccountManager;
 import pl.lodz.p.it.dk.mos.managers.CourseManager;
@@ -59,5 +60,12 @@ public class CourseEndpoint extends AbstractEndpoint implements CourseEndpointLo
     public CourseDto getOtherCourse(String login) throws BaseException {
         Course course = courseManager.getOngoingCourse(login);
         return Mappers.getMapper(CourseMapper.class).toCourseDto(course);
+    }
+
+    @Override
+    @RolesAllowed("getBriefCourseInfo")
+    public BriefCourseInfoDto getBriefCourseInfo() throws BaseException {
+        Course course = courseManager.getOngoingCourse(getLogin());
+        return courseManager.getBriefCourseInfo(course);
     }
 }

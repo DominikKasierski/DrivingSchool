@@ -3,6 +3,7 @@ package pl.lodz.p.it.dk.mos.controllers;
 import pl.lodz.p.it.dk.common.abstracts.AbstractController;
 import pl.lodz.p.it.dk.entities.enums.CourseCategory;
 import pl.lodz.p.it.dk.exceptions.BaseException;
+import pl.lodz.p.it.dk.mos.dtos.BriefCourseInfoDto;
 import pl.lodz.p.it.dk.mos.dtos.CourseDto;
 import pl.lodz.p.it.dk.mos.endpoints.CourseEndpointLocal;
 import pl.lodz.p.it.dk.security.etag.EtagFilterBinding;
@@ -51,5 +52,13 @@ public class CourseController extends AbstractController {
     public Response getOtherCourse(@NotNull @Login @PathParam("login") @Valid String login) throws BaseException {
         CourseDto courseDto = repeat(() -> courseEndpoint.getOtherCourse(login), courseEndpoint);
         return Response.ok().entity(courseDto).header("ETag", signer.sign(courseDto)).build();
+    }
+
+    @GET
+    @RolesAllowed("getBriefCourseInfo")
+    @Path("/getBriefCourseInfo")
+    @Produces(MediaType.APPLICATION_JSON)
+    public BriefCourseInfoDto getBriefCourseInfo() throws BaseException {
+        return repeat(() -> courseEndpoint.getBriefCourseInfo(), courseEndpoint);
     }
 }

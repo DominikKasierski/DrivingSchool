@@ -1,13 +1,12 @@
 package pl.lodz.p.it.dk.mos.managers;
 
 import pl.lodz.p.it.dk.common.utils.LoggingInterceptor;
-import pl.lodz.p.it.dk.entities.Account;
-import pl.lodz.p.it.dk.entities.Course;
-import pl.lodz.p.it.dk.entities.CourseDetails;
-import pl.lodz.p.it.dk.entities.TraineeAccess;
+import pl.lodz.p.it.dk.entities.*;
 import pl.lodz.p.it.dk.entities.enums.CourseCategory;
+import pl.lodz.p.it.dk.entities.enums.PaymentStatus;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.exceptions.CourseException;
+import pl.lodz.p.it.dk.mos.dtos.BriefCourseInfoDto;
 import pl.lodz.p.it.dk.mos.facades.CourseFacade;
 
 import javax.annotation.security.RolesAllowed;
@@ -16,6 +15,7 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
@@ -103,4 +103,15 @@ public class CourseManager {
                 .collect(Collectors.toList());
     }
 
+    @RolesAllowed("getBriefCourseInfo")
+    public BriefCourseInfoDto getBriefCourseInfo(Course course) {
+        String courseCategory = course.getCourseDetails().getCourseCategory().toString();
+        BigDecimal price = course.getCourseDetails().getPrice();
+        BigDecimal valueOfPayments = course.getPayments().stream()
+                .filter(x -> x.getPaymentStatus().equals(PaymentStatus.CONFIRMED))
+                .map(Payment::getValue)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        return new BriefCourseInfoDto(courseCategory, price, valueOfPayments);
+    }
 }
