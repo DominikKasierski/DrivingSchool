@@ -167,6 +167,9 @@
     <security-role>
         <role-name>getBriefCourseInfo</role-name>
     </security-role>
+    <security-role>
+        <role-name>getAllInstructors</role-name>
+    </security-role>
 
     <security-constraint>
         <web-resource-collection>

@@ -4,9 +4,11 @@ import org.mapstruct.factory.Mappers;
 import pl.lodz.p.it.dk.common.abstracts.AbstractEndpoint;
 import pl.lodz.p.it.dk.common.utils.LoggingInterceptor;
 import pl.lodz.p.it.dk.entities.Account;
+import pl.lodz.p.it.dk.entities.enums.AccessType;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.mappers.AccountMapper;
 import pl.lodz.p.it.dk.mok.dtos.*;
+import pl.lodz.p.it.dk.mok.managers.AccessManager;
 import pl.lodz.p.it.dk.mok.managers.AccountManager;
 
 import javax.annotation.security.PermitAll;
@@ -19,6 +21,7 @@ import javax.interceptor.Interceptors;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Stateful
 @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
@@ -27,6 +30,9 @@ public class AccountEndpoint extends AbstractEndpoint implements AccountEndpoint
 
     @Inject
     private AccountManager accountManager;
+
+    @Inject
+    private AccessManager accessManager;
 
     @Inject
     private HttpServletRequest servletRequest;
@@ -158,5 +164,26 @@ public class AccountEndpoint extends AbstractEndpoint implements AccountEndpoint
     public void confirmPasswordChange(ConfirmPasswordChangeDto confirmPasswordChangeDto) throws BaseException {
         accountManager
                 .confirmPasswordChange(confirmPasswordChangeDto.getResetCode(), confirmPasswordChangeDto.getPassword());
+    }
+
+    @Override
+    @RolesAllowed("getAllInstructors")
+    public List<InstructorDto> getAllInstructors() throws BaseException {
+        List<Account> accounts = accountManager.getAllAccounts();
+        List<InstructorDto> instructors = new ArrayList<>();
+
+        for (Account account : accounts) {
+            boolean isInstructor = account.getAccesses().stream()
+                    .anyMatch(x -> x.getAccessType() == AccessType.INSTRUCTOR && x.isActivated());
+            if (isInstructor) {
+                String permissions = accessManager.findInstructorAccess(account).getPermissions().stream()
+                        .map(Enum::toString)
+                        .collect(Collectors.joining(", "));
+                instructors.add(new InstructorDto(account.getLogin(), account.getFirstname(), account.getLastname(),
+                        permissions));
+            }
+        }
+
+        return instructors;
     }
 }

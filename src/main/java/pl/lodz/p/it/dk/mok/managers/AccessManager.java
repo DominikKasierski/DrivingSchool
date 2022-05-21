@@ -8,6 +8,7 @@ import pl.lodz.p.it.dk.exceptions.AccessException;
 import pl.lodz.p.it.dk.exceptions.AccountException;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.mok.facades.AccountFacade;
+import pl.lodz.p.it.dk.mok.facades.InstructorAccessFacade;
 import pl.lodz.p.it.dk.mok.facades.TraineeAccessFacade;
 
 import javax.annotation.security.RolesAllowed;
@@ -33,6 +34,9 @@ public class AccessManager {
 
     @Inject
     private TraineeAccessFacade traineeAccessFacade;
+
+    @Inject
+    private InstructorAccessFacade instructorAccessFacade;
 
     @Inject
     private EmailService emailService;
@@ -121,6 +125,16 @@ public class AccessManager {
                 .orElseThrow(AccessException::noProperAccess);
 
         return traineeAccessFacade.find(access.getId());
+    }
+
+    @RolesAllowed("getAllInstructors")
+    public InstructorAccess findInstructorAccess(Account account) throws BaseException {
+        Access access = account.getAccesses().stream()
+                .filter(x -> x.getAccessType() == AccessType.TRAINEE)
+                .findAny()
+                .orElseThrow(AccessException::noProperAccess);
+
+        return instructorAccessFacade.find(access.getId());
     }
 
     private Access createAccess(AccessType accessType) throws AccessException {
