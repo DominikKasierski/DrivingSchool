@@ -4,6 +4,7 @@ import pl.lodz.p.it.dk.common.email.EmailService;
 import pl.lodz.p.it.dk.common.utils.LoggingInterceptor;
 import pl.lodz.p.it.dk.entities.*;
 import pl.lodz.p.it.dk.entities.enums.AccessType;
+import pl.lodz.p.it.dk.entities.enums.CourseCategory;
 import pl.lodz.p.it.dk.exceptions.AccessException;
 import pl.lodz.p.it.dk.exceptions.AccountException;
 import pl.lodz.p.it.dk.exceptions.BaseException;
@@ -18,10 +19,7 @@ import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
 import java.time.Instant;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Stateless
@@ -137,12 +135,13 @@ public class AccessManager {
         return instructorAccessFacade.find(access.getId());
     }
 
-    private Access createAccess(AccessType accessType) throws AccessException {
+    private Access createAccess(AccessType accessType) throws BaseException {
         switch (accessType) {
             case TRAINEE:
                 return new TraineeAccess();
             case INSTRUCTOR:
-                return new InstructorAccess();
+                Set<CourseCategory> permissions = new HashSet<>(Collections.singletonList(CourseCategory.B));
+                return new InstructorAccess(permissions);
             case ADMIN:
                 return new AdminAccess();
         }

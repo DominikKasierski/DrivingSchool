@@ -255,4 +255,9 @@
         <group-name>TRAINEE</group-name>
     </security-role-mapping>
 
+    <security-role-mapping>
+        <role-name>getInstructorPermissions</role-name>
+        <group-name>INSTRUCTOR</group-name>
+    </security-role-mapping>
+
 </payara-web-app>

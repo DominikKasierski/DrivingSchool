@@ -62,4 +62,7 @@ public interface AccountEndpointLocal extends TransactionStarter {
 
     @RolesAllowed("getAllInstructors")
     List<InstructorDto> getAllInstructors() throws BaseException;
+
+    @RolesAllowed("getInstructorPermissions")
+    public String getInstructorPermissions() throws BaseException;
 }

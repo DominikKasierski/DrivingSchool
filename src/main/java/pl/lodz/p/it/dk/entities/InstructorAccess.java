@@ -21,8 +21,7 @@ public class InstructorAccess extends Access implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    //TODO: Sprawdzić czy działa!!
-
+    @Setter
     @ElementCollection(targetClass = CourseCategory.class)
     @JoinTable(name = "instructors_permissions", joinColumns = @JoinColumn(name = "instructor_id"))
     @Column(name = "permissions")
@@ -36,4 +35,8 @@ public class InstructorAccess extends Access implements Serializable {
     @Setter
     @OneToMany(mappedBy = "instructor")
     private Set<DrivingLesson> drivingLessons = new HashSet<>();
+
+    public InstructorAccess(Set<CourseCategory> permissions) {
+        this.permissions = permissions;
+    }
 }

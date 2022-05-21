@@ -67,7 +67,7 @@ public class CarEndpoint extends AbstractEndpoint implements CarEndpointLocal {
     @Override
     @PermitAll
     public List<BriefCarInfoDto> getAllCars() throws BaseException {
-        List<Car> cars = carManager.findAllUndeleted();
+        List<Car> cars = carManager.findAllUndeletedCars();
         List<BriefCarInfoDto> briefCarsInfoDto = new ArrayList<>();
 
         for (Car car : cars) {

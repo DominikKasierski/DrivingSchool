@@ -85,7 +85,7 @@ public class CarManager {
     }
 
     @PermitAll
-    public List<Car> findAllUndeleted() throws BaseException {
+    public List<Car> findAllUndeletedCars() throws BaseException {
         return carFacade.findAll().stream()
                 .filter(x -> !x.isDeleted())
                 .collect(Collectors.toList());

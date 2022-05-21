@@ -5,11 +5,14 @@ import pl.lodz.p.it.dk.common.email.EmailService;
 import pl.lodz.p.it.dk.common.utils.LoggingInterceptor;
 import pl.lodz.p.it.dk.entities.Account;
 import pl.lodz.p.it.dk.entities.ConfirmationCode;
+import pl.lodz.p.it.dk.entities.InstructorAccess;
 import pl.lodz.p.it.dk.entities.TraineeAccess;
+import pl.lodz.p.it.dk.entities.enums.AccessType;
 import pl.lodz.p.it.dk.entities.enums.CodeType;
 import pl.lodz.p.it.dk.exceptions.AccountException;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.exceptions.ConfirmationCodeException;
+import pl.lodz.p.it.dk.mok.dtos.InstructorDto;
 import pl.lodz.p.it.dk.mok.facades.AccountFacade;
 import pl.lodz.p.it.dk.mok.facades.ConfirmationCodeFacade;
 import pl.lodz.p.it.dk.security.PasswordUtils;
@@ -32,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Stateless
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
@@ -40,6 +44,9 @@ public class AccountManager {
 
     @Context
     ServletContext servletContext;
+
+    @Inject
+    private AccessManager accessManager;
 
     @Inject
     private EmailService emailService;
@@ -292,6 +299,34 @@ public class AccountManager {
         account.setPasswordModificationBy(account);
 
         accountFacade.edit(account);
+    }
+
+    @RolesAllowed("getAllInstructors")
+    public List<InstructorDto> getAllInstructors() throws BaseException {
+        List<Account> accounts = getAllAccounts();
+        List<InstructorDto> instructors = new ArrayList<>();
+
+        for (Account account : accounts) {
+            boolean isInstructor = account.getAccesses().stream()
+                    .anyMatch(x -> x.getAccessType() == AccessType.INSTRUCTOR && x.isActivated());
+            if (isInstructor) {
+                String permissions = accessManager.findInstructorAccess(account).getPermissions().stream()
+                        .map(Enum::toString)
+                        .collect(Collectors.joining(", "));
+                instructors.add(new InstructorDto(account.getLogin(), account.getFirstname(), account.getLastname(),
+                        permissions));
+            }
+        }
+
+        return instructors;
+    }
+
+    @RolesAllowed("getInstructorPermissions")
+    public String getInstructorPermissions(Account account) throws BaseException {
+        InstructorAccess instructorAccess = accessManager.findInstructorAccess(account);
+        return instructorAccess.getPermissions().stream()
+                .map(Enum::toString)
+                .collect(Collectors.joining(", "));
     }
 
     private void deactivatePreviousCodes(Account account, CodeType codeType, Account changingAccount) {

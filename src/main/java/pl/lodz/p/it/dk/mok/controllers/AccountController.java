@@ -150,4 +150,13 @@ public class AccountController extends AbstractController {
     public List<InstructorDto> getAllInstructors() throws BaseException {
         return repeat(() -> accountEndpoint.getAllInstructors(), accountEndpoint);
     }
+
+    @GET
+    @RolesAllowed("getInstructorPermissions")
+    @Path("/getInstructorPermissions")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getInstructorPermissions() throws BaseException {
+        String permissions = repeat(() -> accountEndpoint.getInstructorPermissions(), accountEndpoint);
+        return Response.ok().entity(permissions).build();
+    }
 }
