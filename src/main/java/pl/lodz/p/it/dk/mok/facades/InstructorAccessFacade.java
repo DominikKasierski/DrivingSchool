@@ -6,6 +6,7 @@ import pl.lodz.p.it.dk.entities.InstructorAccess;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 
 import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -34,5 +35,11 @@ public class InstructorAccessFacade extends AbstractFacade<InstructorAccess> {
     @PermitAll
     public InstructorAccess find(Object id) throws BaseException {
         return super.find(id);
+    }
+
+    @Override
+    @RolesAllowed("addPermissionCategory")
+    public void edit(InstructorAccess entity) throws BaseException {
+        super.edit(entity);
     }
 }

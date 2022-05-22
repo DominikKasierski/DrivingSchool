@@ -4,11 +4,13 @@ import pl.lodz.p.it.dk.common.interfaces.TransactionStarter;
 import pl.lodz.p.it.dk.entities.enums.AccessType;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.mok.dtos.AccessesDto;
+import pl.lodz.p.it.dk.mok.dtos.InstructorAccessDto;
 import pl.lodz.p.it.dk.mok.dtos.TraineeAccessDto;
 
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Local;
+import java.util.List;
 
 @Local
 public interface AccessEndpointLocal extends TransactionStarter {
@@ -30,4 +32,19 @@ public interface AccessEndpointLocal extends TransactionStarter {
 
     @RolesAllowed("getTraineeAccess")
     TraineeAccessDto getTraineeAccess() throws BaseException;
+
+    @RolesAllowed("getAllInstructors")
+    List<InstructorAccessDto> getAllInstructors() throws BaseException;
+
+    @RolesAllowed("getInstructorAccess")
+    public InstructorAccessDto getInstructorAccess(String login) throws BaseException;
+
+    @RolesAllowed("getOwnPermissions")
+    public String getOwnPermissions() throws BaseException;
+
+    @RolesAllowed("addPermissionCategory")
+    public void addPermissionCategory(String login, String courseCategory) throws BaseException;
+
+    @RolesAllowed("removePermissionCategory")
+    public void removePermissionCategory(String login, String courseCategory) throws BaseException;
 }

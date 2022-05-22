@@ -7,6 +7,7 @@ import pl.lodz.p.it.dk.entities.Account;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.mappers.AccountMapper;
 import pl.lodz.p.it.dk.mok.dtos.*;
+import pl.lodz.p.it.dk.mok.managers.AccessManager;
 import pl.lodz.p.it.dk.mok.managers.AccountManager;
 
 import javax.annotation.security.PermitAll;
@@ -27,6 +28,9 @@ public class AccountEndpoint extends AbstractEndpoint implements AccountEndpoint
 
     @Inject
     private AccountManager accountManager;
+
+    @Inject
+    private AccessManager accessManager;
 
     @Inject
     private HttpServletRequest servletRequest;
@@ -158,17 +162,5 @@ public class AccountEndpoint extends AbstractEndpoint implements AccountEndpoint
     public void confirmPasswordChange(ConfirmPasswordChangeDto confirmPasswordChangeDto) throws BaseException {
         accountManager
                 .confirmPasswordChange(confirmPasswordChangeDto.getResetCode(), confirmPasswordChangeDto.getPassword());
-    }
-
-    @Override
-    @RolesAllowed("getAllInstructors")
-    public List<InstructorDto> getAllInstructors() throws BaseException {
-        return accountManager.getAllInstructors();
-    }
-
-    @Override
-    @RolesAllowed("getInstructorPermissions")
-    public String getInstructorPermissions() throws BaseException {
-        return accountManager.getInstructorPermissions(accountManager.findByLogin(getLogin()));
     }
 }

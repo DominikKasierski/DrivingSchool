@@ -171,7 +171,16 @@
         <role-name>getAllInstructors</role-name>
     </security-role>
     <security-role>
-        <role-name>getInstructorPermissions</role-name>
+        <role-name>getOwnPermissions</role-name>
+    </security-role>
+    <security-role>
+        <role-name>getInstructorAccess</role-name>
+    </security-role>
+    <security-role>
+        <role-name>addPermissionCategory</role-name>
+    </security-role>
+    <security-role>
+        <role-name>removePermissionCategory</role-name>
     </security-role>
 
     <security-constraint>

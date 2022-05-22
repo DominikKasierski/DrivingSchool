@@ -256,8 +256,23 @@
     </security-role-mapping>
 
     <security-role-mapping>
-        <role-name>getInstructorPermissions</role-name>
+        <role-name>getOwnPermissions</role-name>
         <group-name>INSTRUCTOR</group-name>
+    </security-role-mapping>
+
+    <security-role-mapping>
+        <role-name>getInstructorAccess</role-name>
+        <group-name>ADMIN</group-name>
+    </security-role-mapping>
+
+    <security-role-mapping>
+        <role-name>addPermissionCategory</role-name>
+        <group-name>ADMIN</group-name>
+    </security-role-mapping>
+
+    <security-role-mapping>
+        <role-name>removePermissionCategory</role-name>
+        <group-name>ADMIN</group-name>
     </security-role-mapping>
 
 </payara-web-app>

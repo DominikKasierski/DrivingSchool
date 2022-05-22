@@ -8,6 +8,8 @@ import pl.lodz.p.it.dk.entities.enums.CourseCategory;
 import pl.lodz.p.it.dk.exceptions.AccessException;
 import pl.lodz.p.it.dk.exceptions.AccountException;
 import pl.lodz.p.it.dk.exceptions.BaseException;
+import pl.lodz.p.it.dk.exceptions.InstructorAccessException;
+import pl.lodz.p.it.dk.mok.dtos.InstructorAccessDto;
 import pl.lodz.p.it.dk.mok.facades.AccountFacade;
 import pl.lodz.p.it.dk.mok.facades.InstructorAccessFacade;
 import pl.lodz.p.it.dk.mok.facades.TraineeAccessFacade;
@@ -26,6 +28,9 @@ import java.util.stream.Collectors;
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
 @Interceptors({LoggingInterceptor.class})
 public class AccessManager {
+
+    @Inject
+    private AccountManager accountManager;
 
     @Inject
     private AccountFacade accountFacade;
@@ -125,7 +130,7 @@ public class AccessManager {
         return traineeAccessFacade.find(access.getId());
     }
 
-    @RolesAllowed("getAllInstructors")
+    @RolesAllowed({"getAllInstructors", "getInstructorAccess", "addPermissionCategory", "removePermissionCategory"})
     public InstructorAccess findInstructorAccess(Account account) throws BaseException {
         Access access = account.getAccesses().stream()
                 .filter(x -> x.getAccessType() == AccessType.TRAINEE)
@@ -133,6 +138,77 @@ public class AccessManager {
                 .orElseThrow(AccessException::noProperAccess);
 
         return instructorAccessFacade.find(access.getId());
+    }
+
+    @RolesAllowed("getAllInstructors")
+    public List<InstructorAccessDto> getAllInstructors() throws BaseException {
+        List<Account> accounts = accountManager.getAllAccounts();
+        List<InstructorAccessDto> instructors = new ArrayList<>();
+
+        for (Account account : accounts) {
+            boolean isInstructor = account.getAccesses().stream()
+                    .anyMatch(x -> x.getAccessType() == AccessType.INSTRUCTOR && x.isActivated());
+            if (isInstructor) {
+                InstructorAccess instructorAccess = findInstructorAccess(account);
+                String permissions = instructorAccess.getPermissions().stream()
+                        .map(Enum::toString)
+                        .collect(Collectors.joining(", "));
+                instructors
+                        .add(new InstructorAccessDto(account.getLogin(), account.getFirstname(), account.getLastname(),
+                                permissions, instructorAccess.getVersion()));
+            }
+        }
+
+        return instructors;
+    }
+
+    @RolesAllowed({"getInstructorAccess", "addPermissionCategory", "removePermissionCategory"})
+    public InstructorAccessDto getInstructorAccess(String login) throws BaseException {
+        Account account = accountManager.findByLogin(login);
+        InstructorAccess instructorAccess = findInstructorAccess(account);
+        String permissions = instructorAccess.getPermissions().stream()
+                .map(Enum::toString)
+                .collect(Collectors.joining(", "));
+        return new InstructorAccessDto(account.getLogin(), account.getFirstname(), account.getLastname(), permissions,
+                instructorAccess.getVersion());
+    }
+
+    @RolesAllowed("getOwnPermissions")
+    public String getOwnPermissions(Account account) throws BaseException {
+        InstructorAccess instructorAccess = findInstructorAccess(account);
+        return instructorAccess.getPermissions().stream()
+                .map(Enum::toString)
+                .collect(Collectors.joining(", "));
+    }
+
+    @RolesAllowed("addPermissionCategory")
+    public void addPermissionCategory(Account account, CourseCategory courseCategory, Account adminAccount)
+            throws BaseException {
+        InstructorAccess instructorAccess = findInstructorAccess(account);
+
+        if (instructorAccess.getPermissions().contains(courseCategory)) {
+            throw InstructorAccessException.permissionAlreadyAdded();
+        }
+
+        instructorAccess.getPermissions().add(courseCategory);
+        instructorAccess.setModificationDate(Date.from(Instant.now()));
+        instructorAccess.setModifiedBy(adminAccount);
+        instructorAccessFacade.edit(instructorAccess);
+    }
+
+    @RolesAllowed("removePermissionCategory")
+    public void removePermissionCategory(Account account, CourseCategory courseCategory, Account adminAccount)
+            throws BaseException {
+        InstructorAccess instructorAccess = findInstructorAccess(account);
+
+        if (!instructorAccess.getPermissions().contains(courseCategory)) {
+            throw InstructorAccessException.permissionAlreadyRemoved();
+        }
+
+        instructorAccess.getPermissions().remove(courseCategory);
+        instructorAccess.setModificationDate(Date.from(Instant.now()));
+        instructorAccess.setModifiedBy(adminAccount);
+        instructorAccessFacade.edit(instructorAccess);
     }
 
     private Access createAccess(AccessType accessType) throws BaseException {

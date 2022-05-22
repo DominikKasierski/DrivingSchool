@@ -2,13 +2,16 @@ package pl.lodz.p.it.dk.mok.controllers;
 
 import pl.lodz.p.it.dk.common.abstracts.AbstractController;
 import pl.lodz.p.it.dk.entities.enums.AccessType;
+import pl.lodz.p.it.dk.entities.enums.CourseCategory;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.mok.dtos.AccessesDto;
+import pl.lodz.p.it.dk.mok.dtos.InstructorAccessDto;
 import pl.lodz.p.it.dk.mok.dtos.TraineeAccessDto;
 import pl.lodz.p.it.dk.mok.endpoints.AccessEndpointLocal;
 import pl.lodz.p.it.dk.security.etag.EtagFilterBinding;
 import pl.lodz.p.it.dk.security.etag.Signer;
 import pl.lodz.p.it.dk.validation.annotations.Login;
+import pl.lodz.p.it.dk.validation.annotations.ValueOfEnum;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
@@ -17,6 +20,7 @@ import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Path("/access")
 public class AccessController extends AbstractController {
@@ -78,5 +82,54 @@ public class AccessController extends AbstractController {
     public Response getTraineeAccess() throws BaseException {
         TraineeAccessDto traineeAccessDto = repeat(() -> accessEndpoint.getTraineeAccess(), accessEndpoint);
         return Response.ok().entity(traineeAccessDto).header("ETag", signer.sign(traineeAccessDto)).build();
+    }
+
+    @GET
+    @RolesAllowed("getAllInstructors")
+    @Path("/getInstructors")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<InstructorAccessDto> getAllInstructors() throws BaseException {
+        return repeat(() -> accessEndpoint.getAllInstructors(), accessEndpoint);
+    }
+
+    @GET
+    @RolesAllowed("getInstructorAccess")
+    @Path("/getInstructorAccess/{login}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getInstructorAccess(@NotNull @Login @PathParam("login") @Valid String login) throws BaseException {
+        InstructorAccessDto instructorAccessDto =
+                repeat(() -> accessEndpoint.getInstructorAccess(login), accessEndpoint);
+        return Response.ok().entity(instructorAccessDto).header("ETag", signer.sign(instructorAccessDto)).build();
+    }
+
+    @GET
+    @RolesAllowed("getOwnPermissions")
+    @Path("/getOwnPermissions")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getOwnPermissions() throws BaseException {
+        String permissions = repeat(() -> accessEndpoint.getOwnPermissions(), accessEndpoint);
+        return Response.ok().entity(permissions).build();
+    }
+
+    @PUT
+    @RolesAllowed("addPermissionCategory")
+    @EtagFilterBinding
+    @Path("/addPermissionCategory/{login}/{courseCategory}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void addPermissionCategory(@NotNull @Login @PathParam("login") @Valid String login,
+                                      @ValueOfEnum(enumClass = CourseCategory.class) @Valid String courseCategory)
+            throws BaseException {
+        repeat(() -> accessEndpoint.addPermissionCategory(login, courseCategory), accessEndpoint);
+    }
+
+    @PUT
+    @RolesAllowed("removePermissionCategory")
+    @EtagFilterBinding
+    @Path("/removePermissionCategory/{login}/{courseCategory}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void removePermissionCategory(@NotNull @Login @PathParam("login") @Valid String login,
+                                         @ValueOfEnum(enumClass = CourseCategory.class) @Valid String courseCategory)
+            throws BaseException {
+        repeat(() -> accessEndpoint.removePermissionCategory(login, courseCategory), accessEndpoint);
     }
 }
