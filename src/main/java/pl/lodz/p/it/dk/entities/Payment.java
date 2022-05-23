@@ -4,8 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import pl.lodz.p.it.dk.entities.enums.PaymentStatus;
 import pl.lodz.p.it.dk.common.abstracts.AbstractEntity;
+import pl.lodz.p.it.dk.entities.enums.PaymentStatus;
 import pl.lodz.p.it.dk.validation.annotations.Comment;
 
 import javax.persistence.*;
@@ -19,8 +19,11 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "payment")
 @NamedQueries({
-        @NamedQuery(name = "Payment.findByTraineeId", query = "SELECT p FROM Payment p WHERE p.course.trainee.id = :traineeId"),
-        @NamedQuery(name = "Payment.findByStatus", query = "SELECT p FROM Payment p WHERE p.paymentStatus = :status")
+        @NamedQuery(name = "Payment.findByTraineeId",
+                query = "SELECT p FROM Payment p WHERE p.course.trainee.id = :traineeId"),
+        @NamedQuery(name = "Payment.findByStatus", query = "SELECT p FROM Payment p WHERE p.paymentStatus = :status"),
+        @NamedQuery(name = "Payment.findAllInRange",
+                query = "SELECT p FROM Payment p WHERE p.creationDate >= :from AND p.creationDate <= :to")
 })
 @NoArgsConstructor
 public class Payment extends AbstractEntity implements Serializable {

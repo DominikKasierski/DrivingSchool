@@ -182,6 +182,9 @@
     <security-role>
         <role-name>removePermissionCategory</role-name>
     </security-role>
+    <security-role>
+        <role-name>generateReport</role-name>
+    </security-role>
 
     <security-constraint>
         <web-resource-collection>

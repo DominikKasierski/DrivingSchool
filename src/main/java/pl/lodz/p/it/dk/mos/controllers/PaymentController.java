@@ -93,4 +93,12 @@ public class PaymentController extends AbstractController {
                            @NotNull @Valid NewPaymentDto newPaymentDto) throws BaseException {
         repeat(() -> paymentEndpoint.addPayment(login, newPaymentDto), paymentEndpoint);
     }
+
+    @GET
+    @RolesAllowed("generateReport")
+    @Path("/report/{from}/{to}")
+    public GenerateReportDto generateReport(@PathParam("from") Long from, @PathParam("to") Long to)
+            throws BaseException {
+        return paymentEndpoint.generateReport(from, to);
+    }
 }

@@ -13,6 +13,7 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Stateless
@@ -76,4 +77,19 @@ public class PaymentFacade extends AbstractFacade<Payment> {
             throw DatabaseException.queryException(e.getCause());
         }
     }
+
+    @RolesAllowed("generateReport")
+    public List<Payment> findAllPaymentsInTimeRange(Date from, Date to) throws BaseException {
+        try {
+            TypedQuery<Payment> paymentQuery = em.createNamedQuery("Payment.findAllInRange", Payment.class);
+            paymentQuery.setParameter("from", from);
+            paymentQuery.setParameter("to", to);
+            return paymentQuery.getResultList();
+        } catch (NoResultException e) {
+            throw NotFoundException.paymentNotFound(e.getCause());
+        } catch (PersistenceException e) {
+            throw DatabaseException.queryException(e.getCause());
+        }
+    }
+
 }

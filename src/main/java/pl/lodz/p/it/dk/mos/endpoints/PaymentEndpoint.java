@@ -20,6 +20,7 @@ import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Stateful
@@ -108,5 +109,15 @@ public class PaymentEndpoint extends AbstractEndpoint implements PaymentEndpoint
         CourseDto courseDto = Mappers.getMapper(CourseMapper.class).toCourseDto(course);
         verifyEntityIntegrity(courseDto);
         paymentManager.addPayment(newPaymentDto, course, getLogin());
+    }
+
+    @Override
+    @RolesAllowed("generateReport")
+    public GenerateReportDto generateReport(Long from, Long to) throws BaseException {
+        List<ReportRowDto> reportContent = new ArrayList<>();
+        paymentManager.generateReport(new Date(from * 1000), new Date(to * 1000))
+                .forEach(x -> reportContent.add(Mappers.getMapper(PaymentMapper.class).toReportRowDto(x)));
+
+        return new GenerateReportDto(reportContent, reportContent.size());
     }
 }

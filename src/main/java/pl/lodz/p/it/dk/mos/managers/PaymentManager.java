@@ -188,6 +188,11 @@ public class PaymentManager {
         }
     }
 
+    @RolesAllowed("generateReport")
+    public List<Payment> generateReport(Date from, Date to) throws BaseException {
+        return paymentFacade.findAllPaymentsInTimeRange(from, to);
+    }
+
     private Payment getInProgressPayment(Course course) throws PaymentException {
         return course.getPayments().stream()
                 .filter(x -> x.getPaymentStatus().equals(PaymentStatus.IN_PROGRESS))

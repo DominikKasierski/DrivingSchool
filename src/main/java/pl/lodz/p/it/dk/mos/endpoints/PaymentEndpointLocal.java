@@ -35,4 +35,7 @@ public interface PaymentEndpointLocal extends TransactionStarter {
 
     @RolesAllowed("addPayment")
     public void addPayment(String login, NewPaymentDto newPaymentDto) throws BaseException;
+
+    @RolesAllowed("generateReport")
+    public GenerateReportDto generateReport(Long from, Long to) throws BaseException;
 }
