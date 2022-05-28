@@ -112,24 +112,24 @@ public class AccessController extends AbstractController {
     }
 
     @PUT
-    @RolesAllowed("addPermissionCategory")
+    @RolesAllowed("addInstructorPermission")
     @EtagFilterBinding
-    @Path("/addPermissionCategory/{login}/{courseCategory}")
+    @Path("/addInstructorPermission/{login}/{courseCategory}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void addPermissionCategory(@NotNull @Login @PathParam("login") @Valid String login,
-                                      @ValueOfEnum(enumClass = CourseCategory.class) @Valid String courseCategory)
+    public void addInstructorPermission(@NotNull @Login @PathParam("login") @Valid String login,
+                                        @ValueOfEnum(enumClass = CourseCategory.class) @Valid String courseCategory)
             throws BaseException {
-        repeat(() -> accessEndpoint.addPermissionCategory(login, courseCategory), accessEndpoint);
+        repeat(() -> accessEndpoint.addInstructorPermission(login, courseCategory), accessEndpoint);
     }
 
     @PUT
-    @RolesAllowed("removePermissionCategory")
+    @RolesAllowed("removeInstructorPermission")
     @EtagFilterBinding
-    @Path("/removePermissionCategory/{login}/{courseCategory}")
+    @Path("/removeInstructorPermission/{login}/{courseCategory}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void removePermissionCategory(@NotNull @Login @PathParam("login") @Valid String login,
-                                         @ValueOfEnum(enumClass = CourseCategory.class) @Valid String courseCategory)
+    public void removeInstructorPermission(@NotNull @Login @PathParam("login") @Valid String login,
+                                           @ValueOfEnum(enumClass = CourseCategory.class) @Valid String courseCategory)
             throws BaseException {
-        repeat(() -> accessEndpoint.removePermissionCategory(login, courseCategory), accessEndpoint);
+        repeat(() -> accessEndpoint.removeInstructorPermission(login, courseCategory), accessEndpoint);
     }
 }

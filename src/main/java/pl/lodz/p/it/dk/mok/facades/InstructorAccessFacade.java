@@ -38,7 +38,7 @@ public class InstructorAccessFacade extends AbstractFacade<InstructorAccess> {
     }
 
     @Override
-    @RolesAllowed("addPermissionCategory")
+    @RolesAllowed("addInstructorPermission")
     public void edit(InstructorAccess entity) throws BaseException {
         super.edit(entity);
     }

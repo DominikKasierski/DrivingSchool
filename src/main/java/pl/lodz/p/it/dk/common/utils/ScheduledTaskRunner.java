@@ -1,7 +1,6 @@
 package pl.lodz.p.it.dk.common.utils;
 
 import lombok.extern.java.Log;
-import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.mok.managers.ScheduledTasksManager;
 
 import javax.annotation.security.RunAs;
@@ -30,7 +29,7 @@ public class ScheduledTaskRunner {
 
     @Schedule(hour = "*", info = "Sprawdza czy w bazie danych znajdują się jazdy, których status należy zmienić. " +
             "Metoda wykonywana co godzinę począwszy od pełnej godziny.", persistent = false)
-    private void changeDrivingLessonsStatuses(Timer time) throws BaseException {
+    private void changeDrivingLessonsStatuses(Timer time) {
         scheduledTasksManager.changeDrivingLessonsStatuses(time);
     }
 }

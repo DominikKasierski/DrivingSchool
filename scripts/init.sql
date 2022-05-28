@@ -35,8 +35,10 @@ INSERT INTO trainee_access (id)
 VALUES (-5);
 
 INSERT INTO instructors_permissions(instructor_id, permissions)
-VALUES (-3, 'B'),
-       (-3, 'A');
+VALUES (-2, 'B'),
+       (-2, 'C'),
+       (-3, 'A'),
+       (-3, 'B');
 
 ---- Create course details ----
 INSERT INTO course_details (id, course_category, price, lectures_hours, driving_hours, creation_date, modification_date,
@@ -45,11 +47,17 @@ VALUES (-1, 'A', 2000, 30, 20, now(), null, -1, null, 1),
        (-2, 'B', 2200, 30, 30, now(), null, -1, null, 1),
        (-3, 'C', 3000, 20, 30, now(), null, -1, null, 1);
 
+---- Create lecture groups ----
+INSERT INTO lecture_group (id, name, course_category, creation_date, modification_date, created_by, modified_by, version)
+VALUES (-1, 'PierwszaGrupaA', 'A', now(), null, -1, null, 1),
+       (-2, 'PierwszaGrupaB', 'B', now(), null, -1, null, 1),
+       (-3, 'PierwszaGrupaC', 'C', now(), null, -1, null, 1);
+
 ---- Create courses ----
-INSERT INTO course (id, trainee_id, course_details_id, paid, lectures_completion, course_completion, creation_date,
+INSERT INTO course (id, trainee_id, course_details_id, lecture_group_id, paid, lectures_completion, course_completion, creation_date,
                     modification_date, created_by, modified_by, version)
-VALUES (-1, -4, -1, false, false, false, now(), null, -3, null, 1),
-       (-2, -5, -2, false, false, false, now(), null, -4, null, 1);
+VALUES (-1, -4, -1, -1, false, false, false, now(), null, -3, null, 1),
+       (-2, -5, -2, -2, false, false, false, now(), null, -4, null, 1);
 
 ---- Create payments ----
 INSERT INTO payment (id, payment_status, course_id, value, trainee_comment, admin_comment, creation_date, modification_date,
@@ -59,8 +67,9 @@ VALUES (-1, 'REJECTED', -1, 750, 'Pierwsza wpłata', 'Błędna kwota', now(), nu
        (-3, 'CONFIRMED', -2, 500, 'Wpłata za kurs', null, now(), null, -4, null, 1),
        (-4, 'IN_PROGRESS', -2, 500, 'Wpłata z 8.05.2021r.', null, now(), null, -4, null, 1);
 
----- Create lecture groups ----
-INSERT INTO lecture_group (id, name, course_category, creation_date, modification_date, created_by, modified_by, version)
-VALUES (-1, 'PierwszaGrupaA', 'A', now(), null, -1, null, 1),
-       (-2, 'PierwszaGrupaB', 'B', now(), null, -1, null, 1),
-       (-3, 'PierwszaGrupaC', 'C', now(), null, -1, null, 1);
+---- Create cars ----
+INSERT INTO car (id, course_category, image, brand, model, registration_number, production_year, deleted, creation_date, modification_date,
+                     created_by, modified_by, version)
+VALUES (-1, 'A', '/static/motorcycle1.jpg', 'Yamaha', 'MT-07', 'ELEF646', 2015, false , now(), null, -1, null, 1),
+       (-2, 'B', '/static/car1.jpg', 'KIA', 'Rio', 'ELE4646', 2016, false , now(), null, -1, null, 1),
+       (-3, 'C', '/static/truck1.jpg', 'MAN', 'TGL 12.240', 'ELE646', 2014, false , now(), null, -1, null, 1);

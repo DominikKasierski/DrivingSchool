@@ -42,9 +42,9 @@ public interface AccessEndpointLocal extends TransactionStarter {
     @RolesAllowed("getOwnPermissions")
     public String getOwnPermissions() throws BaseException;
 
-    @RolesAllowed("addPermissionCategory")
-    public void addPermissionCategory(String login, String courseCategory) throws BaseException;
+    @RolesAllowed("addInstructorPermission")
+    public void addInstructorPermission(String login, String courseCategory) throws BaseException;
 
-    @RolesAllowed("removePermissionCategory")
-    public void removePermissionCategory(String login, String courseCategory) throws BaseException;
+    @RolesAllowed("removeInstructorPermission")
+    public void removeInstructorPermission(String login, String courseCategory) throws BaseException;
 }

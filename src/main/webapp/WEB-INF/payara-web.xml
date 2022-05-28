@@ -266,12 +266,12 @@
     </security-role-mapping>
 
     <security-role-mapping>
-        <role-name>addPermissionCategory</role-name>
+        <role-name>addInstructorPermission</role-name>
         <group-name>ADMIN</group-name>
     </security-role-mapping>
 
     <security-role-mapping>
-        <role-name>removePermissionCategory</role-name>
+        <role-name>removeInstructorPermission</role-name>
         <group-name>ADMIN</group-name>
     </security-role-mapping>
 

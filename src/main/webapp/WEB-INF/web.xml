@@ -177,10 +177,10 @@
         <role-name>getInstructorAccess</role-name>
     </security-role>
     <security-role>
-        <role-name>addPermissionCategory</role-name>
+        <role-name>addInstructorPermission</role-name>
     </security-role>
     <security-role>
-        <role-name>removePermissionCategory</role-name>
+        <role-name>removeInstructorPermission</role-name>
     </security-role>
     <security-role>
         <role-name>generateReport</role-name>

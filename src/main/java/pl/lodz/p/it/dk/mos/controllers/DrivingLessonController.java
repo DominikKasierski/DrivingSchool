@@ -33,7 +33,7 @@ public class DrivingLessonController extends AbstractController {
     @RolesAllowed("cancelDrivingLesson")
     @Path("/cancelDrivingLesson/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public void addDrivingLesson(@NotNull @PathParam("id") Long id) throws BaseException {
+    public void cancelDrivingLesson(@NotNull @PathParam("id") Long id) throws BaseException {
         repeat(() -> drivingLessonEndpoint.cancelDrivingLesson(id), drivingLessonEndpoint);
     }
 }

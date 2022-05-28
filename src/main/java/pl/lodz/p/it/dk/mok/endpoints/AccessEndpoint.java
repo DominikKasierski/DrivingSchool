@@ -100,20 +100,20 @@ public class AccessEndpoint extends AbstractEndpoint implements AccessEndpointLo
     }
 
     @Override
-    @RolesAllowed("addPermissionCategory")
-    public void addPermissionCategory(String login, String courseCategory) throws BaseException {
+    @RolesAllowed("addInstructorPermission")
+    public void addInstructorPermission(String login, String courseCategory) throws BaseException {
         InstructorAccessDto instructorAccess = accessManager.getInstructorAccess(login);
         verifyEntityIntegrity(instructorAccess);
-        accessManager.addPermissionCategory(accountManager.findByLogin(login), CourseCategory.valueOf(courseCategory),
+        accessManager.addInstructorPermission(accountManager.findByLogin(login), CourseCategory.valueOf(courseCategory),
                 accountManager.findByLogin(getLogin()));
     }
 
     @Override
-    @RolesAllowed("removePermissionCategory")
-    public void removePermissionCategory(String login, String courseCategory) throws BaseException {
+    @RolesAllowed("removeInstructorPermission")
+    public void removeInstructorPermission(String login, String courseCategory) throws BaseException {
         InstructorAccessDto instructorAccess = accessManager.getInstructorAccess(login);
         verifyEntityIntegrity(instructorAccess);
-        accessManager.removePermissionCategory(accountManager.findByLogin(login), CourseCategory.valueOf(courseCategory),
+        accessManager.removeInstructorPermission(accountManager.findByLogin(login), CourseCategory.valueOf(courseCategory),
                 accountManager.findByLogin(getLogin()));
     }
 }

@@ -130,10 +130,10 @@ public class AccessManager {
         return traineeAccessFacade.find(access.getId());
     }
 
-    @RolesAllowed({"getAllInstructors", "getInstructorAccess", "addPermissionCategory", "removePermissionCategory"})
+    @RolesAllowed({"getAllInstructors", "getInstructorAccess", "addInstructorPermission", "removeInstructorPermission"})
     public InstructorAccess findInstructorAccess(Account account) throws BaseException {
         Access access = account.getAccesses().stream()
-                .filter(x -> x.getAccessType() == AccessType.TRAINEE)
+                .filter(x -> x.getAccessType() == AccessType.INSTRUCTOR)
                 .findAny()
                 .orElseThrow(AccessException::noProperAccess);
 
@@ -162,7 +162,7 @@ public class AccessManager {
         return instructors;
     }
 
-    @RolesAllowed({"getInstructorAccess", "addPermissionCategory", "removePermissionCategory"})
+    @RolesAllowed({"getInstructorAccess", "addInstructorPermission", "removeInstructorPermission"})
     public InstructorAccessDto getInstructorAccess(String login) throws BaseException {
         Account account = accountManager.findByLogin(login);
         InstructorAccess instructorAccess = findInstructorAccess(account);
@@ -181,8 +181,8 @@ public class AccessManager {
                 .collect(Collectors.joining(", "));
     }
 
-    @RolesAllowed("addPermissionCategory")
-    public void addPermissionCategory(Account account, CourseCategory courseCategory, Account adminAccount)
+    @RolesAllowed("addInstructorPermission")
+    public void addInstructorPermission(Account account, CourseCategory courseCategory, Account adminAccount)
             throws BaseException {
         InstructorAccess instructorAccess = findInstructorAccess(account);
 
@@ -196,8 +196,8 @@ public class AccessManager {
         instructorAccessFacade.edit(instructorAccess);
     }
 
-    @RolesAllowed("removePermissionCategory")
-    public void removePermissionCategory(Account account, CourseCategory courseCategory, Account adminAccount)
+    @RolesAllowed("removeInstructorPermission")
+    public void removeInstructorPermission(Account account, CourseCategory courseCategory, Account adminAccount)
             throws BaseException {
         InstructorAccess instructorAccess = findInstructorAccess(account);
 
