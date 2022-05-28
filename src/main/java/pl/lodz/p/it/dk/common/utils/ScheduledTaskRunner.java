@@ -23,8 +23,14 @@ public class ScheduledTaskRunner {
     private ScheduledTasksManager scheduledTasksManager;
 
     @Schedule(hour = "*", info = "Sprawdza czy w bazie danych znajdują się niezweryfikowane konta do usunięcia. " +
-            "Metoda wykonywana co godzinę począwszy od pełjnej godziny.", persistent = false)
-    private void deleteUnverifiedAccounts(Timer time) throws BaseException {
+            "Metoda wykonywana co godzinę począwszy od pełnej godziny.", persistent = false)
+    private void deleteUnverifiedAccounts(Timer time) {
         scheduledTasksManager.deleteUnverifiedAccounts(time);
+    }
+
+    @Schedule(hour = "*", info = "Sprawdza czy w bazie danych znajdują się jazdy, których status należy zmienić. " +
+            "Metoda wykonywana co godzinę począwszy od pełnej godziny.", persistent = false)
+    private void changeDrivingLessonsStatuses(Timer time) throws BaseException {
+        scheduledTasksManager.changeDrivingLessonsStatuses(time);
     }
 }

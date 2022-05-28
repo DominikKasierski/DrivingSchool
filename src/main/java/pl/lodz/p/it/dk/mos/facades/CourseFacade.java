@@ -47,7 +47,7 @@ public class CourseFacade extends AbstractFacade<Course> {
     }
 
     @Override
-    @RolesAllowed({"createPayment", "cancelPayment", "confirmPayment", "rejectPayment"})
+    @PermitAll
     public void edit(Course entity) throws BaseException {
         try {
             super.edit(entity);

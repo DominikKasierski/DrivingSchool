@@ -4,10 +4,12 @@ import org.hibernate.exception.ConstraintViolationException;
 import pl.lodz.p.it.dk.common.abstracts.AbstractFacade;
 import pl.lodz.p.it.dk.entities.CourseDetails;
 import pl.lodz.p.it.dk.entities.enums.CourseCategory;
-import pl.lodz.p.it.dk.exceptions.*;
+import pl.lodz.p.it.dk.exceptions.BaseException;
+import pl.lodz.p.it.dk.exceptions.CourseDetailsException;
+import pl.lodz.p.it.dk.exceptions.DatabaseException;
+import pl.lodz.p.it.dk.exceptions.NotFoundException;
 
 import javax.annotation.security.PermitAll;
-import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -48,7 +50,7 @@ public class CourseDetailsFacade extends AbstractFacade<CourseDetails> {
         return super.find(id);
     }
 
-    @RolesAllowed({"createCourse", "addLectureForGroup"})
+    @PermitAll
     public CourseDetails findByCategory(CourseCategory courseCategory) throws BaseException {
         try {
             TypedQuery<CourseDetails>

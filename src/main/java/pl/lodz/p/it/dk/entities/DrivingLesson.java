@@ -23,8 +23,16 @@ import java.util.Date;
                 query = "SELECT d FROM DrivingLesson d WHERE d.lessonStatus = pl.lodz.p.it.dk.entities.enums" +
                         ".LessonStatus.CANCELLED OR d.lessonStatus = pl.lodz.p.it.dk.entities.enums.LessonStatus" +
                         ".FINISHED"),
-        @NamedQuery(name = "DrivingLesson.findByTraineeId", query = "SELECT d FROM DrivingLesson d WHERE d.course.trainee.id = :traineeId"),
-        @NamedQuery(name = "DrivingLesson.findByInstructorId", query = "SELECT d FROM DrivingLesson d WHERE d.instructor.id = :instructorId")
+        @NamedQuery(name = "DrivingLesson.findStartedLessons",
+                query = "SELECT d FROM DrivingLesson d WHERE d.dateFrom <= :date AND d.lessonStatus = pl.lodz.p.it.dk" +
+                        ".entities.enums.LessonStatus.PENDING"),
+        @NamedQuery(name = "DrivingLesson.findFinishedLessons",
+                query = "SELECT d FROM DrivingLesson d WHERE d.dateTo <= :date AND d.lessonStatus = pl.lodz.p.it.dk" +
+                        ".entities.enums.LessonStatus.IN_PROGRESS"),
+        @NamedQuery(name = "DrivingLesson.findByTraineeId",
+                query = "SELECT d FROM DrivingLesson d WHERE d.course.trainee.id = :traineeId"),
+        @NamedQuery(name = "DrivingLesson.findByInstructorId",
+                query = "SELECT d FROM DrivingLesson d WHERE d.instructor.id = :instructorId")
 })
 @NoArgsConstructor
 public class DrivingLesson extends AbstractEntity implements Serializable {

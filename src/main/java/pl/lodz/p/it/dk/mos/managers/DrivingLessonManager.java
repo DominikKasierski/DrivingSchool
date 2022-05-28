@@ -95,8 +95,7 @@ public class DrivingLessonManager {
 
         checkNumberOfHours(course, truncatedDateFrom, endDate, course.getCreatedBy());
 
-        Car car =
-                carManager.findAvailableCar(truncatedDateFrom, endDate, course.getCourseDetails().getCourseCategory());
+        Car car = carManager.findAvailableCar(truncatedDateFrom, endDate, course.getCourseDetails().getCourseCategory());
         DrivingLesson drivingLesson = new DrivingLesson(instructorAccess, course, car, truncatedDateFrom, endDate);
         drivingLesson.setCreatedBy(course.getCreatedBy());
 

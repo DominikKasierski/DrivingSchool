@@ -6,11 +6,13 @@ import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.exceptions.DatabaseException;
 import pl.lodz.p.it.dk.exceptions.NotFoundException;
 
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Stateless
@@ -36,7 +38,7 @@ public class DrivingLessonFacade extends AbstractFacade<DrivingLesson> {
     }
 
     @Override
-    @RolesAllowed("cancelDrivingLesson")
+    @PermitAll
     public void edit(DrivingLesson entity) throws BaseException {
         super.edit(entity);
     }
@@ -45,6 +47,34 @@ public class DrivingLessonFacade extends AbstractFacade<DrivingLesson> {
     @RolesAllowed("cancelDrivingLesson")
     public DrivingLesson find(Object id) throws BaseException {
         return super.find(id);
+    }
+
+    @PermitAll
+    public List<DrivingLesson> findStartedLessons(Date date) throws BaseException {
+        try {
+            TypedQuery<DrivingLesson> drivingLessonQuery =
+                    em.createNamedQuery("DrivingLesson.findStartedLessons", DrivingLesson.class);
+            drivingLessonQuery.setParameter("date", date);
+            return drivingLessonQuery.getResultList();
+        } catch (NoResultException e) {
+            throw NotFoundException.paymentNotFound(e.getCause());
+        } catch (PersistenceException e) {
+            throw DatabaseException.queryException(e.getCause());
+        }
+    }
+
+    @PermitAll
+    public List<DrivingLesson> findFinishedLessons(Date date) throws BaseException {
+        try {
+            TypedQuery<DrivingLesson> drivingLessonQuery =
+                    em.createNamedQuery("DrivingLesson.findFinishedLessons", DrivingLesson.class);
+            drivingLessonQuery.setParameter("date", date);
+            return drivingLessonQuery.getResultList();
+        } catch (NoResultException e) {
+            throw NotFoundException.paymentNotFound(e.getCause());
+        } catch (PersistenceException e) {
+            throw DatabaseException.queryException(e.getCause());
+        }
     }
 
     @RolesAllowed({""})
@@ -101,4 +131,6 @@ public class DrivingLessonFacade extends AbstractFacade<DrivingLesson> {
             throw DatabaseException.queryException(e.getCause());
         }
     }
+
+
 }
