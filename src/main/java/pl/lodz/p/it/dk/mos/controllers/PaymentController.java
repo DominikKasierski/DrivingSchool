@@ -96,7 +96,7 @@ public class PaymentController extends AbstractController {
 
     @GET
     @RolesAllowed("generateReport")
-    @Path("/report/{from}/{to}")
+    @Path("/generateReport/{from}/{to}")
     public GenerateReportDto generateReport(@PathParam("from") Long from, @PathParam("to") Long to)
             throws BaseException {
         return paymentEndpoint.generateReport(from, to);

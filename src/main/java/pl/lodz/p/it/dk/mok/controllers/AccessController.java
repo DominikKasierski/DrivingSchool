@@ -11,7 +11,6 @@ import pl.lodz.p.it.dk.mok.endpoints.AccessEndpointLocal;
 import pl.lodz.p.it.dk.security.etag.EtagFilterBinding;
 import pl.lodz.p.it.dk.security.etag.Signer;
 import pl.lodz.p.it.dk.validation.annotations.Login;
-import pl.lodz.p.it.dk.validation.annotations.ValueOfEnum;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
@@ -117,7 +116,7 @@ public class AccessController extends AbstractController {
     @Path("/addInstructorPermission/{login}/{courseCategory}")
     @Consumes(MediaType.APPLICATION_JSON)
     public void addInstructorPermission(@NotNull @Login @PathParam("login") @Valid String login,
-                                        @ValueOfEnum(enumClass = CourseCategory.class) @Valid String courseCategory)
+                                        @NotNull @PathParam("courseCategory") CourseCategory courseCategory)
             throws BaseException {
         repeat(() -> accessEndpoint.addInstructorPermission(login, courseCategory), accessEndpoint);
     }
@@ -128,7 +127,7 @@ public class AccessController extends AbstractController {
     @Path("/removeInstructorPermission/{login}/{courseCategory}")
     @Consumes(MediaType.APPLICATION_JSON)
     public void removeInstructorPermission(@NotNull @Login @PathParam("login") @Valid String login,
-                                           @ValueOfEnum(enumClass = CourseCategory.class) @Valid String courseCategory)
+                                           @NotNull @PathParam("courseCategory") CourseCategory courseCategory)
             throws BaseException {
         repeat(() -> accessEndpoint.removeInstructorPermission(login, courseCategory), accessEndpoint);
     }

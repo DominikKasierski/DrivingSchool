@@ -2,6 +2,7 @@ package pl.lodz.p.it.dk.mok.endpoints;
 
 import pl.lodz.p.it.dk.common.interfaces.TransactionStarter;
 import pl.lodz.p.it.dk.entities.enums.AccessType;
+import pl.lodz.p.it.dk.entities.enums.CourseCategory;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.mok.dtos.AccessesDto;
 import pl.lodz.p.it.dk.mok.dtos.InstructorAccessDto;
@@ -43,8 +44,8 @@ public interface AccessEndpointLocal extends TransactionStarter {
     public String getOwnPermissions() throws BaseException;
 
     @RolesAllowed("addInstructorPermission")
-    public void addInstructorPermission(String login, String courseCategory) throws BaseException;
+    public void addInstructorPermission(String login, CourseCategory courseCategory) throws BaseException;
 
     @RolesAllowed("removeInstructorPermission")
-    public void removeInstructorPermission(String login, String courseCategory) throws BaseException;
+    public void removeInstructorPermission(String login, CourseCategory courseCategory) throws BaseException;
 }

@@ -5,7 +5,7 @@ public class InstructorAccessException extends BaseException {
     private static final String PERMISSION_ALREADY_ADDED_EXCEPTION =
             "exception.instructor_access_exception.permission_already_added_exception";
     private static final String PERMISSION_ALREADY_REMOVED_EXCEPTION =
-            "exception.instructor_access_exception.permission_granted_exception";
+            "exception.instructor_access_exception.permission_already_removed_exception";
 
     private InstructorAccessException(String message) {
         super(message);

@@ -16,4 +16,5 @@ public class ReportRowDto {
     private String firstname;
     private String lastname;
     private BigDecimal value;
+    private String paymentStatus;
 }

@@ -12,4 +12,5 @@ public class BriefCarInfoDto {
     private String image;
     private String brand;
     private String model;
+    private Integer productionYear;
 }

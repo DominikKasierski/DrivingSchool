@@ -35,7 +35,8 @@ INSERT INTO trainee_access (id)
 VALUES (-5);
 
 INSERT INTO instructors_permissions(instructor_id, permissions)
-VALUES (-2, 'B'),
+VALUES (-2, 'A'),
+       (-2, 'B'),
        (-2, 'C'),
        (-3, 'A'),
        (-3, 'B');

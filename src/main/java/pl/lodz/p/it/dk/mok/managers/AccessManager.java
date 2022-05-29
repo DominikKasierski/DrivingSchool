@@ -148,17 +148,19 @@ public class AccessManager {
         for (Account account : accounts) {
             boolean isInstructor = account.getAccesses().stream()
                     .anyMatch(x -> x.getAccessType() == AccessType.INSTRUCTOR && x.isActivated());
+
             if (isInstructor) {
                 InstructorAccess instructorAccess = findInstructorAccess(account);
-                String permissions = instructorAccess.getPermissions().stream()
+                String permissions = instructorAccess.getPermissions()
+                        .stream()
                         .map(Enum::toString)
+                        .sorted()
                         .collect(Collectors.joining(", "));
-                instructors
-                        .add(new InstructorAccessDto(account.getLogin(), account.getFirstname(), account.getLastname(),
-                                permissions, instructorAccess.getVersion()));
+
+                instructors.add(new InstructorAccessDto(account.getLogin(), account.getFirstname(),
+                        account.getLastname(), permissions, instructorAccess.getVersion()));
             }
         }
-
         return instructors;
     }
 
@@ -166,9 +168,12 @@ public class AccessManager {
     public InstructorAccessDto getInstructorAccess(String login) throws BaseException {
         Account account = accountManager.findByLogin(login);
         InstructorAccess instructorAccess = findInstructorAccess(account);
+
         String permissions = instructorAccess.getPermissions().stream()
                 .map(Enum::toString)
+                .sorted()
                 .collect(Collectors.joining(", "));
+
         return new InstructorAccessDto(account.getLogin(), account.getFirstname(), account.getLastname(), permissions,
                 instructorAccess.getVersion());
     }
