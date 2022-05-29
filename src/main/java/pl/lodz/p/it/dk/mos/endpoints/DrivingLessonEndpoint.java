@@ -42,7 +42,7 @@ public class DrivingLessonEndpoint extends AbstractEndpoint implements DrivingLe
     @Override
     @RolesAllowed("cancelDrivingLesson")
     public void cancelDrivingLesson(Long id) throws BaseException {
-        Course course = courseManager.getOngoingCourse(getLogin());
+        Course course = drivingLessonManager.getDrivingLessonById(id).getCourse();
         CourseDto courseDto = Mappers.getMapper(CourseMapper.class).toCourseDto(course);
         verifyEntityIntegrity(courseDto);
         drivingLessonManager.cancelDrivingLesson(id, getLogin());

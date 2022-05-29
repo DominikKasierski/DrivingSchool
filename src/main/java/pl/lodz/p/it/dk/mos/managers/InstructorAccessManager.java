@@ -35,7 +35,7 @@ public class InstructorAccessManager {
         return instructorAccessFacade.find(access.getId());
     }
 
-    @RolesAllowed("addLectureForGroup")
+    @RolesAllowed({"addLectureForGroup", "addDrivingLesson"})
     public void edit(InstructorAccess instructorAccess) throws BaseException {
         instructorAccessFacade.edit(instructorAccess);
     }

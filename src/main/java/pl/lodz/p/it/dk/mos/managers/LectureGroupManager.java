@@ -113,17 +113,7 @@ public class LectureGroupManager {
             throw LectureGroupException.noPermits();
         }
 
-        for (Lecture lecture : lectureGroup.getLectures()) {
-            ifTwoDateRangesOverlap(dateFrom, dateTo, lecture.getDateFrom(), lecture.getDateTo());
-        }
-
-        for (Lecture lecture : instructorAccess.getLectures()) {
-            ifTwoDateRangesOverlap(dateFrom, dateTo, lecture.getDateFrom(), lecture.getDateTo());
-        }
-
-        for (DrivingLesson drivingLesson : instructorAccess.getDrivingLessons()) {
-            ifTwoDateRangesOverlap(dateFrom, dateTo, drivingLesson.getDateFrom(), drivingLesson.getDateTo());
-        }
+        checkAvailabilityOfDate(lectureGroup, dateFrom, dateTo, instructorAccess);
 
         Account adminAccount = accountManager.findByLogin(adminLogin);
         checkNumberOfHours(lectureGroup, dateFrom, dateTo, adminAccount);
@@ -142,8 +132,24 @@ public class LectureGroupManager {
         instructorAccessManager.edit(instructorAccess);
     }
 
+    private void checkAvailabilityOfDate(LectureGroup lectureGroup, Date dateFrom, Date dateTo,
+                                         InstructorAccess instructorAccess) throws LectureGroupException {
+        for (Lecture lecture : lectureGroup.getLectures()) {
+            ifTwoDateRangesOverlap(dateFrom, dateTo, lecture.getDateFrom(), lecture.getDateTo());
+        }
+
+        for (Lecture lecture : instructorAccess.getLectures()) {
+            ifTwoDateRangesOverlap(dateFrom, dateTo, lecture.getDateFrom(), lecture.getDateTo());
+        }
+
+        for (DrivingLesson drivingLesson : instructorAccess.getDrivingLessons()) {
+            ifTwoDateRangesOverlap(dateFrom, dateTo, drivingLesson.getDateFrom(), drivingLesson.getDateTo());
+        }
+    }
+
     private void ifTwoDateRangesOverlap(Date startA, Date endA, Date startB, Date endB) throws LectureGroupException {
-        if ((startA.getTime() < endB.getTime() && startB.getTime() < endA.getTime()) || (startA.getTime() == startB.getTime())) {
+        if ((startA.getTime() < endB.getTime() && startB.getTime() < endA.getTime()) ||
+                (startA.getTime() == startB.getTime())) {
             throw LectureGroupException.dateRangesOverlap();
         }
     }

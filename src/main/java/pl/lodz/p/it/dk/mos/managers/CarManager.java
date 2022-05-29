@@ -19,6 +19,7 @@ import javax.interceptor.Interceptors;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Stateless
@@ -69,14 +70,10 @@ public class CarManager {
     @RolesAllowed("addDrivingLesson")
     public Car findAvailableCar(Date dateFrom, Date dateTo, CourseCategory courseCategory) throws BaseException {
         List<Car> cars = carFacade.findByCategory(courseCategory);
-
-        for (Car car : cars) {
-            if (isCarAvailable(dateFrom, dateTo, car)) {
-                return car;
-            }
-        }
-
-        throw CarException.noCarAvailable();
+        return cars.stream()
+                .filter(x -> isCarAvailable(dateFrom, dateTo, x.getDrivingLessons()))
+                .findFirst()
+                .orElseThrow(CarException::noCarAvailable);
     }
 
     @RolesAllowed("addDrivingLesson")
@@ -91,8 +88,8 @@ public class CarManager {
                 .collect(Collectors.toList());
     }
 
-    private boolean isCarAvailable(Date dateFrom, Date dateTo, Car car) {
-        for (DrivingLesson drivingLesson : car.getDrivingLessons()) {
+    private boolean isCarAvailable(Date dateFrom, Date dateTo, Set<DrivingLesson> drivingLessons) {
+        for (DrivingLesson drivingLesson : drivingLessons) {
             if ((drivingLesson.getDateFrom().getTime() < dateTo.getTime() &&
                     dateFrom.getTime() < drivingLesson.getDateTo().getTime()) ||
                     (drivingLesson.getDateFrom().getTime() == dateFrom.getTime())) {

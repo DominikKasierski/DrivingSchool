@@ -38,7 +38,7 @@ public class CarFacade extends AbstractFacade<Car> {
     }
 
     @Override
-    @RolesAllowed("editCar")
+    @RolesAllowed({"editCar", "addDrivingLesson"})
     public void edit(Car entity) throws BaseException {
         super.edit(entity);
     }

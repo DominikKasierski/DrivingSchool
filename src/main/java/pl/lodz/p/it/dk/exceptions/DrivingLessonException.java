@@ -15,6 +15,8 @@ public class DrivingLessonException extends BaseException {
             "exception.driving_lesson_exception.time_for_cancellation_exceeded_exception";
     private static final String INCORRECT_LESSON_STATUS_EXCEPTION =
             "exception.driving_lesson_exception.incorrect_lesson_status_exception";
+    private static final String DATE_RANGES_OVERLAP_EXCEPTION =
+            "exception.lecture_group_exception.date_ranges_overlap_exception";
     private static final String ACCESS_DENIED_EXCEPTION =
             "exception.driving_lesson_exception.access_denied_exception";
 
@@ -36,6 +38,10 @@ public class DrivingLessonException extends BaseException {
 
     public static DrivingLessonException timeForAddingExceeded() {
         return new DrivingLessonException(TIME_FOR_ADDING_EXCEEDED_EXCEPTION);
+    }
+
+    public static DrivingLessonException dateRangesOverlap() {
+        return new DrivingLessonException(DATE_RANGES_OVERLAP_EXCEPTION);
     }
 
     public static DrivingLessonException tooManyDrivingHours() {
