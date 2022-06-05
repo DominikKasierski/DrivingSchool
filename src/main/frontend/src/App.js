@@ -1,48 +1,29 @@
-import logo from './images/logo.svg';
 import './App.css';
-import {
-    useDangerNotification,
-    useSuccessNotification,
-    useWarningNotification
-} from "./components/notifications/NotificationProvider";
+import {HashRouter, Route, Switch} from 'react-router-dom';
+import {GuardProvider, GuardedRoute} from 'react-router-guards';
+import NotFound from "./components/errorpages/NotFound";
+import Home from "./components/home/Home"
 
 function App() {
-    const dispatchDangerNotification = useDangerNotification();
-    const dispatchWarningNotification = useWarningNotification();
-    const dispatchSuccessNotification = useSuccessNotification();
+
+    const requireRoles = (to, from, next) => {
+        next();
+    };
 
     return (
-        <div className="App pb-5">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo"/>
-                <p>React</p>
-
-                <button onClick={() => dispatchDangerNotification({
-                    message: ("message, message, message, message, message, message"),
-                })}>
-                    Danger
-                </button>
-                <button onClick={() => dispatchWarningNotification({
-                    message: ("message, message, message, message, message, message"),
-                })}>
-                    Warning
-                </button>
-                <button onClick={() => dispatchSuccessNotification({
-                    message: ("message, message, message, message, message, message"),
-                })}>
-                    Success
-                </button>
-
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-            </header>
-        </div>
+        <HashRouter basename={process.env.REACT_APP_ROUTER_BASE || ''}>
+            <div className="App pb-5">
+                <div>
+                    {/*<NavigationBar roles={roles} divStyle={divStyle}/>*/}
+                    <GuardProvider guards={[requireRoles]} error={NotFound}>
+                        <Switch>
+                            <GuardedRoute exact path="/" component={Home} meta={{}}/>
+                        </Switch>
+                        <Route component={NotFound}/>
+                    </GuardProvider>
+                </div>
+            </div>
+        </HashRouter>
     );
 }
 

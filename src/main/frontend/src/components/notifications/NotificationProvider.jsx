@@ -75,7 +75,7 @@ export const useSuccessNotification = () => {
             payload: {
                 id: v4(),
                 notificationType: notificationType.SUCCESS,
-                notificationDuration: notificationDuration.STANDARD,
+                notificationDuration: notificationDuration.SHORT,
                 title: i18n.t("notification.title.success"),
                 message: message,
                 ...props

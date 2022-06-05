@@ -9,8 +9,9 @@ export const notificationType = {
 
 export const notificationDuration = {
     INFINITY: -1,
-    MINUTE: 60_000,
+    LONG: 60_000,
     STANDARD: 10_000,
+    SHORT: 5_000,
 }
 
 const Notification = (props) => {
