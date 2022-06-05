@@ -2,5 +2,8 @@
   "ADMIN": "Administrator",
   "INSTRUCTOR": "Instructor",
   "TRAINEE": "Trainee",
-  "USER": "User"
+  "USER": "User",
+  "notification.title.danger": "Error",
+  "notification.title.warning": "Warning",
+  "notification.title.success": "Success"
 }

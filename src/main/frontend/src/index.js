@@ -1,16 +1,16 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import NotificationProvider from "./components/notifications/NotificationProvider";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
+ReactDOM.render(
     <React.StrictMode>
-        <App/>
-    </React.StrictMode>
+        <NotificationProvider>
+            <App/>
+        </NotificationProvider>
+    </React.StrictMode>, document.getElementById('root')
 );
-
-
 
 reportWebVitals();
