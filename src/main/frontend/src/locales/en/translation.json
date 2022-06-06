@@ -5,5 +5,9 @@
   "USER": "User",
   "notification.title.danger": "Error",
   "notification.title.warning": "Warning",
-  "notification.title.success": "Success"
+  "notification.title.success": "Success",
+  "pageNotFound": "page not found",
+  "pageForbidden": "page forbidden",
+  "internalError": "internal server error",
+  "mainPage": "main page"
 }

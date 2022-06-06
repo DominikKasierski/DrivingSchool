@@ -1,6 +1,7 @@
 import logo from '../../images/logo.svg';
 
-function Home(props) {
+function Home() {
+
     return (
         <div className="App">
             <header className="App-header">

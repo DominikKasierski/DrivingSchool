@@ -5,5 +5,9 @@
   "USER": "Użytkownik",
   "notification.title.danger": "Błąd",
   "notification.title.warning": "Ostrzeżenie",
-  "notification.title.success": "Sukces"
+  "notification.title.success": "Sukces",
+  "pageNotFound": "nie znaleziono strony",
+  "pageForbidden": "brak uprawnień",
+  "internalError": "wewnętrzny błąd serwera",
+  "mainPage": "strona główna"
 }
