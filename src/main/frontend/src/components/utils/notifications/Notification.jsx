@@ -49,7 +49,6 @@ const Notification = (props) => {
         }, 100);
     };
 
-
     React.useEffect(() => {
         if (progress === 105) {
             handleCloseNotification()

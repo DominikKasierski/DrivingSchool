@@ -2,7 +2,7 @@ import React, {createContext, useContext, useReducer} from 'react';
 import Notification, {notificationDuration, notificationType} from "./Notification";
 import './NotificationWrapper.scss'
 import {v4} from "uuid";
-import i18n from '../../i18n';
+import i18n from '../../../i18n';
 
 const NotificationContext = createContext();
 

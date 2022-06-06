@@ -9,5 +9,9 @@
   "pageNotFound": "nie znaleziono strony",
   "pageForbidden": "brak uprawnień",
   "internalError": "wewnętrzny błąd serwera",
-  "mainPage": "strona główna"
+  "mainPage": "strona główna",
+  "dialog.button.cancel": "anuluj",
+  "dialog.button.confirm": "potwierdź",
+  "dialog.permanent.title": "Trwała zmiana danych",
+  "dialog.permanent.message": "Zmiana, którą próbujesz dokonać trwale modyfikuje dane. \n Jesteś tego pewny?"
 }

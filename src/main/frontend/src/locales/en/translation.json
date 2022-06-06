@@ -9,5 +9,9 @@
   "pageNotFound": "page not found",
   "pageForbidden": "page forbidden",
   "internalError": "internal server error",
-  "mainPage": "main page"
+  "mainPage": "main page",
+  "dialog.button.cancel": "cancel",
+  "dialog.button.confirm": "confirm",
+  "dialog.permanent.title": "Permanent data change",
+  "dialog.permanent.message": "The change you are trying to make permanently modifies the data. \n Are you sure?"
 }
