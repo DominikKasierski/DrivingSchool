@@ -62,3 +62,5 @@ export const usePermanentDialog = () => {
         });
     }
 };
+
+export default DialogProvider;

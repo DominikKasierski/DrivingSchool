@@ -4,7 +4,6 @@ import i18n from '../../../i18n';
 
 function Dialog(props) {
     const [visibility, setVisibility] = useState(true);
-    const {noCancel} = props
 
     const handleConfirm = () => {
         handleClose();
@@ -26,18 +25,17 @@ function Dialog(props) {
     };
 
     return (
-        <Modal show={visibility} onHide={handleCancel} className={"text-dark"}>
+        <Modal show={visibility} onHide={handleCancel} animation={false} className={"text-dark"}>
             <Modal.Header closeButton>
                 <Modal.Title>{props.title}</Modal.Title>
             </Modal.Header>
             <Modal.Body style={{whiteSpace: "pre-line"}}>{props.message}</Modal.Body>
             <Modal.Footer>
-                {noCancel !== true &&
-                    <Button variant="secondary" onClick={handleConfirm}>
-                        {i18n.t("dialog.button.cancel")}
-                    </Button>}
-                <Button variant="purple" onClick={handleConfirm}>
-                    {i18n.t(props.textButtonSave ?? "dialog.button.confirm")}
+                <Button variant="secondary" onClick={handleCancel}>
+                    {i18n.t("dialog.button.cancel")}
+                </Button>
+                <Button className="btn-dark" onClick={handleConfirm}>
+                    {i18n.t("dialog.button.confirm")}
                 </Button>
             </Modal.Footer>
         </Modal>

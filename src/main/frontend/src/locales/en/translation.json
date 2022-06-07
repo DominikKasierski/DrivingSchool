@@ -13,5 +13,5 @@
   "dialog.button.cancel": "cancel",
   "dialog.button.confirm": "confirm",
   "dialog.permanent.title": "Permanent data change",
-  "dialog.permanent.message": "The change you are trying to make permanently modifies the data. \n Are you sure?"
+  "dialog.permanent.message": "The change you are trying to make permanently modifies data. \n Are you sure?"
 }
