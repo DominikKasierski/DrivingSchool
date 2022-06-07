@@ -13,5 +13,11 @@
   "dialog.button.cancel": "anuluj",
   "dialog.button.confirm": "potwierdź",
   "dialog.permanent.title": "Trwała zmiana danych",
-  "dialog.permanent.message": "Zmiana, którą próbujesz dokonać trwale modyfikuje dane. \n Jesteś tego pewny?"
+  "dialog.permanent.message": "Zmiana, którą próbujesz dokonać trwale modyfikuje dane. \n Jesteś tego pewny?",
+  "error.request.404": "Zasób nie został znaleziony",
+  "error.request.401.login": "Błąd autoryzacji",
+  "error.request.401.token": "Token wygasł",
+  "error.request.unknown": "Nieznany kod błędu",
+  "error.server.no_response": "Brak odpowiedzi z serwera"
+
 }

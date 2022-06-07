@@ -13,5 +13,10 @@
   "dialog.button.cancel": "cancel",
   "dialog.button.confirm": "confirm",
   "dialog.permanent.title": "Permanent data change",
-  "dialog.permanent.message": "The change you are trying to make permanently modifies data. \n Are you sure?"
+  "dialog.permanent.message": "The change you are trying to make permanently modifies data. \n Are you sure?",
+  "error.request.404": "Resource not found",
+  "error.request.401.login": "Authorization error",
+  "error.request.401.token": "Token expired",
+  "error.request.unknown": "Unknown error code",
+  "error.server.no_response": "No response from server"
 }
