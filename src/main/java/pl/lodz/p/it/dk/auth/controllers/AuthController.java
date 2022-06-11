@@ -62,8 +62,8 @@ public class AuthController extends AbstractController {
 
     @POST
     @Path("updateToken")
-    public Response updateToken(@NotNull String currentToken) {
-        String updatedToken = authEndpoint.updateToken(currentToken);
+    public Response updateToken(@NotNull String token) {
+        String updatedToken = authEndpoint.updateToken(token);
         return Response.ok().entity(updatedToken).build();
     }
 }

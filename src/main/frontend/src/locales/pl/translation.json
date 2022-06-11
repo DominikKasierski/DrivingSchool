@@ -14,10 +14,13 @@
   "dialog.button.confirm": "potwierdź",
   "dialog.permanent.title": "Trwała zmiana danych",
   "dialog.permanent.message": "Zmiana, którą próbujesz dokonać trwale modyfikuje dane. \n Jesteś tego pewny?",
+  "dialog.update.token.title":"Wygaśnięcie tokenu",
+  "dialog.update.token.message":"Za chwilę Twój token wygaśnie. Jeśli chcesz nadal korzystać z aplikacji ",
+  "dialog.update.token.refresh":"kliknij tutaj, aby go odświeżyć",
+  "dialog.update.token.success": "Token został odnowiony pomyślnie",
   "error.request.404": "Zasób nie został znaleziony",
   "error.request.401.login": "Błąd autoryzacji",
   "error.request.401.token": "Token wygasł",
   "error.request.unknown": "Nieznany kod błędu",
   "error.server.no_response": "Brak odpowiedzi z serwera"
-
 }

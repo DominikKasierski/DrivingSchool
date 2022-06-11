@@ -27,7 +27,6 @@ const Notification = (props) => {
                         clearInterval(id);
                         return prev;
                     }
-                    console.log(`${id} + ${prev}`)
                     return prev + 1;
                 });
             }, (props.notificationDuration) / 100);
