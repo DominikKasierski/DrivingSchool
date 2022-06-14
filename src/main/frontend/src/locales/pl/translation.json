@@ -3,13 +3,11 @@
   "INSTRUCTOR": "Instruktor",
   "TRAINEE": "Kursant",
   "USER": "Użytkownik",
+
   "notification.title.danger": "Błąd",
   "notification.title.warning": "Ostrzeżenie",
   "notification.title.success": "Sukces",
-  "pageNotFound": "nie znaleziono strony",
-  "pageForbidden": "brak uprawnień",
-  "internalError": "wewnętrzny błąd serwera",
-  "mainPage": "strona główna",
+
   "dialog.button.cancel": "anuluj",
   "dialog.button.confirm": "potwierdź",
   "dialog.permanent.title": "Trwała zmiana danych",
@@ -18,9 +16,69 @@
   "dialog.update.token.message":"Twój token za chwilę wygaśnie. Jeśli chcesz nadal korzystać z aplikacji ",
   "dialog.update.token.refresh":"kliknij, aby go odświeżyć",
   "dialog.update.token.success": "Token został pomyślnie odnowiony",
+
+  "pageNotFound": "nie znaleziono strony",
+  "pageForbidden": "brak uprawnień",
+  "internalError": "wewnętrzny błąd serwera",
+  "mainPage": "strona główna",
+
   "error.request.404": "Zasób nie został znaleziony",
   "error.request.401.login": "Błąd autoryzacji",
   "error.request.401.token": "Token wygasł",
   "error.request.unknown": "Nieznany kod błędu",
-  "error.server.no_response": "Brak odpowiedzi z serwera"
+  "error.server.no_response": "Brak odpowiedzi z serwera",
+
+  "form.validation.field.min.size": "Dane wejściowe są zbyt krótkie",
+  "form.validation.field.max.size": "Dane wejściowe są zbyt długie",
+  "form.validation.field.pattern": "Dane wejściowe nie pasują do wzorca",
+  "form.validation.field.not.allowed": "Dane wejściowe nie odpowiadają dozwolonym wartościom",
+
+  "form.validation.field.login.min.size": "Login jest za krótki",
+  "form.validation.field.login.max.size": "Login jest za długi",
+  "form.validation.field.login.pattern": "Login nie spełnia wymagań wzorca",
+
+  "form.validation.field.email_address.min.size": "Email jest za krótki",
+  "form.validation.field.email_address.max.size": "Email jest za długi",
+  "form.validation.field.email_address.pattern": "Email nie spełnia wymagań wzorca",
+
+  "form.validation.field.firstname.min.size": "Imię jest za krótkie",
+  "form.validation.field.firstname.max.size": "Imię jest za długie",
+  "form.validation.field.firstname.pattern": "Imię nie spełnia wymagań wzorca",
+
+  "form.validation.field.lastname.min.size": "Nazwisko jest za krótkie",
+  "form.validation.field.lastname.max.size": "Nazwisko jest za długie",
+  "form.validation.field.lastname.pattern": "Nazwisko nie spełnia wymagań wzorca",
+
+  "form.validation.field.password.min.size": "Hasło jest za krótkie",
+  "form.validation.field.password.max.size": "Hasło jest za długie",
+  "form.validation.field.password.pattern": "Hasło nie spełnia wymagań wzorca",
+
+  "form.validation.field.phone_number.min.size": "Numer telefonu jest za krótki",
+  "form.validation.field.phone_number.max.size": "Numer telefonu jest za długi",
+  "form.validation.field.phone_number.pattern": "Numer telefonu nie spełnia wymagań wzorca",
+
+  "form.validation.field.confirmation_code.min.size": "Kod jednorazowy jest za krótki",
+  "form.validation.field.confirmation_code.max.size": "Kod jednorazowy jest za długi",
+  "form.validation.field.confirmation_code.pattern": "Kod jednorazowy nie spełnia wymagań wzorca",
+
+  "form.validation.field.language.min.size": "Nazwa języka jest za krótka",
+  "form.validation.field.language.max.size": "Nazwa języka jest za długa",
+  "form.validation.field.language.pattern": "Nazwa języka nie spełnia wymagań wzorca",
+  "form.validation.field.language.not_allowed": "Język nie jest dozwolony",
+
+  "form.validation.field.image.min.size": "Adres URL zdjęcia jest za krótki",
+  "form.validation.field.image.max.size": "Adres URL zdjęcia jest za długi",
+  "form.validation.field.image.pattern": "Adres URL zdjęcia nie spełnia wymagań wzorca",
+
+  "form.validation.field.comment.min.size": "Treść komentarza jest za krótka",
+  "form.validation.field.comment.max.size": "Treść komentarza jest za długa",
+  "form.validation.field.comment.pattern": "Treść komentarza nie spełnia wymagań wzorca",
+
+  "form.validation.field.price.min.size": "Cena jest za mała",
+  "form.validation.field.price.max.size": "Cena jest za duża",
+  "form.validation.field.price.pattern": "Cena nie spełnia wymagań wzorca",
+
+  "form.validation.field.registration_number.min.size": "Numer rejestracyjny jest za krótki",
+  "form.validation.field.registration_number.max.size": "Numer rejestracyjny jest za długi",
+  "form.validation.field.registration_number.pattern": "Numer rejestracyjny nie spełnia wymagań wzorca"
 }

@@ -114,3 +114,49 @@ const changeValidationMessages = (errors, identity) => {
     });
 }
 
+export const ValidatorType = {
+    LOGIN: "LOGIN",
+    EMAIL_ADDRESS: "EMAIL_ADDRESS",
+    FIRSTNAME: "FIRSTNAME",
+    LASTNAME: "LASTNAME",
+    PASSWORD: "PASSWORD",
+    PHONE_NUMBER: "PHONE_NUMBER",
+    CONFIRMATION_CODE: "CONFIRMATION_CODE",
+    LANGUAGE: "LANGUAGE",
+    IMAGE: "IMAGE",
+    COMMENT: "COMMENT",
+    PRICE: "PRICE",
+    REGISTRATION_NUMBER: "REGISTRATION_NUMBER",
+};
+
+export const validatorFactory = (data, validatorType) => {
+    switch (validatorType) {
+        case ValidatorType.LOGIN:
+            return changeValidationMessages(validateLogin(data), 'LOGIN');
+        case ValidatorType.EMAIL_ADDRESS:
+            return changeValidationMessages(validateEmailAddress(data), 'EMAIL_ADDRESS');
+        case ValidatorType.FIRSTNAME:
+            return changeValidationMessages(validateFirstname(data), 'FIRSTNAME');
+        case ValidatorType.LASTNAME:
+            return changeValidationMessages(validateLastname(data), 'LASTNAME');
+        case ValidatorType.PASSWORD:
+            return changeValidationMessages(validatePassword(data), 'PASSWORD');
+        case ValidatorType.PHONE_NUMBER:
+            return changeValidationMessages(validatePhoneNumber(data), 'PHONE_NUMBER');
+        case ValidatorType.CONFIRMATION_CODE:
+            return changeValidationMessages(validateConfirmationCode(data), 'CONFIRMATION_CODE');
+        case ValidatorType.LANGUAGE:
+            return changeValidationMessages(validateLanguage(data), 'LANGUAGE');
+        case ValidatorType.IMAGE:
+            return changeValidationMessages(validateImage(data), 'IMAGE');
+        case ValidatorType.COMMENT:
+            return changeValidationMessages(validateComment(data), 'COMMENT');
+        case ValidatorType.PRICE:
+            return changeValidationMessages(validatePrice(data), 'PRICE');
+        case ValidatorType.REGISTRATION_NUMBER:
+            return changeValidationMessages(validatePrice(data), 'REGISTRATION_NUMBER');
+        default:
+            return [];
+    }
+}
+

@@ -3,13 +3,11 @@
   "INSTRUCTOR": "Instructor",
   "TRAINEE": "Trainee",
   "USER": "User",
+
   "notification.title.danger": "Error",
   "notification.title.warning": "Warning",
   "notification.title.success": "Success",
-  "pageNotFound": "page not found",
-  "pageForbidden": "page forbidden",
-  "internalError": "internal server error",
-  "mainPage": "main page",
+
   "dialog.button.cancel": "cancel",
   "dialog.button.confirm": "confirm",
   "dialog.permanent.title": "Permanent data change",
@@ -18,9 +16,69 @@
   "dialog.update.token.message":"Your token will expire in a while. If you want to still using the app, please ",
   "dialog.update.token.refresh":"click here to refresh it",
   "dialog.update.token.success": "Token refreshed successfully",
+
+  "pageNotFound": "page not found",
+  "pageForbidden": "page forbidden",
+  "internalError": "internal server error",
+  "mainPage": "main page",
+
   "error.request.404": "Resource not found",
   "error.request.401.login": "Authorization error",
   "error.request.401.token": "Token expired",
   "error.request.unknown": "Unknown error code",
-  "error.server.no_response": "No response from server"
+  "error.server.no_response": "No response from server",
+
+  "form.validation.field.min.size": "Input is too short",
+  "form.validation.field.max.size": "Input is too long",
+  "form.validation.field.pattern": "Input does not match pattern",
+  "form.validation.field.not.allowed": "Input does not match allowed values",
+
+  "form.validation.field.login.min.size": "Login is too short",
+  "form.validation.field.login.max.size": "Login is too long",
+  "form.validation.field.login.pattern": "Login does not meet pattern requirements",
+
+  "form.validation.field.email_address.min.size": "Email is too short",
+  "form.validation.field.email_address.max.size": "Email is too long",
+  "form.validation.field.email_address.pattern": "Email does not meet pattern requirements",
+
+  "form.validation.field.firstname.min.size": "Firstname is too short",
+  "form.validation.field.firstname.max.size": "Firstname is too long",
+  "form.validation.field.firstname.pattern": "Firstname does not meet pattern requirements",
+
+  "form.validation.field.lastname.min.size": "Lastname is too short",
+  "form.validation.field.lastname.max.size": "Lastname is too long",
+  "form.validation.field.lastname.pattern": "Lastname does not meet pattern requirements",
+
+  "form.validation.field.password.min.size": "Password is too short",
+  "form.validation.field.password.max.size": "Password is too long",
+  "form.validation.field.password.pattern": "Password does not meet pattern requirements",
+
+  "form.validation.field.phone_number.min.size": "Phone number is too short",
+  "form.validation.field.phone_number.max.size": "Phone number is too long",
+  "form.validation.field.phone_number.pattern": "Phone number does not meet pattern requirements",
+
+  "form.validation.field.confirmation_code.min.size": "One-time code is too short",
+  "form.validation.field.confirmation_code.max.size": "One-time code is too long",
+  "form.validation.field.confirmation_code.pattern": "One-time code does not meet pattern requirements",
+
+  "form.validation.field.language.min.size": "Language name is too short",
+  "form.validation.field.language.max.size": "Language name is too long",
+  "form.validation.field.language.pattern": "Language name does not meet pattern requirements",
+  "form.validation.field.language.not_allowed": "Language is not allowed",
+
+  "form.validation.field.image.min.size": "Image URL is too short",
+  "form.validation.field.image.max.size": "Image URL is too long",
+  "form.validation.field.image.pattern": "Image URL does not meet pattern requirements",
+
+  "form.validation.field.comment.min.size": "Comment is too short",
+  "form.validation.field.comment.max.size": "Comment is too long",
+  "form.validation.field.comment.pattern": "Comment does not meet pattern requirements",
+
+  "form.validation.field.price.min.size": "Price is too low",
+  "form.validation.field.price.max.size": "Price is too big",
+  "form.validation.field.price.pattern": "Price does not meet pattern requirements",
+
+  "form.validation.field.registration_number.min.size": "Registration number is too short",
+  "form.validation.field.registration_number.max.size": "Registration number is too long",
+  "form.validation.field.registration_number.pattern": "Registration number does not meet pattern requirements"
 }
