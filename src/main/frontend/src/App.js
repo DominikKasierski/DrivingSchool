@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import React, {useState, useEffect} from 'react';
 import {HashRouter, Route, Switch} from 'react-router-dom';
 import {GuardProvider, GuardedRoute} from 'react-router-guards';
@@ -16,17 +16,13 @@ function App() {
             const decodeJwt = jwt_decode(token);
             const roles = decodeJwt['roles'].split(',');
             const login = decodeJwt['sub'];
-            console.log(roles)
-            console.log(login)
             setRoles(roles);
-            debugger
             if (localStorage.getItem('currentRole') === null) {
                 setCurrentRole(roles[0])
                 localStorage.setItem('currentRole', roles[0])
             }
             setUsername(login)
             localStorage.setItem('username', login)
-            debugger
         }
     }
 
@@ -60,8 +56,8 @@ function App() {
                     <GuardProvider guards={[requireRoles]} error={NotFound}>
                         <Switch>
                             <GuardedRoute exact path="/" component={Home} meta={{}}/>
+                            <Route component={NotFound}/>
                         </Switch>
-                        <Route component={NotFound}/>
                     </GuardProvider>
                 </div>
             </div>
