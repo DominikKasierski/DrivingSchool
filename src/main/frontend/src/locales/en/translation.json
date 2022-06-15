@@ -80,5 +80,10 @@
 
   "form.validation.field.registration_number.min.size": "Registration number is too short",
   "form.validation.field.registration_number.max.size": "Registration number is too long",
-  "form.validation.field.registration_number.pattern": "Registration number does not meet pattern requirements"
+  "form.validation.field.registration_number.pattern": "Registration number does not meet pattern requirements",
+
+  "landing.page.courses": "Driving license courses",
+  "landing.page.left": "",
+  "landing.page.center": "",
+  "landing.page.right": ""
 }

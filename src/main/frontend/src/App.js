@@ -6,6 +6,8 @@ import jwt_decode from "jwt-decode";
 import NotFound from "./components/errorpages/NotFound";
 import Home from "./components/home/Home"
 import {useLocale} from "./components/utils/login/LoginProvider";
+import Forbidden from "./components/errorpages/Forbidden";
+import InternalError from "./components/errorpages/InternalError";
 
 function App() {
     const {token, currentRole, setCurrentRole, setUsername} = useLocale();

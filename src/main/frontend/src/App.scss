@@ -2,6 +2,11 @@
 @import "node_modules/bootstrap/scss/variables";
 @import "node_modules/bootstrap/scss/mixins/breakpoints";
 
+* {
+  background: rgb(24, 26, 27);
+  //color: rgb(255, 255, 255);
+  color: rgb(209, 205, 199);
+}
 
 body.modal-open {
   padding: 0 !important;
@@ -21,19 +26,34 @@ body.modal-open {
   overflow-x: hidden;
 }
 
+
 .homeGrid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-template-rows: min-content 1fr;
   grid-column-gap: 2rem;
 
   @include media-breakpoint-down(sm) {
     grid-template-columns: repeat(1, 1fr);
-    grid-template-rows: repeat(4, min-content);
-    .textLeft {order: 1}
-    .textRight {order: 10}
-    .imageLeft {order: 5}
-    .imageRight {order: 15}
+    grid-template-rows: repeat(6, min-content);
+    .imageLeft {
+      order: 1
+    }
+    .textLeft {
+      order: 2
+    }
+    .imageCenter {
+      order: 3
+    }
+    .textCenter {
+      order: 4
+    }
+    .imageRight {
+      order: 5
+    }
+    .textRight {
+      order: 6
+    }
   }
 }
 

@@ -80,5 +80,10 @@
 
   "form.validation.field.registration_number.min.size": "Numer rejestracyjny jest za krótki",
   "form.validation.field.registration_number.max.size": "Numer rejestracyjny jest za długi",
-  "form.validation.field.registration_number.pattern": "Numer rejestracyjny nie spełnia wymagań wzorca"
+  "form.validation.field.registration_number.pattern": "Numer rejestracyjny nie spełnia wymagań wzorca",
+
+  "landing.page.courses": "Kursy na prawo jazdy",
+  "landing.page.left": "kategoria A",
+  "landing.page.center": "kategoria B",
+  "landing.page.right": "kategoria C"
 }
