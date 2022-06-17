@@ -185,6 +185,9 @@
     <security-role>
         <role-name>generateReport</role-name>
     </security-role>
+    <security-role>
+        <role-name>editLanguage</role-name>
+    </security-role>
 
     <security-constraint>
         <web-resource-collection>

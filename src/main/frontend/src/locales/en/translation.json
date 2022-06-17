@@ -83,7 +83,16 @@
   "form.validation.field.registration_number.pattern": "Registration number does not meet pattern requirements",
 
   "landing.page.courses": "Driving license courses",
-  "landing.page.left": "",
-  "landing.page.center": "",
-  "landing.page.right": ""
+  "landing.page.left": "Category A",
+  "landing.page.center": "Category B",
+  "landing.page.right": "Category C",
+
+  "language": "lLanguage",
+  "language.change.success": "Language changed successfully",
+  "logout.success": "Successfully logged out",
+
+  "navigation.bar.subtitle": "The best driving school",
+  "navigation.bar.vehicles": "Vehicles",
+  "navigation.bar.vehicles.list": "Vehicle list",
+  "navigation.bar.vehicles.add": "Add vehicle"
 }

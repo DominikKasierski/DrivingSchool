@@ -163,4 +163,13 @@ public class AccountEndpoint extends AbstractEndpoint implements AccountEndpoint
         accountManager
                 .confirmPasswordChange(confirmPasswordChangeDto.getResetCode(), confirmPasswordChangeDto.getPassword());
     }
+
+    @Override
+    @RolesAllowed("editLanguage")
+    public void editLanguage(String language) throws BaseException {
+        Account account = accountManager.findByLogin(getLogin());
+        AccountDto accountDto = Mappers.getMapper(AccountMapper.class).toAccountDto(account);
+        verifyEntityIntegrity(accountDto);
+        accountManager.editLanguage(getLogin(), language);
+    }
 }

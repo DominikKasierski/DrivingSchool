@@ -297,6 +297,14 @@ public class AccountManager {
         accountFacade.edit(account);
     }
 
+    @RolesAllowed("editOwnLanguage")
+    public void editLanguage(String login, String language) throws BaseException {
+        Account account = accountFacade.findByLogin(login);
+        account.setLanguage(language);
+        account.setModifiedBy(account);
+        accountFacade.edit(account);
+    }
+
     private void deactivatePreviousCodes(Account account, CodeType codeType, Account changingAccount) {
         for (ConfirmationCode confirmationCode : account.getConfirmationCodes()) {
             if (confirmationCode.getCodeType().equals(codeType) && !confirmationCode.isUsed()) {

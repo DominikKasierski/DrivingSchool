@@ -8,6 +8,7 @@ import pl.lodz.p.it.dk.security.etag.EtagFilterBinding;
 import pl.lodz.p.it.dk.security.etag.Signer;
 import pl.lodz.p.it.dk.validation.annotations.Code;
 import pl.lodz.p.it.dk.validation.annotations.EmailAddress;
+import pl.lodz.p.it.dk.validation.annotations.Language;
 import pl.lodz.p.it.dk.validation.annotations.Login;
 
 import javax.annotation.security.RolesAllowed;
@@ -20,7 +21,7 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/account")
-public class AccountController extends AbstractController {
+public class  AccountController extends AbstractController {
 
     @Inject
     private Signer signer;
@@ -141,5 +142,13 @@ public class AccountController extends AbstractController {
     public void confirmPasswordChange(@NotNull @Valid ConfirmPasswordChangeDto confirmPasswordChangeDto)
             throws BaseException {
         repeat(() -> accountEndpoint.confirmPasswordChange(confirmPasswordChangeDto), accountEndpoint);
+    }
+
+    @PUT
+    @RolesAllowed("editLanguage")
+    @EtagFilterBinding
+    @Path("/editLanguage/{lang}")
+    public void editLanguage(@NotNull @Language @PathParam("lang") String language) throws BaseException {
+        repeat(() -> accountEndpoint.editLanguage(language), accountEndpoint);
     }
 }

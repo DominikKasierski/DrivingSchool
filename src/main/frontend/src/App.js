@@ -6,6 +6,7 @@ import jwt_decode from "jwt-decode";
 import NotFound from "./components/errorpages/NotFound";
 import Home from "./components/home/Home"
 import {useLocale} from "./components/utils/login/LoginProvider";
+import NavigationBar from "./components/bars/NavigationBar";
 import Forbidden from "./components/errorpages/Forbidden";
 import InternalError from "./components/errorpages/InternalError";
 
@@ -55,9 +56,12 @@ function App() {
             <div className="App pb-5">
                 <div>
                     {/*<NavigationBar roles={roles} divStyle={divStyle}/>*/}
+                    <NavigationBar roles={roles}/>
                     <GuardProvider guards={[requireRoles]} error={NotFound}>
                         <Switch>
                             <GuardedRoute exact path="/" component={Home} meta={{}}/>
+                            <GuardedRoute exact path="/vehicles" component={Forbidden} meta={{}}/>
+                            <GuardedRoute exact path="/vehicles/add" component={NotFound} meta={{}}/>
                             <Route component={NotFound}/>
                         </Switch>
                     </GuardProvider>

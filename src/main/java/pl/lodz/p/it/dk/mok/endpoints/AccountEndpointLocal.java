@@ -59,4 +59,7 @@ public interface AccountEndpointLocal extends TransactionStarter {
 
     @PermitAll
     void confirmPasswordChange(ConfirmPasswordChangeDto confirmPasswordChangeDto) throws BaseException;
+
+    @RolesAllowed("editLanguage")
+    void editLanguage(String language) throws BaseException;
 }

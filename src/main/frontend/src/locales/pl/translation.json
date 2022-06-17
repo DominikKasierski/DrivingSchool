@@ -85,5 +85,14 @@
   "landing.page.courses": "Kursy na prawo jazdy",
   "landing.page.left": "kategoria A",
   "landing.page.center": "kategoria B",
-  "landing.page.right": "kategoria C"
+  "landing.page.right": "kategoria C",
+
+  "language": "język",
+  "language.change.success": "Pomyślnie zmieniono język",
+  "logout.success": "Pomyślnie wylogowano",
+
+  "navigation.bar.subtitle": "Najlepsza szkoła jazdy",
+  "navigation.bar.vehicles": "Pojazdy",
+  "navigation.bar.vehicles.list": "Lista pojazdów",
+  "navigation.bar.vehicles.add": "Dodaj pojazd"
 }
