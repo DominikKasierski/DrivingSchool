@@ -2,3 +2,12 @@
   color: var(--white);
   background: var(--dark);
 }
+
+.dropdown-menu.show .dropdown-item {
+  font-size: 1.1rem;
+}
+
+.main-navbar.navbar-light .navbar-nav .nav-link {
+  color: var(--white);
+  font-size: 1.2rem;
+}

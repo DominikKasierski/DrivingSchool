@@ -10,7 +10,7 @@ import DropdownToggle from "react-bootstrap/DropdownToggle";
 import {Link, useHistory} from "react-router-dom";
 import {withNamespaces} from "react-i18next";
 import {rolesConstant} from "../utils/constants/Constants";
-
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 function LanguageSwitcher(props) {
     const {t, i18n} = props
@@ -33,7 +33,6 @@ function LanguageSwitcher(props) {
     useEffect(() => {
         if (token) {
             getEtag().then(r => setETag(r));
-            debugger
         }
     }, [token, i18n.language]);
 
@@ -74,9 +73,12 @@ function LanguageSwitcher(props) {
     return (
         <>
             <Dropdown>
-                <DropdownToggle id="dropdown-basic" className="dropButton pl-0 pl-lg-2 pr-0 pr-lg-2" variant="Secondary">
+                <DropdownToggle id="dropdown-basic" className="pl-0 pl-lg-2 pr-0 pr-lg-2" variant="Secondary">
                     <span
-                        style={{marginRight: "10px"}}>{i18n.t("language")} [{i18n.language.substring(0, 2).toUpperCase()}]</span>
+                        style={{
+                            fontSize: "1.2rem",
+                            marginRight: "10px"
+                        }}>{i18n.t("language")} [{i18n.language.substring(0, 2).toUpperCase()}]</span>
                 </DropdownToggle>
 
                 <Dropdown.Menu>
@@ -135,7 +137,7 @@ function NavigationBar(props) {
                                 </h4>
                             </LinkContainer>
                             <sub className={"small position-absolute mb-0"}
-                                 style={{fontSize: "1rem", left: "10px", bottom:"5px"}}>{t('navigation.bar.subtitle')}</sub>
+                                 style={{fontSize: "1rem", left: "10px", bottom: "5px"}}>{t('navigation.bar.subtitle')}</sub>
                         </div>
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav"/>
@@ -144,9 +146,12 @@ function NavigationBar(props) {
                             {currentRole === rolesConstant.admin && (
                                 <>
                                     <Dropdown>
-                                        <DropdownToggle id="dropdown-basic" className="dropButton pl-0 pl-lg-2 pr-0 pr-lg-2"
-                                                        variant="Info">
-                                            <span style={{fontSize: "1.2rem", marginRight: "10px"}}>{t('navigation.bar.vehicles')}</span>
+                                        <DropdownToggle id="dropdown-basic" className="pl-0 pl-lg-2 pr-0 pr-lg-2 mr-3"
+                                                        variant="Secondary">
+                                            <span style={{
+                                                fontSize: "1.2rem",
+                                                marginRight: "10px"
+                                            }}>{t('navigation.bar.vehicles')}</span>
                                         </DropdownToggle>
 
                                         <Dropdown.Menu>
@@ -158,6 +163,66 @@ function NavigationBar(props) {
                                             </Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>
+                                    <Dropdown>
+                                        <DropdownToggle id="dropdown-basic" className="pl-0 pl-lg-2 pr-0 pr-lg-2 mr-3"
+                                                        variant="Secondary">
+                                            <span style={{
+                                                fontSize: "1.2rem",
+                                                marginRight: "10px"
+                                            }}>{t('navigation.bar.accounts')}</span>
+                                        </DropdownToggle>
+
+                                        <Dropdown.Menu>
+                                            <Dropdown.Item as={Link} to="/accounts">
+                                                {t('navigation.bar.accounts.list')}
+                                            </Dropdown.Item>
+                                            <Dropdown.Item as={Link} to="/manageInstructors">
+                                                {t('navigation.bar.accounts.manage.instructors')}
+                                            </Dropdown.Item>
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+                                    <Dropdown>
+                                        <DropdownToggle id="dropdown-basic" className="pl-0 pl-lg-2 pr-0 pr-lg-2 mr-2"
+                                                        variant="Secondary">
+                                            <span style={{
+                                                fontSize: "1.2rem",
+                                                marginRight: "10px"
+                                            }}>{t('navigation.bar.payments')}</span>
+                                        </DropdownToggle>
+
+                                        <Dropdown.Menu>
+                                            <Dropdown.Item as={Link} to="/payments">
+                                                {t('navigation.bar.reported.payments')}
+                                            </Dropdown.Item>
+                                            <Dropdown.Item as={Link} to="/addPayment">
+                                                {t('navigation.bar.add.payment')}
+                                            </Dropdown.Item>
+                                            <Dropdown.Item as={Link} to="/generateReport">
+                                                {t('navigation.bar.generate.report')}
+                                            </Dropdown.Item>
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+                                    <Dropdown>
+                                        <DropdownToggle id="dropdown-basic" className="pl-0 pl-lg-2 pr-0 pr-lg-2 mr-2"
+                                                        variant="Secondary">
+                                            <span style={{
+                                                fontSize: "1.2rem",
+                                                marginRight: "10px"
+                                            }}>{t('navigation.bar.lecture.groups')}</span>
+                                        </DropdownToggle>
+
+                                        <Dropdown.Menu>
+                                            <Dropdown.Item as={Link} to="/lectureGroups">
+                                                {t('navigation.bar.lecture.groups.list')}
+                                            </Dropdown.Item>
+                                            <Dropdown.Item as={Link} to="/addLectureGroup">
+                                                {t('navigation.bar.add.lecture.group')}
+                                            </Dropdown.Item>
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+                                    <LinkContainer to="/timetable">
+                                        <Nav.Link className={"mr-2"}>{t('navigation.bar.timetable')}</Nav.Link>
+                                    </LinkContainer>
                                 </>
                             )}
                             {/*{currentRole === rolesConstant.instructor && (*/}
@@ -166,6 +231,28 @@ function NavigationBar(props) {
                             {/*{currentRole === rolesConstant.trainee && (*/}
 
                             {/*)}*/}
+                        </Nav>
+                        <Nav className="navbar-right d-flex align-items-start align-items-lg-center">
+                            <LanguageSwitcher t={t} i18n={i18n}/>
+                            <Dropdown alignRight={true}>
+                                <DropdownToggle id="dropdown-basic" className="pl-0 pl-lg-2 pr-0 pr-lg-2"
+                                                variant="Secondary">
+                                    <FontAwesomeIcon icon="user"/>
+                                    <span style={{
+                                        fontSize: "1.2rem",
+                                        marginRight: "10px"
+                                    }}>{' '}{username}{' '}</span>
+                                </DropdownToggle>
+
+                                <Dropdown.Menu>
+                                    <Dropdown.Item as={Link} to="/myAccount">
+                                        {t('navigation.bar.my.account')}
+                                    </Dropdown.Item>
+                                    <Dropdown.Item onSelect={handleLogout} as={Link} to="/">
+                                        {t('navigation.bar.logout')}
+                                    </Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>

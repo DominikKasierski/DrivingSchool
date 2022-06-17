@@ -87,12 +87,25 @@
   "landing.page.center": "kategoria B",
   "landing.page.right": "kategoria C",
 
-  "language": "język",
+  "language": "Język",
   "language.change.success": "Pomyślnie zmieniono język",
   "logout.success": "Pomyślnie wylogowano",
 
   "navigation.bar.subtitle": "Najlepsza szkoła jazdy",
   "navigation.bar.vehicles": "Pojazdy",
   "navigation.bar.vehicles.list": "Lista pojazdów",
-  "navigation.bar.vehicles.add": "Dodaj pojazd"
+  "navigation.bar.vehicles.add": "Dodaj pojazd",
+  "navigation.bar.accounts": "Konta",
+  "navigation.bar.accounts.list": "Lista kont",
+  "navigation.bar.accounts.manage.instructors": "Zarządzaj instruktorami",
+  "navigation.bar.payments": "Wpłaty",
+  "navigation.bar.reported.payments": "Zgłoszone wpłaty",
+  "navigation.bar.add.payment": "Dodaj wpłatę",
+  "navigation.bar.generate.report": "Generuj raport",
+  "navigation.bar.timetable": "Terminarz",
+  "navigation.bar.lecture.groups": "Grupy wykładowe",
+  "navigation.bar.lecture.groups.list": "Lista grup wykładowych",
+  "navigation.bar.add.lecture.group": "Dodaj grupę wykładową",
+  "navigation.bar.my.account": "Moje konto",
+  "navigation.bar.logout": "Wyloguj się"
 }

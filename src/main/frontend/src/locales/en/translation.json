@@ -87,12 +87,25 @@
   "landing.page.center": "Category B",
   "landing.page.right": "Category C",
 
-  "language": "lLanguage",
+  "language": "Language",
   "language.change.success": "Language changed successfully",
   "logout.success": "Successfully logged out",
 
   "navigation.bar.subtitle": "The best driving school",
   "navigation.bar.vehicles": "Vehicles",
   "navigation.bar.vehicles.list": "Vehicle list",
-  "navigation.bar.vehicles.add": "Add vehicle"
+  "navigation.bar.vehicles.add": "Add vehicle",
+  "navigation.bar.accounts": "Accounts",
+  "navigation.bar.accounts.list": "Account list",
+  "navigation.bar.accounts.manage.instructors": "Manage instructors",
+  "navigation.bar.payments": "Payments",
+  "navigation.bar.reported.payments": "Reported payments",
+  "navigation.bar.add.payment": "Add payment",
+  "navigation.bar.generate.report": "Generate report",
+  "navigation.bar.timetable": "Timetable",
+  "navigation.bar.lecture.groups": "Lecture groups",
+  "navigation.bar.lecture.groups.list": "Lecture group list",
+  "navigation.bar.add.lecture.group": "Add lecture group",
+  "navigation.bar.my.account": "My account",
+  "navigation.bar.logout": "Log out"
 }
