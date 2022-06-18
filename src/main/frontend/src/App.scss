@@ -2,9 +2,14 @@
 @import "node_modules/bootstrap/scss/variables";
 @import "node_modules/bootstrap/scss/mixins/breakpoints";
 
-* {
+.dim {
   background: rgb(24, 26, 27);
   color: rgb(255, 255, 255);
+}
+
+.brightened {
+  background: rgb(255, 255, 255);
+  color: rgb(24, 26, 27);
 }
 
 body.modal-open {

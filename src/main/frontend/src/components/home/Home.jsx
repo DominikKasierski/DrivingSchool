@@ -8,12 +8,12 @@ import {Col, Container, Row} from "react-bootstrap";
 function Home() {
 
     return (
-        <Container fluid className={"pb-4"}>
+        <Container fluid className={"dim pb-4"}>
             <Row className={"px-0 justify-content-center"}>
                 <img className="img-fluid w-100" src={road} alt="First slide"/>
                 <h1 className={"display-4 my-4"}>{i18n.t("landing.page.courses")}</h1>
             </Row>
-            <Container>
+            <Container className={"dim"}>
                 <Row>
                     <Col xs={12} className={"px-0 mt-4"}>
                         <div className={"homeGrid px-0"} style={{minHeight: "300px"}}>
@@ -27,11 +27,14 @@ function Home() {
                                 <img alt="cCategory" className={"img-fluid rounded"} src={truck}/>
                             </div>
                             <div
-                                className={"text-center h3 font-weight-normal my-4 d-flex justify-content-center align-items-start textLeft"}>{i18n.t("landing.page.left")}</div>
+                                className={"text-center h3 font-weight-light my-4 d-flex justify-content-center align-items-start textLeft"}>
+                                {i18n.t("landing.page.left")}</div>
                             <div
-                                className={"text-center h3 font-weight-normal my-4 d-flex justify-content-center align-items-start textCenter"}>{i18n.t("landing.page.center")}</div>
+                                className={"text-center h3 font-weight-light my-4 d-flex justify-content-center align-items-start textCenter"}>
+                                {i18n.t("landing.page.center")}</div>
                             <div
-                                className={"text-center h3 font-weight-normal my-4 d-flex justify-content-center align-items-start textRight"}>{i18n.t("landing.page.right")}</div>
+                                className={"text-center h3 font-weight-light my-4 d-flex justify-content-center align-items-start textRight"}>
+                                {i18n.t("landing.page.right")}</div>
                         </div>
                     </Col>
                 </Row>

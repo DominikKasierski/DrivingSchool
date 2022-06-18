@@ -53,7 +53,7 @@ function App() {
 
     return (
         <HashRouter basename={process.env.REACT_APP_ROUTER_BASE || ''}>
-            <div className="App pb-5">
+            <div className="App">
                 <div>
                     {/*<NavigationBar roles={roles} divStyle={divStyle}/>*/}
                     <NavigationBar roles={roles}/>
@@ -67,7 +67,10 @@ function App() {
                             <GuardedRoute exact path="/payments" component={NotFound} meta={{}}/>
                             <GuardedRoute exact path="/addPayment" component={InternalError} meta={{}}/>
                             <GuardedRoute exact path="/generateReport" component={Forbidden} meta={{}}/>
+                            <GuardedRoute exact path="/lectureGroups" component={InternalError} meta={{}}/>
+                            <GuardedRoute exact path="/addLectureGroup" component={Forbidden} meta={{}}/>
                             <GuardedRoute exact path="/timetable" component={Forbidden} meta={{}}/>
+                            <GuardedRoute exact path="/myAccount" component={Forbidden} meta={{}}/>
                             <Route component={NotFound}/>
                         </Switch>
                     </GuardProvider>

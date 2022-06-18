@@ -73,11 +73,10 @@ function LanguageSwitcher(props) {
     return (
         <>
             <Dropdown>
-                <DropdownToggle id="dropdown-basic" className="pl-0 pl-lg-2 pr-0 pr-lg-2" variant="Secondary">
+                <DropdownToggle id="dropdown-basic" className="pl-0 pl-lg-2 pr-0 pr-lg-2 mr-3 dim" variant="Secondary">
                     <span
                         style={{
                             fontSize: "1.2rem",
-                            marginRight: "10px"
                         }}>{i18n.t("language")} [{i18n.language.substring(0, 2).toUpperCase()}]</span>
                 </DropdownToggle>
 
@@ -126,9 +125,9 @@ function NavigationBar(props) {
     return (
         <>
             {token !== null && token !== '' ? (
-                <Navbar expand="xl" className="main-navbar">
+                <Navbar expand="xl" className="main-navbar dim">
                     <Navbar.Brand>
-                        <div className="d-flex flex-wrap justify-content-start align-items-center position-relative mr-5 mb-3"
+                        <div className="dim d-flex flex-wrap justify-content-start align-items-center position-relative mr-5 mb-3"
                              style={{width: "min-content"}}>
                             <LinkContainer to="/">
                                 <h4 className={"cursor-pointer"}>DrivingSchool
@@ -142,11 +141,11 @@ function NavigationBar(props) {
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                     <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav className="mr-auto d-flex align-items-start align-items-lg-center">
+                        <Nav className="mr-auto d-flex align-items-start align-items-lg-center dim">
                             {currentRole === rolesConstant.admin && (
                                 <>
                                     <Dropdown>
-                                        <DropdownToggle id="dropdown-basic" className="pl-0 pl-lg-2 pr-0 pr-lg-2 mr-3"
+                                        <DropdownToggle id="dropdown-basic" className="pl-0 pl-lg-2 pr-0 pr-lg-2 mr-3 dim"
                                                         variant="Secondary">
                                             <span style={{
                                                 fontSize: "1.2rem",
@@ -164,7 +163,7 @@ function NavigationBar(props) {
                                         </Dropdown.Menu>
                                     </Dropdown>
                                     <Dropdown>
-                                        <DropdownToggle id="dropdown-basic" className="pl-0 pl-lg-2 pr-0 pr-lg-2 mr-3"
+                                        <DropdownToggle id="dropdown-basic" className="pl-0 pl-lg-2 pr-0 pr-lg-2 mr-3 dim"
                                                         variant="Secondary">
                                             <span style={{
                                                 fontSize: "1.2rem",
@@ -182,7 +181,7 @@ function NavigationBar(props) {
                                         </Dropdown.Menu>
                                     </Dropdown>
                                     <Dropdown>
-                                        <DropdownToggle id="dropdown-basic" className="pl-0 pl-lg-2 pr-0 pr-lg-2 mr-2"
+                                        <DropdownToggle id="dropdown-basic" className="pl-0 pl-lg-2 pr-0 pr-lg-2 mr-2 dim"
                                                         variant="Secondary">
                                             <span style={{
                                                 fontSize: "1.2rem",
@@ -203,7 +202,7 @@ function NavigationBar(props) {
                                         </Dropdown.Menu>
                                     </Dropdown>
                                     <Dropdown>
-                                        <DropdownToggle id="dropdown-basic" className="pl-0 pl-lg-2 pr-0 pr-lg-2 mr-2"
+                                        <DropdownToggle id="dropdown-basic" className="pl-0 pl-lg-2 pr-0 pr-lg-2 mr-2 dim"
                                                         variant="Secondary">
                                             <span style={{
                                                 fontSize: "1.2rem",
@@ -221,7 +220,7 @@ function NavigationBar(props) {
                                         </Dropdown.Menu>
                                     </Dropdown>
                                     <LinkContainer to="/timetable">
-                                        <Nav.Link className={"mr-2"}>{t('navigation.bar.timetable')}</Nav.Link>
+                                        <Nav.Link>{t('navigation.bar.timetable')}</Nav.Link>
                                     </LinkContainer>
                                 </>
                             )}
@@ -235,13 +234,9 @@ function NavigationBar(props) {
                         <Nav className="navbar-right d-flex align-items-start align-items-lg-center">
                             <LanguageSwitcher t={t} i18n={i18n}/>
                             <Dropdown alignRight={true}>
-                                <DropdownToggle id="dropdown-basic" className="pl-0 pl-lg-2 pr-0 pr-lg-2"
+                                <DropdownToggle id="dropdown-basic" className="pl-0 pl-lg-2 pr-0 pr-lg-2 mr-2 dim"
                                                 variant="Secondary">
-                                    <FontAwesomeIcon icon="user"/>
-                                    <span style={{
-                                        fontSize: "1.2rem",
-                                        marginRight: "10px"
-                                    }}>{' '}{username}{' '}</span>
+                                    <span style={{fontSize: "1.2rem", marginRight: "10px"}}>{username}</span>
                                 </DropdownToggle>
 
                                 <Dropdown.Menu>
