@@ -9,6 +9,7 @@ import {useLocale} from "./components/utils/login/LoginProvider";
 import NavigationBar from "./components/bars/NavigationBar";
 import Forbidden from "./components/errorpages/Forbidden";
 import InternalError from "./components/errorpages/InternalError";
+import Footer from "./components/bars/Footer";
 
 function App() {
     const {token, currentRole, setCurrentRole, setUsername} = useLocale();
@@ -55,7 +56,6 @@ function App() {
         <HashRouter basename={process.env.REACT_APP_ROUTER_BASE || ''}>
             <div className="App">
                 <div>
-                    {/*<NavigationBar roles={roles} divStyle={divStyle}/>*/}
                     <NavigationBar roles={roles}/>
                     <GuardProvider guards={[requireRoles]} error={NotFound}>
                         <Switch>
@@ -80,6 +80,7 @@ function App() {
                             <Route component={NotFound}/>
                         </Switch>
                     </GuardProvider>
+                    <Footer roles={roles}/>
                 </div>
             </div>
         </HashRouter>

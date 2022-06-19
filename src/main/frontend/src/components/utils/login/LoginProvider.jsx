@@ -24,9 +24,9 @@ export const LoginProvider = ({children}) => {
         dispatchCustomNotification({
             "type": notificationType.WARNING,
             "duration": notificationDuration.LONG,
-            "title": `${i18n.t('dialog.update.token.title')}`,
-            "message": (<> {i18n.t('dialog.update.token.message')} <span className={"text-primary"} style={{cursor: "pointer"}}
-                                                                         onClick={refreshToken}>{i18n.t('dialog.update.token.refresh')}</span></>)
+            "title": `${i18n.t("dialog.update.token.title")}`,
+            "message": (<> {i18n.t("dialog.update.token.message")} <span className={"text-primary"} style={{cursor: "pointer"}}
+                                                                         onClick={refreshToken}>{i18n.t("dialog.update.token.refresh")}</span></>)
         })
     }
 
@@ -42,7 +42,7 @@ export const LoginProvider = ({children}) => {
                 clearTimeout(localStorage.getItem("timeoutId2") ?? 0)
                 clearTimeout(localStorage.getItem("timeoutId3") ?? 0)
                 schedule()
-                dispatchSuccessNotification({message: i18n.t('dialog.update.token.success')})
+                dispatchSuccessNotification({message: i18n.t("dialog.update.token.success")})
             }).catch(
                 e => ResponseErrorsHandler(e, dispatchDangerNotification)
             );

@@ -114,5 +114,9 @@
   "navigation.bar.begin.course": "Rozpocznij kurs",
   "navigation.bar.report.payment": "Zgłoś wpłatę",
   "navigation.bar.book.driving.lesson": "Zarezerwuj lekcje jazdy",
-  "navigation.bar.cancel.driving.lesson": "Odwołaj lekcje jazdy"
+  "navigation.bar.cancel.driving.lesson": "Odwołaj lekcje jazdy",
+
+  "footer.role": "Dostępne role ",
+  "footer.role.change": "Nastąpiła zmiana roli na: "
+
 }

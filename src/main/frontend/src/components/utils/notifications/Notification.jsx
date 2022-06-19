@@ -64,7 +64,7 @@ const Notification = (props) => {
                    onClose={handleCloseNotification}
                    onMouseEnter={() => {if(useEffectStarted) handlePauseProgress()}}
                    onMouseLeave={() => {if(useEffectStarted) handleIncreaseProgress()}}>
-            {props.title ? <Alert.Heading as={"h6"} className={"font-weight-bold"}>{props.title}</Alert.Heading> : ""}
+            {props.title ? <Alert.Heading as={"h5"} className={"font-weight-bold"}>{props.title}</Alert.Heading> : ""}
             <div style={{whiteSpace: "pre-line"}}>{props.message}</div>
             <ProgressBar now={progress} className={"alert-progress-bar"}/>
         </Alert>

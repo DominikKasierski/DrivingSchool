@@ -1,104 +1,20 @@
 import "../../css/NavigationBar.scss";
 import {LinkContainer} from "react-router-bootstrap";
 import {useLocale} from "../utils/login/LoginProvider";
-import {useEffect, useState} from "react";
-import {useDangerNotification, useSuccessNotification} from "../utils/notifications/NotificationProvider";
-import {ResponseErrorsHandler} from "../utils/handlers/ResponseErrorsHandler";
+import {useSuccessNotification} from "../utils/notifications/NotificationProvider";
 import axios from "axios";
 import {Dropdown, Nav, Navbar} from "react-bootstrap";
 import DropdownToggle from "react-bootstrap/DropdownToggle";
 import {Link, useHistory} from "react-router-dom";
 import {withNamespaces} from "react-i18next";
 import {rolesConstant} from "../utils/constants/Constants";
-
-function LanguageSwitcher(props) {
-    const {t, i18n} = props
-    const {token, setToken} = useLocale();
-    const [etag, setETag] = useState();
-    const availableLanguages = ['pl', 'en']
-
-    const dispatchDangerNotification = useDangerNotification();
-    const dispatchSuccessNotification = useSuccessNotification();
-
-    const getEtag = async () => {
-        const response = await axios.get(`/resources/account/getDetails`, {
-            headers: {
-                "Authorization": token,
-            }
-        })
-        return response.headers.etag;
-    };
-
-    useEffect(() => {
-        if (token) {
-            getEtag().then(r => setETag(r));
-        }
-    }, [token, i18n.language]);
-
-    const handleGuestClickPl = () => {
-        setLanguage(i18n, "pl")
-    }
-
-    const handleGuestClickEn = () => {
-        setLanguage(i18n, "en")
-    }
-
-    const handleUserClickPl = async () => {
-        axios.put(`/resources/account/editLanguage/pl`, {}, {
-            headers: {
-                "Authorization": token,
-                "If-Match": etag
-            }
-        }).then(() => {
-            handleGuestClickPl();
-            dispatchSuccessNotification({message: i18n.t('language.change.success')})
-        }).catch(err => {
-            ResponseErrorsHandler(err, dispatchDangerNotification);
-        })
-    }
-
-    const handleUserClickEn = async () => {
-        axios.put(`/resources/account/editLanguage/en`, {}, {
-            headers: {
-                "Authorization": token,
-                "If-Match": etag
-            }
-        }).then(() => {
-            handleGuestClickEn();
-            dispatchSuccessNotification({message: i18n.t('language.change.success')})
-        }).catch(err => {
-            ResponseErrorsHandler(err, dispatchDangerNotification);
-        })
-    }
-
-    return (
-        <>
-            <Dropdown>
-                <DropdownToggle id="dropdown-basic" className="pl-0 pl-lg-2 pr-0 pr-lg-2 mr-3 dim" variant="Secondary">
-                    <span
-                        style={{
-                            fontSize: "1.2rem",
-                        }}>{i18n.t("language")} [{i18n.language.substring(0, 2).toUpperCase()}]</span>
-                </DropdownToggle>
-
-                <Dropdown.Menu>
-                    <Dropdown.Item onClick={token !== null && token !== '' ? (handleUserClickPl) : (handleGuestClickPl)}>
-                        {t(availableLanguages[0])} </Dropdown.Item>
-                    <Dropdown.Item onClick={token !== null && token !== '' ? (handleUserClickEn) : (handleGuestClickEn)}>
-                        {t(availableLanguages[1])}</Dropdown.Item>
-                </Dropdown.Menu>
-            </Dropdown>
-        </>
-    )
-}
+import LanguageChangeHandler from "../utils/handlers/LanguageChangeHandler";
 
 function NavigationBar(props) {
     const history = useHistory();
     const {t, divStyle, i18n} = props
     const {token, username, setToken, currentRole, setCurrentRole, setUsername} = useLocale();
-    const [instructorAccess, setInstructorAccess] = useState(false)
 
-    const dispatchDangerNotification = useDangerNotification();
     const dispatchSuccessNotification = useSuccessNotification();
 
     const handleLogout = () => {
@@ -128,7 +44,7 @@ function NavigationBar(props) {
             {token !== null && token !== '' ? (
                 <Navbar expand="xl" className="main-navbar dim">
                     <Navbar.Brand>
-                        <div className="dim d-flex flex-wrap justify-content-start align-items-center position-relative mr-5 mb-3"
+                        <div className="dim d-flex flex-wrap justify-content-start align-items-center position-relative mr-5 mb-2"
                              style={{width: "min-content"}}>
                             <LinkContainer to="/">
                                 <h4 className={"cursor-pointer"}>DrivingSchool
@@ -286,7 +202,7 @@ function NavigationBar(props) {
                             )}
                         </Nav>
                         <Nav className="navbar-right d-flex align-items-start align-items-lg-center ">
-                            <LanguageSwitcher t={t} i18n={i18n}/>
+                            <LanguageChangeHandler t={t} i18n={i18n}/>
                             <Dropdown alignRight={true}>
                                 <DropdownToggle id="dropdown-basic" className="pl-0 pl-lg-2 pr-0 pr-lg-2 mr-3 dim"
                                                 variant="Secondary">
@@ -331,7 +247,7 @@ function NavigationBar(props) {
                             </LinkContainer>
                         </Nav>
                         <Nav className="navbar-right d-flex align-items-start align-items-lg-center dim">
-                            <LanguageSwitcher t={t} i18n={i18n}/>
+                            <LanguageChangeHandler t={t} i18n={i18n}/>
                             <div className={"d-flex flex-nowrap flex-md-wrap mt-2 mt-lg-0 mb-2 mb-lg-0"}>
                                 <LinkContainer to="/signUp">
                                     <Nav.Link className="ml-0 mr-3">
@@ -350,10 +266,6 @@ function NavigationBar(props) {
             )}
         </>
     )
-}
-
-export function setLanguage(i18n, lang) {
-    i18n.changeLanguage(lang)
 }
 
 export default withNamespaces()(NavigationBar);

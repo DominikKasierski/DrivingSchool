@@ -111,8 +111,11 @@
   "navigation.bar.main.page": "Main page",
   "navigation.bar.sign.up": "Sign up",
   "navigation.bar.sign.in": "Sign in",
-  "navigation.bar.begin.course": "Begin course",
+  "navigation.bar.begin.course": "Start course",
   "navigation.bar.report.payment": "Report payment",
   "navigation.bar.book.driving.lesson": "Book driving lesson",
-  "navigation.bar.cancel.driving.lesson": "Cancel driving lesson"
+  "navigation.bar.cancel.driving.lesson": "Cancel driving lesson",
+
+  "footer.role": "Available roles ",
+  "footer.role.change": "The role has changed to: "
 }

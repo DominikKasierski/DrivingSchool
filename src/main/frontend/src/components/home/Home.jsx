@@ -1,4 +1,4 @@
-import road from '../../images/road.jpg';
+import road from '../../images/road1.jpg';
 import motorcycle from '../../images/motorcycle.jpg';
 import car from '../../images/car.jpg';
 import truck from '../../images/truck.jpg';
@@ -9,10 +9,10 @@ function Home(props) {
     const {t, i18n} = props
 
     return (
-        <Container fluid className={"dim pb-4"}>
+        <Container fluid className={"dim pb-2"}>
             <Row className={"px-0 justify-content-center"}>
-                <img className="img-fluid w-100" src={road} alt="First slide"/>
-                <h1 className={"display-4 my-4"}>{i18n.t("landing.page.courses")}</h1>
+                <img className="img-fluid w-100" src={road} alt="road"/>
+                <h1 className={"display-4 my-3"}>{i18n.t("landing.page.courses")}</h1>
             </Row>
             <Container className={"dim"}>
                 <Row>
@@ -28,13 +28,13 @@ function Home(props) {
                                 <img alt="cCategory" className={"img-fluid rounded"} src={truck}/>
                             </div>
                             <div
-                                className={"text-center h3 font-weight-light my-4 d-flex justify-content-center align-items-start textLeft"}>
+                                className={"text-center h3 font-weight-light my-3 d-flex justify-content-center align-items-start textLeft"}>
                                 {i18n.t("landing.page.left")}</div>
                             <div
-                                className={"text-center h3 font-weight-light my-4 d-flex justify-content-center align-items-start textCenter"}>
+                                className={"text-center h3 font-weight-light my-3 d-flex justify-content-center align-items-start textCenter"}>
                                 {i18n.t("landing.page.center")}</div>
                             <div
-                                className={"text-center h3 font-weight-light my-4 d-flex justify-content-center align-items-start textRight"}>
+                                className={"text-center h3 font-weight-light my-3 d-flex justify-content-center align-items-start textRight"}>
                                 {i18n.t("landing.page.right")}</div>
                         </div>
                     </Col>
