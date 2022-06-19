@@ -1,11 +1,12 @@
-import i18n from '../../i18n';
 import road from '../../images/road.jpg';
 import motorcycle from '../../images/motorcycle.jpg';
 import car from '../../images/car.jpg';
 import truck from '../../images/truck.jpg';
 import {Col, Container, Row} from "react-bootstrap";
+import {withNamespaces} from "react-i18next";
 
-function Home() {
+function Home(props) {
+    const {t, i18n} = props
 
     return (
         <Container fluid className={"dim pb-4"}>
@@ -43,4 +44,4 @@ function Home() {
     );
 }
 
-export default Home;
+export default withNamespaces()(Home);

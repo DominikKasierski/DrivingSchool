@@ -43,10 +43,11 @@ function LanguageSwitcher(props) {
         setLanguage(i18n, "en")
     }
 
-    const handleUserClickPl = () => {
-        axios.put(`/resources/account/editLanguage`, "pl", {
+    const handleUserClickPl = async () => {
+        axios.put(`/resources/account/editLanguage/pl`, {}, {
             headers: {
-                "Authorization": token, "If-Match": etag
+                "Authorization": token,
+                "If-Match": etag
             }
         }).then(() => {
             handleGuestClickPl();
@@ -56,10 +57,11 @@ function LanguageSwitcher(props) {
         })
     }
 
-    const handleUserClickEn = () => {
-        axios.put(`/resources/account/editLanguage`, "en", {
+    const handleUserClickEn = async () => {
+        axios.put(`/resources/account/editLanguage/en`, {}, {
             headers: {
-                "Authorization": token, "If-Match": etag
+                "Authorization": token,
+                "If-Match": etag
             }
         }).then(() => {
             handleGuestClickEn();
