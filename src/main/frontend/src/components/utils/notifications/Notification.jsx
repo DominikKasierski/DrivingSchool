@@ -11,7 +11,7 @@ export const notificationDuration = {
     INFINITY: -1,
     LONG: 60_000,
     STANDARD: 10_000,
-    SHORT: 500_000,
+    SHORT: 5_000,
 }
 
 const Notification = (props) => {

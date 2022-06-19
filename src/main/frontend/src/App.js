@@ -64,13 +64,19 @@ function App() {
                             <GuardedRoute exact path="/vehicles/add" component={NotFound} meta={{}}/>
                             <GuardedRoute exact path="/accounts" component={NotFound} meta={{}}/>
                             <GuardedRoute exact path="/manageInstructors" component={InternalError} meta={{}}/>
-                            <GuardedRoute exact path="/payments" component={NotFound} meta={{}}/>
+                            <GuardedRoute exact path="/reportedPayments" component={NotFound} meta={{}}/>
                             <GuardedRoute exact path="/addPayment" component={InternalError} meta={{}}/>
                             <GuardedRoute exact path="/generateReport" component={Forbidden} meta={{}}/>
                             <GuardedRoute exact path="/lectureGroups" component={InternalError} meta={{}}/>
                             <GuardedRoute exact path="/addLectureGroup" component={Forbidden} meta={{}}/>
                             <GuardedRoute exact path="/timetable" component={Forbidden} meta={{}}/>
                             <GuardedRoute exact path="/myAccount" component={Forbidden} meta={{}}/>
+                            <GuardedRoute exact path="/signUp" component={NotFound} meta={{}}/>
+                            <GuardedRoute exact path="/login" component={InternalError} meta={{}}/>
+                            <GuardedRoute exact path="/myPayments" component={Forbidden} meta={{}}/>
+                            <GuardedRoute exact path="/reportPayment" component={NotFound} meta={{}}/>
+                            <GuardedRoute exact path="/bookDrivingLesson" component={Forbidden} meta={{}}/>
+                            <GuardedRoute exact path="/cancelDrivingLesson" component={InternalError} meta={{}}/>
                             <Route component={NotFound}/>
                         </Switch>
                     </GuardProvider>

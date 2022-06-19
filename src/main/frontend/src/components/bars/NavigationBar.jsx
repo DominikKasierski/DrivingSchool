@@ -10,7 +10,6 @@ import DropdownToggle from "react-bootstrap/DropdownToggle";
 import {Link, useHistory} from "react-router-dom";
 import {withNamespaces} from "react-i18next";
 import {rolesConstant} from "../utils/constants/Constants";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 function LanguageSwitcher(props) {
     const {t, i18n} = props
@@ -181,7 +180,7 @@ function NavigationBar(props) {
                                         </Dropdown.Menu>
                                     </Dropdown>
                                     <Dropdown>
-                                        <DropdownToggle id="dropdown-basic" className="pl-0 pl-lg-2 pr-0 pr-lg-2 mr-2 dim"
+                                        <DropdownToggle id="dropdown-basic" className="pl-0 pl-lg-2 pr-0 pr-lg-2 mr-3 dim"
                                                         variant="Secondary">
                                             <span style={{
                                                 fontSize: "1.2rem",
@@ -190,7 +189,7 @@ function NavigationBar(props) {
                                         </DropdownToggle>
 
                                         <Dropdown.Menu>
-                                            <Dropdown.Item as={Link} to="/payments">
+                                            <Dropdown.Item as={Link} to="/reportedPayments">
                                                 {t('navigation.bar.reported.payments')}
                                             </Dropdown.Item>
                                             <Dropdown.Item as={Link} to="/addPayment">
@@ -202,7 +201,7 @@ function NavigationBar(props) {
                                         </Dropdown.Menu>
                                     </Dropdown>
                                     <Dropdown>
-                                        <DropdownToggle id="dropdown-basic" className="pl-0 pl-lg-2 pr-0 pr-lg-2 mr-2 dim"
+                                        <DropdownToggle id="dropdown-basic" className="pl-0 pl-lg-2 pr-0 pr-lg-2 mr-3 dim"
                                                         variant="Secondary">
                                             <span style={{
                                                 fontSize: "1.2rem",
@@ -224,17 +223,70 @@ function NavigationBar(props) {
                                     </LinkContainer>
                                 </>
                             )}
-                            {/*{currentRole === rolesConstant.instructor && (*/}
+                            {currentRole === rolesConstant.instructor && (
+                                <>
+                                    <LinkContainer to="/vehicles">
+                                        <Nav.Link className={"mr-3"}>{t('navigation.bar.vehicles')}</Nav.Link>
+                                    </LinkContainer>
+                                    <LinkContainer to="/timetable">
+                                        <Nav.Link className={"mr-3"}>{t('navigation.bar.timetable')}</Nav.Link>
+                                    </LinkContainer>
+                                    <LinkContainer to="/cancelDrivingLesson">
+                                        <Nav.Link>{t('navigation.bar.cancel.driving.lesson')}</Nav.Link>
+                                    </LinkContainer>
+                                </>
+                            )}
+                            {currentRole === rolesConstant.trainee && (
+                                <>
+                                    <LinkContainer to="/vehicles">
+                                        <Nav.Link className={"mr-3"}>{t('navigation.bar.vehicles')}</Nav.Link>
+                                    </LinkContainer>
+                                    <LinkContainer to="/beginCourse">
+                                        <Nav.Link className={"mr-3"}>{t('navigation.bar.begin.course')}</Nav.Link>
+                                    </LinkContainer>
+                                    <Dropdown>
+                                        <DropdownToggle id="dropdown-basic" className="pl-0 pl-lg-2 pr-0 pr-lg-2 mr-3 dim"
+                                                        variant="Secondary">
+                                            <span style={{
+                                                fontSize: "1.2rem",
+                                                marginRight: "10px"
+                                            }}>{t('navigation.bar.payments')}</span>
+                                        </DropdownToggle>
 
-                            {/*)}*/}
-                            {/*{currentRole === rolesConstant.trainee && (*/}
+                                        <Dropdown.Menu>
+                                            <Dropdown.Item as={Link} to="/myPayments">
+                                                {t('navigation.bar.reported.payments')}
+                                            </Dropdown.Item>
+                                            <Dropdown.Item as={Link} to="/reportPayment">
+                                                {t('navigation.bar.report.payment')}
+                                            </Dropdown.Item>
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+                                    <Dropdown>
+                                        <DropdownToggle id="dropdown-basic" className="pl-0 pl-lg-2 pr-0 pr-lg-2 mr-3 dim"
+                                                        variant="Secondary">
+                                            <span style={{
+                                                fontSize: "1.2rem",
+                                                marginRight: "10px"
+                                            }}>{t('navigation.bar.timetable')}</span>
+                                        </DropdownToggle>
 
-                            {/*)}*/}
+                                        <Dropdown.Menu>
+                                            <Dropdown.Item as={Link} to="/bookDrivingLesson">
+                                                {t('navigation.bar.book.driving.lesson')}
+                                            </Dropdown.Item>
+                                            <Dropdown.Item as={Link} to="/cancelDrivingLesson">
+                                                {t('navigation.bar.cancel.driving.lesson')}
+                                            </Dropdown.Item>
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+                                </>
+                            )}
                         </Nav>
-                        <Nav className="navbar-right d-flex align-items-start align-items-lg-center">
+                        <Nav className="navbar-right d-flex align-items-start align-items-lg-center ">
                             <LanguageSwitcher t={t} i18n={i18n}/>
                             <Dropdown alignRight={true}>
-                                <DropdownToggle id="dropdown-basic" className="pl-0 pl-lg-2 pr-0 pr-lg-2 mr-2 dim"
+                                <DropdownToggle id="dropdown-basic" className="pl-0 pl-lg-2 pr-0 pr-lg-2 mr-3 dim"
                                                 variant="Secondary">
                                     <span style={{fontSize: "1.2rem", marginRight: "10px"}}>{username}</span>
                                 </DropdownToggle>
@@ -252,7 +304,47 @@ function NavigationBar(props) {
                     </Navbar.Collapse>
                 </Navbar>
             ) : (
-                <Navbar><span>Navbar dla not logged</span></Navbar>
+                <Navbar expand="xl" className="main-navbar dim">
+                    <Navbar.Brand>
+                        <div className="dim d-flex flex-wrap justify-content-start align-items-center position-relative mr-5 mb-3"
+                             style={{width: "min-content"}}>
+                            <LinkContainer to="/">
+                                <h4 className={"cursor-pointer"}>DrivingSchool
+                                    <img src={"/tmpFavicon.ico"} className={"img-fluid ml-1"} style={{maxHeight: "40px"}}
+                                         alt={"favicon"}/>
+                                </h4>
+                            </LinkContainer>
+                            <sub className={"small position-absolute mb-0"}
+                                 style={{fontSize: "1rem", left: "10px", bottom: "5px"}}>{t('navigation.bar.subtitle')}</sub>
+                        </div>
+                    </Navbar.Brand>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+                    <Navbar.Collapse id="basic-navbar-nav">
+                        <Nav className="mr-auto d-flex align-items-start align-items-lg-center dim">
+                            <LinkContainer to="/">
+                                <Nav.Link className={"mr-3"}>{t('navigation.bar.main.page')}</Nav.Link>
+                            </LinkContainer>
+                            <LinkContainer to="/vehicles">
+                                <Nav.Link>{t('navigation.bar.vehicles')}</Nav.Link>
+                            </LinkContainer>
+                        </Nav>
+                        <Nav className="navbar-right d-flex align-items-start align-items-lg-center dim">
+                            <LanguageSwitcher t={t} i18n={i18n}/>
+                            <div className={"d-flex flex-nowrap flex-md-wrap mt-2 mt-lg-0 mb-2 mb-lg-0"}>
+                                <LinkContainer to="/signUp">
+                                    <Nav.Link className="ml-0 mr-3">
+                                        <div>{t('navigation.bar.sign.up')}</div>
+                                    </Nav.Link>
+                                </LinkContainer>
+                                <LinkContainer to="/login">
+                                    <Nav.Link className={"mr-3"}>
+                                        <div>{t('navigation.bar.sign.in')}</div>
+                                    </Nav.Link>
+                                </LinkContainer>
+                            </div>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Navbar>
             )}
         </>
     )

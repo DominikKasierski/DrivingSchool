@@ -107,5 +107,12 @@
   "navigation.bar.lecture.groups.list": "Lista grup wykładowych",
   "navigation.bar.add.lecture.group": "Dodaj grupę wykładową",
   "navigation.bar.my.account": "Moje konto",
-  "navigation.bar.logout": "Wyloguj się"
+  "navigation.bar.logout": "Wyloguj się",
+  "navigation.bar.main.page": "Strona główna",
+  "navigation.bar.sign.up": "Zarejestruj się",
+  "navigation.bar.sign.in": "Zaloguj się",
+  "navigation.bar.begin.course": "Rozpocznij kurs",
+  "navigation.bar.report.payment": "Zgłoś wpłatę",
+  "navigation.bar.book.driving.lesson": "Zarezerwuj lekcje jazdy",
+  "navigation.bar.cancel.driving.lesson": "Odwołaj lekcje jazdy"
 }

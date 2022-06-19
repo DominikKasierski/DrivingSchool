@@ -107,5 +107,12 @@
   "navigation.bar.lecture.groups.list": "Lecture group list",
   "navigation.bar.add.lecture.group": "Add lecture group",
   "navigation.bar.my.account": "My account",
-  "navigation.bar.logout": "Log out"
+  "navigation.bar.logout": "Log out",
+  "navigation.bar.main.page": "Main page",
+  "navigation.bar.sign.up": "Sign up",
+  "navigation.bar.sign.in": "Sign in",
+  "navigation.bar.begin.course": "Begin course",
+  "navigation.bar.report.payment": "Report payment",
+  "navigation.bar.book.driving.lesson": "Book driving lesson",
+  "navigation.bar.cancel.driving.lesson": "Cancel driving lesson"
 }
