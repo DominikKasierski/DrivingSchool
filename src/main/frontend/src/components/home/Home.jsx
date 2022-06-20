@@ -1,4 +1,4 @@
-import road from '../../images/road1.jpg';
+import road from '../../images/road.jpg';
 import motorcycle from '../../images/motorcycle.jpg';
 import car from '../../images/car.jpg';
 import truck from '../../images/truck.jpg';
@@ -9,7 +9,7 @@ function Home(props) {
     const {t, i18n} = props
 
     return (
-        <Container fluid className={"dim pb-2"}>
+        <Container fluid className={"dim pb-4"}>
             <Row className={"px-0 justify-content-center"}>
                 <img className="img-fluid w-100" src={road} alt="road"/>
                 <h1 className={"display-4 my-3"}>{i18n.t("landing.page.courses")}</h1>

@@ -116,6 +116,7 @@
   "navigation.bar.book.driving.lesson": "Book driving lesson",
   "navigation.bar.cancel.driving.lesson": "Cancel driving lesson",
 
-  "footer.role": "Available roles ",
-  "footer.role.change": "The role has changed to: "
+  "footer.role": "Role: ",
+  "footer.role.change": "Change role ",
+  "footer.role.changed": "The role has changed to: "
 }

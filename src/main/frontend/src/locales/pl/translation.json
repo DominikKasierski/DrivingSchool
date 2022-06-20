@@ -116,7 +116,8 @@
   "navigation.bar.book.driving.lesson": "Zarezerwuj lekcje jazdy",
   "navigation.bar.cancel.driving.lesson": "Odwołaj lekcje jazdy",
 
-  "footer.role": "Dostępne role ",
-  "footer.role.change": "Nastąpiła zmiana roli na: "
+  "footer.role": "Rola: ",
+  "footer.role.change": "Zmień rolę",
+  "footer.role.changed": "Nastąpiła zmiana roli na: "
 
 }

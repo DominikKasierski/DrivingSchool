@@ -297,7 +297,7 @@ public class AccountManager {
         accountFacade.edit(account);
     }
 
-    @RolesAllowed("editOwnLanguage")
+    @RolesAllowed("editLanguage")
     public void editLanguage(String login, String language) throws BaseException {
         Account account = accountFacade.findByLogin(login);
         account.setLanguage(language);

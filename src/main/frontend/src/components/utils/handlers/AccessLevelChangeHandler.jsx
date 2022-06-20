@@ -39,22 +39,24 @@ function AccessLevelChangeHandler(props) {
             headers: {
                 "Authorization": token
             }
-        }).then(() => dispatchSuccessNotification({message: i18n.t("footer.role.change") + i18n.t(e)}))
+        }).then(() => dispatchSuccessNotification({message: i18n.t("footer.role.changed") + i18n.t(e)}))
             .catch((err) => ResponseErrorsHandler(err, dispatchDangerNotification))
     }
 
     return (
-        <div className={"d-flex ml-3"}>
-            <Dropdown onSelect={handleSelectLevel}>
-                <DropdownToggle id="dropdown-basic" key='up' drop='up' className={"footer"} variant="Secondary">
-                    <span>{i18n.t("footer.role")}</span>
-                </DropdownToggle>
-                <DropdownMenu>
-                    {levels.map((level) => (
-                        <Dropdown.Item eventKey={level} className="item">{i18n.t(level)}</Dropdown.Item>
-                    ))}
-                </DropdownMenu>
-            </Dropdown>
+
+        <div className={"d-flex"}>
+            {levels.length > 1 ?
+                <Dropdown onSelect={handleSelectLevel}>
+                    <DropdownToggle id="dropdown-basic" className={"footer py-0"} variant="Secondary">
+                        <span>{i18n.t("footer.role.change")}</span>
+                    </DropdownToggle>
+                    <DropdownMenu>
+                        {levels.map((level) => (
+                            <Dropdown.Item eventKey={level} className="item">{i18n.t(level)}</Dropdown.Item>
+                        ))}
+                    </DropdownMenu>
+                </Dropdown> : ""}
         </div>
     )
 }
