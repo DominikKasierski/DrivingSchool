@@ -10,7 +10,7 @@ function InternalError() {
                 <Col xs={12} sm={11} md={9} lg={9} className={"py-3 mx-auto text-center"}>
                     <h1 className={"display-1 font-weight-bold mb-0"}>{500}</h1>
                     <h1 className={"display-2"}>{i18n.t("internalError")}</h1>
-                    <a href="/" className="btn btn-dark mt-4 dim" role="button">{i18n.t("mainPage")}</a>
+                    <a href="/" className="btn btn-dark mt-4 dim" role="button">{i18n.t("main.page")}</a>
                 </Col>
             </Row>
         </Container>

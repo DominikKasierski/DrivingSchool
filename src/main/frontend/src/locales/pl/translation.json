@@ -20,7 +20,7 @@
   "pageNotFound": "nie znaleziono strony",
   "pageForbidden": "brak uprawnień",
   "internalError": "wewnętrzny błąd serwera",
-  "mainPage": "strona główna",
+  "main.page": "strona główna",
 
   "error.request.404": "Zasób nie został znaleziony",
   "error.request.401.login": "Błąd autoryzacji",
@@ -52,6 +52,7 @@
   "form.validation.field.password.min.size": "Hasło jest za krótkie",
   "form.validation.field.password.max.size": "Hasło jest za długie",
   "form.validation.field.password.pattern": "Hasło nie spełnia wymagań wzorca",
+  "form.validation.passwords.not.match": "Hasła nie są takie same",
 
   "form.validation.field.phone_number.min.size": "Numer telefonu jest za krótki",
   "form.validation.field.phone_number.max.size": "Numer telefonu jest za długi",
@@ -109,8 +110,6 @@
   "navigation.bar.my.account": "Moje konto",
   "navigation.bar.logout": "Wyloguj się",
   "navigation.bar.main.page": "Strona główna",
-  "navigation.bar.sign.up": "Zarejestruj się",
-  "navigation.bar.sign.in": "Zaloguj się",
   "navigation.bar.begin.course": "Rozpocznij kurs",
   "navigation.bar.report.payment": "Zgłoś wpłatę",
   "navigation.bar.book.driving.lesson": "Zarezerwuj lekcje jazdy",
@@ -118,6 +117,19 @@
 
   "footer.role": "Rola: ",
   "footer.role.change": "Zmień rolę",
-  "footer.role.changed": "Nastąpiła zmiana roli na: "
+  "footer.role.changed": "Nastąpiła zmiana roli na: ",
 
+  "sign.up": "Zarejestruj się",
+  "sign.in": "Zaloguj się",
+  "sign.up.title": "Utwórz konto",
+  "sign.up.required.fields": "*Wymagane pola",
+  "sign.up.success": "Konto zostało utworzone, a wiadomość z linkiem aktywacyjnym wysłana na pocztę",
+
+  "login": "Login",
+  "emailAddress": "Adres email",
+  "password": "Hasło",
+  "repeatedPassword": "Powtórz hasło",
+  "firstname": "Imię",
+  "lastname": "Nazwisko",
+  "phoneNumber": "Numer telefonu"
 }

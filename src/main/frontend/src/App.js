@@ -10,6 +10,7 @@ import NavigationBar from "./components/bars/NavigationBar";
 import Forbidden from "./components/errorpages/Forbidden";
 import InternalError from "./components/errorpages/InternalError";
 import Footer from "./components/bars/Footer";
+import SignUp from "./components/mok/register/SingUp"
 
 function App() {
     const {token, currentRole, setCurrentRole, setUsername} = useLocale();
@@ -34,18 +35,6 @@ function App() {
         tokenDecode();
     }, [token])
 
-    // Kolorki w zależności od poziomu dostępu
-    // const divStyle = () => {
-    //     switch (currentRole) {
-    //         case rolesConstant.admin:
-    //             return {backgroundColor: "var(--admin-color)"};
-    //         case rolesConstant.manager:
-    //             return {backgroundColor: "var(--manager-color)"};
-    //         case rolesConstant.client:
-    //             return {backgroundColor: "var(--client-color)"};
-    //     }
-    // };
-
     let logged = !!token;
 
     const requireRoles = (to, from, next) => {
@@ -60,6 +49,9 @@ function App() {
                     <GuardProvider guards={[requireRoles]} error={NotFound}>
                         <Switch>
                             <GuardedRoute exact path="/" component={Home} meta={{}}/>
+                            <GuardedRoute exact path="/signUp" component={SignUp} meta={{}}/>
+                            <GuardedRoute exact path="/signIn" component={InternalError} meta={{}}/>
+                            <GuardedRoute exact path="/myAccount" component={Forbidden} meta={{}}/>
                             <GuardedRoute exact path="/vehicles" component={Forbidden} meta={{}}/>
                             <GuardedRoute exact path="/vehicles/add" component={NotFound} meta={{}}/>
                             <GuardedRoute exact path="/accounts" component={NotFound} meta={{}}/>
@@ -70,9 +62,6 @@ function App() {
                             <GuardedRoute exact path="/lectureGroups" component={InternalError} meta={{}}/>
                             <GuardedRoute exact path="/addLectureGroup" component={Forbidden} meta={{}}/>
                             <GuardedRoute exact path="/timetable" component={Forbidden} meta={{}}/>
-                            <GuardedRoute exact path="/myAccount" component={Forbidden} meta={{}}/>
-                            <GuardedRoute exact path="/signUp" component={NotFound} meta={{}}/>
-                            <GuardedRoute exact path="/login" component={InternalError} meta={{}}/>
                             <GuardedRoute exact path="/myPayments" component={Forbidden} meta={{}}/>
                             <GuardedRoute exact path="/reportPayment" component={NotFound} meta={{}}/>
                             <GuardedRoute exact path="/bookDrivingLesson" component={Forbidden} meta={{}}/>

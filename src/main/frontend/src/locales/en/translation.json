@@ -20,7 +20,7 @@
   "pageNotFound": "page not found",
   "pageForbidden": "page forbidden",
   "internalError": "internal server error",
-  "mainPage": "main page",
+  "main.page": "main page",
 
   "error.request.404": "Resource not found",
   "error.request.401.login": "Authorization error",
@@ -52,6 +52,7 @@
   "form.validation.field.password.min.size": "Password is too short",
   "form.validation.field.password.max.size": "Password is too long",
   "form.validation.field.password.pattern": "Password does not meet pattern requirements",
+  "form.validation.passwords.not.match": "Passwords don't match",
 
   "form.validation.field.phone_number.min.size": "Phone number is too short",
   "form.validation.field.phone_number.max.size": "Phone number is too long",
@@ -109,8 +110,6 @@
   "navigation.bar.my.account": "My account",
   "navigation.bar.logout": "Log out",
   "navigation.bar.main.page": "Main page",
-  "navigation.bar.sign.up": "Sign up",
-  "navigation.bar.sign.in": "Sign in",
   "navigation.bar.begin.course": "Start course",
   "navigation.bar.report.payment": "Report payment",
   "navigation.bar.book.driving.lesson": "Book driving lesson",
@@ -118,5 +117,19 @@
 
   "footer.role": "Role: ",
   "footer.role.change": "Change role ",
-  "footer.role.changed": "The role has changed to: "
+  "footer.role.changed": "The role has changed to: ",
+
+  "sign.up": "Sign up",
+  "sign.in": "Sign in",
+  "sign.up.title": "Create account",
+  "sign.up.required.fields": "*Required fields",
+  "sign.up.success": "The account has been created and a message with an activation link has been sent to the email address provided",
+
+  "login": "Login",
+  "emailAddress": "Email address",
+  "password": "Password",
+  "repeatedPassword": "Repeat password",
+  "firstname": "First name",
+  "lastname": "Last name",
+  "phoneNumber": "Phone number"
 }

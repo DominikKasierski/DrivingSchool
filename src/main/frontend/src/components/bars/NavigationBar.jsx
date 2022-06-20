@@ -12,7 +12,7 @@ import LanguageChangeHandler from "../utils/handlers/LanguageChangeHandler";
 
 function NavigationBar(props) {
     const history = useHistory();
-    const {t, divStyle, i18n} = props
+    const {t, i18n} = props
     const {token, username, setToken, currentRole, setCurrentRole, setUsername} = useLocale();
 
     const dispatchSuccessNotification = useSuccessNotification();
@@ -35,7 +35,7 @@ function NavigationBar(props) {
         localStorage.removeItem('currentRole')
         localStorage.removeItem('username')
         clearTimeout(localStorage.getItem('timeoutId') ?? 0)
-        history.push("/login")
+        history.push("/signIn")
         dispatchSuccessNotification({message: t("logout.success")});
     }
 
@@ -251,12 +251,12 @@ function NavigationBar(props) {
                             <div className={"d-flex flex-nowrap flex-md-wrap mt-2 mt-lg-0 mb-2 mb-lg-0"}>
                                 <LinkContainer to="/signUp">
                                     <Nav.Link className="ml-0 mr-3">
-                                        <div>{t('navigation.bar.sign.up')}</div>
+                                        <div>{t("sign.up")}</div>
                                     </Nav.Link>
                                 </LinkContainer>
-                                <LinkContainer to="/login">
+                                <LinkContainer to="/signIn">
                                     <Nav.Link className={"mr-3"}>
-                                        <div>{t('navigation.bar.sign.in')}</div>
+                                        <div>{t("sign.in")}</div>
                                     </Nav.Link>
                                 </LinkContainer>
                             </div>
