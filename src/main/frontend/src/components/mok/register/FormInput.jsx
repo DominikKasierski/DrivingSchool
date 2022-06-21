@@ -6,17 +6,16 @@ function FormInput({name, placeholder, type}) {
     const touched = formik.touched[name]
 
     return (
-        <div className="col-md-6">
+        <div className={"col-6"}>
+            <div className={"d-inline-block ml-4 mr-3"}>*</div>
             <Field
                 required={true}
                 placeholder={placeholder}
                 name={name}
                 type={type}
-                className="form-control mt-3"
-                style={{marginBottom: "1rem", width: "90%", display: "inline-block"}}/>
-            <div style={{color: "#7749F8", display: "inline-block", margin: "0.2rem"}}>*</div>
+                className="d-inline-block form-control my-3 w-75"/>
             {errors && touched && errors.map((err, i) => {
-                return (<div style={{color: "red"}}>{err}</div>)
+                return (<div className={"ml-5 text-danger"}>{err}</div>)
             })}
         </div>
     )

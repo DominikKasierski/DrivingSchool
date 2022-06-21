@@ -122,7 +122,7 @@
   "sign.up": "Zarejestruj się",
   "sign.in": "Zaloguj się",
   "sign.up.title": "Utwórz konto",
-  "sign.up.required.fields": "*Wymagane pola",
+  "sign.up.required.fields": "* Wymagane pola",
   "sign.up.success": "Konto zostało utworzone, a wiadomość z linkiem aktywacyjnym wysłana na pocztę",
 
   "login": "Login",

@@ -10,6 +10,8 @@ function Home(props) {
 
     return (
         <Container fluid className={"dim pb-4"}>
+            <style
+                dangerouslySetInnerHTML={{__html: "body {background-image: unset;"}}/>
             <Row className={"px-0 justify-content-center"}>
                 <img className="img-fluid w-100" src={road} alt="road"/>
                 <h1 className={"display-4 my-3"}>{i18n.t("landing.page.courses")}</h1>

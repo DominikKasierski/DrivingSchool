@@ -20,14 +20,14 @@
   bottom: 0;
 }
 
+.floating {
+  background-color: rgb(211, 211, 211);
+  border: white 3px solid;
+}
+
 body.modal-open {
   padding: 0 !important;
   overflow-y: auto !important;
-}
-
-.floating-no-absolute {
-  box-shadow: 0 0 0.3rem 0.1rem rgba(0, 0, 0, 0.5);
-  border-radius: 1.2rem;
 }
 
 .mb-n3 {

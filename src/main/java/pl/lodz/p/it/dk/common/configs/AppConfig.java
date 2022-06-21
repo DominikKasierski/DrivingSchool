@@ -30,6 +30,7 @@ public class AppConfig implements Serializable {
     private static final String EMAIL_HOST = "email.property.host";
     private static final String EMAIL_PORT = "email.property.port";
     private static final String EMAIL_SENDER = "email.property.sender";
+    private static final String EMAIL_USERNAME = "email.property.username";
     private static final String EMAIL_PASSWORD = "email.property.password";
 
     private static final String PASSWORD_RESET_SECONDS_LIMIT = "password.reset_seconds_limit";
@@ -93,6 +94,10 @@ public class AppConfig implements Serializable {
 
     public String getEmailSender() {
         return get(EMAIL_SENDER);
+    }
+
+    public String getEmailUsername() {
+        return get(EMAIL_USERNAME);
     }
 
     public String getEmailPassword() {

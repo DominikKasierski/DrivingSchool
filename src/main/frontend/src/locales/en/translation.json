@@ -122,7 +122,7 @@
   "sign.up": "Sign up",
   "sign.in": "Sign in",
   "sign.up.title": "Create account",
-  "sign.up.required.fields": "*Required fields",
+  "sign.up.required.fields": "* Required fields",
   "sign.up.success": "The account has been created and a message with an activation link has been sent to the email address provided",
 
   "login": "Login",

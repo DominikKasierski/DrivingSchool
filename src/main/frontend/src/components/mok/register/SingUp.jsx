@@ -73,19 +73,17 @@ function SignUp(props) {
     return (
         <div className="container-fluid">
             <Breadcrumb>
-                <li className="breadcrumb-item"><Link to="/">{t("navigation.bar.main.page")}</Link></li>
-                <li className="breadcrumb-item active" aria-current="page">{t("sign.up")}</li>
+                <li className="breadcrumb-item"><Link className={"text-dark"} to="/">{t("navigation.bar.main.page")}</Link></li>
+                <li className="breadcrumb-item active text-secondary" aria-current="page">{t("sign.up")}</li>
             </Breadcrumb>
             <Container>
                 <Row>
-                    <Col xs={12} sm={11} md={9} lg={8} xl={7} className={"floating-no-absolute py-4 mx-auto mb-2"}>
+                    <Col xs={12} sm={11} md={9} lg={8} xl={7} className={"floating py-3 mx-auto mb-3 mt-4"}>
                         <div className="py-2">
-                            <h3 className="h3 text-center mt-3">{t("sign.up.title")}</h3>
+                            <h1 className="font-weight-light text-center">{t("sign.up.title")}</h1>
 
-                            <div className="col-12 text-center pt-2">
-                                <div style={{color: "#7749F8", fontSize: 14, marginBottom: "1rem"}}>
-                                    {t("sign.up.required.fields")}
-                                </div>
+                            <div className="col-12 text-center mt-2 mb-4">
+                                <span>{t("sign.up.required.fields")}</span>
                             </div>
 
                             <Formik
@@ -103,8 +101,8 @@ function SignUp(props) {
                                     <FormInput name="firstname" placeholder={t("firstname")} type="text"/>
                                     <FormInput name="lastname" placeholder={t("lastname")} type="text"/>
                                     <FormInput name="phoneNumber" placeholder={t("phoneNumber")} type="text"/>
-                                    <div className="col-12 d-flex justify-content-center mb-3">
-                                        <button className="btn btn-purple" type="submit">
+                                    <div className="col-12 d-flex justify-content-center mt-4">
+                                        <button className="btn btn-dark dim" type="submit">
                                             {t('sign.up')}
                                         </button>
                                     </div>

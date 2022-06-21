@@ -151,7 +151,7 @@ public class EmailService {
     private void sendEmail(String userEmail, String subject, String content) throws EmailException {
         try {
             MimeMessage message = new MimeMessage(prepareSession());
-            message.setFrom(new InternetAddress(appConfig.getEmailHost()));
+            message.setFrom(new InternetAddress(appConfig.getEmailSender()));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(userEmail));
             message.setSubject(subject);
             message.setText(content, "UTF-8", "html");
@@ -172,8 +172,7 @@ public class EmailService {
                 new Authenticator() {
                     @Override
                     protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(appConfig.getEmailSender(),
-                                appConfig.getEmailPassword());
+                        return new PasswordAuthentication(appConfig.getEmailUsername(), appConfig.getEmailPassword());
                     }
                 });
     }
