@@ -45,7 +45,7 @@ export const useDialog = () => {
     }
 };
 
-export const usePermanentDialog = () => {
+export const usePermanentChangeDialog = () => {
     const dispatch = useContext(DialogContext);
 
     return ({confirmCallback = (() => {}), cancelCallback = (() => {}), ...props}) => {

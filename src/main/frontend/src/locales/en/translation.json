@@ -8,8 +8,8 @@
   "notification.title.warning": "Warning",
   "notification.title.success": "Success",
 
-  "dialog.button.cancel": "cancel",
-  "dialog.button.confirm": "confirm",
+  "dialog.button.cancel": "Cancel",
+  "dialog.button.confirm": "Confirm",
   "dialog.permanent.title": "Permanent data change",
   "dialog.permanent.message": "The change you are trying to make permanently modifies data. \n Are you sure?",
   "dialog.update.token.title":"Token expiration",
@@ -17,10 +17,10 @@
   "dialog.update.token.refresh":"click here to refresh it",
   "dialog.update.token.success": "Token refreshed successfully",
 
-  "pageNotFound": "page not found",
-  "pageForbidden": "page forbidden",
-  "internalError": "internal server error",
-  "main.page": "main page",
+  "pageNotFound": "Page not found",
+  "pageForbidden": "Page forbidden",
+  "internalError": "Internal server error",
+  "main.page": "Main page",
 
   "error.request.404": "Resource not found",
   "error.request.401.login": "Authorization error",
@@ -123,7 +123,7 @@
   "sign.in": "Sign in",
   "sign.up.title": "Create account",
   "sign.up.required.fields": "* Required fields",
-  "sign.up.success": "The account has been created and a message with an activation link has been sent to the email address provided",
+  "sign.up.success": "Account was created and a message with an activation link was sent to the e-mail address provided",
 
   "login": "Login",
   "emailAddress": "Email address",
@@ -131,5 +131,23 @@
   "repeatedPassword": "Repeat password",
   "firstname": "First name",
   "lastname": "Last name",
-  "phoneNumber": "Phone number"
+  "phoneNumber": "Phone number",
+
+  "error.rest.validation": "The entered data is incorrect",
+  "exception.database_exception.query_exception": "Error while executing database query",
+  "exception.account_exception.login_invalid_exception": "Invalid login or already taken",
+  "exception.account_exception.email_invalid_exception": "Invalid email or already taken",
+  "exception.account_exception.phone_number_invalid_exception": "Invalid phone number or already taken",
+
+  "sign.up.confirmation": "Activate account",
+  "sign.up.confirmation.title": "Account activation",
+  "sign.up.confirmation.info": "Click the button below to activate your account",
+  "sign.up.confirmation.success": "Your account has been activated",
+
+  "exception.account_exception.already_activated_exception": "Account has already been activated",
+  "exception.confirmation_code_exception.code_used_exception": "Code has already been used",
+  "exception.confirmation_code_exception.wrong_code_type_exception": "Code is invalid",
+  "exception.confirmation_code_exception.code_expired_exception": "Code has expired"
+
+
 }

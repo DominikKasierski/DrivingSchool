@@ -1,5 +1,6 @@
 import React, {createContext, useContext, useReducer} from 'react';
-import Notification, {notificationDuration, notificationType} from "./Notification";
+import Notification from "./Notification"
+import {notificationDuration, notificationType} from "../constants/Constants";
 import './NotificationWrapper.scss'
 import {v4} from "uuid";
 import i18n from '../../../i18n';

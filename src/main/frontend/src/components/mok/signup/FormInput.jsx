@@ -7,15 +7,16 @@ function FormInput({name, placeholder, type}) {
 
     return (
         <div className={"col-6"}>
-            <div className={"d-inline-block ml-4 mr-3"}>*</div>
+            <div className={"d-inline-block mx-2"}>*</div>
             <Field
                 required={true}
                 placeholder={placeholder}
                 name={name}
                 type={type}
-                className="d-inline-block form-control my-3 w-75"/>
+                style={{width: "85%"}}
+                className="d-inline-block form-control my-3"/>
             {errors && touched && errors.map((err, i) => {
-                return (<div className={"ml-5 text-danger"}>{err}</div>)
+                return (<div className={"ml-4 text-danger"}>{err}</div>)
             })}
         </div>
     )

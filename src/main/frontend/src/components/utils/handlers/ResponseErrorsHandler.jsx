@@ -1,6 +1,6 @@
 import React from 'react';
 import i18n from "../../../i18n";
-import {notificationDuration} from "../notifications/Notification";
+import {notificationDuration} from "../constants/Constants";
 
 export const ResponseErrorsHandler = (error, notifier, dispatchViolations = true, callbackAfter = ((x) => {
 }), isAuthRequest = false) => {

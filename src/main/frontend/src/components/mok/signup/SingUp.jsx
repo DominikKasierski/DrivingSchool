@@ -1,14 +1,10 @@
-import {
-    useDangerNotification,
-    useSuccessNotification,
-    useWarningNotification
-} from "../../utils/notifications/NotificationProvider";
+import {useDangerNotification, useSuccessNotification} from "../../utils/notifications/NotificationProvider";
 import axios from "axios";
 import {ResponseErrorsHandler} from "../../utils/handlers/ResponseErrorsHandler";
 import {validatorFactory, ValidatorType} from "../../utils/validators/Validators";
 import {Form, Formik} from "formik";
 import Breadcrumb from "../../bars/Breadcrumb";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import {Col, Container, Row} from "react-bootstrap";
 import {withNamespaces} from "react-i18next";
 import FormInput from "./FormInput";
@@ -17,8 +13,8 @@ function SignUp(props) {
     const {t, i18n} = props
 
     const dispatchDangerNotification = useDangerNotification();
-    const dispatchWarningNotification = useWarningNotification();
     const dispatchSuccessNotification = useSuccessNotification();
+    const history = useHistory();
 
     const initialValues = {
         login: '',
@@ -32,12 +28,16 @@ function SignUp(props) {
 
     function handleRegisterAccount(values, setSubmitting, {resetForm}) {
         setSubmitting(true);
-        const {repeatedPassword, ...dto} = values
         axios.post(`/resources/account/register`, {
-            dto
+            login: values.login,
+            emailAddress: values.emailAddress,
+            password: values.password,
+            firstname: values.firstname,
+            lastname: values.lastname,
+            phoneNumber: values.phoneNumber
         }).then(res => {
+            history.push("/");
             dispatchSuccessNotification({message: t("sign.up.success")})
-            resetForm()
         }).catch(err => {
             ResponseErrorsHandler(err, dispatchDangerNotification)
         }).finally(() => {
@@ -101,6 +101,7 @@ function SignUp(props) {
                                     <FormInput name="firstname" placeholder={t("firstname")} type="text"/>
                                     <FormInput name="lastname" placeholder={t("lastname")} type="text"/>
                                     <FormInput name="phoneNumber" placeholder={t("phoneNumber")} type="text"/>
+
                                     <div className="col-12 d-flex justify-content-center mt-4">
                                         <button className="btn btn-dark dim" type="submit">
                                             {t('sign.up')}

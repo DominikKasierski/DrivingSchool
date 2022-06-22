@@ -6,7 +6,7 @@ import {
 import i18n from "../../../i18n";
 import axios from "axios";
 import {ResponseErrorsHandler} from "../handlers/ResponseErrorsHandler";
-import {notificationDuration, notificationType} from "../notifications/Notification";
+import {notificationDuration, notificationType} from "../constants/Constants";
 
 const REFRESH_TIME = 60 * 1000;
 const LoginContext = createContext();

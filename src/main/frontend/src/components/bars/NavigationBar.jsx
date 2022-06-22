@@ -11,11 +11,11 @@ import {rolesConstant} from "../utils/constants/Constants";
 import LanguageChangeHandler from "../utils/handlers/LanguageChangeHandler";
 
 function NavigationBar(props) {
-    const history = useHistory();
     const {t, i18n} = props
     const {token, username, setToken, currentRole, setCurrentRole, setUsername} = useLocale();
 
     const dispatchSuccessNotification = useSuccessNotification();
+    const history = useHistory();
 
     const handleLogout = () => {
         axios.get(`/resources/auth/logout`, {

@@ -33,7 +33,7 @@ public class AppConfig implements Serializable {
     private static final String EMAIL_USERNAME = "email.property.username";
     private static final String EMAIL_PASSWORD = "email.property.password";
 
-    private static final String PASSWORD_RESET_SECONDS_LIMIT = "password.reset_seconds_limit";
+    private static final String PASSWORD_RESET_SECONDS_LIMIT = "password.reset_milliseconds_limit";
 
     @PostConstruct
     private void init() {

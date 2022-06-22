@@ -6,6 +6,7 @@ function NotFound() {
 
     return (
         <Container className={"mt-5 brightened"}>
+            <style dangerouslySetInnerHTML={{__html: "body {background-image: unset;"}}/>
             <Row>
                 <Col xs={12} sm={11} md={9} lg={8} className={"py-3 mx-auto text-center"}>
                     <h1 className={"display-1 font-weight-bold mb-0"}>{404}</h1>

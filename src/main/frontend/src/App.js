@@ -10,7 +10,8 @@ import NavigationBar from "./components/bars/NavigationBar";
 import Forbidden from "./components/errorpages/Forbidden";
 import InternalError from "./components/errorpages/InternalError";
 import Footer from "./components/bars/Footer";
-import SignUp from "./components/mok/register/SingUp"
+import SignUp from "./components/mok/signup/SingUp"
+import SignUpConfirmation from "./components/mok/signup/SignUpConfirmation"
 
 function App() {
     const {token, currentRole, setCurrentRole, setUsername} = useLocale();
@@ -49,7 +50,10 @@ function App() {
                     <GuardProvider guards={[requireRoles]} error={NotFound}>
                         <Switch>
                             <GuardedRoute exact path="/" component={Home} meta={{}}/>
+                            <GuardedRoute exact path="/forbidden" component={Forbidden}/>
+                            <GuardedRoute exact path="/internalError" component={InternalError}/>
                             <GuardedRoute exact path="/signUp" component={SignUp} meta={{}}/>
+                            <GuardedRoute exact path="/signUp/confirm/:code" component={SignUpConfirmation} meta={{}}/>
                             <GuardedRoute exact path="/signIn" component={InternalError} meta={{}}/>
                             <GuardedRoute exact path="/myAccount" component={Forbidden} meta={{}}/>
                             <GuardedRoute exact path="/vehicles" component={Forbidden} meta={{}}/>

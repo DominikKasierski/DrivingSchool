@@ -1,19 +1,6 @@
 import React, {useState} from 'react';
 import {Alert, ProgressBar} from "react-bootstrap";
 
-export const notificationType = {
-    DANGER: "danger",
-    WARNING: "warning",
-    SUCCESS: "success",
-}
-
-export const notificationDuration = {
-    INFINITY: -1,
-    LONG: 60_000,
-    STANDARD: 10_000,
-    SHORT: 5_000,
-}
-
 const Notification = (props) => {
     const [progress, setProgress] = useState(0);
     const [intervalId, setIntervalId] = useState(null);
