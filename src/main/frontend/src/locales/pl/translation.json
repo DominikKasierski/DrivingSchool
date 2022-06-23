@@ -122,7 +122,7 @@
   "sign.up": "Zarejestruj się",
   "sign.in": "Zaloguj się",
   "sign.in.title": "Logowanie",
-  "sign.in.reset.password": "Zresetuj hasło",
+  "sign.in.reset.password": "Resetuj hasło",
   "sign.up.title": "Utwórz konto",
   "sign.up.required.fields": "* Wymagane pola",
   "sign.up.success": "Konto zostało utworzone, a wiadomość wraz z linkiem aktywacyjnym wysłana na pocztę",
@@ -155,5 +155,9 @@
   "exception.app_runtime_exception.config_load_exception": "Wystąpił problem związany z konfiguracją serwisu",
   "exception.app_runtime_exception.jwt_exception": "Wystąpił problem związany z tokenem JWT",
   "exception.app_runtime_exception.etag_exception": "Wystąpił problem związany z podpisywaniem encji",
-  "exception.not_found_exception.account_not_found_exception": "Konto nie zostało znalezione"
+  "exception.not_found_exception.account_not_found_exception": "Konto nie zostało znalezione",
+
+  "password.reset.email.sent": "Wiadomość wraz z linkiem do resetowania hasła została wysłana na pocztę",
+  "exception.account_exception.unconfirmed_account_exception": "Konto nie zostało jeszcze potwierdzone",
+  "exception.account_exception.blocked_account_exception": "Konto jest zablokowane"
 }

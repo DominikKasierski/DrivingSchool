@@ -17,8 +17,8 @@ import {validatorFactory, ValidatorType} from "../../utils/validators/Validators
 import FormInput from "../../utils/form/FormInput";
 
 function SingIn(props) {
-    const {token, setToken, saveToken, setUsername, setCurrentRole} = useLocale();
     const {t, i18n} = props
+    const {token, setToken, saveToken, setUsername, setCurrentRole} = useLocale();
 
     const dispatchCustomNotification = useCustomNotification();
     const dispatchDangerNotification = useDangerNotification();
@@ -68,8 +68,8 @@ function SingIn(props) {
             saveToken("Bearer " + res.data)
             history.push("/userPage")
             schedule();
-        } catch (ex) {
-            ResponseErrorsHandler(ex, dispatchDangerNotification, true, (e) => {
+        } catch (err) {
+            ResponseErrorsHandler(err, dispatchDangerNotification, true, (e) => {
             }, true)
             setSubmitting(false);
         }
@@ -131,9 +131,9 @@ function SingIn(props) {
                                         </button>
                                     </div>
 
-                                    <div className="col-12 d-flex justify-content-center mt-1">
+                                    <div className="col-12 d-flex justify-content-center mt-2">
                                         <button className="btn btn-dark btn-block dim" type="button"
-                                                onClick={() => history.push("/resetPassword")}>
+                                                onClick={() => history.push("/signIn/resetPassword")}>
                                             {t('sign.in.reset.password')}
                                         </button>
                                     </div>

@@ -13,6 +13,7 @@ import Footer from "./components/bars/Footer";
 import SignUp from "./components/mok/signup/SingUp"
 import SignUpConfirmation from "./components/mok/signup/SignUpConfirmation"
 import SignIn from "./components/mok/signin/SignIn";
+import PasswordReset from "./components/mok/passwordreset/PasswordReset";
 
 function App() {
     const {token, currentRole, setCurrentRole, setUsername} = useLocale();
@@ -56,7 +57,8 @@ function App() {
                             <GuardedRoute exact path="/signUp" component={SignUp} meta={{}}/>
                             <GuardedRoute exact path="/signUp/confirm/:code" component={SignUpConfirmation} meta={{}}/>
                             <GuardedRoute exact path="/signIn" component={SignIn} meta={{}}/>
-                            <GuardedRoute exact path="/resetPassword" component={InternalError} meta={{}}/>
+                            <GuardedRoute exact path="/signIn/resetPassword" component={PasswordReset} meta={{}}/>
+                            <GuardedRoute exact path="/signIn/resetPassword/confirm/:code" component={InternalError} meta={{}}/>
                             <GuardedRoute exact path="/myAccount" component={Forbidden} meta={{}}/>
                             <GuardedRoute exact path="/vehicles" component={Forbidden} meta={{}}/>
                             <GuardedRoute exact path="/vehicles/add" component={NotFound} meta={{}}/>
