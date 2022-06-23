@@ -157,8 +157,11 @@
   "exception.app_runtime_exception.etag_exception": "There was a problem signing an entity",
   "exception.not_found_exception.account_not_found_exception": "Account not found",
 
-  "password.reset.email.sent": "Message with a link to reset the password was sent to the e-mail address provided",
+  "password.reset.email.sent": "Message with a link to reset the password was sent to the email address provided",
+  "password.reset.confirmation" : "Reset password",
+  "password.reset.confirmation.success": "Password has been successfully changed",
   "exception.account_exception.unconfirmed_account_exception": "Account has not yet been confirmed",
-  "exception.account_exception.blocked_account_exception": "Account is blocked"
+  "exception.account_exception.blocked_account_exception": "Account is blocked",
+  "exception.account_exception.same_password_exception": "Current password and the new one must be different"
 
 }

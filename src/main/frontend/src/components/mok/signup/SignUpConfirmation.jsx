@@ -41,8 +41,7 @@ function SignUpConfirmation() {
     return (
         <div className="container-fluid">
             <Breadcrumb>
-                <li className="breadcrumb-item">
-                    <Link className={"text-dark"} to="/">{i18n.t("navigation.bar.main.page")}</Link>
+                <li className="breadcrumb-item"><Link className={"text-dark"} to="/">{i18n.t("navigation.bar.main.page")}</Link>
                 </li>
                 <li className="breadcrumb-item active text-secondary" aria-current="page">{i18n.t('sign.up.confirmation')}</li>
             </Breadcrumb>

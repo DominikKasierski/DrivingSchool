@@ -158,6 +158,10 @@
   "exception.not_found_exception.account_not_found_exception": "Konto nie zostało znalezione",
 
   "password.reset.email.sent": "Wiadomość wraz z linkiem do resetowania hasła została wysłana na pocztę",
+  "password.reset.confirmation" : "Zresetuj hasło",
+  "password.reset.confirmation.success": "Hasło zostało pomyślnie zmienione",
   "exception.account_exception.unconfirmed_account_exception": "Konto nie zostało jeszcze potwierdzone",
-  "exception.account_exception.blocked_account_exception": "Konto jest zablokowane"
+  "exception.account_exception.blocked_account_exception": "Konto jest zablokowane",
+  "exception.account_exception.same_password_exception": "Aktualne hasło oraz nowe muszą być różne"
+
 }

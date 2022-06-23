@@ -10,10 +10,11 @@ import NavigationBar from "./components/bars/NavigationBar";
 import Forbidden from "./components/errorpages/Forbidden";
 import InternalError from "./components/errorpages/InternalError";
 import Footer from "./components/bars/Footer";
-import SignUp from "./components/mok/signup/SingUp"
+import SignUp from "./components/mok/signup/SignUp"
 import SignUpConfirmation from "./components/mok/signup/SignUpConfirmation"
 import SignIn from "./components/mok/signin/SignIn";
 import PasswordReset from "./components/mok/passwordreset/PasswordReset";
+import PasswordResetConfirmation from "./components/mok/passwordreset/PasswordResetConfirmation";
 
 function App() {
     const {token, currentRole, setCurrentRole, setUsername} = useLocale();
@@ -58,7 +59,8 @@ function App() {
                             <GuardedRoute exact path="/signUp/confirm/:code" component={SignUpConfirmation} meta={{}}/>
                             <GuardedRoute exact path="/signIn" component={SignIn} meta={{}}/>
                             <GuardedRoute exact path="/signIn/resetPassword" component={PasswordReset} meta={{}}/>
-                            <GuardedRoute exact path="/signIn/resetPassword/confirm/:code" component={InternalError} meta={{}}/>
+                            <GuardedRoute exact path="/resetPassword/confirm/:code" component={PasswordResetConfirmation}
+                                          meta={{}}/>
                             <GuardedRoute exact path="/myAccount" component={Forbidden} meta={{}}/>
                             <GuardedRoute exact path="/vehicles" component={Forbidden} meta={{}}/>
                             <GuardedRoute exact path="/vehicles/add" component={NotFound} meta={{}}/>
