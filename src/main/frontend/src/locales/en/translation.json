@@ -23,7 +23,7 @@
   "main.page": "Main page",
 
   "error.request.404": "Resource not found",
-  "error.request.401.login": "Authorization error",
+  "error.request.401.login": "Authentication error",
   "error.request.401.token": "Token expired",
   "error.request.unknown": "Unknown error code",
   "error.server.no_response": "No response from server",
@@ -121,6 +121,8 @@
 
   "sign.up": "Sign up",
   "sign.in": "Sign in",
+  "sign.in.title": "Login",
+  "sign.in.reset.password": "Reset password",
   "sign.up.title": "Create account",
   "sign.up.required.fields": "* Required fields",
   "sign.up.success": "Account was created and a message with an activation link was sent to the e-mail address provided",
@@ -134,10 +136,11 @@
   "phoneNumber": "Phone number",
 
   "error.rest.validation": "The entered data is incorrect",
-  "exception.database_exception.query_exception": "Error while executing database query",
+  "exception.database_exception.query_exception": "There was an error executing database query",
   "exception.account_exception.login_invalid_exception": "Invalid login or already taken",
   "exception.account_exception.email_invalid_exception": "Invalid email or already taken",
   "exception.account_exception.phone_number_invalid_exception": "Invalid phone number or already taken",
+  "exception.email_exception.email_exception": "There was an error sending the email",
 
   "sign.up.confirmation": "Activate account",
   "sign.up.confirmation.title": "Account activation",
@@ -147,7 +150,10 @@
   "exception.account_exception.already_activated_exception": "Account has already been activated",
   "exception.confirmation_code_exception.code_used_exception": "Code has already been used",
   "exception.confirmation_code_exception.wrong_code_type_exception": "Code is invalid",
-  "exception.confirmation_code_exception.code_expired_exception": "Code has expired"
+  "exception.confirmation_code_exception.code_expired_exception": "Code has expired",
 
-
+  "exception.app_runtime_exception.config_load_exception": "There was a problem with site configuration",
+  "exception.app_runtime_exception.jwt_exception": "There was a problem with the JWT",
+  "exception.app_runtime_exception.etag_exception": "There was a problem signing an entity",
+  "exception.not_found_exception.account_not_found_exception": "Account not found"
 }

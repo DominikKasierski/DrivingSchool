@@ -1,12 +1,12 @@
 import {useFormikContext, Field} from "formik"
 
-function FormInput({name, placeholder, type}) {
+function FormInput({name, placeholder, type, className = "col-6"}) {
     const formik = useFormikContext();
     const errors = formik.errors[name]
     const touched = formik.touched[name]
 
     return (
-        <div className={"col-6"}>
+        <div className={className}>
             <div className={"d-inline-block mx-2"}>*</div>
             <Field
                 required={true}

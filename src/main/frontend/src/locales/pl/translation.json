@@ -23,7 +23,7 @@
   "main.page": "Strona główna",
 
   "error.request.404": "Zasób nie został znaleziony",
-  "error.request.401.login": "Błąd autoryzacji",
+  "error.request.401.login": "Błąd uwierzytelnienia",
   "error.request.401.token": "Token wygasł",
   "error.request.unknown": "Nieznany kod błędu",
   "error.server.no_response": "Brak odpowiedzi z serwera",
@@ -121,6 +121,8 @@
 
   "sign.up": "Zarejestruj się",
   "sign.in": "Zaloguj się",
+  "sign.in.title": "Logowanie",
+  "sign.in.reset.password": "Zresetuj hasło",
   "sign.up.title": "Utwórz konto",
   "sign.up.required.fields": "* Wymagane pola",
   "sign.up.success": "Konto zostało utworzone, a wiadomość wraz z linkiem aktywacyjnym wysłana na pocztę",
@@ -134,10 +136,11 @@
   "phoneNumber": "Numer telefonu",
 
   "error.rest.validation": "Wprowadzone dane są nieprawidłowe",
-  "exception.database_exception.query_exception": "Błąd podczas wykonywania zapytania do bazy danych",
+  "exception.database_exception.query_exception": "Wystąpił błąd podczas wykonywania zapytania do bazy danych",
   "exception.account_exception.login_invalid_exception": "Login jest niepoprawny lub zajęty",
   "exception.account_exception.email_invalid_exception": "Adres email jest niepoprawny lub zajęty",
   "exception.account_exception.phone_number_invalid_exception": "Numer telefonu jest niepoprawny lub zajęty",
+  "exception.email_exception.email_exception": "Wystąpił błąd podczas wysyłania wiadomości email",
 
   "sign.up.confirmation": "Aktywuj konto",
   "sign.up.confirmation.title": "Aktywacja konta",
@@ -147,5 +150,10 @@
   "exception.account_exception.already_activated_exception": "Konto zostało już aktywowane",
   "exception.confirmation_code_exception.code_used_exception": "Kod został już wykorzystany",
   "exception.confirmation_code_exception.wrong_code_type_exception": "Kod jest nieprawidłowy",
-  "exception.confirmation_code_exception.code_expired_exception": "Kod wygasł"
+  "exception.confirmation_code_exception.code_expired_exception": "Kod wygasł",
+
+  "exception.app_runtime_exception.config_load_exception": "Wystąpił problem związany z konfiguracją serwisu",
+  "exception.app_runtime_exception.jwt_exception": "Wystąpił problem związany z tokenem JWT",
+  "exception.app_runtime_exception.etag_exception": "Wystąpił problem związany z podpisywaniem encji",
+  "exception.not_found_exception.account_not_found_exception": "Konto nie zostało znalezione"
 }

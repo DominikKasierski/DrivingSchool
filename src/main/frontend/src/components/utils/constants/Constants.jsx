@@ -16,3 +16,5 @@ export const notificationDuration = {
     STANDARD: 10_000,
     SHORT: 5_000,
 }
+
+export const REFRESH_TIME = 60 * 1000

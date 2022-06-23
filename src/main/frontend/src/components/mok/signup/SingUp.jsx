@@ -7,7 +7,7 @@ import Breadcrumb from "../../bars/Breadcrumb";
 import {Link, useHistory} from "react-router-dom";
 import {Col, Container, Row} from "react-bootstrap";
 import {withNamespaces} from "react-i18next";
-import FormInput from "./FormInput";
+import FormInput from "../../utils/form/FormInput";
 
 function SignUp(props) {
     const {t, i18n} = props
