@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class BriefCarInfoDto {
 
+    private Long id;
     private String image;
     private String brand;
     private String model;
