@@ -162,6 +162,9 @@
   "password.reset.confirmation.success": "Hasło zostało pomyślnie zmienione",
   "exception.account_exception.unconfirmed_account_exception": "Konto nie zostało jeszcze potwierdzone",
   "exception.account_exception.blocked_account_exception": "Konto jest zablokowane",
-  "exception.account_exception.same_password_exception": "Aktualne hasło oraz nowe muszą być różne"
+  "exception.account_exception.same_password_exception": "Aktualne hasło oraz nowe muszą być różne",
 
+
+  "user.page": "Pulpit użytkownika",
+  "user.page.welcome": "Witaj"
 }

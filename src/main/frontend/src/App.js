@@ -15,6 +15,7 @@ import SignUpConfirmation from "./components/mok/signup/SignUpConfirmation"
 import SignIn from "./components/mok/signin/SignIn";
 import PasswordReset from "./components/mok/passwordreset/PasswordReset";
 import PasswordResetConfirmation from "./components/mok/passwordreset/PasswordResetConfirmation";
+import UserPage from "./components/mok/signin/UserPage";
 
 function App() {
     const {token, currentRole, setCurrentRole, setUsername} = useLocale();
@@ -61,6 +62,7 @@ function App() {
                             <GuardedRoute exact path="/signIn/resetPassword" component={PasswordReset} meta={{}}/>
                             <GuardedRoute exact path="/resetPassword/confirm/:code" component={PasswordResetConfirmation}
                                           meta={{}}/>
+                            <GuardedRoute exact path="/userPage" component={UserPage} meta={{}}/>
                             <GuardedRoute exact path="/myAccount" component={Forbidden} meta={{}}/>
                             <GuardedRoute exact path="/vehicles" component={Forbidden} meta={{}}/>
                             <GuardedRoute exact path="/vehicles/add" component={NotFound} meta={{}}/>

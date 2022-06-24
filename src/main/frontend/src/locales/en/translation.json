@@ -162,6 +162,8 @@
   "password.reset.confirmation.success": "Password has been successfully changed",
   "exception.account_exception.unconfirmed_account_exception": "Account has not yet been confirmed",
   "exception.account_exception.blocked_account_exception": "Account is blocked",
-  "exception.account_exception.same_password_exception": "Current password and the new one must be different"
+  "exception.account_exception.same_password_exception": "Current password and the new one must be different",
 
+  "user.page": "User dashboard",
+  "user.page.welcome": "Welcome"
 }

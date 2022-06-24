@@ -30,7 +30,7 @@ function AccessLevelChangeHandler(props) {
         localStorage.setItem('currentRole', level);
         if (level !== rolesConstant.trainee && level !== currentRole) {
             handleChangeLevel(level);
-            history.push("/")
+            history.push("/userPage")
         }
     }
 

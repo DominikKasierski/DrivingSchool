@@ -103,7 +103,7 @@ function SignUp(props) {
                                     <FormInput name="phoneNumber" placeholder={t("phoneNumber")} type="text"/>
 
                                     <div className="col-12 d-flex justify-content-center mt-4">
-                                        <button className="btn btn-dark dim" type="submit">
+                                        <button className="btn btn-block btn-dark dim" type="submit">
                                             {t('sign.up')}
                                         </button>
                                     </div>
