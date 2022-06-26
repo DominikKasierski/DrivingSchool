@@ -13,6 +13,7 @@ function VehicleComponent({id, image, brand, model, productionYear}) {
     const [activeKey, setActiveKey] = useState("description")
     const {token, username, currentRole} = useLocale();
     const [etag, setEtag] = useState();
+    const [refresh, setRefresh] = useState();
 
     const dispatchPermanentChangeDialog = usePermanentChangeDialog();
     const dispatchDangerNotification = useDangerNotification();
@@ -21,15 +22,9 @@ function VehicleComponent({id, image, brand, model, productionYear}) {
 
     useEffect(() => {
         if (currentRole === 'ADMIN') {
-            axios.get(`/resources/car/getCar/` + id, {
-                headers: {
-                    "Authorization": token,
-                }
-            }).then((res) => {
-                setEtag(res.headers.etag);
-            }).catch((e) => ResponseErrorsHandler(e, dispatchDangerNotification));
+            getCarData();
         }
-    }, [token]);
+    }, [token, refresh]);
 
     const handleDelete = () => {
         dispatchPermanentChangeDialog({
@@ -40,7 +35,7 @@ function VehicleComponent({id, image, brand, model, productionYear}) {
     }
 
     const deleteVehicle = () => {
-        axios.put(`/resources/car/removeCar/` + id, {
+        axios.put(`/resources/car/removeCar/` + id, {}, {
             headers: {
                 "Content-Type": "application/json",
                 "If-Match": etag,
@@ -48,10 +43,20 @@ function VehicleComponent({id, image, brand, model, productionYear}) {
             }
         }).then((res) => {
             dispatchSuccessNotification({message: i18n.t('vehicles.delete.success')});
-            history.push("/vehicles");
+            history.push("/userPage")
         }).catch(err => {
             ResponseErrorsHandler(err, dispatchDangerNotification);
         });
+    }
+
+    function getCarData() {
+        axios.get(`/resources/car/getCar/` + id, {
+            headers: {
+                "Authorization": token,
+            }
+        }).then((res) => {
+            setEtag(res.headers.etag);
+        }).catch((e) => ResponseErrorsHandler(e, dispatchDangerNotification));
     }
 
     return (
@@ -65,15 +70,15 @@ function VehicleComponent({id, image, brand, model, productionYear}) {
 
                     <div className={"col-md-6 my-auto col-sm-12 col-xs-12"}>
                         <ListGroup variant={"flush"}>
-                            <ListGroup.Item className={"d-flex align-items-center"}>
+                            <ListGroup.Item className={"d-flex align-items-center p-2"}>
                                 <span className={"font-weight-bold"}>{i18n.t('vehicles.brand')}</span>
                                 <span className={"ml-3"}>{brand}</span>
                             </ListGroup.Item>
-                            <ListGroup.Item className={"d-flex align-items-center"}>
+                            <ListGroup.Item className={"d-flex align-items-center p-2"}>
                                 <span className={"font-weight-bold"}>{i18n.t('vehicles.model')}</span>
                                 <span className={"ml-3"}>{model}</span>
                             </ListGroup.Item>
-                            <ListGroup.Item className={"d-flex align-items-center"}>
+                            <ListGroup.Item className={"d-flex align-items-center p-2"}>
                                 <span className={"font-weight-bold"}>{i18n.t('vehicles.production.year')}</span>
                                 <span className={"ml-3"}>{productionYear}</span>
                             </ListGroup.Item>

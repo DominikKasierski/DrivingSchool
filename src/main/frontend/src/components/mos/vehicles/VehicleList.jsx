@@ -6,8 +6,6 @@ import Breadcrumb from "../../bars/Breadcrumb";
 import {Col, Container, Row} from "react-bootstrap";
 import VehicleComponent from "./VehicleComponent";
 
-//TODO: Dodać errory do tłumaczeń
-
 function VehicleList(props) {
     const {t, i18n} = props
     const [data, setData] = useState([
