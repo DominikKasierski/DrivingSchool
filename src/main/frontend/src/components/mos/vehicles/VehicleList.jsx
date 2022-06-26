@@ -46,17 +46,21 @@ function VehicleList(props) {
                 <li className="breadcrumb-item"><Link className={"text-dark"} to="/">{t("navigation.bar.main.page")}</Link></li>
                 <li className="breadcrumb-item active text-secondary" aria-current="page">{t("navigation.bar.vehicles")}</li>
             </Breadcrumb>
-            <Container className={"floating col-md-6 col-lg-5 col-12 py-3 mb-3 mt-4"}>
-                <div className="row justify-content-center mb-3">
-                    <h1 className="font-weight-light">{t("navigation.bar.vehicles.list")}</h1>
-                </div>
+            <Container>
+                <Row>
+                    <Col xs={10} sm={10} md={10} lg={9} xl={8} className={"floating px-4 pt-4 pb-0 mx-auto mb-5 mt-3"}>
+                        <div className="row justify-content-center mb-2">
+                            <h1 className="font-weight-light">{t("navigation.bar.vehicles.list")}</h1>
+                        </div>
 
-                <div className={"row mb-2"}>
-                    {data.length > 0 && data.map((item) => (
-                        <VehicleComponent id={item.id} image={item.image} brand={item.brand} model={item.model}
-                                          productionYear={item.productionYear}/>
-                    ))}
-                </div>
+                        <div className="row">
+                            {data.length > 1 && data.map((item) => (
+                                <VehicleComponent id={item.id} image={item.image} brand={item.brand} model={item.model}
+                                                  productionYear={item.productionYear}/>
+                            ))}
+                        </div>
+                    </Col>
+                </Row>
             </Container>
         </div>
     )

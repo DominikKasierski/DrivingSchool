@@ -38,6 +38,10 @@ body.modal-open {
   overflow-x: hidden;
 }
 
+.list-group-item {
+  background-color: rgb(211, 211, 211);
+}
+
 .homeGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

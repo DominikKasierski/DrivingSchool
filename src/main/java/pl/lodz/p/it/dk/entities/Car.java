@@ -14,8 +14,12 @@ import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Set;
 
+import static pl.lodz.p.it.dk.entities.Car.REGISTRATION_NUMBER_CONSTRAINT;
+
 @Entity
-@Table(name = "car")
+@Table(name = "car", uniqueConstraints = {
+        @UniqueConstraint(name = REGISTRATION_NUMBER_CONSTRAINT, columnNames = {"registration_number"})
+})
 @NamedQueries({
         @NamedQuery(name = "Car.findByCategory",
                 query = "SELECT c FROM Car c WHERE c.courseCategory = :category AND c.deleted = false")
@@ -23,6 +27,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class Car extends AbstractEntity implements Serializable {
 
+    public static final String REGISTRATION_NUMBER_CONSTRAINT = "constraint_car_registration_number";
     private static final long serialVersionUID = 1L;
 
     @Id

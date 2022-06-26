@@ -1,6 +1,6 @@
 import i18n from '../../../i18n';
 import {useEffect, useState} from "react";
-import {ListGroup, Row, Tab, Tabs} from "react-bootstrap";
+import {Card, Col, ListGroup, Row, Tab, Tabs} from "react-bootstrap";
 import {usePermanentChangeDialog} from "../../utils/dialogs/DialogProvider";
 import {useHistory} from "react-router-dom";
 import {useLocale} from "../../utils/login/LoginProvider";
@@ -31,17 +31,7 @@ function VehicleComponent({id, image, brand, model, productionYear}) {
         }
     }, [token]);
 
-    const handleTabSelect = (key) => {
-        if (key === "delete") {
-            handleDeleteCar();
-        } else if (key === "edit") {
-            history.push("/editCar/" + id)
-        } else {
-            setActiveKey(key)
-        }
-    }
-
-    const handleDeleteCar = () => {
+    const handleDelete = () => {
         dispatchPermanentChangeDialog({
             confirmCallback: () => {
                 deleteVehicle()
@@ -65,33 +55,47 @@ function VehicleComponent({id, image, brand, model, productionYear}) {
     }
 
     return (
-        <Row>
-            <div className={"col-md-6 col-sm-12 col-xs-12"}>
-                <img alt="vehicle" className="img-fluid" src={image}/>
-            </div>
+        <Row className={"mb-2 p-2"}>
+            <Card style={{
+                border: "none",
+                background: "rgb(211, 211, 211)"
+            }}>
+                <div className={"card-img-top d-flex align-items-center"}>
+                    <img alt="vehicle" className="img-fluid col-md-6 col-sm-12 col-xs-12" src={image}/>
 
-            <div className={"col-md-6 my-auto col-sm-12 col-xs-12"}>
-                <ListGroup variant={"flush"}>
-                    <ListGroup.Item className={"d-flex align-items-center"}>
-                        <span className={"ml-3"}>{i18n.t('vehicles.brand')}</span>
-                        <span className={"ml-3"}>{brand}</span>
-                    </ListGroup.Item>
-                    <ListGroup.Item className={"d-flex align-items-center"}>
-                        <span className={"ml-3"}>{i18n.t('vehicles.model')}</span>
-                        <span className={"ml-3"}>{model}</span>
-                    </ListGroup.Item>
-                    <ListGroup.Item className={"d-flex align-items-center"}>
-                        <span className={"ml-3"}>{i18n.t('vehicles.production.year')}</span>
-                        <span className={"ml-3"}>{productionYear}</span>
-                    </ListGroup.Item>
-                </ListGroup>
-                {/*{currentRole === rolesConstant.admin && (*/}
-                {/*    <>*/}
-                {/*        <Tab eventKey="edit" tabClassName={"ml-auto"} title={i18n.t("edit")}/>*/}
-                {/*        <Tab eventKey="delete" tabClassName={"ml-0"} title={i18n.t("delete")}/>*/}
-                {/*    </>*/}
-                {/*)}*/}
-            </div>
+                    <div className={"col-md-6 my-auto col-sm-12 col-xs-12"}>
+                        <ListGroup variant={"flush"}>
+                            <ListGroup.Item className={"d-flex align-items-center"}>
+                                <span className={"font-weight-bold"}>{i18n.t('vehicles.brand')}</span>
+                                <span className={"ml-3"}>{brand}</span>
+                            </ListGroup.Item>
+                            <ListGroup.Item className={"d-flex align-items-center"}>
+                                <span className={"font-weight-bold"}>{i18n.t('vehicles.model')}</span>
+                                <span className={"ml-3"}>{model}</span>
+                            </ListGroup.Item>
+                            <ListGroup.Item className={"d-flex align-items-center"}>
+                                <span className={"font-weight-bold"}>{i18n.t('vehicles.production.year')}</span>
+                                <span className={"ml-3"}>{productionYear}</span>
+                            </ListGroup.Item>
+                            {currentRole === rolesConstant.admin && (
+                                <>
+                                    <ListGroup.Item className={"p-1"}>
+                                        <button className="p-1 btn btn-block btn-dark dim"
+                                                onClick={() => history.push("/editCar/" + id)}>
+                                            {i18n.t("edit")}
+                                        </button>
+                                    </ListGroup.Item>
+                                    <ListGroup.Item className={"p-1"}>
+                                        <button className="p-1 btn-block btn btn-dark dim" onClick={handleDelete}>
+                                            {i18n.t("delete")}
+                                        </button>
+                                    </ListGroup.Item>
+                                </>
+                            )}
+                        </ListGroup>
+                    </div>
+                </div>
+            </Card>
         </Row>
     );
 }

@@ -211,6 +211,8 @@ create table car
     modified_by         bigint,
     constraint pk_car_id
         primary key (id),
+    constraint constraint_car_registration_number
+        unique (registration_number),
     constraint fk_car_created_by
         foreign key (created_by) references account,
     constraint fk_car_modified_by

@@ -127,6 +127,8 @@
   "sign.up.required.fields": "* Required fields",
   "sign.up.success": "Account was created and a message with an activation link was sent to the e-mail address provided",
 
+  "edit": "Edit",
+  "delete": "Delete",
   "login": "Login",
   "emailAddress": "Email address",
   "password": "Password",
@@ -163,7 +165,13 @@
   "exception.account_exception.unconfirmed_account_exception": "Account has not yet been confirmed",
   "exception.account_exception.blocked_account_exception": "Account is blocked",
   "exception.account_exception.same_password_exception": "Current password and the new one must be different",
+  "exception.app_optimistic_lock_exception.optimistic_lock_exception": "Resource has been modified",
+  "exception.car_exception.car_in_use_exception": "Car is being used",
 
   "user.page": "User dashboard",
-  "user.page.welcome": "Welcome"
+  "user.page.welcome": "Welcome",
+  "vehicles.delete.success": "The vehicle has been successfully deleted",
+  "vehicles.brand": "Brand:",
+  "vehicles.model": "Model:",
+  "vehicles.production.year": "Production year:"
 }

@@ -89,7 +89,7 @@
   "landing.page.right": "kategoria C",
 
   "language": "Język",
-  "language.change.success": "Pomyślnie zmieniono język",
+  "language.change.success": "Język został pomyślnie zmieniony",
   "logout.success": "Pomyślnie wylogowano",
 
   "navigation.bar.subtitle": "Najlepsza szkoła jazdy",
@@ -127,6 +127,8 @@
   "sign.up.required.fields": "* Wymagane pola",
   "sign.up.success": "Konto zostało utworzone, a wiadomość wraz z linkiem aktywacyjnym wysłana na pocztę",
 
+  "edit": "Edytuj",
+  "delete": "Usuń",
   "login": "Login",
   "emailAddress": "Adres email",
   "password": "Hasło",
@@ -163,8 +165,13 @@
   "exception.account_exception.unconfirmed_account_exception": "Konto nie zostało jeszcze potwierdzone",
   "exception.account_exception.blocked_account_exception": "Konto jest zablokowane",
   "exception.account_exception.same_password_exception": "Aktualne hasło oraz nowe muszą być różne",
-
+  "exception.app_optimistic_lock_exception.optimistic_lock_exception": "Zasób został zmodyfikowany",
+  "exception.car_exception.car_in_use_exception": "Samochód jest wykorzystywany",
 
   "user.page": "Pulpit użytkownika",
-  "user.page.welcome": "Witaj"
+  "user.page.welcome": "Witaj",
+  "vehicles.delete.success": "Pojazd został pomyślnie usunięty",
+  "vehicles.brand": "Marka:",
+  "vehicles.model": "Model:",
+  "vehicles.production.year": "Rok produkcji:"
 }
