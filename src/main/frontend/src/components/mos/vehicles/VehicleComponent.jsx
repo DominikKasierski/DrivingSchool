@@ -13,7 +13,6 @@ function VehicleComponent({id, image, brand, model, productionYear}) {
     const [activeKey, setActiveKey] = useState("description")
     const {token, username, currentRole} = useLocale();
     const [etag, setEtag] = useState();
-    const [refresh, setRefresh] = useState();
 
     const dispatchPermanentChangeDialog = usePermanentChangeDialog();
     const dispatchDangerNotification = useDangerNotification();
@@ -24,7 +23,7 @@ function VehicleComponent({id, image, brand, model, productionYear}) {
         if (currentRole === 'ADMIN') {
             getCarData();
         }
-    }, [token, refresh]);
+    }, [token]);
 
     const handleDelete = () => {
         dispatchPermanentChangeDialog({

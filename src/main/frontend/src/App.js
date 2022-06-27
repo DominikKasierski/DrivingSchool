@@ -17,6 +17,7 @@ import PasswordReset from "./components/mok/passwordreset/PasswordReset";
 import PasswordResetConfirmation from "./components/mok/passwordreset/PasswordResetConfirmation";
 import UserPage from "./components/mok/signin/UserPage";
 import VehicleList from "./components/mos/vehicles/VehicleList";
+import MyAccount from "./components/mok/account/MyAccount";
 
 function App() {
     const {token, currentRole, setCurrentRole, setUsername} = useLocale();
@@ -65,7 +66,7 @@ function App() {
                                           meta={{}}/>
                             <GuardedRoute exact path="/userPage" component={UserPage} meta={{}}/>
                             <GuardedRoute exact path="/vehicles" component={VehicleList} meta={{}}/>
-                            <GuardedRoute exact path="/myAccount" component={Forbidden} meta={{}}/>
+                            <GuardedRoute exact path="/myAccount" component={MyAccount} meta={{}}/>
                             <GuardedRoute exact path="/vehicles/add" component={NotFound} meta={{}}/>
                             <GuardedRoute exact path="/accounts" component={NotFound} meta={{}}/>
                             <GuardedRoute exact path="/manageInstructors" component={InternalError} meta={{}}/>

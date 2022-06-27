@@ -136,6 +136,10 @@
   "firstname": "Imię",
   "lastname": "Nazwisko",
   "phoneNumber": "Numer telefonu",
+  "roles": "Role",
+  "course.category": "Kategoria kursu",
+  "course.price": "Cena kursu",
+  "course.paid": "Opłacone",
 
   "error.rest.validation": "Wprowadzone dane są nieprawidłowe",
   "exception.database_exception.query_exception": "Wystąpił błąd podczas wykonywania zapytania do bazy danych",

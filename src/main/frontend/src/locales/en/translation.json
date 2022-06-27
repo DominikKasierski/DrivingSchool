@@ -136,6 +136,10 @@
   "firstname": "First name",
   "lastname": "Last name",
   "phoneNumber": "Phone number",
+  "roles": "Roles",
+  "course.category": "Course category",
+  "course.price": "Course price",
+  "course.paid": "Paid",
 
   "error.rest.validation": "The entered data is incorrect",
   "exception.database_exception.query_exception": "There was an error executing database query",
