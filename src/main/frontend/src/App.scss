@@ -42,6 +42,16 @@ body.modal-open {
   background-color: rgb(211, 211, 211);
 }
 
+.table td {
+  justify-content: center;
+  align-items: center;
+}
+
+.table th {
+  justify-content: center;
+  align-items: center;
+}
+
 .homeGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

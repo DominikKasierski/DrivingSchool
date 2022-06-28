@@ -96,9 +96,7 @@
   "navigation.bar.vehicles": "Vehicles",
   "navigation.bar.vehicles.list": "Vehicle list",
   "navigation.bar.vehicles.add": "Add vehicle",
-  "navigation.bar.accounts": "Accounts",
   "navigation.bar.accounts.list": "Account list",
-  "navigation.bar.accounts.manage.instructors": "Manage instructors",
   "navigation.bar.payments": "Payments",
   "navigation.bar.reported.payments": "Reported payments",
   "navigation.bar.add.payment": "Add payment",
@@ -129,6 +127,7 @@
   "edit": "Edit",
   "delete": "Delete",
   "refresh": "Refresh",
+  "action": "Action",
   "login": "Login",
   "emailAddress": "Email address",
   "password": "Password",
@@ -181,5 +180,6 @@
   "vehicles.model": "Model:",
   "vehicles.production.year": "Production year:",
 
-  "my.account.data": "Account information"
+  "my.account.data": "Account information",
+  "account.list.title": "Accounts"
 }

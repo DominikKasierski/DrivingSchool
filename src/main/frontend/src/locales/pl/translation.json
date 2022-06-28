@@ -96,9 +96,7 @@
   "navigation.bar.vehicles": "Pojazdy",
   "navigation.bar.vehicles.list": "Lista pojazdów",
   "navigation.bar.vehicles.add": "Dodaj pojazd",
-  "navigation.bar.accounts": "Konta",
   "navigation.bar.accounts.list": "Lista kont",
-  "navigation.bar.accounts.manage.instructors": "Zarządzaj instruktorami",
   "navigation.bar.payments": "Wpłaty",
   "navigation.bar.reported.payments": "Zgłoszone wpłaty",
   "navigation.bar.add.payment": "Dodaj wpłatę",
@@ -130,6 +128,7 @@
   "edit": "Edytuj",
   "delete": "Usuń",
   "refresh": "Odśwież",
+  "action": "Akcja",
   "login": "Login",
   "emailAddress": "Adres email",
   "password": "Hasło",
@@ -182,5 +181,6 @@
   "vehicles.model": "Model:",
   "vehicles.production.year": "Rok produkcji:",
 
-  "my.account.data": "Dane konta"
+  "my.account.data": "Dane konta",
+  "account.list.title": "Konta"
 }

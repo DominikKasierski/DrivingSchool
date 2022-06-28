@@ -85,24 +85,6 @@ function NavigationBar(props) {
                                             <span style={{
                                                 fontSize: "1.2rem",
                                                 marginRight: "10px"
-                                            }}>{t('navigation.bar.accounts')}</span>
-                                        </DropdownToggle>
-
-                                        <Dropdown.Menu>
-                                            <Dropdown.Item as={Link} to="/accounts">
-                                                {t('navigation.bar.accounts.list')}
-                                            </Dropdown.Item>
-                                            <Dropdown.Item as={Link} to="/manageInstructors">
-                                                {t('navigation.bar.accounts.manage.instructors')}
-                                            </Dropdown.Item>
-                                        </Dropdown.Menu>
-                                    </Dropdown>
-                                    <Dropdown>
-                                        <DropdownToggle id="dropdown-basic" className="pl-0 pl-lg-2 pr-0 pr-lg-2 mr-3 dim"
-                                                        variant="Secondary">
-                                            <span style={{
-                                                fontSize: "1.2rem",
-                                                marginRight: "10px"
                                             }}>{t('navigation.bar.payments')}</span>
                                         </DropdownToggle>
 
@@ -136,6 +118,9 @@ function NavigationBar(props) {
                                             </Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>
+                                    <LinkContainer to="/accounts">
+                                        <Nav.Link className={"mr-3"}>{t('navigation.bar.accounts.list')}</Nav.Link>
+                                    </LinkContainer>
                                     <LinkContainer to="/timetable">
                                         <Nav.Link>{t('navigation.bar.timetable')}</Nav.Link>
                                     </LinkContainer>
