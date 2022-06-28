@@ -12,6 +12,9 @@ VALUES (-1, true, true, 'kszczesniak', 'kszczeniak@gmail.com', null,
         now(), null, -1, null, 1),
        (-4, true, true, 'antek', 'antek123@gmail.com', null,
         'bdd2297f93550f01452cbd838c276f0dd22f498b4661394f1528ab88d6e63e6f', 'Antoni', 'Domagalski', 'pl', '999222555', 0,
+        now(), null, -1, null, 1),
+       (-5, true, true, 'tomek', 'tomek@gmail.com', null,
+        'bdd2297f93550f01452cbd838c276f0dd22f498b4661394f1528ab88d6e63e6f', 'Tomasz', 'Tomkowski', 'pl', '999223555', 0,
         now(), null, -1, null, 1);
 
 ---- Create user accesses ----
@@ -20,7 +23,8 @@ VALUES (-1, 'ADMIN', true, -1, now(), null, -1, null, 1),
        (-2, 'INSTRUCTOR', true, -1, now(), null, -1, null, 1),
        (-3, 'INSTRUCTOR', true, -2, now(), null, -1, null, 1),
        (-4, 'TRAINEE', true, -3, now(), null, -1, null, 1),
-       (-5, 'TRAINEE', true, -4, now(), null, -1, null, 1);
+       (-5, 'TRAINEE', true, -4, now(), null, -1, null, 1),
+       (-6, 'TRAINEE', true, -5, now(), null, -1, null, 1);
 
 ---- Create access extension tables ----
 INSERT INTO admin_access (id)
@@ -33,6 +37,8 @@ INSERT INTO trainee_access (id)
 VALUES (-4);
 INSERT INTO trainee_access (id)
 VALUES (-5);
+INSERT INTO trainee_access (id)
+VALUES (-6);
 
 INSERT INTO instructors_permissions(instructor_id, permissions)
 VALUES (-2, 'A'),
@@ -55,7 +61,8 @@ VALUES (-1, 'PierwszaGrupaA', 'A', now(), null, -1, null, 1),
        (-3, 'PierwszaGrupaC', 'C', now(), null, -1, null, 1);
 
 ---- Create courses ----
-INSERT INTO course (id, trainee_id, course_details_id, lecture_group_id, paid, lectures_completion, course_completion, creation_date,
+INSERT INTO course (id, trainee_id, course_details_id, lecture_group_id, paid, lectures_completion, course_completion,
+                    creation_date,
                     modification_date, created_by, modified_by, version)
 VALUES (-1, -4, -1, -1, false, false, false, now(), null, -3, null, 1),
        (-2, -5, -2, -2, false, false, false, now(), null, -4, null, 1);
@@ -69,8 +76,9 @@ VALUES (-1, 'REJECTED', -1, 750, 'Pierwsza wpłata', 'Błędna kwota', now(), nu
        (-4, 'IN_PROGRESS', -2, 500, 'Wpłata z 8.05.2021r.', null, now(), null, -4, null, 1);
 
 ---- Create cars ----
-INSERT INTO car (id, course_category, image, brand, model, registration_number, production_year, deleted, creation_date, modification_date,
-                     created_by, modified_by, version)
-VALUES (-1, 'A', '/static/motorcycle1.jpg', 'Yamaha', 'MT-07', 'ELEF646', 2015, false , now(), null, -1, null, 1),
-       (-2, 'B', '/static/car1.jpg', 'KIA', 'Rio', 'ELE4646', 2016, false , now(), null, -1, null, 1),
-       (-3, 'C', '/static/truck1.jpg', 'MAN', 'TGL 12.240', 'ELE646', 2014, false , now(), null, -1, null, 1);
+INSERT INTO car (id, course_category, image, brand, model, registration_number, production_year, deleted, creation_date,
+                 modification_date,
+                 created_by, modified_by, version)
+VALUES (-1, 'A', '/static/motorcycle1.jpg', 'Yamaha', 'MT-07', 'ELEF646', 2015, false, now(), null, -1, null, 1),
+       (-2, 'B', '/static/car1.jpg', 'KIA', 'Rio', 'ELE4646', 2016, false, now(), null, -1, null, 1),
+       (-3, 'C', '/static/truck1.jpg', 'MAN', 'TGL 12.240', 'ELE646', 2014, false, now(), null, -1, null, 1);

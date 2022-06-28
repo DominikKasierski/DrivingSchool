@@ -129,6 +129,7 @@
 
   "edit": "Edytuj",
   "delete": "Usuń",
+  "refresh": "Odśwież",
   "login": "Login",
   "emailAddress": "Adres email",
   "password": "Hasło",
@@ -139,7 +140,8 @@
   "roles": "Role",
   "course.category": "Kategoria kursu",
   "course.price": "Cena kursu",
-  "course.paid": "Opłacone",
+  "course.paid": "Wpłacono",
+  "permissions": "Uprawnienia",
 
   "error.rest.validation": "Wprowadzone dane są nieprawidłowe",
   "exception.database_exception.query_exception": "Wystąpił błąd podczas wykonywania zapytania do bazy danych",
@@ -177,5 +179,7 @@
   "vehicles.delete.success": "Pojazd został pomyślnie usunięty",
   "vehicles.brand": "Marka:",
   "vehicles.model": "Model:",
-  "vehicles.production.year": "Rok produkcji:"
+  "vehicles.production.year": "Rok produkcji:",
+
+  "my.account.data": "Dane konta"
 }

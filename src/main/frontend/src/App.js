@@ -67,6 +67,7 @@ function App() {
                             <GuardedRoute exact path="/userPage" component={UserPage} meta={{}}/>
                             <GuardedRoute exact path="/vehicles" component={VehicleList} meta={{}}/>
                             <GuardedRoute exact path="/myAccount" component={MyAccount} meta={{}}/>
+                            <GuardedRoute exact path="/editOwnAccount" component={NotFound} meta={{}}/>
                             <GuardedRoute exact path="/vehicles/add" component={NotFound} meta={{}}/>
                             <GuardedRoute exact path="/accounts" component={NotFound} meta={{}}/>
                             <GuardedRoute exact path="/manageInstructors" component={InternalError} meta={{}}/>
