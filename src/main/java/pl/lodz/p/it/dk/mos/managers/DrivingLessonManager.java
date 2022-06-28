@@ -59,7 +59,7 @@ public class DrivingLessonManager {
     public void addDrivingLesson(Course course, int numberOfHours, Date dateFrom, String instructorLogin)
             throws BaseException {
 
-        if (!course.isPaid() || !course.isLecturesCompletion()) {
+        if (!course.isAdvance() || !course.isLecturesCompletion()) {
             throw DrivingLessonException.conditionsNotMet();
         }
 

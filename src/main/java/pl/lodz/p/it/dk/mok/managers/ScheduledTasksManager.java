@@ -113,7 +113,11 @@ public class ScheduledTasksManager extends AbstractEndpoint {
                 drivingLesson.setLessonStatus(LessonStatus.FINISHED);
                 Course course = drivingLesson.getCourse();
 
-                if (checkIfCourseIsCompleted(course)) {
+                if (!course.isPaid() && checkIfDrivingLessonsAreCompleted(course)) {
+                    course.setDrivingCompletion(true);
+                    courseFacade.edit(course);
+                } else if (course.isPaid() && checkIfDrivingLessonsAreCompleted(course)) {
+                    course.setDrivingCompletion(true);
                     course.setCourseCompletion(true);
                     courseFacade.edit(course);
                 } else {
@@ -125,7 +129,7 @@ public class ScheduledTasksManager extends AbstractEndpoint {
         }
     }
 
-    private boolean checkIfCourseIsCompleted(Course course) throws BaseException {
+    private boolean checkIfDrivingLessonsAreCompleted(Course course) throws BaseException {
         long totalNumberOfHours = 0;
         long drivingHoursLimit =
                 courseDetailsFacade.findByCategory(course.getCourseDetails().getCourseCategory()).getDrivingHours();

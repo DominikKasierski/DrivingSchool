@@ -1,5 +1,6 @@
 package pl.lodz.p.it.dk.mos.managers;
 
+import pl.lodz.p.it.dk.common.configs.AppConfig;
 import pl.lodz.p.it.dk.common.email.EmailService;
 import pl.lodz.p.it.dk.common.utils.LoggingInterceptor;
 import pl.lodz.p.it.dk.entities.Account;
@@ -13,12 +14,15 @@ import pl.lodz.p.it.dk.mos.dtos.NewPaymentDto;
 import pl.lodz.p.it.dk.mos.dtos.UnderpaymentDto;
 import pl.lodz.p.it.dk.mos.facades.PaymentFacade;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
+import javax.servlet.ServletContext;
+import javax.ws.rs.core.Context;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -32,6 +36,9 @@ import java.util.stream.Collectors;
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
 public class PaymentManager {
 
+    @Context
+    ServletContext servletContext;
+
     @Inject
     CourseManager courseManager;
 
@@ -43,6 +50,18 @@ public class PaymentManager {
 
     @Inject
     private EmailService emailService;
+
+    @Inject
+    private AppConfig appConfig;
+
+
+    private static float AMOUNT_OF_ADVANCE;
+
+    @PostConstruct
+    private void init() {
+        //TODO: Sprawdzic czy prawidłowo pobiera wartość, mnoży i nie zmienia wartości starego BigDecimala
+        AMOUNT_OF_ADVANCE = Float.parseFloat(servletContext.getInitParameter("amountOfAdvance"));
+    }
 
     @RolesAllowed("createPayment")
     public void createPayment(NewPaymentDto newPaymentDto, Course course, String login) throws BaseException {
@@ -102,9 +121,19 @@ public class PaymentManager {
         payment.setModifiedBy(account);
 
         BigDecimal valueOfPayments = getValueOfPayments(course, BigDecimal.ZERO);
+        BigDecimal advanceThreshold = valueOfPayments.multiply(BigDecimal.valueOf(AMOUNT_OF_ADVANCE));
 
-        if (valueOfPayments.compareTo(course.getCourseDetails().getPrice()) == 0) {
+        if (!course.isAdvance() && advanceThreshold.compareTo(course.getCourseDetails().getPrice()) >= 0) {
+            course.setAdvance(true);
+        }
+
+        if (!course.isDrivingCompletion() && valueOfPayments.compareTo(course.getCourseDetails().getPrice()) == 0) {
             course.setPaid(true);
+        }
+
+        if (course.isDrivingCompletion() && valueOfPayments.compareTo(course.getCourseDetails().getPrice()) == 0) {
+            course.setPaid(true);
+            course.setCourseCompletion(true);
         }
 
         course.setModificationDate(Date.from(Instant.now()));

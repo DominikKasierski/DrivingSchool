@@ -69,6 +69,12 @@ public class Course extends AbstractEntity implements Serializable {
     @Getter
     @Setter
     @NotNull
+    @Column(name = "advance", nullable = false)
+    private boolean advance = false;
+
+    @Getter
+    @Setter
+    @NotNull
     @Column(name = "paid", nullable = false)
     private boolean paid = false;
 
@@ -77,6 +83,12 @@ public class Course extends AbstractEntity implements Serializable {
     @NotNull
     @Column(name = "lectures_completion", nullable = false)
     private boolean lecturesCompletion = false;
+
+    @Getter
+    @Setter
+    @NotNull
+    @Column(name = "driving_completion", nullable = false)
+    private boolean drivingCompletion = false;
 
     @Getter
     @Setter
