@@ -112,8 +112,7 @@
   "navigation.bar.main.page": "Main page",
   "navigation.bar.begin.course": "Start course",
   "navigation.bar.report.payment": "Report payment",
-  "navigation.bar.book.driving.lesson": "Book driving lesson",
-  "navigation.bar.cancel.driving.lesson": "Cancel driving lesson",
+  "navigation.bar.driving.statistics": "Driving statistics",
 
   "footer.role": "Role: ",
   "footer.role.change": "Change role ",
@@ -129,6 +128,7 @@
 
   "edit": "Edit",
   "delete": "Delete",
+  "refresh": "Refresh",
   "login": "Login",
   "emailAddress": "Email address",
   "password": "Password",
@@ -140,6 +140,8 @@
   "course.category": "Course category",
   "course.price": "Course price",
   "course.paid": "Paid",
+  "permissions": "Permissions",
+  "currency": "PLN",
 
   "error.rest.validation": "The entered data is incorrect",
   "exception.database_exception.query_exception": "There was an error executing database query",
@@ -177,5 +179,7 @@
   "vehicles.delete.success": "The vehicle has been successfully deleted",
   "vehicles.brand": "Brand:",
   "vehicles.model": "Model:",
-  "vehicles.production.year": "Production year:"
+  "vehicles.production.year": "Production year:",
+
+  "my.account.data": "Account information"
 }

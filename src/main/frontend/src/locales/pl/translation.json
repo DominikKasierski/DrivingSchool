@@ -112,8 +112,8 @@
   "navigation.bar.main.page": "Strona główna",
   "navigation.bar.begin.course": "Rozpocznij kurs",
   "navigation.bar.report.payment": "Zgłoś wpłatę",
-  "navigation.bar.book.driving.lesson": "Zarezerwuj lekcje jazdy",
-  "navigation.bar.cancel.driving.lesson": "Odwołaj lekcje jazdy",
+  "navigation.bar.driving.statistics": "Statystyki jazd",
+
 
   "footer.role": "Rola: ",
   "footer.role.change": "Zmień rolę",
@@ -129,6 +129,7 @@
 
   "edit": "Edytuj",
   "delete": "Usuń",
+  "refresh": "Odśwież",
   "login": "Login",
   "emailAddress": "Adres email",
   "password": "Hasło",
@@ -139,7 +140,9 @@
   "roles": "Role",
   "course.category": "Kategoria kursu",
   "course.price": "Cena kursu",
-  "course.paid": "Opłacone",
+  "course.paid": "Wpłacono",
+  "permissions": "Uprawnienia",
+  "currency": "ZŁ",
 
   "error.rest.validation": "Wprowadzone dane są nieprawidłowe",
   "exception.database_exception.query_exception": "Wystąpił błąd podczas wykonywania zapytania do bazy danych",
@@ -177,5 +180,7 @@
   "vehicles.delete.success": "Pojazd został pomyślnie usunięty",
   "vehicles.brand": "Marka:",
   "vehicles.model": "Model:",
-  "vehicles.production.year": "Rok produkcji:"
+  "vehicles.production.year": "Rok produkcji:",
+
+  "my.account.data": "Dane konta"
 }

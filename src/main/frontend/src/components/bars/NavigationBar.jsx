@@ -146,7 +146,7 @@ function NavigationBar(props) {
                                     <LinkContainer to="/vehicles">
                                         <Nav.Link className={"mr-3"}>{t('navigation.bar.vehicles')}</Nav.Link>
                                     </LinkContainer>
-                                    <LinkContainer to="/timetable">
+                                    <LinkContainer to="/timetableInstructor">
                                         <Nav.Link className={"mr-3"}>{t('navigation.bar.timetable')}</Nav.Link>
                                     </LinkContainer>
                                     <LinkContainer to="/cancelDrivingLesson">
@@ -180,24 +180,9 @@ function NavigationBar(props) {
                                             </Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>
-                                    <Dropdown>
-                                        <DropdownToggle id="dropdown-basic" className="pl-0 pl-lg-2 pr-0 pr-lg-2 mr-3 dim"
-                                                        variant="Secondary">
-                                            <span style={{
-                                                fontSize: "1.2rem",
-                                                marginRight: "10px"
-                                            }}>{t('navigation.bar.timetable')}</span>
-                                        </DropdownToggle>
-
-                                        <Dropdown.Menu>
-                                            <Dropdown.Item as={Link} to="/bookDrivingLesson">
-                                                {t('navigation.bar.book.driving.lesson')}
-                                            </Dropdown.Item>
-                                            <Dropdown.Item as={Link} to="/cancelDrivingLesson">
-                                                {t('navigation.bar.cancel.driving.lesson')}
-                                            </Dropdown.Item>
-                                        </Dropdown.Menu>
-                                    </Dropdown>
+                                    <LinkContainer to="/timetableTrainee">
+                                        <Nav.Link className={"mr-3"}>{t('navigation.bar.timetable')}</Nav.Link>
+                                    </LinkContainer>
                                 </>
                             )}
                         </Nav>
@@ -213,6 +198,11 @@ function NavigationBar(props) {
                                     <Dropdown.Item as={Link} to="/myAccount">
                                         {t('navigation.bar.my.account')}
                                     </Dropdown.Item>
+                                    {currentRole === rolesConstant.trainee && (
+                                        <Dropdown.Item as={Link} to="/drivingStatistics">
+                                            {t('navigation.bar.driving.statistics')}
+                                        </Dropdown.Item>
+                                    )}
                                     <Dropdown.Item onSelect={handleLogout} as={Link} to="/">
                                         {t('navigation.bar.logout')}
                                     </Dropdown.Item>
