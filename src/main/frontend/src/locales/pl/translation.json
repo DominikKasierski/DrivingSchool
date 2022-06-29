@@ -200,5 +200,8 @@
   "edit.own.account.edit.password.success": "Hasło zostało pomyślnie zmienione",
   "edit.own.account.edit.personal.data.success": "Dane zostały pomyślnie zmienione",
   "email.change.confirmation.info": "Kliknij w poniższy przycisk, aby zmienić adres email",
-  "email.change.confirmation.success": "Adres email został pomyślnie zmieniony"
+  "email.change.confirmation.success": "Adres email został pomyślnie zmieniony",
+
+  "edit.other.account": "Edytuj dane innego konta"
+
 }

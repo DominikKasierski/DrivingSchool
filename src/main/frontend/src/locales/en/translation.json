@@ -200,5 +200,7 @@
   "edit.own.account.edit.password.success": "Password has been successfully changed",
   "edit.own.account.edit.personal.data.success": "Details have been successfully changed",
   "email.change.confirmation.info": "Click the button below to change your email address",
-  "email.change.confirmation.success": "Email address has been successfully changed"
+  "email.change.confirmation.success": "Email address has been successfully changed",
+
+  "edit.other.account": "Edit another account details"
 }

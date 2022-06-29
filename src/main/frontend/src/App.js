@@ -19,8 +19,8 @@ import UserPage from "./components/mok/signin/UserPage";
 import VehicleList from "./components/mos/vehicles/VehicleList";
 import MyAccount from "./components/mok/accounts/MyAccount";
 import AccountList from "./components/mok/accounts/AccountList";
-import EditOwnAccount from "./components/mok/accounts/EditOwnAccount";
-import EmailChangeConfirmation from "./components/mok/accounts/EmailChangeConfirmation";
+import EditOwnAccount from "./components/mok/accountedit/EditOwnAccount";
+import EmailChangeConfirmation from "./components/mok/accountedit/EmailChangeConfirmation";
 
 function App() {
     const {token, currentRole, setCurrentRole, setUsername} = useLocale();
