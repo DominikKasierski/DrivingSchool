@@ -1,6 +1,6 @@
 import i18n from '../../../i18n';
 import {useEffect, useState} from "react";
-import {Card, Col, ListGroup, Row, Tab, Tabs} from "react-bootstrap";
+import {Card, Col, ListGroup, Row} from "react-bootstrap";
 import {usePermanentChangeDialog} from "../../utils/dialogs/DialogProvider";
 import {useHistory} from "react-router-dom";
 import {useLocale} from "../../utils/login/LoginProvider";

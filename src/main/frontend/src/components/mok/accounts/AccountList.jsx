@@ -18,12 +18,12 @@ function AccountList(props) {
             firstname: "",
             lastname: "",
             language: "",
-            phoneNumber: ""
+            phoneNumber: "",
+            enabled: false,
+            confirmed: false,
         }
     ]);
 
-    const dispatchSuccessNotification = useSuccessNotification();
-    const dispatchDangerNotification = useDangerNotification();
     const history = useHistory()
 
     useEffect(() => {
@@ -71,6 +71,8 @@ function AccountList(props) {
                                 <th className={"font-weight-normal text-center"} scope="col">{t("lastname")}</th>
                                 <th className={"font-weight-normal text-center"} scope="col">{t("phoneNumber")}</th>
                                 <th className={"font-weight-normal text-center"} scope="col">{t("language")}</th>
+                                <th className={"font-weight-normal text-center"} scope="col">{t("confirmed")}</th>
+                                <th className={"font-weight-normal text-center"} scope="col">{t("enabled")}</th>
                                 <th className={"font-weight-normal text-center"} scope="col">{t("action")}</th>
                             </tr>
                             </thead>
@@ -84,6 +86,8 @@ function AccountList(props) {
                                     <td className={"text-center align-middle"}>{item.lastname}</td>
                                     <td className={"text-center align-middle"}>{item.phoneNumber}</td>
                                     <td className={"text-center align-middle"}>{item.language}</td>
+                                    <td className={"text-center align-middle"}>{item.confirmed ? t("yes") : t("no")}</td>
+                                    <td className={"text-center align-middle"}>{item.enabled ? t("yes") : t("no")}</td>
                                     <td className={"text-center align-middle"}>
                                         <div className="d-flex justify-content-center align-items-center">
                                             <div className="btn-group mb-1">

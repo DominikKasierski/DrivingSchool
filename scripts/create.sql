@@ -311,8 +311,10 @@ create table course
     trainee_id          bigint    not null,
     course_details_id   bigint    not null,
     lecture_group_id    bigint,
+    advance             boolean   not null,
     paid                boolean   not null,
     lectures_completion boolean   not null,
+    driving_completion  boolean   not null,
     course_completion   boolean   not null,
     version             bigint    not null,
     creation_date       timestamp not null,
@@ -367,15 +369,15 @@ create table driving_lesson
 
 create table payment
 (
-    id                bigint        not null,
-    payment_status    varchar(11)   not null,
-    course_id         bigint        not null,
-    value             numeric(4) not null,
+    id                bigint      not null,
+    payment_status    varchar(11) not null,
+    course_id         bigint      not null,
+    value             numeric(4)  not null,
     trainee_comment   varchar(255),
     admin_comment     varchar(255),
-    version           bigint        not null,
-    creation_date     timestamp     not null,
-    created_by        bigint        not null,
+    version           bigint      not null,
+    creation_date     timestamp   not null,
+    created_by        bigint      not null,
     modification_date timestamp,
     modified_by       bigint,
     constraint pk_payment_id

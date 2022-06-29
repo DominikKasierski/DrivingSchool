@@ -53,6 +53,7 @@
   "form.validation.field.password.max.size": "Hasło jest za długie",
   "form.validation.field.password.pattern": "Hasło nie spełnia wymagań wzorca",
   "form.validation.passwords.not.match": "Hasła nie są takie same",
+  "form.validation.passwords.same": "Hasła są takie same",
 
   "form.validation.field.phone_number.min.size": "Numer telefonu jest za krótki",
   "form.validation.field.phone_number.max.size": "Numer telefonu jest za długi",
@@ -112,7 +113,6 @@
   "navigation.bar.report.payment": "Zgłoś wpłatę",
   "navigation.bar.driving.statistics": "Statystyki jazd",
 
-
   "footer.role": "Rola: ",
   "footer.role.change": "Zmień rolę",
   "footer.role.changed": "Nastąpiła zmiana roli na: ",
@@ -125,6 +125,8 @@
   "sign.up.required.fields": "* Wymagane pola",
   "sign.up.success": "Konto zostało utworzone, a wiadomość wraz z linkiem aktywacyjnym wysłana na pocztę",
 
+  "yes": "Tak",
+  "no": "Nie",
   "edit": "Edytuj",
   "delete": "Usuń",
   "refresh": "Odśwież",
@@ -132,6 +134,9 @@
   "login": "Login",
   "emailAddress": "Adres email",
   "password": "Hasło",
+  "oldPassword": "Stare hasło",
+  "newPassword": "Nowe hasło",
+  "repeatedNewPassword": "Powtórz nowe hasło",
   "repeatedPassword": "Powtórz hasło",
   "firstname": "Imię",
   "lastname": "Nazwisko",
@@ -142,6 +147,8 @@
   "course.paid": "Wpłacono",
   "permissions": "Uprawnienia",
   "currency": "ZŁ",
+  "confirmed": "Potwierdzone",
+  "enabled": "Aktywne",
 
   "error.rest.validation": "Wprowadzone dane są nieprawidłowe",
   "exception.database_exception.query_exception": "Wystąpił błąd podczas wykonywania zapytania do bazy danych",
@@ -171,6 +178,7 @@
   "exception.account_exception.unconfirmed_account_exception": "Konto nie zostało jeszcze potwierdzone",
   "exception.account_exception.blocked_account_exception": "Konto jest zablokowane",
   "exception.account_exception.same_password_exception": "Aktualne hasło oraz nowe muszą być różne",
+  "exception.account_exception.wrong_password_exception": "Wprowadzone dane nie są prawidłowe",
   "exception.app_optimistic_lock_exception.optimistic_lock_exception": "Zasób został zmodyfikowany",
   "exception.car_exception.car_in_use_exception": "Samochód jest wykorzystywany",
 
@@ -182,5 +190,12 @@
   "vehicles.production.year": "Rok produkcji:",
 
   "my.account.data": "Dane konta",
-  "account.list.title": "Konta"
+  "account.list.title": "Konta",
+  "edit.own.account": "Edytuj dane konta",
+  "edit.own.account.edit.email.address": "Zmień adres email",
+  "edit.own.account.edit.password": "Zmień hasło",
+  "edit.own.account.edit.personal.data": "Zmień swoje dane",
+  "edit.own.account.edit.email.address.success": "Wiadomość wraz z linkiem do zmiany emaila została wysłana na poprzedni adres",
+  "edit.own.account.edit.password.success": "Hasło zostało pomyślnie zmienione",
+  "edit.own.account.edit.personal.data.success": "Dane zostały pomyślnie zmienione"
 }

@@ -19,6 +19,7 @@ import UserPage from "./components/mok/signin/UserPage";
 import VehicleList from "./components/mos/vehicles/VehicleList";
 import MyAccount from "./components/mok/accounts/MyAccount";
 import AccountList from "./components/mok/accounts/AccountList";
+import EditOwnAccount from "./components/mok/accounts/EditOwnAccount";
 
 function App() {
     const {token, currentRole, setCurrentRole, setUsername} = useLocale();
@@ -68,7 +69,7 @@ function App() {
                             <GuardedRoute exact path="/userPage" component={UserPage} meta={{}}/>
                             <GuardedRoute exact path="/vehicles" component={VehicleList} meta={{}}/>
                             <GuardedRoute exact path="/myAccount" component={MyAccount} meta={{}}/>
-                            <GuardedRoute exact path="/editOwnAccount" component={NotFound} meta={{}}/>
+                            <GuardedRoute exact path="/editOwnAccount" component={EditOwnAccount} meta={{}}/>
                             <GuardedRoute exact path="/accounts" component={AccountList} meta={{}}/>
                             <GuardedRoute exact path="/editOtherAccount" component={NotFound} meta={{}}/>
                             <GuardedRoute exact path="/vehicles/add" component={NotFound} meta={{}}/>

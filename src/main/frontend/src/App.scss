@@ -52,6 +52,12 @@ body.modal-open {
   align-items: center;
 }
 
+.nav-tabs .nav-link {
+  border: 3px solid transparent;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
 .homeGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

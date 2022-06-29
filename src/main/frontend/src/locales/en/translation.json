@@ -53,6 +53,7 @@
   "form.validation.field.password.max.size": "Password is too long",
   "form.validation.field.password.pattern": "Password does not meet pattern requirements",
   "form.validation.passwords.not.match": "Passwords don't match",
+  "form.validation.passwords.same": "Passwords are the same",
 
   "form.validation.field.phone_number.min.size": "Phone number is too short",
   "form.validation.field.phone_number.max.size": "Phone number is too long",
@@ -124,6 +125,8 @@
   "sign.up.required.fields": "* Required fields",
   "sign.up.success": "Account was created and a message with an activation link was sent to the e-mail address provided",
 
+  "yes": "Yes",
+  "no": "No",
   "edit": "Edit",
   "delete": "Delete",
   "refresh": "Refresh",
@@ -131,6 +134,9 @@
   "login": "Login",
   "emailAddress": "Email address",
   "password": "Password",
+  "oldPassword": "Old password",
+  "newPassword": "New password",
+  "repeatedNewPassword": "Repeat new password",
   "repeatedPassword": "Repeat password",
   "firstname": "First name",
   "lastname": "Last name",
@@ -141,6 +147,8 @@
   "course.paid": "Paid",
   "permissions": "Permissions",
   "currency": "PLN",
+  "confirmed": "Confirmed",
+  "enabled": "Enabled",
 
   "error.rest.validation": "The entered data is incorrect",
   "exception.database_exception.query_exception": "There was an error executing database query",
@@ -170,6 +178,7 @@
   "exception.account_exception.unconfirmed_account_exception": "Account has not yet been confirmed",
   "exception.account_exception.blocked_account_exception": "Account is blocked",
   "exception.account_exception.same_password_exception": "Current password and the new one must be different",
+  "exception.account_exception.wrong_password_exception": "Entered data is not correct",
   "exception.app_optimistic_lock_exception.optimistic_lock_exception": "Resource has been modified",
   "exception.car_exception.car_in_use_exception": "Car is being used",
 
@@ -181,5 +190,12 @@
   "vehicles.production.year": "Production year:",
 
   "my.account.data": "Account information",
-  "account.list.title": "Accounts"
+  "account.list.title": "Accounts",
+  "edit.own.account": "Edit account details",
+  "edit.own.account.edit.email.address": "Change email address",
+  "edit.own.account.edit.password": "Change password",
+  "edit.own.account.edit.personal.data": "Change your details",
+  "edit.own.account.edit.email.address.success": "Message with a link to change the email has been sent to the previous address",
+  "edit.own.account.edit.password.success": "Password has been successfully changed",
+  "edit.own.account.edit.personal.data.success": "Details have been successfully changed"
 }

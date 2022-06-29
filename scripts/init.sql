@@ -61,11 +61,10 @@ VALUES (-1, 'PierwszaGrupaA', 'A', now(), null, -1, null, 1),
        (-3, 'PierwszaGrupaC', 'C', now(), null, -1, null, 1);
 
 ---- Create courses ----
-INSERT INTO course (id, trainee_id, course_details_id, lecture_group_id, paid, lectures_completion, course_completion,
-                    creation_date,
-                    modification_date, created_by, modified_by, version)
-VALUES (-1, -4, -1, -1, false, false, false, now(), null, -3, null, 1),
-       (-2, -5, -2, -2, false, false, false, now(), null, -4, null, 1);
+INSERT INTO course (id, trainee_id, course_details_id, lecture_group_id, advance, paid, lectures_completion, driving_completion,
+                    course_completion, creation_date, modification_date, created_by, modified_by, version)
+VALUES (-1, -4, -1, -1, false, false, false, false, false, now(), null, -3, null, 1),
+       (-2, -5, -2, -2, false, false, false, false, false, now(), null, -4, null, 1);
 
 ---- Create payments ----
 INSERT INTO payment (id, payment_status, course_id, value, trainee_comment, admin_comment, creation_date, modification_date,
