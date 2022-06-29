@@ -128,6 +128,7 @@
   "yes": "Yes",
   "no": "No",
   "edit": "Edit",
+  "change": "Change",
   "delete": "Delete",
   "refresh": "Refresh",
   "action": "Action",
@@ -197,5 +198,7 @@
   "edit.own.account.edit.personal.data": "Change your details",
   "edit.own.account.edit.email.address.success": "Message with a link to change the email has been sent to the previous address",
   "edit.own.account.edit.password.success": "Password has been successfully changed",
-  "edit.own.account.edit.personal.data.success": "Details have been successfully changed"
+  "edit.own.account.edit.personal.data.success": "Details have been successfully changed",
+  "email.change.confirmation.info": "Click the button below to change your email address",
+  "email.change.confirmation.success": "Email address has been successfully changed"
 }

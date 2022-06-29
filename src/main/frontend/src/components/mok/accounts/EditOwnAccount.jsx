@@ -191,7 +191,7 @@ function EditOwnAccount(props) {
 
                                         <div className="col-12 d-flex justify-content-center mt-4">
                                             <button className="btn btn-dark btn-block dim" type="submit">
-                                                {t('edit')}
+                                                {t('change')}
                                             </button>
                                         </div>
                                     </Form>
@@ -217,7 +217,7 @@ function EditOwnAccount(props) {
 
                                         <div className="col-12 d-flex justify-content-center mt-4">
                                             <button className="btn btn-dark btn-block dim" type="submit">
-                                                {t('edit')}
+                                                {t('change')}
                                             </button>
                                         </div>
                                     </Form>
@@ -243,7 +243,7 @@ function EditOwnAccount(props) {
 
                                         <div className="col-12 d-flex justify-content-center mt-4">
                                             <button className="btn btn-dark btn-block dim" type="submit">
-                                                {t('edit')}
+                                                {t('change')}
                                             </button>
                                         </div>
                                     </Form>

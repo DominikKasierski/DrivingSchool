@@ -128,6 +128,7 @@
   "yes": "Tak",
   "no": "Nie",
   "edit": "Edytuj",
+  "change": "Zmień",
   "delete": "Usuń",
   "refresh": "Odśwież",
   "action": "Akcja",
@@ -197,5 +198,7 @@
   "edit.own.account.edit.personal.data": "Zmień swoje dane",
   "edit.own.account.edit.email.address.success": "Wiadomość wraz z linkiem do zmiany emaila została wysłana na poprzedni adres",
   "edit.own.account.edit.password.success": "Hasło zostało pomyślnie zmienione",
-  "edit.own.account.edit.personal.data.success": "Dane zostały pomyślnie zmienione"
+  "edit.own.account.edit.personal.data.success": "Dane zostały pomyślnie zmienione",
+  "email.change.confirmation.info": "Kliknij w poniższy przycisk, aby zmienić adres email",
+  "email.change.confirmation.success": "Adres email został pomyślnie zmieniony"
 }
