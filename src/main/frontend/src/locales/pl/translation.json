@@ -111,6 +111,7 @@
   "navigation.bar.main.page": "Strona główna",
   "navigation.bar.begin.course": "Rozpocznij kurs",
   "navigation.bar.report.payment": "Zgłoś wpłatę",
+  "navigation.bar.cancel.driving.lesson": "Odwołaj lekcje jazdy",
   "navigation.bar.driving.statistics": "Statystyki jazd",
 
   "footer.role": "Rola: ",
@@ -122,8 +123,8 @@
   "sign.in.title": "Logowanie",
   "sign.in.reset.password": "Resetuj hasło",
   "sign.up.title": "Utwórz konto",
-  "sign.up.required.fields": "* Wymagane pola",
   "sign.up.success": "Konto zostało utworzone, a wiadomość wraz z linkiem aktywacyjnym wysłana na pocztę",
+  "required.fields": "* Wymagane pola",
 
   "yes": "Tak",
   "no": "Nie",
@@ -202,6 +203,37 @@
   "email.change.confirmation.info": "Kliknij w poniższy przycisk, aby zmienić adres email",
   "email.change.confirmation.success": "Adres email został pomyślnie zmieniony",
 
-  "edit.other.account": "Edytuj dane innego konta"
+  "edit.account": "Edytuj konto",
+  "edit.other.account": "Edytuj dane innego konta",
+  "edit.other.account.edit.email.address": "Zmień adres email",
+  "edit.other.account.edit.roles": "Zmień role",
+  "edit.other.account.edit.permissions": "Zmień uprawnienia",
+  "edit.other.account.lock.account.success": "Konto zostało pomyślnie zablokowane",
+  "edit.other.account.unlock.account.success": "Konto zostało pomyślnie odblokowane",
+  "edit.other.account.edit.email.address.success": "Adres email został pomyślnie zmieniony",
+  "edit.other.account.grant.access.success": "Rola została pomyślnie dodana",
+  "edit.other.account.revoke.access.success": "Rola została pomyślnie odebrana",
+  "edit.other.account.lock": "Zablokuj konto",
+  "edit.other.account.unlock": "Odblokuj konto",
+  "edit.other.account.revoke.trainee.role": "Odbierz rolę kursanta",
+  "edit.other.account.grant.trainee.role": "Przyznaj rolę kursanta",
+  "edit.other.account.revoke.instructor.role": "Odbierz rolę instruktora",
+  "edit.other.account.grant.instructor.role": "Przyznaj rolę instruktora",
+  "edit.other.account.revoke.admin.role": "Odbierz rolę administratora",
+  "edit.other.account.grant.admin.role": "Przyznaj rolę administratora",
 
+  "edit.other.account.remove.a.permission": "Usuń kategorię A",
+  "edit.other.account.add.a.permission": "Dodaj kategorię A",
+  "edit.other.account.remove.b.permission": "Usuń kategorię B",
+  "edit.other.account.add.b.permission": "Dodaj kategorię B",
+  "edit.other.account.remove.c.permission": "Usuń kategorię C",
+  "edit.other.account.add.c.permission": "Dodaj kategorię C",
+
+  "exception.access_exception.unsupported_combination_exception": "Kombinacja ról nie jest obsługiwana",
+  "exception.access_exception.already_granted_exception": "Konto ma już przyznaną tę rolę",
+  "exception.access_exception.already_revoked_exception": "Konto ma już unieważnioną tę rolę",
+  "exception.instructor_access_exception.permission_already_added_exception": "Instruktor ma już to uprawnienie",
+  "exception.instructor_access_exception.permission_already_removed_exception": "Instruktor nie ma tego uprawnienia",
+  "exception.access_exception.unsupported_access_type_exception": "Ten poziom dostępu nie jest obsługiwany",
+  "exception.access_exception.no_proper_access_exception": "Konto nie ma odpowiedniej roli"
 }

@@ -175,7 +175,7 @@ function EditOwnAccount(props) {
                             <h1 className="font-weight-light text-center">{t("edit.own.account")}</h1>
 
                             <div className="col-12 text-center mt-2 mb-4">
-                                <span>{t("sign.up.required.fields")}</span>
+                                <span>{t("required.fields")}</span>
                             </div>
                         </div>
                         <Tabs defaultActiveKey="email" className="justify-content-center dim nav-justified">

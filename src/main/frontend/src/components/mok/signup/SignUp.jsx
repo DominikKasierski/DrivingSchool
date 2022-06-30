@@ -83,7 +83,7 @@ function SignUp(props) {
                             <h1 className="font-weight-light text-center">{t("sign.up.title")}</h1>
 
                             <div className="col-12 text-center mt-2 mb-4">
-                                <span>{t("sign.up.required.fields")}</span>
+                                <span>{t("required.fields")}</span>
                             </div>
 
                             <Formik

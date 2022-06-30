@@ -1,6 +1,6 @@
 import Breadcrumb from "../../bars/Breadcrumb";
 import {Link, useHistory, useLocation} from "react-router-dom";
-import {Col, Container, Row, Tab, Tabs} from "react-bootstrap";
+import {ButtonGroup, Col, Container, Row, Tab, Tabs} from "react-bootstrap";
 import {withNamespaces} from "react-i18next";
 import {useLocale} from "../../utils/login/LoginProvider";
 import {useState, useEffect} from "react";
@@ -12,13 +12,17 @@ import {validatorFactory, ValidatorType} from "../../utils/validators/Validators
 import {Form, Formik} from "formik";
 import FormInput from "../../utils/form/FormInput";
 import queryString from "query-string";
+import {permissionsConstant, rolesConstant} from "../../utils/constants/Constants";
 
 function EditOtherAccount(props) {
     const {t, i18n} = props
     const {token, setToken} = useLocale();
     const [etag, setETag] = useState();
-    const [etagRole, setETagRole] = useState();
+    const [enabled, setEnabled] = useState(false);
+    const [etagRole, setEtagRole] = useState();
+    const [instructorEtag, setInstructorEtag] = useState();
     const [roles, setRoles] = useState("");
+    const [permissions, setPermissions] = useState("");
 
     const dispatchSuccessNotification = useSuccessNotification();
     const dispatchDangerNotification = useDangerNotification();
@@ -27,28 +31,40 @@ function EditOtherAccount(props) {
     const location = useLocation();
     const parsedQuery = queryString.parse(location.search);
 
+    const hasRole = (role) => {
+        return roles.includes(role);
+    }
+
+    const hasPermission = (permission) => {
+        return permissions.includes(permission);
+    }
+
     const getEtag = async () => {
         const response = await axios.get(`/resources/account/getDetails/` + parsedQuery.login, {
             headers: {
                 "Authorization": token,
             }
         })
+        setEnabled(response.data);
         return response.headers.etag;
     };
 
     const getRoles = () => {
-        axios.get(`/resources/account/getAccesses` + parsedQuery.login, {
+        axios.get(`/resources/access/getAccesses/` + parsedQuery.login, {
             headers: {
                 "Authorization": token,
             }
         }).then(r => {
-            setETagRole(r.headers.etag)
+            setEtagRole(r.headers.etag)
             let data = "";
             for (let i = 0; i < r.data.accessesGranted.length; i++) {
                 data += r.data.accessesGranted[i].accessType + ", ";
             }
             data = data.slice(0, data.length - 2)
             setRoles(data);
+            if (data.includes(rolesConstant.instructor)) {
+                getInstructorEtag().then(r => setInstructorEtag(r));
+            }
         }).catch(res => {
             if (res.response != null) {
                 if (res.response.status === 403) {
@@ -60,12 +76,26 @@ function EditOtherAccount(props) {
         });
     }
 
+    const getInstructorEtag = async () => {
+        const response = await axios.get(`/resources/access/getInstructorAccess/` + parsedQuery.login, {
+            headers: {
+                "Authorization": token,
+            }
+        })
+        setPermissions(response.data.permissions);
+        return response.headers.etag;
+    };
+
     useEffect(() => {
+        fetchData();
+    }, [token]);
+
+    const fetchData = () => {
         if (token) {
             getEtag().then(r => setETag(r));
             getRoles();
         }
-    }, [token]);
+    }
 
     const handleAccountLock = () => {
         dispatchPermanentChangeDialog({
@@ -98,84 +128,140 @@ function EditOtherAccount(props) {
         })
     }
 
-    const handleAccessGrant = (values, setSubmitting) => {
+    const handleAccessGrant = (role) => {
         dispatchPermanentChangeDialog({
             confirmCallback: () => {
-                grantAccess(values, setSubmitting)
+                grantAccess(role)
             },
             cancelCallback: () => {
-                setSubmitting(false)
             },
         })
     }
 
-    const handleAccessRevoke = (values, setSubmitting) => {
+    const handleAccessRevoke = (role) => {
         dispatchPermanentChangeDialog({
             confirmCallback: () => {
-                revokeAccess(values, setSubmitting)
+                revokeAccess(role)
             },
             cancelCallback: () => {
-                setSubmitting(false)
             },
         })
     }
 
-    const handleInstructorPermissionAdd = (values, setSubmitting) => {
+    const handleInstructorPermissionAdd = (permission) => {
         dispatchPermanentChangeDialog({
             confirmCallback: () => {
-                addInstructorPermission(values, setSubmitting)
+                addInstructorPermission(permission)
             },
             cancelCallback: () => {
-                setSubmitting(false)
             },
         })
     }
 
-    const handleInstructorPermissionRemove = (values, setSubmitting) => {
+    const handleInstructorPermissionRemove = (permission) => {
         dispatchPermanentChangeDialog({
             confirmCallback: () => {
-                removeInstructorPermission(values, setSubmitting)
+                removeInstructorPermission(permission)
             },
             cancelCallback: () => {
-                setSubmitting(false)
             },
         })
     }
+
+    const lockAccount = () => {
+        axios.put(`/resources/account/lock/` + parsedQuery.login, {}, {
+            headers: {
+                "If-Match": etag,
+                "Authorization": token
+            }
+        }).then((res) => {
+            history.push("/accounts");
+            dispatchSuccessNotification({message: i18n.t('edit.other.account.lock.account.success')})
+        }).catch(err => {
+            ResponseErrorsHandler(err, dispatchDangerNotification);
+        });
+    };
+
+    const unlockAccount = () => {
+        axios.put(`/resources/account/unlock/` + parsedQuery.login, {}, {
+            headers: {
+                "If-Match": etag,
+                "Authorization": token
+            }
+        }).then((res) => {
+            history.push("/accounts");
+            dispatchSuccessNotification({message: i18n.t('edit.other.account.unlock.account.success')})
+        }).catch(err => {
+            ResponseErrorsHandler(err, dispatchDangerNotification);
+        });
+    };
 
     const editEmailAddress = (values, setSubmitting) => {
-        axios.put(`/resources/account/editEmail`, {newEmailAddress: values.emailAddress}, {
+        axios.put(`/resources/account/editEmail` + parsedQuery.login, {newEmailAddress: values.emailAddress}, {
             headers: {
                 "Content-Type": "application/json",
                 "If-Match": etag,
                 "Authorization": token
             }
         }).then((res) => {
-            history.push("/myAccount");
-            dispatchSuccessNotification({message: i18n.t('edit.own.account.edit.email.address.success')})
+            history.push("/accounts");
+            dispatchSuccessNotification({message: i18n.t('edit.other.account.edit.email.address.success')})
         }).catch(err => {
             ResponseErrorsHandler(err, dispatchDangerNotification);
         });
         setSubmitting(false);
     };
 
-    const editPersonalData = (values, setSubmitting) => {
-        axios.put(`/resources/account/edit`, {
-            firstname: values.firstname,
-            lastname: values.lastname,
-            phoneNumber: values.phoneNumber
-        }, {
+    const grantAccess = (role) => {
+        axios.put(`/resources/access/grant/` + parsedQuery.login + "/" + role, {}, {
             headers: {
-                "Content-Type": "application/json",
-                "If-Match": etag,
+                "If-Match": etagRole,
                 "Authorization": token
             }
         }).then((res) => {
-            history.push("/myAccount");
-            dispatchSuccessNotification({message: i18n.t('edit.own.account.edit.personal.data.success')})
+            dispatchSuccessNotification({message: i18n.t('edit.other.account.grant.access.success')})
         }).catch(err => {
             ResponseErrorsHandler(err, dispatchDangerNotification);
         });
-        setSubmitting(false);
+    };
+
+    const revokeAccess = (role) => {
+        axios.put(`/resources/access/revoke/` + parsedQuery.login + "/" + role, {}, {
+            headers: {
+                "If-Match": etagRole,
+                "Authorization": token
+            }
+        }).then((res) => {
+            dispatchSuccessNotification({message: i18n.t('edit.other.account.revoke.access.success')})
+        }).catch(err => {
+            ResponseErrorsHandler(err, dispatchDangerNotification);
+        });
+    };
+
+    const addInstructorPermission = (permission) => {
+        axios.put(`/resources/access/addInstructorPermission/` + parsedQuery.login + "/" + permission, {}, {
+            headers: {
+                "If-Match": instructorEtag,
+                "Authorization": token
+            }
+        }).then((res) => {
+            dispatchSuccessNotification({message: i18n.t('do_dodania')})
+        }).catch(err => {
+            ResponseErrorsHandler(err, dispatchDangerNotification);
+        });
+    };
+
+    const removeInstructorPermission = (permission) => {
+        axios.put(`/resources/access/removeInstructorPermission/` + parsedQuery.login + "/" + permission, {}, {
+            headers: {
+                "If-Match": instructorEtag,
+                "Authorization": token
+            }
+        }).then((res) => {
+            dispatchSuccessNotification({message: i18n.t('do_dodania')})
+        }).catch(err => {
+            ResponseErrorsHandler(err, dispatchDangerNotification);
+        });
     };
 
     function validateEmailAddress(values) {
@@ -183,35 +269,6 @@ function EditOtherAccount(props) {
 
         const emailAddressErrors = validatorFactory(values.emailAddress, ValidatorType.EMAIL_ADDRESS)
         if (emailAddressErrors.length !== 0) errors.emailAddress = emailAddressErrors
-
-        return errors
-    }
-
-    function validatePassword(values) {
-        const errors = {}
-
-        const oldPasswordErrors = validatorFactory(values.oldPassword, ValidatorType.PASSWORD)
-        if (oldPasswordErrors.length !== 0) errors.oldPassword = oldPasswordErrors
-
-        const newPasswordErrors = validatorFactory(values.newPassword, ValidatorType.PASSWORD)
-        if (newPasswordErrors.length !== 0) errors.newPassword = newPasswordErrors
-        if (values.newPassword !== values.repeatedNewPassword) errors.repeatedNewPassword = [t("form.validation.passwords.not.match")]
-        if (values.oldPassword === values.newPassword) errors.newPassword = [t("form.validation.passwords.same")]
-
-        return errors
-    }
-
-    function validatePersonalData(values) {
-        const errors = {}
-
-        const firstnameErrors = validatorFactory(values.firstname, ValidatorType.FIRSTNAME)
-        if (firstnameErrors.length !== 0) errors.firstname = firstnameErrors
-
-        const lastnameErrors = validatorFactory(values.lastname, ValidatorType.LASTNAME)
-        if (lastnameErrors.length !== 0) errors.lastname = lastnameErrors
-
-        const phoneNumberErrors = validatorFactory(values.phoneNumber, ValidatorType.PHONE_NUMBER)
-        if (phoneNumberErrors.length !== 0) errors.phoneNumber = phoneNumberErrors
 
         return errors
     }
@@ -228,24 +285,30 @@ function EditOtherAccount(props) {
                 <Row>
                     <Col xs={12} sm={11} md={9} lg={8} xl={7} className={"floating py-3 mx-auto mb-3 mt-4"}>
                         <div className="py-2">
-                            <h1 className="font-weight-light text-center">{t("edit.other.account")}</h1>
+                            <h1 className="font-weight-light text-center">{t("edit.account")}: {parsedQuery.login}</h1>
 
-                            <div className="col-12 d-flex justify-content-center mt-4">
-                                {
-                                    <button className="btn btn-dark btn-block dim" type="submit">
-                                        {t('lock')}
+                            <div className="d-flex mx-auto justify-content-center mt-4 mb-3">
+
+                                {enabled ?
+                                    <button className="btn btn-dark col-3 dim mr-2" type="submit" onClick={handleAccountLock}>
+                                        {t('edit.other.account.lock')}
+                                    </button> :
+                                    <button className="btn btn-dark col-3 dim mr-2" type="submit" onClick={handleAccountUnlock}>
+                                        {t('edit.other.account.unlock')}
                                     </button>
                                 }
-
+                                <button className="btn btn-dark col-3 dim ml-2" type="submit" onClick={fetchData}>
+                                    {t('refresh')}
+                                </button>
                             </div>
 
-                            <div className="col-12 text-center mt-2 mb-4">
-                                <span>{t("sign.up.required.fields")}</span>
+                            <div className="col-12 text-center mt-1 mb-2">
+                                <span>{t("required.fields")}</span>
                             </div>
                         </div>
                         <Tabs defaultActiveKey="email" className="justify-content-center dim nav-justified">
                             <Tab tabClassName={"text-white bg-transparent"} eventKey="email"
-                                 title={t('edit.own.account.edit.email.address')}>
+                                 title={t('edit.other.account.edit.email.address')}>
                                 <Formik
                                     initialValues={{emailAddress: ''}}
                                     validate={validateEmailAddress}
@@ -262,58 +325,74 @@ function EditOtherAccount(props) {
                                     </Form>
                                 </Formik>
                             </Tab>
-                            <Tab tabClassName={"text-white bg-transparent"} eventKey="password"
-                                 title={t('edit.own.account.edit.password')}>
-                                <Formik
-                                    initialValues={{
-                                        oldPassword: '',
-                                        newPassword: '',
-                                        repeatedNewPassword: ''
-                                    }}
-                                    validate={validatePassword}
-                                    onSubmit={(values, {setSubmitting}) => handlePasswordSubmit(values, setSubmitting)}>
-                                    <Form className={"row"}>
-                                        <FormInput name="oldPassword" placeholder={t("oldPassword")} type="password"
-                                                   className="col-12 ml-4 mt-4"/>
-                                        <FormInput name="newPassword" placeholder={t("newPassword")} type="password"
-                                                   className="col-12 ml-4"/>
-                                        <FormInput name="repeatedNewPassword" placeholder={t("repeatedNewPassword")}
-                                                   type="password" className="col-12 ml-4"/>
-
-                                        <div className="col-12 d-flex justify-content-center mt-4">
-                                            <button className="btn btn-dark btn-block dim" type="submit">
-                                                {t('change')}
-                                            </button>
-                                        </div>
-                                    </Form>
-                                </Formik>
+                            <Tab tabClassName={"text-white bg-transparent"} eventKey="roles"
+                                 title={t('edit.other.account.edit.roles')}>
+                                {hasRole(rolesConstant.trainee) ?
+                                    <button className="btn btn-outline-danger brightened btn-block mt-4 py-2" type="submit"
+                                            onClick={() => handleAccessRevoke(rolesConstant.trainee)}>
+                                        {t('edit.other.account.revoke.trainee.role')}
+                                    </button> :
+                                    <button className="btn btn-outline-success brightened btn-block mt-4 py-2" type="submit"
+                                            onClick={() => handleAccessGrant(rolesConstant.trainee)}>
+                                        {t('edit.other.account.grant.trainee.role')}
+                                    </button>
+                                }
+                                {hasRole(rolesConstant.instructor) ?
+                                    <button className="btn btn-outline-danger brightened btn-block mt-3 py-2" type="submit"
+                                            onClick={() => handleAccessRevoke(rolesConstant.instructor)}>
+                                        {t('edit.other.account.revoke.instructor.role')}
+                                    </button> :
+                                    <button className="btn btn-outline-success brightened btn-block mt-3 py-2" type="submit"
+                                            onClick={() => handleAccessGrant(rolesConstant.instructor)}>
+                                        {t('edit.other.account.grant.instructor.role')}
+                                    </button>
+                                }
+                                {hasRole(rolesConstant.admin) ?
+                                    <button className="btn btn-outline-danger brightened btn-block mt-3 py-2" type="submit"
+                                            onClick={() => handleAccessRevoke(rolesConstant.admin)}>
+                                        {t('edit.other.account.revoke.admin.role')}
+                                    </button> :
+                                    <button className="btn btn-outline-success brightened btn-block mt-3 py-2" type="submit"
+                                            onClick={() => handleAccessGrant(rolesConstant.admin)}>
+                                        {t('edit.other.account.grant.admin.role')}
+                                    </button>
+                                }
                             </Tab>
-                            <Tab tabClassName={"text-white bg-transparent"} eventKey="personalData"
-                                 title={t('edit.own.account.edit.personal.data')}>
-                                <Formik
-                                    initialValues={{
-                                        firstname: '',
-                                        lastname: '',
-                                        phoneNumber: ''
-                                    }}
-                                    validate={validatePersonalData}
-                                    onSubmit={(values, {setSubmitting}) => handlePersonalDataSubmit(values, setSubmitting)}>
-                                    <Form className={"row"}>
-                                        <FormInput name="firstname" placeholder={t("firstname")} type="text"
-                                                   className="col-12 ml-4 mt-4"/>
-                                        <FormInput name="lastname" placeholder={t("lastname")} type="text"
-                                                   className="col-12 ml-4"/>
-                                        <FormInput name="phoneNumber" placeholder={t("phoneNumber")}
-                                                   type="text" className="col-12 ml-4"/>
-
-                                        <div className="col-12 d-flex justify-content-center mt-4">
-                                            <button className="btn btn-dark btn-block dim" type="submit">
-                                                {t('change')}
-                                            </button>
-                                        </div>
-                                    </Form>
-                                </Formik>
-                            </Tab>
+                            {hasRole(rolesConstant.instructor) &&
+                                <Tab tabClassName={"text-white bg-transparent"} eventKey="permissions"
+                                     title={t('edit.other.account.edit.permissions')}>
+                                    {hasPermission(permissionsConstant.A) ?
+                                        <button className="btn btn-outline-danger brightened btn-block mt-4 py-2" type="submit"
+                                                onClick={() => handleInstructorPermissionRemove(permissionsConstant.A)}>
+                                            {t('edit.other.account.remove.a.permission')}
+                                        </button> :
+                                        <button className="btn btn-outline-success brightened btn-block mt-4 py-2" type="submit"
+                                                onClick={() => handleInstructorPermissionAdd(permissionsConstant.A)}>
+                                            {t('edit.other.account.add.a.permission')}
+                                        </button>
+                                    }
+                                    {hasPermission(permissionsConstant.B) ?
+                                        <button className="btn btn-outline-danger brightened btn-block mt-3 py-2" type="submit"
+                                                onClick={() => handleInstructorPermissionRemove(permissionsConstant.B)}>
+                                            {t('edit.other.account.remove.b.permission')}
+                                        </button> :
+                                        <button className="btn btn-outline-success brightened btn-block mt-3 py-2" type="submit"
+                                                onClick={() => handleInstructorPermissionAdd(permissionsConstant.B)}>
+                                            {t('edit.other.account.add.b.permission')}
+                                        </button>
+                                    }
+                                    {hasPermission(permissionsConstant.C) ?
+                                        <button className="btn btn-outline-danger brightened btn-block mt-3 py-2" type="submit"
+                                                onClick={() => handleInstructorPermissionRemove(permissionsConstant.C)}>
+                                            {t('edit.other.account.remove.c.permission')}
+                                        </button> :
+                                        <button className="btn btn-outline-success brightened btn-block mt-3 py-2" type="submit"
+                                                onClick={() => handleInstructorPermissionAdd(permissionsConstant.C)}>
+                                            {t('edit.other.account.add.c.permission')}
+                                        </button>
+                                    }
+                                </Tab>
+                            }
                         </Tabs>
                     </Col>
                 </Row>

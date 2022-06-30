@@ -4,6 +4,12 @@ export const rolesConstant = {
     trainee: 'TRAINEE',
 };
 
+export const permissionsConstant = {
+    A: 'A',
+    B: 'B',
+    C: 'C',
+};
+
 export const notificationType = {
     DANGER: "danger",
     WARNING: "warning",

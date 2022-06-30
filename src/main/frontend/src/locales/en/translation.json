@@ -111,6 +111,7 @@
   "navigation.bar.main.page": "Main page",
   "navigation.bar.begin.course": "Start course",
   "navigation.bar.report.payment": "Report payment",
+  "navigation.bar.cancel.driving.lesson": "Cancel driving lesson",
   "navigation.bar.driving.statistics": "Driving statistics",
 
   "footer.role": "Role: ",
@@ -122,8 +123,8 @@
   "sign.in.title": "Login",
   "sign.in.reset.password": "Reset password",
   "sign.up.title": "Create account",
-  "sign.up.required.fields": "* Required fields",
   "sign.up.success": "Account was created and a message with an activation link was sent to the e-mail address provided",
+  "required.fields": "* Required fields",
 
   "yes": "Yes",
   "no": "No",
@@ -202,5 +203,37 @@
   "email.change.confirmation.info": "Click the button below to change your email address",
   "email.change.confirmation.success": "Email address has been successfully changed",
 
-  "edit.other.account": "Edit another account details"
+  "edit.account": "Edit account",
+  "edit.other.account": "Edit another account details",
+  "edit.other.account.edit.email.address": "Change email address",
+  "edit.other.account.edit.roles": "Change roles",
+  "edit.other.account.edit.permissions": "Change permissions",
+  "edit.other.account.lock.account.success": "Account has been successfully locked",
+  "edit.other.account.unlock.account.success": "Account has been successfully unlocked",
+  "edit.other.account.edit.email.address.success": "Email address has been successfully changed",
+  "edit.other.account.grant.access.success": "Role has been successfully granted",
+  "edit.other.account.revoke.access.success": "Role has been successfully revoked",
+  "edit.other.account.lock": "Lock account",
+  "edit.other.account.unlock": "Unlock account",
+  "edit.other.account.revoke.trainee.role": "Revoke trainee role",
+  "edit.other.account.grant.trainee.role": "Grant trainee role",
+  "edit.other.account.revoke.instructor.role": "Revoke instructor role",
+  "edit.other.account.grant.instructor.role": "Grant instructor role",
+  "edit.other.account.revoke.admin.role": "Revoke administrator role",
+  "edit.other.account.grant.admin.role": "Grant administrator role",
+
+  "edit.other.account.remove.a.permission": "Remove category A",
+  "edit.other.account.add.a.permission": "Add category A",
+  "edit.other.account.remove.b.permission": "Remove category B",
+  "edit.other.account.add.b.permission": "Add category B",
+  "edit.other.account.remove.c.permission": "Remove category C",
+  "edit.other.account.add.c.permission": "Add category C",
+
+  "exception.access_exception.unsupported_combination_exception": "Role combination is not supported",
+  "exception.access_exception.already_granted_exception": "Account already has this role granted",
+  "exception.access_exception.already_revoked_exception": "Account already has this role revoked",
+  "exception.instructor_access_exception.permission_already_added_exception": "Instructor already has this permission",
+  "exception.instructor_access_exception.permission_already_removed_exception": "Instructor does not have this permission",
+  "exception.access_exception.unsupported_access_type_exception": "This access level is not supported",
+  "exception.access_exception.no_proper_access_exception": "Account does not have the appropriate role"
 }
