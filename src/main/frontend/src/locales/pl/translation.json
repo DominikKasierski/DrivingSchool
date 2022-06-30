@@ -213,6 +213,8 @@
   "edit.other.account.edit.email.address.success": "Adres email został pomyślnie zmieniony",
   "edit.other.account.grant.access.success": "Rola została pomyślnie dodana",
   "edit.other.account.revoke.access.success": "Rola została pomyślnie odebrana",
+  "edit.other.account.add.instructor.permission.success": "Uprawnienie zostało pomyślnie zmieniony",
+  "edit.other.account.remove.instructor.permission.success": "Permission has been successfully removed",
   "edit.other.account.lock": "Zablokuj konto",
   "edit.other.account.unlock": "Odblokuj konto",
   "edit.other.account.revoke.trainee.role": "Odbierz rolę kursanta",

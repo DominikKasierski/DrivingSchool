@@ -245,7 +245,7 @@ function EditOtherAccount(props) {
                 "Authorization": token
             }
         }).then((res) => {
-            dispatchSuccessNotification({message: i18n.t('do_dodania')})
+            dispatchSuccessNotification({message: i18n.t('edit.other.account.add.instructor.permission.success')})
         }).catch(err => {
             ResponseErrorsHandler(err, dispatchDangerNotification);
         });
@@ -258,7 +258,7 @@ function EditOtherAccount(props) {
                 "Authorization": token
             }
         }).then((res) => {
-            dispatchSuccessNotification({message: i18n.t('do_dodania')})
+            dispatchSuccessNotification({message: i18n.t('edit.other.account.remove.instructor.permission.success')})
         }).catch(err => {
             ResponseErrorsHandler(err, dispatchDangerNotification);
         });

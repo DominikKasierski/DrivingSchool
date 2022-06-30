@@ -213,6 +213,8 @@
   "edit.other.account.edit.email.address.success": "Email address has been successfully changed",
   "edit.other.account.grant.access.success": "Role has been successfully granted",
   "edit.other.account.revoke.access.success": "Role has been successfully revoked",
+  "edit.other.account.add.instructor.permission.success": "Permission has been successfully added",
+  "edit.other.account.remove.instructor.permission.success": "Permission has been successfully removed",
   "edit.other.account.lock": "Lock account",
   "edit.other.account.unlock": "Unlock account",
   "edit.other.account.revoke.trainee.role": "Revoke trainee role",
