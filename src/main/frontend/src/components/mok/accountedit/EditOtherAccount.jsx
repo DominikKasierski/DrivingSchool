@@ -45,7 +45,7 @@ function EditOtherAccount(props) {
                 "Authorization": token,
             }
         })
-        setEnabled(response.data);
+        setEnabled(response.data.enabled);
         return response.headers.etag;
     };
 

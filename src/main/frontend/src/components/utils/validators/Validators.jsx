@@ -99,10 +99,36 @@ const validatePrice = (data) => {
     return errors.filter(err => err !== undefined);
 }
 
+const validateCourseCategory = (data) => {
+    let errors = [];
+    errors.push(sizeValidator(data, 1, 1));
+    errors.push(patternValidator(data, /^[A-F]$/));
+    errors.push(enumValidator(data, ["A", "B", "C"]));
+    return errors.filter(err => err !== undefined);
+}
+
 const validateRegistrationNumber = (data) => {
     let errors = [];
     errors.push(sizeValidator(data, 4, 7));
     errors.push(patternValidator(data, /^[A-Z0-9]{4,7}$/));
+    return errors.filter(err => err !== undefined);
+}
+
+const validateProductionYear = (data, min) => {
+    let errors = [];
+    errors.push(sizeValidator(data, 4, 4));
+
+    let currentYear = new Date().getFullYear();
+    if (data < 2010 || data > currentYear) {
+        errors.push("form.validation.year.value")
+    }
+    return errors.filter(err => err !== undefined);
+}
+
+const validateVehicleName = (data) => {
+    let errors = [];
+    errors.push(sizeValidator(data, 1, 20));
+    errors.push(patternValidator(data, /^[A-Za-z]$/));
     return errors.filter(err => err !== undefined);
 }
 
@@ -126,7 +152,10 @@ export const ValidatorType = {
     IMAGE: "IMAGE",
     COMMENT: "COMMENT",
     PRICE: "PRICE",
+    VEHICLE_NAME: "VEHICLE_NAME",
+    COURSE_CATEGORY: "COURSE_CATEGORY",
     REGISTRATION_NUMBER: "REGISTRATION_NUMBER",
+    PRODUCTION_YEAR: "PRODUCTION_YEAR"
 };
 
 export const validatorFactory = (data, validatorType) => {
@@ -153,8 +182,14 @@ export const validatorFactory = (data, validatorType) => {
             return changeValidationMessages(validateComment(data), 'COMMENT');
         case ValidatorType.PRICE:
             return changeValidationMessages(validatePrice(data), 'PRICE');
+        case ValidatorType.VEHICLE_NAME:
+            return changeValidationMessages(validateVehicleName(data), 'VEHICLE_NAME');
+        case ValidatorType.COURSE_CATEGORY:
+            return changeValidationMessages(validateCourseCategory(data), 'COURSE_CATEGORY');
         case ValidatorType.REGISTRATION_NUMBER:
-            return changeValidationMessages(validatePrice(data), 'REGISTRATION_NUMBER');
+            return changeValidationMessages(validateRegistrationNumber(data), 'REGISTRATION_NUMBER');
+        case ValidatorType.PRODUCTION_YEAR:
+            return changeValidationMessages(validateProductionYear(data), 'PRODUCTION_YEAR');
         default:
             return [];
     }

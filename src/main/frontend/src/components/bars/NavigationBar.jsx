@@ -74,7 +74,7 @@ function NavigationBar(props) {
                                             <Dropdown.Item as={Link} to="/vehicles">
                                                 {t('navigation.bar.vehicles.list')}
                                             </Dropdown.Item>
-                                            <Dropdown.Item as={Link} to="/vehicles/add">
+                                            <Dropdown.Item as={Link} to="/addVehicle">
                                                 {t('navigation.bar.vehicles.add')}
                                             </Dropdown.Item>
                                         </Dropdown.Menu>

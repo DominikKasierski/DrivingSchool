@@ -68,6 +68,11 @@
   "form.validation.field.language.pattern": "Nazwa języka nie spełnia wymagań wzorca",
   "form.validation.field.language.not_allowed": "Język nie jest dozwolony",
 
+  "form.validation.field.course_category.min.size": "Kategoria kursu jest za krótka",
+  "form.validation.field.course_category.max.size": "Kategoria kursu jest za długa",
+  "form.validation.field.course_category.pattern": "Kategoria kursu nie spełnia wymagań wzorca",
+  "form.validation.field.course_category.not_allowed": "Kategoria kursu nie jest dozwolony",
+
   "form.validation.field.image.min.size": "Adres URL zdjęcia jest za krótki",
   "form.validation.field.image.max.size": "Adres URL zdjęcia jest za długi",
   "form.validation.field.image.pattern": "Adres URL zdjęcia nie spełnia wymagań wzorca",
@@ -83,6 +88,14 @@
   "form.validation.field.registration_number.min.size": "Numer rejestracyjny jest za krótki",
   "form.validation.field.registration_number.max.size": "Numer rejestracyjny jest za długi",
   "form.validation.field.registration_number.pattern": "Numer rejestracyjny nie spełnia wymagań wzorca",
+
+  "form.validation.field.production_year.min.size": "Rok produkcji jest za krótki",
+  "form.validation.field.production_year.max.size": "Rok produkcji jest za długi",
+  "form.validation.year.value": "Rok produkcji musi być późniejszy niż 2010 i mniejszy niż aktualny",
+
+  "form.validation.field.vehicle_name.min.size": "Nazwa jest za krótka",
+  "form.validation.field.vehicle_name.max.size": "Nazwa jest za długa",
+  "form.validation.field.vehicle_name.pattern": "Nazwa nie spełnia wymagań wzorca",
 
   "landing.page.courses": "Kursy na prawo jazdy",
   "landing.page.left": "kategoria A",
@@ -237,5 +250,13 @@
   "exception.instructor_access_exception.permission_already_added_exception": "Instruktor ma już to uprawnienie",
   "exception.instructor_access_exception.permission_already_removed_exception": "Instruktor nie ma tego uprawnienia",
   "exception.access_exception.unsupported_access_type_exception": "Ten poziom dostępu nie jest obsługiwany",
-  "exception.access_exception.no_proper_access_exception": "Konto nie ma odpowiedniej roli"
+  "exception.access_exception.no_proper_access_exception": "Konto nie ma odpowiedniej roli",
+
+  "add.vehicle.success": "Pojazd został pomyślnie dodany",
+  "courseCategory": "Kategoria kursu",
+  "brand": "Marka",
+  "model": "Model",
+  "productionYear": "Rok produkcji",
+  "registrationNumber": "Numer rejestracyjny",
+  "image": "Zdjęcie"
 }

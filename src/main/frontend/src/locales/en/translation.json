@@ -68,6 +68,11 @@
   "form.validation.field.language.pattern": "Language name does not meet pattern requirements",
   "form.validation.field.language.not_allowed": "Language is not allowed",
 
+  "form.validation.field.course_category.min.size": "Course category is too short",
+  "form.validation.field.course_category.max.size": "Course category is too long",
+  "form.validation.field.course_category.pattern": "Course category does not meet pattern requirements",
+  "form.validation.field.course_category.not_allowed": "Course category is not allowed",
+
   "form.validation.field.image.min.size": "Image URL is too short",
   "form.validation.field.image.max.size": "Image URL is too long",
   "form.validation.field.image.pattern": "Image URL does not meet pattern requirements",
@@ -83,6 +88,14 @@
   "form.validation.field.registration_number.min.size": "Registration number is too short",
   "form.validation.field.registration_number.max.size": "Registration number is too long",
   "form.validation.field.registration_number.pattern": "Registration number does not meet pattern requirements",
+
+  "form.validation.field.production_year.min.size": "Production year is too short",
+  "form.validation.field.production_year.max.size": "Production year is too long",
+  "form.validation.year.value": "Production year must be later than 2010 and less than the current year",
+
+  "form.validation.field.vehicle_name.min.size": "Name is too short",
+  "form.validation.field.vehicle_name.max.size": "Name is too long",
+  "form.validation.field.vehicle_name.pattern": "Name does not meet pattern requirements",
 
   "landing.page.courses": "Driving license courses",
   "landing.page.left": "Category A",
@@ -237,5 +250,13 @@
   "exception.instructor_access_exception.permission_already_added_exception": "Instructor already has this permission",
   "exception.instructor_access_exception.permission_already_removed_exception": "Instructor does not have this permission",
   "exception.access_exception.unsupported_access_type_exception": "This access level is not supported",
-  "exception.access_exception.no_proper_access_exception": "Account does not have the appropriate role"
+  "exception.access_exception.no_proper_access_exception": "Account does not have the appropriate role",
+
+  "add.vehicle.success": "Vehicle has been successfully added",
+  "courseCategory": "Course category",
+  "brand": "Brand",
+  "model": "Model",
+  "productionYear": "Production year",
+  "registrationNumber": "Registration number",
+  "image": "Image"
 }
