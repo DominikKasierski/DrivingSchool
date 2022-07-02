@@ -121,9 +121,10 @@ function SingIn(props) {
                                 validate={validate}
                                 onSubmit={(values, {setSubmitting}) => handleSubmit(values, setSubmitting)}>
                                 <Form className={"row"}>
-                                    <FormInput name="login" placeholder={t("login")} type="text" className="col-12 ml-4"/>
+                                    <FormInput name="login" placeholder={t("login")} type="text" className="col-12 ml-4"
+                                               errorClassname="ml-4 text-danger mr-5"/>
                                     <FormInput name="password" placeholder={t("password")} type="password"
-                                               className="col-12 ml-4"/>
+                                               className="col-12 ml-4" errorClassname="ml-4 text-danger mr-5"/>
 
                                     <div className="col-12 d-flex justify-content-center mt-4">
                                         <button className="btn btn-dark btn-block dim" type="submit">

@@ -153,6 +153,7 @@
   "action": "Action",
   "login": "Login",
   "emailAddress": "Email address",
+  "newEmailAddress": "New email address",
   "password": "Password",
   "oldPassword": "Old password",
   "newPassword": "New password",

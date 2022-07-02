@@ -70,7 +70,7 @@
 
   "form.validation.field.course_category.min.size": "Kategoria musi mieć minimum 1 znak",
   "form.validation.field.course_category.max.size": "Kategoria może mieć maksymalnie 1 znak",
-  "form.validation.field.course_category.pattern": "Kategoria może składać się tylko z 1 wielkiej litery",
+  "form.validation.field.course_category.pattern": "Kategoria musi być reprezentowana wielką literą",
   "form.validation.field.course_category.not.allowed": "Kategoria nie jest obsługiwana",
 
   "form.validation.field.image.min.size": "Adres URL zdjęcia musi mieć minimum 5 znaków",
@@ -153,6 +153,7 @@
   "action": "Akcja",
   "login": "Login",
   "emailAddress": "Adres email",
+  "newEmailAddress": "Nowy adres email",
   "password": "Hasło",
   "oldPassword": "Stare hasło",
   "newPassword": "Nowe hasło",

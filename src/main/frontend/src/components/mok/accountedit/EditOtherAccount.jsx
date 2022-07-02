@@ -314,7 +314,7 @@ function EditOtherAccount(props) {
                                     validate={validateEmailAddress}
                                     onSubmit={(values, {setSubmitting}) => handleEmailSubmit(values, setSubmitting)}>
                                     <Form className={"row"}>
-                                        <FormInput name="emailAddress" placeholder={t("emailAddress")} type="email"
+                                        <FormInput name="emailAddress" placeholder={t("newEmailAddress")} type="email"
                                                    className="col-12 ml-4 mt-4"/>
 
                                         <div className="col-12 d-flex justify-content-center mt-4">

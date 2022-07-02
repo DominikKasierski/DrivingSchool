@@ -16,6 +16,13 @@ function EditOwnAccount(props) {
     const {t, i18n} = props
     const {token, setToken} = useLocale();
     const [etag, setETag] = useState();
+    const [data, setData] = useState([
+        {
+            firstname: "",
+            lastname: "",
+            phoneNumber: "",
+        }
+    ]);
 
     const dispatchSuccessNotification = useSuccessNotification();
     const dispatchDangerNotification = useDangerNotification();
@@ -28,6 +35,7 @@ function EditOwnAccount(props) {
                 "Authorization": token,
             }
         })
+        setData(response.data);
         return response.headers.etag;
     };
 
@@ -186,7 +194,7 @@ function EditOwnAccount(props) {
                                     validate={validateEmailAddress}
                                     onSubmit={(values, {setSubmitting}) => handleEmailSubmit(values, setSubmitting)}>
                                     <Form className={"row"}>
-                                        <FormInput name="emailAddress" placeholder={t("emailAddress")} type="email"
+                                        <FormInput name="emailAddress" placeholder={t("newEmailAddress")} type="email"
                                                    className="col-12 ml-4 mt-4"/>
 
                                         <div className="col-12 d-flex justify-content-center mt-4">
@@ -223,32 +231,35 @@ function EditOwnAccount(props) {
                                     </Form>
                                 </Formik>
                             </Tab>
-                            <Tab tabClassName={"text-white bg-transparent"} eventKey="personalData"
-                                 title={t('edit.own.account.edit.personal.data')}>
-                                <Formik
-                                    initialValues={{
-                                        firstname: '',
-                                        lastname: '',
-                                        phoneNumber: ''
-                                    }}
-                                    validate={validatePersonalData}
-                                    onSubmit={(values, {setSubmitting}) => handlePersonalDataSubmit(values, setSubmitting)}>
-                                    <Form className={"row"}>
-                                        <FormInput name="firstname" placeholder={t("firstname")} type="text"
-                                                   className="col-12 ml-4 mt-4"/>
-                                        <FormInput name="lastname" placeholder={t("lastname")} type="text"
-                                                   className="col-12 ml-4"/>
-                                        <FormInput name="phoneNumber" placeholder={t("phoneNumber")}
-                                                   type="text" className="col-12 ml-4"/>
+                            {data.length !== 1 &&
+                                <Tab tabClassName={"text-white bg-transparent"} eventKey="personalData"
+                                     title={t('edit.own.account.edit.personal.data')}>
+                                    <Formik
+                                        initialValues={{
+                                            firstname: data.firstname,
+                                            lastname: data.lastname,
+                                            phoneNumber: data.phoneNumber
+                                        }}
+                                        enableReinitialize
+                                        validate={validatePersonalData}
+                                        onSubmit={(values, {setSubmitting}) => handlePersonalDataSubmit(values, setSubmitting)}>
+                                        <Form className={"row"}>
+                                            <FormInput name="firstname" placeholder={t("firstname")} type="text"
+                                                       className="col-12 ml-4 mt-4"/>
+                                            <FormInput name="lastname" placeholder={t("lastname")} type="text"
+                                                       className="col-12 ml-4"/>
+                                            <FormInput name="phoneNumber" placeholder={t("phoneNumber")}
+                                                       type="text" className="col-12 ml-4"/>
 
-                                        <div className="col-12 d-flex justify-content-center mt-4">
-                                            <button className="btn btn-dark btn-block dim" type="submit">
-                                                {t('change')}
-                                            </button>
-                                        </div>
-                                    </Form>
-                                </Formik>
-                            </Tab>
+                                            <div className="col-12 d-flex justify-content-center mt-4">
+                                                <button className="btn btn-dark btn-block dim" type="submit">
+                                                    {t('change')}
+                                                </button>
+                                            </div>
+                                        </Form>
+                                    </Formik>
+                                </Tab>
+                            }
                         </Tabs>
                     </Col>
                 </Row>
