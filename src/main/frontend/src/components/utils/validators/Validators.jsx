@@ -128,7 +128,7 @@ const validateProductionYear = (data, min) => {
 const validateVehicleName = (data) => {
     let errors = [];
     errors.push(sizeValidator(data, 1, 20));
-    errors.push(patternValidator(data, /^[A-Za-z]$/));
+    errors.push(patternValidator(data, /^[A-Za-z0-9]$/));
     return errors.filter(err => err !== undefined);
 }
 
