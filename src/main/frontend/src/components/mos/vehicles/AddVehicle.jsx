@@ -8,9 +8,11 @@ import {Link, useHistory} from "react-router-dom";
 import {Col, Container, Row} from "react-bootstrap";
 import {withNamespaces} from "react-i18next";
 import FormInput from "../../utils/form/FormInput";
+import {useLocale} from "../../utils/login/LoginProvider";
 
 function AddVehicle(props) {
     const {t, i18n} = props
+    const {token, setToken} = useLocale();
 
     const dispatchDangerNotification = useDangerNotification();
     const dispatchSuccessNotification = useSuccessNotification();
@@ -34,6 +36,10 @@ function AddVehicle(props) {
             productionYear: values.productionYear,
             registrationNumber: values.registrationNumber,
             image: values.image
+        }, {
+            headers: {
+                "Authorization": token,
+            }
         }).then(res => {
             history.push("/");
             dispatchSuccessNotification({message: t("add.vehicle.success")})
@@ -50,10 +56,10 @@ function AddVehicle(props) {
         const courseCategoryErrors = validatorFactory(values.courseCategory, ValidatorType.COURSE_CATEGORY)
         if (courseCategoryErrors.length !== 0) errors.courseCategory = courseCategoryErrors
 
-        const brandErrors = validatorFactory(values.brand, ValidatorType.VEHICLE_NAME)
+        const brandErrors = validatorFactory(values.brand, ValidatorType.VEHICLE_BRAND)
         if (brandErrors.length !== 0) errors.brand = brandErrors
 
-        const modelErrors = validatorFactory(values.model, ValidatorType.VEHICLE_NAME)
+        const modelErrors = validatorFactory(values.model, ValidatorType.VEHICLE_MODEL)
         if (modelErrors.length !== 0) errors.model = modelErrors
 
         const productionYearErrors = validatorFactory(values.productionYear, ValidatorType.PRODUCTION_YEAR)
@@ -72,13 +78,13 @@ function AddVehicle(props) {
         <div className="container-fluid">
             <Breadcrumb>
                 <li className="breadcrumb-item"><Link className={"text-dark"} to="/">{t("navigation.bar.main.page")}</Link></li>
-                <li className="breadcrumb-item active text-secondary" aria-current="page">{t("sign.up")}</li>
+                <li className="breadcrumb-item active text-secondary" aria-current="page">{t("navigation.bar.vehicles.add")}</li>
             </Breadcrumb>
             <Container>
                 <Row>
                     <Col xs={12} sm={11} md={9} lg={8} xl={7} className={"floating py-3 mx-auto mb-3 mt-4"}>
                         <div className="py-2">
-                            <h1 className="font-weight-light text-center">{t("sign.up.title")}</h1>
+                            <h1 className="font-weight-light text-center">{t("add.vehicle.title")}</h1>
 
                             <div className="col-12 text-center mt-2 mb-4">
                                 <span>{t("required.fields")}</span>
@@ -101,7 +107,7 @@ function AddVehicle(props) {
 
                                     <div className="col-12 d-flex justify-content-center mt-4">
                                         <button className="btn btn-block btn-dark dim" type="submit">
-                                            {t('sign.up')}
+                                            {t('add')}
                                         </button>
                                     </div>
                                 </Form>

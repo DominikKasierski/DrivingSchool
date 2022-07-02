@@ -116,6 +116,10 @@ const validateRegistrationNumber = (data) => {
 
 const validateProductionYear = (data, min) => {
     let errors = [];
+    if (!(/^\d+$/.test(data))) {
+        errors.push("form.validation.year.chars")
+    }
+
     errors.push(sizeValidator(data, 4, 4));
 
     let currentYear = new Date().getFullYear();
@@ -128,7 +132,7 @@ const validateProductionYear = (data, min) => {
 const validateVehicleName = (data) => {
     let errors = [];
     errors.push(sizeValidator(data, 1, 20));
-    errors.push(patternValidator(data, /^[A-Za-z0-9]$/));
+    errors.push(patternValidator(data, /^[A-Za-z0-9]+$/));
     return errors.filter(err => err !== undefined);
 }
 
@@ -152,7 +156,8 @@ export const ValidatorType = {
     IMAGE: "IMAGE",
     COMMENT: "COMMENT",
     PRICE: "PRICE",
-    VEHICLE_NAME: "VEHICLE_NAME",
+    VEHICLE_BRAND: "VEHICLE_BRAND",
+    VEHICLE_MODEL: "VEHICLE_MODEL",
     COURSE_CATEGORY: "COURSE_CATEGORY",
     REGISTRATION_NUMBER: "REGISTRATION_NUMBER",
     PRODUCTION_YEAR: "PRODUCTION_YEAR"
@@ -182,8 +187,10 @@ export const validatorFactory = (data, validatorType) => {
             return changeValidationMessages(validateComment(data), 'COMMENT');
         case ValidatorType.PRICE:
             return changeValidationMessages(validatePrice(data), 'PRICE');
-        case ValidatorType.VEHICLE_NAME:
-            return changeValidationMessages(validateVehicleName(data), 'VEHICLE_NAME');
+        case ValidatorType.VEHICLE_BRAND:
+            return changeValidationMessages(validateVehicleName(data), 'VEHICLE_BRAND');
+        case ValidatorType.VEHICLE_MODEL:
+            return changeValidationMessages(validateVehicleName(data), 'VEHICLE_MODEL');
         case ValidatorType.COURSE_CATEGORY:
             return changeValidationMessages(validateCourseCategory(data), 'COURSE_CATEGORY');
         case ValidatorType.REGISTRATION_NUMBER:

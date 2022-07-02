@@ -66,20 +66,19 @@
   "form.validation.field.language.min.size": "Język musi mieć minimum 2 znaki",
   "form.validation.field.language.max.size": "Język może mieć maksymalnie 2 znaki",
   "form.validation.field.language.pattern": "Języka może składać się tylko z małych liter",
-  "form.validation.field.language.not_allowed": "Język nie jest obsługiwany",
+  "form.validation.field.language.not.allowed": "Język nie jest obsługiwany",
 
-  "form.validation.field.course_category.min.size": "Kategoria kursu musi mieć minimum 1 znak",
-  "form.validation.field.course_category.max.size": "Kategoria kursu może mieć maksymalnie 1 znak",
-  "form.validation.field.course_category.pattern": "Kategoria kursu może składać się tylko z wielkiej litery",
-  "form.validation.field.course_category.not_allowed": "Kategoria kursu nie jest dozwolony",
+  "form.validation.field.course_category.min.size": "Kategoria musi mieć minimum 1 znak",
+  "form.validation.field.course_category.max.size": "Kategoria może mieć maksymalnie 1 znak",
+  "form.validation.field.course_category.pattern": "Kategoria może składać się tylko z 1 wielkiej litery",
+  "form.validation.field.course_category.not.allowed": "Kategoria nie jest obsługiwana",
 
   "form.validation.field.image.min.size": "Adres URL zdjęcia musi mieć minimum 5 znaków",
   "form.validation.field.image.max.size": "Adres URL zdjęcia może mieć maksymalnie 31 znaków",
-  "form.validation.field.image.pattern": "Niepoprawny format adres URL zdjęcia",
+  "form.validation.field.image.pattern": "Niepoprawny format adres URL",
 
   "form.validation.field.comment.min.size": "Treść komentarza musi mieć minimum 4 znaki",
   "form.validation.field.comment.max.size": "Treść komentarza może mieć maksymalnie 255 znaków",
-  "form.validation.field.comment.pattern": "Treść komentarza nie spełnia wymagań wzorca",
 
   "form.validation.field.price.min.size": "Cena jest za mała",
   "form.validation.field.price.max.size": "Cena jest za duża",
@@ -89,13 +88,18 @@
   "form.validation.field.registration_number.max.size": "Numer rejestracyjny może mieć maksymalnie 7 znaków",
   "form.validation.field.registration_number.pattern": "Numer rejestracyjny może składać się tylko z wielkich liter oraz cyfr",
 
-  "form.validation.field.production_year.min.size": "Rok produkcji musi składać się z minimum 4 cyfr",
-  "form.validation.field.production_year.max.size": "Rok produkcji może składać się z maksymalnie 4 cyfr",
-  "form.validation.year.value": "Rok produkcji musi być późniejszy niż 2010 i mniejszy bądź równy aktualnemu",
+  "form.validation.field.production_year.min.size": "Rok produkcji musi składać się minimum z 4 cyfr",
+  "form.validation.field.production_year.max.size": "Rok produkcji może składać się maksymalnie z 4 cyfr",
+  "form.validation.year.value": "Rok musi być późniejszy niż 2010 oraz wcześniejszy lub równy aktualnemu",
+  "form.validation.year.chars": "Rok nie może zawierać innych znaków niż cyfry",
 
-  "form.validation.field.vehicle_name.min.size": "Nazwa musi mieć minimum 1 znak",
-  "form.validation.field.vehicle_name.max.size": "Nazwa może mieć maksymalnie 20 znaków",
-  "form.validation.field.vehicle_name.pattern": "Nazwa może składać się tylko z małych liter i cyfr",
+  "form.validation.field.vehicle_brand.min.size": "Marka musi mieć minimum 1 znak",
+  "form.validation.field.vehicle_brand.max.size": "Marka może mieć maksymalnie 20 znaków",
+  "form.validation.field.vehicle_brand.pattern": "Marka może składać się tylko z małych liter i cyfr",
+
+  "form.validation.field.vehicle_model.min.size": "Model musi mieć minimum 1 znak",
+  "form.validation.field.vehicle_model.max.size": "Model może mieć maksymalnie 20 znaków",
+  "form.validation.field.vehicle_model.pattern": "Model może składać się tylko z małych liter i cyfr",
 
   "landing.page.courses": "Kursy na prawo jazdy",
   "landing.page.left": "kategoria A",
@@ -145,6 +149,7 @@
   "change": "Zmień",
   "delete": "Usuń",
   "refresh": "Odśwież",
+  "add": "Dodaj",
   "action": "Akcja",
   "login": "Login",
   "emailAddress": "Adres email",
@@ -258,5 +263,8 @@
   "model": "Model",
   "productionYear": "Rok produkcji",
   "registrationNumber": "Numer rejestracyjny",
-  "image": "Zdjęcie"
+  "image": "Odnośnik do zdjęcia",
+
+  "add.vehicle.title": "Wprowadź dane pojazdu",
+  "exception.car_exception.registration_number_exists_exception": "Numer rejestracyjny jest niepoprawny lub zajęty"
 }

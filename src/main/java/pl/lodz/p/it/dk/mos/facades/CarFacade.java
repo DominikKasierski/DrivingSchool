@@ -1,11 +1,10 @@
 package pl.lodz.p.it.dk.mos.facades;
 
+import org.hibernate.exception.ConstraintViolationException;
 import pl.lodz.p.it.dk.common.abstracts.AbstractFacade;
 import pl.lodz.p.it.dk.entities.Car;
 import pl.lodz.p.it.dk.entities.enums.CourseCategory;
-import pl.lodz.p.it.dk.exceptions.BaseException;
-import pl.lodz.p.it.dk.exceptions.DatabaseException;
-import pl.lodz.p.it.dk.exceptions.NotFoundException;
+import pl.lodz.p.it.dk.exceptions.*;
 
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
@@ -34,13 +33,29 @@ public class CarFacade extends AbstractFacade<Car> {
     @Override
     @RolesAllowed("addCar")
     public void create(Car entity) throws BaseException {
-        super.create(entity);
+        try {
+            super.create(entity);
+        } catch (ConstraintViolationException e) {
+            if (e.getCause().getMessage().contains(Car.REGISTRATION_NUMBER_CONSTRAINT)) {
+                throw CarException.registrationNumberExists(e.getCause());
+            } else {
+                throw DatabaseException.queryException(e.getCause());
+            }
+        }
     }
 
     @Override
     @RolesAllowed({"editCar", "addDrivingLesson"})
     public void edit(Car entity) throws BaseException {
-        super.edit(entity);
+        try {
+            super.edit(entity);
+        } catch (ConstraintViolationException e) {
+            if (e.getCause().getMessage().contains(Car.REGISTRATION_NUMBER_CONSTRAINT)) {
+                throw CarException.registrationNumberExists(e.getCause());
+            } else {
+                throw DatabaseException.queryException(e.getCause());
+            }
+        }
     }
 
     @Override

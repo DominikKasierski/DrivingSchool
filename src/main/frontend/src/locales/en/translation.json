@@ -66,12 +66,12 @@
   "form.validation.field.language.min.size": "Language must be at least 2 characters long",
   "form.validation.field.language.max.size": "Language can be up to 2 characters long",
   "form.validation.field.language.pattern": "Language can only consist of lowercase letters",
-  "form.validation.field.language.not_allowed": "Language is not supported",
+  "form.validation.field.language.not.allowed": "Language is not supported",
 
-  "form.validation.field.course_category.min.size": "Course category must be at least 1 characters long",
-  "form.validation.field.course_category.max.size": "Course category can be up to 1 characters long",
-  "form.validation.field.course_category.pattern": "Course category can only consist of uppercase letter",
-  "form.validation.field.course_category.not_allowed": "Course category is not allowed",
+  "form.validation.field.course_category.min.size": "Category must be at least 1 character",
+  "form.validation.field.course_category.max.size": "Category can be up to 1 character",
+  "form.validation.field.course_category.pattern": "Category can only consist of uppercase letter",
+  "form.validation.field.course_category.not.allowed": "Category is not supported",
 
   "form.validation.field.image.min.size": "Image URL must be at least 5 characters long",
   "form.validation.field.image.max.size": "Image URL can be up to 31 characters long",
@@ -91,10 +91,15 @@
   "form.validation.field.production_year.min.size": "Production year is too short",
   "form.validation.field.production_year.max.size": "Production year is too long",
   "form.validation.year.value": "Production year must be later than 2010 and less or equal current year",
+  "form.validation.year.chars": "Year cannot contain characters other than digits",
 
-  "form.validation.field.vehicle_name.min.size": "Name must be at least 1 characters long",
-  "form.validation.field.vehicle_name.max.size": "Name can be up to 20 characters long",
-  "form.validation.field.vehicle_name.pattern": "Name can only consist of letters and digits",
+  "form.validation.field.vehicle_brand.min.size": "Brand must be at least 1 character",
+  "form.validation.field.vehicle_brand.max.size": "Brand can be up to 20 characters long",
+  "form.validation.field.vehicle_brand.pattern": "Brand can only consist of letters and digits",
+
+  "form.validation.field.vehicle_model.min.size": "Model must be at least 1 character",
+  "form.validation.field.vehicle_model.max.size": "Model can be up to 20 characters long",
+  "form.validation.field.vehicle_model.pattern": "Model can only consist of letters and digits",
 
   "landing.page.courses": "Driving license courses",
   "landing.page.left": "Category A",
@@ -144,6 +149,7 @@
   "change": "Change",
   "delete": "Delete",
   "refresh": "Refresh",
+  "add": "Add",
   "action": "Action",
   "login": "Login",
   "emailAddress": "Email address",
@@ -257,5 +263,8 @@
   "model": "Model",
   "productionYear": "Production year",
   "registrationNumber": "Registration number",
-  "image": "Image"
+  "image": "Image URL",
+
+  "add.vehicle.title": "Enter vehicle details",
+  "exception.car_exception.registration_number_exists_exception": "Invalid registration number or already taken"
 }
