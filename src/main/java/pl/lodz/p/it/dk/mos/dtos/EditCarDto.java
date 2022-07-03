@@ -4,10 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import pl.lodz.p.it.dk.validation.annotations.Image;
-import pl.lodz.p.it.dk.validation.annotations.RegistrationNumber;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @Data
 @NoArgsConstructor
@@ -30,6 +28,8 @@ public class EditCarDto {
     private String model;
 
     @NotNull
-    @RegistrationNumber
-    private String registrationNumber;
+    @Min(value = 2010)
+    @Max(value = 2022)
+    @Digits(integer = 4, fraction = 0)
+    private Integer productionYear;
 }

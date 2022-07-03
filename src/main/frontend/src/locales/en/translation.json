@@ -257,7 +257,9 @@
   "exception.instructor_access_exception.permission_already_removed_exception": "Instructor does not have this permission",
   "exception.access_exception.unsupported_access_type_exception": "This access level is not supported",
   "exception.access_exception.no_proper_access_exception": "Account does not have the appropriate role",
+  "exception.car_exception.registration_number_exists_exception": "Invalid registration number or already taken",
 
+  "add.vehicle.title": "Enter vehicle details",
   "add.vehicle.success": "Vehicle has been successfully added",
   "courseCategory": "Course category",
   "brand": "Brand",
@@ -266,6 +268,7 @@
   "registrationNumber": "Registration number",
   "image": "Image URL",
 
-  "add.vehicle.title": "Enter vehicle details",
-  "exception.car_exception.registration_number_exists_exception": "Invalid registration number or already taken"
+  "edit.vehicle": "Edit vehicle details",
+  "edit.vehicle.title": "Edit vehicle",
+  "edit.vehicle.success": "Vehicle has been successfully modified"
 }

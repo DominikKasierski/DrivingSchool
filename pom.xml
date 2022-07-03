@@ -6,7 +6,7 @@
 
     <groupId>pl.lodz.p.it.dk</groupId>
     <artifactId>DrivingSchool</artifactId>
-    <version>0.5</version>
+    <version>0.8</version>
     <packaging>war</packaging>
 
     <name>DrivingSchool</name>

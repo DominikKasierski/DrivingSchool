@@ -90,7 +90,7 @@
 
   "form.validation.field.production_year.min.size": "Rok produkcji musi składać się minimum z 4 cyfr",
   "form.validation.field.production_year.max.size": "Rok produkcji może składać się maksymalnie z 4 cyfr",
-  "form.validation.year.value": "Rok musi być późniejszy niż 2010 oraz wcześniejszy lub równy aktualnemu",
+  "form.validation.year.value": "Rok produkcji musi być późniejszy niż 2010 oraz wcześniejszy lub równy aktualnemu",
   "form.validation.year.chars": "Rok nie może zawierać innych znaków niż cyfry",
 
   "form.validation.field.vehicle_brand.min.size": "Marka musi mieć minimum 1 znak",
@@ -257,7 +257,9 @@
   "exception.instructor_access_exception.permission_already_removed_exception": "Instruktor nie ma tego uprawnienia",
   "exception.access_exception.unsupported_access_type_exception": "Ten poziom dostępu nie jest obsługiwany",
   "exception.access_exception.no_proper_access_exception": "Konto nie ma odpowiedniej roli",
+  "exception.car_exception.registration_number_exists_exception": "Numer rejestracyjny jest niepoprawny lub zajęty",
 
+  "add.vehicle.title": "Wprowadź dane pojazdu",
   "add.vehicle.success": "Pojazd został pomyślnie dodany",
   "courseCategory": "Kategoria kursu",
   "brand": "Marka",
@@ -266,6 +268,7 @@
   "registrationNumber": "Numer rejestracyjny",
   "image": "Odnośnik do zdjęcia",
 
-  "add.vehicle.title": "Wprowadź dane pojazdu",
-  "exception.car_exception.registration_number_exists_exception": "Numer rejestracyjny jest niepoprawny lub zajęty"
+  "edit.vehicle": "Edytuj dane pojazd",
+  "edit.vehicle.title": "Edytuj pojazd",
+  "edit.vehicle.success": "Pojazd został pomyślnie zmodfikowany"
 }

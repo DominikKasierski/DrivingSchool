@@ -16,7 +16,7 @@ function EditOwnAccount(props) {
     const {t, i18n} = props
     const {token, setToken} = useLocale();
     const [etag, setETag] = useState();
-    const [data, setData] = useState([
+    const [userData, setUserData] = useState([
         {
             firstname: "",
             lastname: "",
@@ -35,7 +35,7 @@ function EditOwnAccount(props) {
                 "Authorization": token,
             }
         })
-        setData(response.data);
+        setUserData(response.data);
         return response.headers.etag;
     };
 
@@ -231,14 +231,14 @@ function EditOwnAccount(props) {
                                     </Form>
                                 </Formik>
                             </Tab>
-                            {data.length !== 1 &&
+                            {userData.length !== 1 &&
                                 <Tab tabClassName={"text-white bg-transparent"} eventKey="personalData"
                                      title={t('edit.own.account.edit.personal.data')}>
                                     <Formik
                                         initialValues={{
-                                            firstname: data.firstname,
-                                            lastname: data.lastname,
-                                            phoneNumber: data.phoneNumber
+                                            firstname: userData.firstname,
+                                            lastname: userData.lastname,
+                                            phoneNumber: userData.phoneNumber
                                         }}
                                         enableReinitialize
                                         validate={validatePersonalData}

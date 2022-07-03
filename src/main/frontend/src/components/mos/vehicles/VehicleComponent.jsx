@@ -85,7 +85,7 @@ function VehicleComponent({id, image, brand, model, productionYear}) {
                                 <>
                                     <ListGroup.Item className={"p-1"}>
                                         <button className="p-1 btn btn-block btn-dark dim"
-                                                onClick={() => history.push("/editCar/" + id)}>
+                                                onClick={() => history.push("/editVehicle?id=" + id)}>
                                             {i18n.t("edit")}
                                         </button>
                                     </ListGroup.Item>
