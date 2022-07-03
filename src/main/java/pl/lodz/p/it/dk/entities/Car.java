@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hibernate.annotations.DynamicUpdate;
 import pl.lodz.p.it.dk.common.abstracts.AbstractEntity;
 import pl.lodz.p.it.dk.entities.enums.CourseCategory;
 import pl.lodz.p.it.dk.validation.annotations.Image;
@@ -17,6 +18,7 @@ import java.util.Set;
 import static pl.lodz.p.it.dk.entities.Car.REGISTRATION_NUMBER_CONSTRAINT;
 
 @Entity
+@DynamicUpdate
 @Table(name = "car", uniqueConstraints = {
         @UniqueConstraint(name = REGISTRATION_NUMBER_CONSTRAINT, columnNames = {"registration_number"})
 })
@@ -54,14 +56,14 @@ public class Car extends AbstractEntity implements Serializable {
     @Setter
     @NotNull
     @Size(min = 1, max = 31)
-    @Column(name = "brand", updatable = false, nullable = false)
+    @Column(name = "brand", nullable = false)
     private String brand;
 
     @Getter
     @Setter
     @NotNull
     @Size(min = 1, max = 31)
-    @Column(name = "model", updatable = false, nullable = false)
+    @Column(name = "model", nullable = false)
     private String model;
 
     @Getter
@@ -77,7 +79,7 @@ public class Car extends AbstractEntity implements Serializable {
     @Min(value = 2005)
     @Max(value = 2022)
     @Digits(integer = 4, fraction = 0)
-    @Column(name = "production_year", updatable = false, nullable = false)
+    @Column(name = "production_year", nullable = false)
     private Integer productionYear;
 
     @Getter

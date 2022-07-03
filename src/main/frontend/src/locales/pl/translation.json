@@ -258,6 +258,7 @@
   "exception.access_exception.unsupported_access_type_exception": "Ten poziom dostępu nie jest obsługiwany",
   "exception.access_exception.no_proper_access_exception": "Konto nie ma odpowiedniej roli",
   "exception.car_exception.registration_number_exists_exception": "Numer rejestracyjny jest niepoprawny lub zajęty",
+  "exception.transaction_exception.exceeding_repetition_limit_exception": "Nie udało się utrwalić zmian w bazie danych",
 
   "add.vehicle.title": "Wprowadź dane pojazdu",
   "add.vehicle.success": "Pojazd został pomyślnie dodany",

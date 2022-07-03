@@ -2,6 +2,7 @@ package pl.lodz.p.it.dk.mos.facades;
 
 import org.hibernate.exception.ConstraintViolationException;
 import pl.lodz.p.it.dk.common.abstracts.AbstractFacade;
+import pl.lodz.p.it.dk.common.utils.LoggingInterceptor;
 import pl.lodz.p.it.dk.entities.Car;
 import pl.lodz.p.it.dk.entities.enums.CourseCategory;
 import pl.lodz.p.it.dk.exceptions.*;
@@ -11,11 +12,13 @@ import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import javax.interceptor.Interceptors;
 import javax.persistence.*;
 import java.util.List;
 
 @Stateless
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
+@Interceptors({LoggingInterceptor.class})
 public class CarFacade extends AbstractFacade<Car> {
 
     @PersistenceContext(unitName = "mosPU")
@@ -49,7 +52,7 @@ public class CarFacade extends AbstractFacade<Car> {
     public void edit(Car entity) throws BaseException {
         try {
             super.edit(entity);
-        } catch (ConstraintViolationException e) {
+        } catch (Exception e) {
             if (e.getCause().getMessage().contains(Car.REGISTRATION_NUMBER_CONSTRAINT)) {
                 throw CarException.registrationNumberExists(e.getCause());
             } else {

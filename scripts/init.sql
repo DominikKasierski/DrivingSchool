@@ -76,8 +76,7 @@ VALUES (-1, 'REJECTED', -1, 750, 'Pierwsza wpłata', 'Błędna kwota', now(), nu
 
 ---- Create cars ----
 INSERT INTO car (id, course_category, image, brand, model, registration_number, production_year, deleted, creation_date,
-                 modification_date,
-                 created_by, modified_by, version)
+                 modification_date, created_by, modified_by, version)
 VALUES (-1, 'A', '/static/motorcycle1.jpg', 'Yamaha', 'MT-07', 'ELEF646', 2015, false, now(), null, -1, null, 1),
        (-2, 'B', '/static/car1.jpg', 'KIA', 'Rio', 'ELE4646', 2016, false, now(), null, -1, null, 1),
        (-3, 'C', '/static/truck1.jpg', 'MAN', 'TGL 12.240', 'ELE646', 2014, false, now(), null, -1, null, 1);

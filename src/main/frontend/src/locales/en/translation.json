@@ -258,6 +258,7 @@
   "exception.access_exception.unsupported_access_type_exception": "This access level is not supported",
   "exception.access_exception.no_proper_access_exception": "Account does not have the appropriate role",
   "exception.car_exception.registration_number_exists_exception": "Invalid registration number or already taken",
+  "exception.transaction_exception.exceeding_repetition_limit_exception": "Changes to the database could not be persisted",
 
   "add.vehicle.title": "Enter vehicle details",
   "add.vehicle.success": "Vehicle has been successfully added",

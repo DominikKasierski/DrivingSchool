@@ -1,6 +1,7 @@
 package pl.lodz.p.it.dk.mos.facades;
 
 import pl.lodz.p.it.dk.common.abstracts.AbstractFacade;
+import pl.lodz.p.it.dk.common.utils.LoggingInterceptor;
 import pl.lodz.p.it.dk.entities.Lecture;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.exceptions.DatabaseException;
@@ -11,11 +12,13 @@ import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import javax.interceptor.Interceptors;
 import javax.persistence.*;
 import java.util.List;
 
 @Stateless
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
+@Interceptors({LoggingInterceptor.class})
 public class LectureFacade extends AbstractFacade<Lecture> {
 
     @PersistenceContext(unitName = "mosPU")
