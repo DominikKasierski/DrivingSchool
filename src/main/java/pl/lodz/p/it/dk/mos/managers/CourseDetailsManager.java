@@ -12,6 +12,7 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
+import java.util.List;
 
 @Stateless
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
@@ -29,5 +30,10 @@ public class CourseDetailsManager {
     @RolesAllowed("createCourse")
     public void edit(CourseDetails courseDetails) throws BaseException {
         courseDetailsFacade.edit(courseDetails);
+    }
+
+    @RolesAllowed("getCoursesDetails")
+    public List<CourseDetails> getAllCoursesDetails() throws BaseException {
+        return courseDetailsFacade.findAll();
     }
 }

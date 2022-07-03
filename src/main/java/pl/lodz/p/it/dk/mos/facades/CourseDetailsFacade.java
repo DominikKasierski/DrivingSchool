@@ -11,11 +11,13 @@ import pl.lodz.p.it.dk.exceptions.DatabaseException;
 import pl.lodz.p.it.dk.exceptions.NotFoundException;
 
 import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.interceptor.Interceptors;
 import javax.persistence.*;
+import java.util.List;
 
 @Stateless
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
@@ -51,6 +53,12 @@ public class CourseDetailsFacade extends AbstractFacade<CourseDetails> {
     @PermitAll
     public CourseDetails find(Object id) throws BaseException {
         return super.find(id);
+    }
+
+    @Override
+    @RolesAllowed("getCoursesDetails")
+    public List<CourseDetails> findAll() throws BaseException {
+        return super.findAll();
     }
 
     @PermitAll
