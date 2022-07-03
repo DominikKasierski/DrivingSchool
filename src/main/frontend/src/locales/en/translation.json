@@ -268,8 +268,18 @@
   "productionYear": "Production year",
   "registrationNumber": "Registration number",
   "image": "Image URL",
+  "lecturesHours": "Number of theoretical hours",
+  "drivingHours": "Number of practical hours",
 
   "edit.vehicle": "Edit vehicle details",
   "edit.vehicle.title": "Edit vehicle",
-  "edit.vehicle.success": "Vehicle has been successfully modified"
+  "edit.vehicle.success": "Vehicle has been successfully modified",
+
+  "begin.course.title1": "Select category of course",
+  "begin.course.title2": "you want to start",
+  "begin.course.success": "Congratulations! You have started your driving course",
+
+  "exception.course_exception.already_assigned_exception": "Trainee is already enrolled in another course",
+  "exception.course_exception.already_completed_exception": "Trainee has already completed this course",
+  "exception.not_found_exception.course_details_not_found_exception": "Course details not found"
 }

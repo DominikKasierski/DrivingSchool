@@ -24,6 +24,7 @@ import EmailChangeConfirmation from "./components/mok/accountedit/EmailChangeCon
 import EditOtherAccount from "./components/mok/accountedit/EditOtherAccount";
 import addVehicle from "./components/mos/vehicles/AddVehicle";
 import editVehicle from "./components/mos/vehicles/EditVehicle";
+import beginCourse from "./components/mos/course/BeginCourse";
 
 function App() {
     const {token, currentRole, setCurrentRole, setUsername} = useLocale();
@@ -79,8 +80,8 @@ function App() {
                             <GuardedRoute exact path="/editOtherAccount" component={EditOtherAccount} meta={{}}/>
                             <GuardedRoute exact path="/addVehicle" component={addVehicle} meta={{}}/>
                             <GuardedRoute exact path="/editVehicle" component={editVehicle} meta={{}}/>
+                            <GuardedRoute exact path="/beginCourse" component={beginCourse} meta={{}}/>
 
-                            <GuardedRoute exact path="/accounts" component={NotFound} meta={{}}/>
                             <GuardedRoute exact path="/reportedPayments" component={NotFound} meta={{}}/>
                             <GuardedRoute exact path="/addPayment" component={InternalError} meta={{}}/>
                             <GuardedRoute exact path="/generateReport" component={Forbidden} meta={{}}/>
