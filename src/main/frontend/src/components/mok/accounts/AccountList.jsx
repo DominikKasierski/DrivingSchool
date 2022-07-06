@@ -1,12 +1,10 @@
 import {withNamespaces} from "react-i18next";
 import {useLocale} from "../../utils/login/LoginProvider";
 import {Link, useHistory} from "react-router-dom";
-import {useDangerNotification, useSuccessNotification} from "../../utils/notifications/NotificationProvider";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import Breadcrumb from "../../bars/Breadcrumb";
 import {Col, Container, Row} from "react-bootstrap";
-import VehicleComponent from "../../mos/vehicles/VehicleComponent";
 
 function AccountList(props) {
     const {t, i18n} = props

@@ -54,8 +54,8 @@ public class PaymentEndpoint extends AbstractEndpoint implements PaymentEndpoint
 
     @Override
     @RolesAllowed("getPaymentsHistory")
-    public List<PaymentDto> getPaymentsHistory(CourseCategory courseCategory) throws BaseException {
-        List<Payment> paymentsForGivenCategory = paymentManager.getPayments(getLogin(), courseCategory);
+    public List<PaymentDto> getPaymentsHistory() throws BaseException {
+        List<Payment> paymentsForGivenCategory = paymentManager.getPayments(getLogin());
         List<PaymentDto> paymentsDto = new ArrayList<>();
 
         for (Payment payment : paymentsForGivenCategory) {

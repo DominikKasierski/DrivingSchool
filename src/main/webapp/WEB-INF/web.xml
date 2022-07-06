@@ -32,7 +32,7 @@
     </context-param>
 
     <context-param>
-        <param-name>amountOfAdvance=</param-name>
+        <param-name>amountOfAdvance</param-name>
         <param-value>0.5</param-value>
     </context-param>
 

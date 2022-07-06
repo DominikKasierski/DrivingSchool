@@ -69,7 +69,7 @@ VALUES (-1, -4, -1, -1, false, false, false, false, false, now(), null, -3, null
 ---- Create payments ----
 INSERT INTO payment (id, payment_status, course_id, value, trainee_comment, admin_comment, creation_date, modification_date,
                      created_by, modified_by, version)
-VALUES (-1, 'REJECTED', -1, 750, 'Pierwsza wpłata', 'Błędna kwota', now(), null, -3, null, 1),
+VALUES (-1, 'REJECTED', -1, 750, 'Pierwsza wpłata', 'Błędna kwota', now() - INTERVAL '1 day', null, -3, null, 1),
        (-2, 'IN_PROGRESS', -1, 700, 'Pierwsza wpłata - poprawiona', null, now(), null, -3, null, 1),
        (-3, 'CONFIRMED', -2, 500, 'Wpłata za kurs', null, now(), null, -4, null, 1),
        (-4, 'IN_PROGRESS', -2, 500, 'Wpłata z 8.05.2021r.', null, now(), null, -4, null, 1);

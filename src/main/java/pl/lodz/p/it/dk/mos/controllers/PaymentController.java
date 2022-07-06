@@ -42,11 +42,11 @@ public class PaymentController extends AbstractController {
 
     @GET
     @RolesAllowed("getPaymentsHistory")
-    @Path("/getPaymentsHistory/{courseCategory}")
+    @Path("/getPaymentsHistory")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<PaymentDto> getPaymentsHistory(@NotNull @PathParam("courseCategory") CourseCategory courseCategory)
+    public List<PaymentDto> getPaymentsHistory()
             throws BaseException {
-        return repeat(() -> paymentEndpoint.getPaymentsHistory(courseCategory), paymentEndpoint);
+        return repeat(() -> paymentEndpoint.getPaymentsHistory(), paymentEndpoint);
     }
 
     @GET

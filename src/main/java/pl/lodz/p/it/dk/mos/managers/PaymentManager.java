@@ -59,7 +59,6 @@ public class PaymentManager {
 
     @PostConstruct
     private void init() {
-        //TODO: Sprawdzic czy prawidłowo pobiera wartość, mnoży i nie zmienia wartości starego BigDecimala
         AMOUNT_OF_ADVANCE = Float.parseFloat(servletContext.getInitParameter("amountOfAdvance"));
     }
 
@@ -104,7 +103,7 @@ public class PaymentManager {
     }
 
     @RolesAllowed("getPaymentsHistory")
-    public List<Payment> getPayments(String login, CourseCategory courseCategory) throws BaseException {
+    public List<Payment> getPayments(String login) throws BaseException {
         Course course = courseManager.getOngoingCourse(login);
         List<Payment> payments = new ArrayList<>(course.getPayments());
         payments.sort(Comparator.comparing(Payment::getCreationDate));

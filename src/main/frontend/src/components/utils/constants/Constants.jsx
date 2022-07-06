@@ -23,4 +23,11 @@ export const notificationDuration = {
     SHORT: 5_000,
 }
 
+export const paymentStatus = {
+    CANCELLED: 'CANCELLED',
+    IN_PROGRESS: 'IN_PROGRESS',
+    CONFIRMED: 'CONFIRMED',
+    REJECTED: 'REJECTED',
+};
+
 export const REFRESH_TIME = 60 * 1000

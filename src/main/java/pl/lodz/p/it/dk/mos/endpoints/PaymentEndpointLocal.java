@@ -19,7 +19,7 @@ public interface PaymentEndpointLocal extends TransactionStarter {
     public void cancelPayment() throws BaseException;
 
     @RolesAllowed("getPaymentsHistory")
-    public List<PaymentDto> getPaymentsHistory(CourseCategory courseCategory) throws BaseException;
+    public List<PaymentDto> getPaymentsHistory() throws BaseException;
 
     @RolesAllowed("confirmPayment")
     public void confirmPayment(String login) throws BaseException;
