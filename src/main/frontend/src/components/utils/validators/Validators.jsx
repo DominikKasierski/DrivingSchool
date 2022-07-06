@@ -88,7 +88,7 @@ const validateImage = (data) => {
 
 const validateComment = (data) => {
     let errors = [];
-    errors.push(sizeValidator(data, 4, 255));
+    errors.push(sizeValidator(data, 4, 50));
     return errors.filter(err => err !== undefined);
 }
 

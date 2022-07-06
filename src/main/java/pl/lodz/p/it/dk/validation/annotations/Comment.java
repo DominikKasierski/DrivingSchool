@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = {})
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.PARAMETER})
-@Size(min = 4, max = 255, message = "validation.comment.size")
+@Size(min = 4, max = 50, message = "validation.comment.size")
 public @interface Comment {
     String message() default "validation.comment";
 

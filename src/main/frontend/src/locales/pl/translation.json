@@ -295,5 +295,9 @@
   "CANCELLED": "Anulowana",
   "IN_PROGRESS": "W trakcie",
   "CONFIRMED": "Zatwierdzona",
-  "REJECTED": "Odrzucona"
+  "REJECTED": "Odrzucona",
+
+  "report.payment.title": "Wprowadź dane płatności",
+  "report.payment.report.success": "Płatność została pomyślnie zgłoszona",
+  "report.payment.report": "Zgłoś"
 }

@@ -295,5 +295,9 @@
   "CANCELLED": "Cancelled",
   "IN_PROGRESS": "In progress",
   "CONFIRMED": "Confirmed",
-  "REJECTED": "Rejected"
+  "REJECTED": "Rejected",
+
+  "report.payment.title": "Enter payment details",
+  "report.payment.report.success": "Payment has been successfully reported",
+  "report.payment.report": "Report"
 }
