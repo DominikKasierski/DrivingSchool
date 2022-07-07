@@ -111,11 +111,12 @@ public class PaymentManager {
     }
 
     @RolesAllowed("confirmPayment")
-    public void confirmPayment(Course course, String login) throws BaseException {
+    public void confirmPayment(String adminComment, Course course, String login) throws BaseException {
         Payment payment = getInProgressPayment(course);
         Account account = accountManager.findByLogin(login);
 
         payment.setPaymentStatus(PaymentStatus.CONFIRMED);
+        payment.setAdminComment(adminComment);
         payment.setModificationDate(Date.from(Instant.now()));
         payment.setModifiedBy(account);
 

@@ -98,8 +98,8 @@ function PaymentsForApproval(props) {
                                         <div className="d-flex justify-content-center align-items-center">
                                             <div className="btn-group mb-1">
                                                 <button className="btn btn-dark btn-block dim"
-                                                        onClick={() => history.push("/editOtherAccount?login=" + item.login)}>
-                                                    {t('edit')}
+                                                        onClick={() => history.push("/editPayment?login=" + item.login)}>
+                                                    {t('confirm/reject')}
                                                 </button>
                                             </div>
                                         </div>

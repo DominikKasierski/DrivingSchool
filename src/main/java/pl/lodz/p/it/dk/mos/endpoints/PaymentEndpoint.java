@@ -67,11 +67,11 @@ public class PaymentEndpoint extends AbstractEndpoint implements PaymentEndpoint
 
     @Override
     @RolesAllowed("confirmPayment")
-    public void confirmPayment(String login) throws BaseException {
-        Course course = courseManager.getOngoingCourse(login);
+    public void confirmPayment(ConfirmPaymentDto confirmPaymentDto) throws BaseException {
+        Course course = courseManager.getOngoingCourse(confirmPaymentDto.getLogin());
         CourseDto courseDto = Mappers.getMapper(CourseMapper.class).toCourseDto(course);
         verifyEntityIntegrity(courseDto);
-        paymentManager.confirmPayment(course, getLogin());
+        paymentManager.confirmPayment(confirmPaymentDto.getAdminComment(), course, getLogin());
     }
 
     @Override

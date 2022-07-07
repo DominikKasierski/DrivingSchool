@@ -284,7 +284,7 @@
   "exception.not_found_exception.course_details_not_found_exception": "Szczegóły kursu nie zostały znalezione",
   "exception.course_exception.no_ongoing_course_exception": "Kursant nie posiada aktualnie żadnego rozpoczętego kursu",
 
-  "my.payments.cancel.success": "Płatność została pomyślnie anulowana",
+  "my.payments.cancel.success": "Wpłata została pomyślnie anulowana",
   "paymentStatus": "Status płatności",
   "value": "Wartość",
   "traineeComment": "Komentarz kursanta",
@@ -298,7 +298,7 @@
   "REJECTED": "Odrzucona",
 
   "report.payment.title": "Wprowadź dane płatności",
-  "report.payment.report.success": "Płatność została pomyślnie zgłoszona",
+  "report.payment.report.success": "Wpłata została pomyślnie zgłoszona",
   "report.payment.report": "Zgłoś",
   "report.payment.value": "Wartość wpłaty",
   "report.payment.comment": "Komentarz",
@@ -307,5 +307,13 @@
   "exception.payment_exception.payment_in_progress_exception": "Inna płatność została już zgłoszona i oczekuje aktualnie na zatwierdzenie",
   "exception.payment_exception.course_overpaid_exception": "Wartość wpłat przekracza cenę kursu",
 
-  "navigation.bar.payments.for.approval": "Wpłaty do zatwierdzenia"
+  "confirm/reject": "Potwierdź/Odrzuć",
+  "navigation.bar.payments.for.approval": "Wpłaty do zatwierdzenia",
+  "edit.payment.confirm.success": "Wpłata została pomyślnie zatwierdzona",
+  "edit.payment": "Edytuj wpłatę",
+  "edit.payment.title": "Zatwierdź/odrzuć wpłatę",
+  "edit.payment.reject.success": "Wpłata została pomyślnie odrzucona",
+  "edit.payment.comment.not.required": "Komentarz jest opcjonalny",
+  "edit.payment.confirm": "Zatwierdź wpłatę",
+  "edit.payment.reject": "Odrzuć wpłatę"
 }

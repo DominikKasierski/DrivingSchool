@@ -60,10 +60,10 @@ public class PaymentController extends AbstractController {
     @PUT
     @EtagFilterBinding
     @RolesAllowed("confirmPayment")
-    @Path("/confirmPayment/{login}")
+    @Path("/confirmPayment")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void confirmPayment(@NotNull @Login @PathParam("login") @Valid String login) throws BaseException {
-        repeat(() -> paymentEndpoint.confirmPayment(login), paymentEndpoint);
+    public void confirmPayment(@NotNull @Valid ConfirmPaymentDto confirmPaymentDto) throws BaseException {
+        repeat(() -> paymentEndpoint.confirmPayment(confirmPaymentDto), paymentEndpoint);
     }
 
     @PUT
