@@ -78,7 +78,7 @@
   "form.validation.field.image.pattern": "Niepoprawny format adres URL",
 
   "form.validation.field.comment.min.size": "Treść komentarza musi mieć minimum 4 znaki",
-  "form.validation.field.comment.max.size": "Treść komentarza może mieć maksymalnie 255 znaków",
+  "form.validation.field.comment.max.size": "Treść komentarza może mieć maksymalnie 50 znaków",
 
   "form.validation.field.price.min.size": "Cena jest za mała",
   "form.validation.field.price.max.size": "Cena jest za duża",
@@ -299,5 +299,11 @@
 
   "report.payment.title": "Wprowadź dane płatności",
   "report.payment.report.success": "Płatność została pomyślnie zgłoszona",
-  "report.payment.report": "Zgłoś"
+  "report.payment.report": "Zgłoś",
+  "report.payment.value": "Wartość wpłaty",
+  "report.payment.comment": "Komentarz",
+
+  "exception.payment_exception.no_payment_in_progress_exception": "Brak płatności oczekujących na zatwierdzenie",
+  "exception.payment_exception.payment_in_progress_exception": "Inna płatność została już zgłoszona i oczekuje aktualnie na zatwierdzenie",
+  "exception.payment_exception.course_overpaid_exception": "Wartość wpłat przekracza cenę kursu"
 }

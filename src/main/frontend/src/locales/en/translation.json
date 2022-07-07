@@ -78,7 +78,7 @@
   "form.validation.field.image.pattern": "Image URL does not meet pattern requirements",
 
   "form.validation.field.comment.min.size": "Comment must be at least 4 characters long",
-  "form.validation.field.comment.max.size": "Comment can be up to 255 characters long",
+  "form.validation.field.comment.max.size": "Comment can be up to 50 characters long",
 
   "form.validation.field.price.min.size": "Price is too low",
   "form.validation.field.price.max.size": "Price is too big",
@@ -299,5 +299,11 @@
 
   "report.payment.title": "Enter payment details",
   "report.payment.report.success": "Payment has been successfully reported",
-  "report.payment.report": "Report"
+  "report.payment.report": "Report",
+  "report.payment.value": "Payment value",
+  "report.payment.comment": "Comment",
+
+  "exception.payment_exception.no_payment_in_progress_exception": "No payments pending confirmation",
+  "exception.payment_exception.payment_in_progress_exception": "Another payment has already been reported and is currently pending confirmation",
+  "exception.payment_exception.course_overpaid_exception": "Value of payments exceeds price of the course"
 }

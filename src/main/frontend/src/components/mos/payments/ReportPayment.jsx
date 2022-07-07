@@ -6,23 +6,38 @@ import FormInput from "../../utils/form/FormInput";
 import {withNamespaces} from "react-i18next";
 import {useLocale} from "../../utils/login/LoginProvider";
 import {useDangerNotification, useSuccessNotification} from "../../utils/notifications/NotificationProvider";
-import {usePermanentChangeDialog} from "../../utils/dialogs/DialogProvider";
 import axios from "axios";
 import {ResponseErrorsHandler} from "../../utils/handlers/ResponseErrorsHandler";
 import {validatorFactory, ValidatorType} from "../../utils/validators/Validators";
+import {useEffect, useState} from "react";
+import OptionalFormInput from "../../utils/form/OptionalFormInput";
 
 function ReportPayment(props) {
     const {t, i18n} = props
     const {token, setToken} = useLocale();
+    const [etag, setEtag] = useState();
 
     const dispatchSuccessNotification = useSuccessNotification();
     const dispatchDangerNotification = useDangerNotification();
     const history = useHistory()
 
     const initialValues = {
-        value: NaN,
+        value: '',
         comment: ''
     }
+
+    useEffect(() => {
+        getEtag().then(r => setEtag(r));
+    }, []);
+
+    const getEtag = async () => {
+        const response = await axios.get(`/resources/course/getCourse`, {
+            headers: {
+                "Authorization": token,
+            }
+        })
+        return response.headers.etag;
+    };
 
     function handleSubmit(values, setSubmitting) {
         setSubmitting(true);
@@ -31,7 +46,8 @@ function ReportPayment(props) {
             comment: values.comment
         }, {
             headers: {
-                "Authorization": token,
+                "If-Match": etag,
+                "Authorization": token
             }
         }).then(res => {
             history.push("/myPayments");
@@ -46,8 +62,8 @@ function ReportPayment(props) {
     function validate(values) {
         const errors = {}
 
-        const priceErrors = validatorFactory(values.price, ValidatorType.PRICE)
-        if (priceErrors.length !== 0) errors.price = priceErrors
+        const valueErrors = validatorFactory(values.value, ValidatorType.PRICE)
+        if (valueErrors.length !== 0) errors.value = valueErrors
 
         const commentErrors = validatorFactory(values.comment, ValidatorType.COMMENT)
         if (commentErrors.length !== 0) errors.comment = commentErrors
@@ -77,10 +93,10 @@ function ReportPayment(props) {
                                 validate={validate}
                                 onSubmit={(values, {setSubmitting}) => handleSubmit(values, setSubmitting)}>
                                 <Form className={"row"}>
-                                    <FormInput name="price" placeholder={t("price") + " (" + t("currency") + ")"} type="text"
+                                    <FormInput name="value" placeholder={t("report.payment.value") + " (" + t("currency") + ")"} type="text"
                                                className="col-12 ml-4" errorClassname="ml-4 text-danger mr-5"/>
-                                    <FormInput name="comment" placeholder={t("comment")} type="text"
-                                               className="col-12 ml-4" errorClassname="ml-4 text-danger mr-5"/>
+                                    <OptionalFormInput name="comment" placeholder={t("report.payment.comment")} type="text"
+                                               className="col-12 ml-5" errorClassname="ml-2 text-danger mr-5"/>
 
                                     <div className="col-12 d-flex justify-content-center mt-4">
                                         <button className="btn btn-dark btn-block dim" type="submit">
