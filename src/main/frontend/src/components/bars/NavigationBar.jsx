@@ -89,8 +89,8 @@ function NavigationBar(props) {
                                         </DropdownToggle>
 
                                         <Dropdown.Menu>
-                                            <Dropdown.Item as={Link} to="/reportedPayments">
-                                                {t('navigation.bar.reported.payments')}
+                                            <Dropdown.Item as={Link} to="/paymentsForApproval">
+                                                {t('navigation.bar.payments.for.approval')}
                                             </Dropdown.Item>
                                             <Dropdown.Item as={Link} to="/addPayment">
                                                 {t('navigation.bar.add.payment')}

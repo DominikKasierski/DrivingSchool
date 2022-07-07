@@ -43,7 +43,7 @@ function ReportPayment(props) {
         setSubmitting(true);
         axios.post(`/resources/payment/createPayment`, {
             value: values.value,
-            comment: values.comment
+            comment: values.comment ? values.comment : null
         }, {
             headers: {
                 "If-Match": etag,
@@ -65,8 +65,10 @@ function ReportPayment(props) {
         const valueErrors = validatorFactory(values.value, ValidatorType.PRICE)
         if (valueErrors.length !== 0) errors.value = valueErrors
 
-        const commentErrors = validatorFactory(values.comment, ValidatorType.COMMENT)
-        if (commentErrors.length !== 0) errors.comment = commentErrors
+        if (values.comment !== '') {
+            const commentErrors = validatorFactory(values.comment, ValidatorType.COMMENT)
+            if (commentErrors.length !== 0) errors.comment = commentErrors
+        }
 
         return errors
     }

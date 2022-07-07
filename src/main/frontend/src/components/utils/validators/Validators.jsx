@@ -94,7 +94,7 @@ const validateComment = (data) => {
 
 const validatePrice = (data) => {
     let errors = [];
-    errors.push(sizeValidator(data, 1, 8));
+    errors.push(sizeValidator(data, 1, 4));
     errors.push(patternValidator(data, /^(\d*\.)?\d+$/));
     return errors.filter(err => err !== undefined);
 }

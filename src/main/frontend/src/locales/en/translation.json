@@ -305,5 +305,7 @@
 
   "exception.payment_exception.no_payment_in_progress_exception": "No payments pending confirmation",
   "exception.payment_exception.payment_in_progress_exception": "Another payment has already been reported and is currently pending confirmation",
-  "exception.payment_exception.course_overpaid_exception": "Value of payments exceeds price of the course"
+  "exception.payment_exception.course_overpaid_exception": "Value of payments exceeds price of the course",
+
+  "navigation.bar.payments.for.approval": "Payments for approval"
 }

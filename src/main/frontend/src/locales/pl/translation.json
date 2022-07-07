@@ -305,5 +305,7 @@
 
   "exception.payment_exception.no_payment_in_progress_exception": "Brak płatności oczekujących na zatwierdzenie",
   "exception.payment_exception.payment_in_progress_exception": "Inna płatność została już zgłoszona i oczekuje aktualnie na zatwierdzenie",
-  "exception.payment_exception.course_overpaid_exception": "Wartość wpłat przekracza cenę kursu"
+  "exception.payment_exception.course_overpaid_exception": "Wartość wpłat przekracza cenę kursu",
+
+  "navigation.bar.payments.for.approval": "Wpłaty do zatwierdzenia"
 }
