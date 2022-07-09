@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class UnderpaymentDto {
 
+    private String courseCategory;
     private String login;
     private String firstname;
     private String lastname;

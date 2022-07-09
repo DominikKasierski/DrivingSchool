@@ -170,6 +170,7 @@
   "currency": "ZŁ",
   "confirmed": "Potwierdzone",
   "enabled": "Aktywne",
+  "no.results": "Brak wyników",
 
   "error.rest.validation": "Wprowadzone dane są nieprawidłowe",
   "exception.database_exception.query_exception": "Wystąpił błąd podczas wykonywania zapytania do bazy danych",
@@ -292,7 +293,7 @@
   "creationDate": "Data zgłoszenia",
   "modificationDate": "Data ostatniej modyfikacji",
 
-  "CANCELLED": "Anulowana",
+  "CANCELLED": "Anulowana albo i nie",
   "IN_PROGRESS": "W trakcie",
   "CONFIRMED": "Zatwierdzona",
   "REJECTED": "Odrzucona",
@@ -319,5 +320,9 @@
 
   "underpayments.title": "Konta z niedopłatą",
   "underpayments.fetch.success": "Kategoria została pomyślnie zmieniona",
-  "underpayments.add.payment": "Dodaj płatność"
+  "underpayments.add.payment": "Dodaj płatność",
+  "underpayments.selected.category": "Wybrana kategoria",
+
+  "add.payment.title": "Dodaj wpłatę dla",
+  "add.payment.success": "Wpłata została pomyślnie dodana"
 }

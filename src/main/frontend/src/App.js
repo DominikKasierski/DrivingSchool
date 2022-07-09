@@ -1,11 +1,11 @@
 import './App.scss';
-import React, {useState, useEffect} from 'react';
 import {HashRouter, Route, Switch} from 'react-router-dom';
-import {GuardProvider, GuardedRoute} from 'react-router-guards';
+import {useLocale} from "./components/utils/login/LoginProvider";
 import jwt_decode from "jwt-decode";
+import React, {useState, useEffect} from 'react';
+import {GuardProvider, GuardedRoute} from 'react-router-guards';
 import NotFound from "./components/errorpages/NotFound";
 import Home from "./components/home/Home"
-import {useLocale} from "./components/utils/login/LoginProvider";
 import NavigationBar from "./components/bars/NavigationBar";
 import Forbidden from "./components/errorpages/Forbidden";
 import InternalError from "./components/errorpages/InternalError";
@@ -22,14 +22,15 @@ import AccountList from "./components/mok/accounts/AccountList";
 import EditOwnAccount from "./components/mok/accountedit/EditOwnAccount";
 import EmailChangeConfirmation from "./components/mok/accountedit/EmailChangeConfirmation";
 import EditOtherAccount from "./components/mok/accountedit/EditOtherAccount";
-import addVehicle from "./components/mos/vehicles/AddVehicle";
-import editVehicle from "./components/mos/vehicles/EditVehicle";
-import beginCourse from "./components/mos/course/BeginCourse";
 import MyPayments from "./components/mos/payments/MyPayments";
 import ReportPayment from "./components/mos/payments/ReportPayment";
 import PaymentsForApproval from "./components/mos/payments/PaymentsForApproval";
 import EditPayment from "./components/mos/payments/EditPayment";
 import Underpayments from "./components/mos/payments/Underpayments";
+import AddPayment from "./components/mos/payments/AddPayment";
+import AddVehicle from "./components/mos/vehicles/AddVehicle";
+import EditVehicle from "./components/mos/vehicles/EditVehicle";
+import BeginCourse from "./components/mos/course/BeginCourse";
 
 function App() {
     const {token, currentRole, setCurrentRole, setUsername} = useLocale();
@@ -83,14 +84,15 @@ function App() {
                             <GuardedRoute exact path="/changeEmail/confirm/:code" component={EmailChangeConfirmation} meta={{}}/>
                             <GuardedRoute exact path="/accounts" component={AccountList} meta={{}}/>
                             <GuardedRoute exact path="/editOtherAccount" component={EditOtherAccount} meta={{}}/>
-                            <GuardedRoute exact path="/addVehicle" component={addVehicle} meta={{}}/>
-                            <GuardedRoute exact path="/editVehicle" component={editVehicle} meta={{}}/>
-                            <GuardedRoute exact path="/beginCourse" component={beginCourse} meta={{}}/>
+                            <GuardedRoute exact path="/addVehicle" component={AddVehicle} meta={{}}/>
+                            <GuardedRoute exact path="/editVehicle" component={EditVehicle} meta={{}}/>
+                            <GuardedRoute exact path="/beginCourse" component={BeginCourse} meta={{}}/>
                             <GuardedRoute exact path="/myPayments" component={MyPayments} meta={{}}/>
                             <GuardedRoute exact path="/reportPayment" component={ReportPayment} meta={{}}/>
                             <GuardedRoute exact path="/paymentsForApproval" component={PaymentsForApproval} meta={{}}/>
                             <GuardedRoute exact path="/editPayment" component={EditPayment} meta={{}}/>
                             <GuardedRoute exact path="/underpayments" component={Underpayments} meta={{}}/>
+                            <GuardedRoute exact path="/addPayment" component={AddPayment} meta={{}}/>
 
                             <GuardedRoute exact path="/generateReport" component={Forbidden} meta={{}}/>
                             <GuardedRoute exact path="/lectureGroups" component={InternalError} meta={{}}/>

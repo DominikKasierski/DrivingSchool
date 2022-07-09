@@ -22,4 +22,11 @@ public class NewPaymentDto {
 
     @Comment
     private String comment;
+
+    public String getComment() {
+        if (comment != null) {
+            return comment;
+        }
+        return "";
+    }
 }

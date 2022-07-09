@@ -15,6 +15,7 @@ function Underpayments(props) {
     const {token, setToken} = useLocale();
     const [data, setData] = useState([
         {
+            courseCategory: "",
             login: "",
             firstname: "",
             lastname: "",
@@ -22,16 +23,17 @@ function Underpayments(props) {
             paid: "",
         }
     ]);
+    let courseCategory = permissionsConstant.A
 
     const dispatchSuccessNotification = useSuccessNotification();
     const dispatchDangerNotification = useDangerNotification();
     const history = useHistory()
 
     useEffect(() => {
-        fetchData(permissionsConstant.A);
+        fetchData();
     }, []);
 
-    const fetchData = (courseCategory, notification = false) => {
+    const fetchData = (notification = false) => {
         if (token) {
             axios.get(`/resources/payment/getUnderpayments/` + courseCategory, {
                 headers: {
@@ -82,16 +84,31 @@ function Underpayments(props) {
                                     </DropdownToggle>
                                     <Dropdown.Menu>
                                         <Dropdown.Item as="button"
-                                                       onClick={() => fetchData(permissionsConstant.A, true)}>A</Dropdown.Item>
+                                                       onClick={() => {
+                                                           courseCategory = permissionsConstant.A;
+                                                           fetchData(true)
+                                                       }
+                                                       }>A</Dropdown.Item>
                                         <Dropdown.Item as="button"
-                                                       onClick={() => fetchData(permissionsConstant.B, true)}>B</Dropdown.Item>
+                                                       onClick={() => {
+                                                           courseCategory = permissionsConstant.B;
+                                                           fetchData(true)
+                                                       }
+                                                       }>B</Dropdown.Item>
                                         <Dropdown.Item as="button"
-                                                       onClick={() => fetchData(permissionsConstant.C, true)}>C</Dropdown.Item>
+                                                       onClick={() => {
+                                                           courseCategory = permissionsConstant.C;
+                                                           fetchData(true)
+                                                       }
+                                                       }>C</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
                             </div>
-                        </div>
 
+                            <div className="col-12 text-center mt-2 mb-4">
+                                <span>{t("underpayments.selected.category")}: {data[0] ? data[0].courseCategory : t("no.results")}</span>
+                            </div>
+                        </div>
 
                         <table className="table table-hover table-bordered mt-2">
                             <thead className="dim">

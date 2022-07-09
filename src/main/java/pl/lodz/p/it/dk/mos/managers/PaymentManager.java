@@ -120,9 +120,9 @@ public class PaymentManager {
         payment.setModifiedBy(account);
 
         BigDecimal valueOfPayments = getValueOfPayments(course, BigDecimal.ZERO);
-        BigDecimal advanceThreshold = valueOfPayments.multiply(BigDecimal.valueOf(AMOUNT_OF_ADVANCE));
+        BigDecimal advanceThreshold = course.getCourseDetails().getPrice().multiply(BigDecimal.valueOf(AMOUNT_OF_ADVANCE));
 
-        if (!course.isAdvance() && advanceThreshold.compareTo(course.getCourseDetails().getPrice()) >= 0) {
+        if (!course.isAdvance() && valueOfPayments.compareTo(advanceThreshold) >= 0) {
             course.setAdvance(true);
         }
 
@@ -184,7 +184,7 @@ public class PaymentManager {
             String lastname = course.getCreatedBy().getLastname();
             BigDecimal price = course.getCourseDetails().getPrice();
             BigDecimal valueOfPayments = getValueOfPayments(course, BigDecimal.ZERO);
-            underpayments.add(new UnderpaymentDto(login, firstname, lastname, price, valueOfPayments));
+            underpayments.add(new UnderpaymentDto(courseCategory.name(), login, firstname, lastname, price, valueOfPayments));
         }
 
         return underpayments;
@@ -193,6 +193,7 @@ public class PaymentManager {
     @RolesAllowed("addPayment")
     public void addPayment(NewPaymentDto newPaymentDto, Course course, String login) throws BaseException {
         BigDecimal valueOfPayments = getValueOfPayments(course, newPaymentDto.getValue());
+        BigDecimal advanceThreshold = course.getCourseDetails().getPrice().multiply(BigDecimal.valueOf(AMOUNT_OF_ADVANCE));
 
         if (valueOfPayments.compareTo(course.getCourseDetails().getPrice()) > 0) {
             throw PaymentException.courseOverpaid();
@@ -200,10 +201,16 @@ public class PaymentManager {
             course.setPaid(true);
         }
 
+        if (!course.isAdvance() && valueOfPayments.compareTo(advanceThreshold) >= 0) {
+            course.setAdvance(true);
+        }
+
         Account account = accountManager.findByLogin(login);
         Payment payment = new Payment(course, newPaymentDto.getValue());
         payment.setPaymentStatus(PaymentStatus.CONFIRMED);
-        payment.setAdminComment(newPaymentDto.getComment());
+        if (!Objects.equals(newPaymentDto.getComment(), "")) {
+            payment.setAdminComment(newPaymentDto.getComment());
+        }
         payment.setCreatedBy(account);
 
         course.getPayments().add(payment);

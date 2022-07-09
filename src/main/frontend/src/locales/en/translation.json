@@ -170,6 +170,7 @@
   "currency": "PLN",
   "confirmed": "Confirmed",
   "enabled": "Enabled",
+  "no.results": "No results",
 
   "error.rest.validation": "The entered data is incorrect",
   "exception.database_exception.query_exception": "There was an error executing database query",
@@ -319,5 +320,9 @@
 
   "underpayments.title": "Accounts with underpayment",
   "underpayments.fetch.success": "Category has been successfully changed",
-  "underpayments.add.payment": "Add payment"
+  "underpayments.add.payment": "Add payment",
+  "underpayments.selected.category": "Selected category",
+
+  "add.payment.title": "Add payment for",
+  "add.payment.success": "Payment has been successfully added"
 }
