@@ -311,7 +311,7 @@
   "navigation.bar.payments.for.approval": "Wpłaty do zatwierdzenia",
   "edit.payment.confirm.success": "Wpłata została pomyślnie zatwierdzona",
   "edit.payment": "Edytuj wpłatę",
-  "edit.payment.title": "Zatwierdź/odrzuć wpłatę",
+  "edit.payment.title": "Zatwierdź/odrzuć wpłatę od",
   "edit.payment.reject.success": "Wpłata została pomyślnie odrzucona",
   "edit.payment.comment.not.required": "Komentarz jest opcjonalny",
   "edit.payment.confirm": "Zatwierdź wpłatę",

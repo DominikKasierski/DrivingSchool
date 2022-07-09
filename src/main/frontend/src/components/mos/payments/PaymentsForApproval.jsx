@@ -84,7 +84,7 @@ function PaymentsForApproval(props) {
                             </thead>
                             <tbody>
 
-                            {data.length > 1 && data.map((item) => (
+                            {data.length > 0 && data.map((item) => (
                                 <tr>
                                     <td className={"text-center align-middle"}>{item.creationDate !== undefined ?
                                         dateConverter(item.creationDate.slice(0, -5)) : "-"}</td>

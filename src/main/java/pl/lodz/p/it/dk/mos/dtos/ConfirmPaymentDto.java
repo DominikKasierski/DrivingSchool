@@ -16,4 +16,11 @@ public class ConfirmPaymentDto {
 
     @Comment
     private String adminComment;
+
+    public String getAdminComment() {
+        if (adminComment != null) {
+            return adminComment;
+        }
+        return "";
+    }
 }

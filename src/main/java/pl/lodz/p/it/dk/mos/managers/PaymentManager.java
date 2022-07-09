@@ -25,10 +25,7 @@ import javax.servlet.ServletContext;
 import javax.ws.rs.core.Context;
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Stateless
@@ -116,7 +113,9 @@ public class PaymentManager {
         Account account = accountManager.findByLogin(login);
 
         payment.setPaymentStatus(PaymentStatus.CONFIRMED);
-        payment.setAdminComment(adminComment);
+        if (!Objects.equals(adminComment, "")) {
+            payment.setAdminComment(adminComment);
+        }
         payment.setModificationDate(Date.from(Instant.now()));
         payment.setModifiedBy(account);
 
@@ -153,7 +152,9 @@ public class PaymentManager {
         Account adminAccount = accountManager.findByLogin(login);
 
         payment.setPaymentStatus(PaymentStatus.REJECTED);
-        payment.setAdminComment(adminComment);
+        if (!Objects.equals(adminComment, "")) {
+            payment.setAdminComment(adminComment);
+        }
         payment.setModificationDate(Date.from(Instant.now()));
         payment.setModifiedBy(adminAccount);
 

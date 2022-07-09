@@ -45,11 +45,13 @@ function EditPayment(props) {
 
     function handleSubmit(values, setSubmitting) {
         setSubmitting(true);
-        axios.post(`/resources/payment/` + confirm ? "confirmPayment" : "rejectPayment", {
+        let url = confirm ? "confirmPayment" : "rejectPayment";
+        axios.put(`/resources/payment/` + url, {
             login: parsedQuery.login,
-            comment: values.comment ? values.comment : null
+            adminComment: values.comment ? values.comment : null
         }, {
             headers: {
+                "Content-Type": "application/json",
                 "If-Match": etag,
                 "Authorization": token
             }
@@ -82,17 +84,18 @@ function EditPayment(props) {
         <div className="mb-2 container-fluid">
             <Breadcrumb>
                 <li className="breadcrumb-item"><Link className={"text-dark"} to="/">{t("navigation.bar.main.page")}</Link></li>
-                <li className="breadcrumb-item"><Link className={"text-dark"} to="/">{t("navigation.bar.payments.for.approval")}</Link></li>
+                <li className="breadcrumb-item"><Link className={"text-dark"}
+                                                      to="/paymentsForApproval">{t("navigation.bar.payments.for.approval")}</Link></li>
                 <li className="breadcrumb-item active text-secondary"
                     aria-current="page">{t('edit.payment')}</li>
             </Breadcrumb>
             <Container>
                 <Row>
-                    <Col xs={11} sm={10} md={8} lg={7} xl={6} className={"floating py-3 mx-auto mb-3 mt-4"}>
+                    <Col xs={11} sm={10} md={8} lg={8} xl={7} className={"floating py-3 mx-auto mb-3 mt-4"}>
                         <div className="py-2">
-                            <h1 className="font-weight-light text-center mb-4">{t("edit.payment.title")}</h1>
+                            <h1 className="font-weight-light text-center mb-4">{t("edit.payment.title")}: {parsedQuery.login}</h1>
 
-                            <div className="col-12 text-center mt-2 mb-4">
+                            <div className="col-12 text-center mt-2 mb-3">
                                 <span>{t("edit.payment.comment.not.required")}</span>
                             </div>
 
@@ -106,19 +109,19 @@ function EditPayment(props) {
 
                                     <div className="col-12 d-flex justify-content-center mt-3">
                                         <button className="btn btn-dark btn-block dim" onClick={() => {
-                                            confirm = true;
+                                            confirm = false;
                                             submitForm();
                                         }}>
-                                            {t('edit.payment.confirm')}
+                                            {t('edit.payment.reject')}
                                         </button>
                                     </div>
 
                                     <div className="col-12 d-flex justify-content-center mt-2">
                                         <button className="btn btn-dark btn-block dim" onClick={() => {
-                                            confirm = false;
+                                            confirm = true;
                                             submitForm();
                                         }}>
-                                            {t('edit.payment.reject')}
+                                            {t('edit.payment.confirm')}
                                         </button>
                                     </div>
                                 </Form>

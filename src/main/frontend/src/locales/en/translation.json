@@ -311,7 +311,7 @@
   "navigation.bar.payments.for.approval": "Payments for approval",
   "edit.payment.confirm.success": "Payment has been successfully confirmed",
   "edit.payment": "Edit payment",
-  "edit.payment.title": "Confirm/Reject payment",
+  "edit.payment.title": "Confirm/Reject payment from",
   "edit.payment.comment.not.required": "Comment is optional",
   "edit.payment.reject.success": "Payment has been successfully rejected",
   "edit.payment.confirm": "Confirm payment",
