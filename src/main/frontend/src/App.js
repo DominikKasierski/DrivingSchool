@@ -29,6 +29,7 @@ import MyPayments from "./components/mos/payments/MyPayments";
 import ReportPayment from "./components/mos/payments/ReportPayment";
 import PaymentsForApproval from "./components/mos/payments/PaymentsForApproval";
 import EditPayment from "./components/mos/payments/EditPayment";
+import Underpayments from "./components/mos/payments/Underpayments";
 
 function App() {
     const {token, currentRole, setCurrentRole, setUsername} = useLocale();
@@ -89,8 +90,8 @@ function App() {
                             <GuardedRoute exact path="/reportPayment" component={ReportPayment} meta={{}}/>
                             <GuardedRoute exact path="/paymentsForApproval" component={PaymentsForApproval} meta={{}}/>
                             <GuardedRoute exact path="/editPayment" component={EditPayment} meta={{}}/>
+                            <GuardedRoute exact path="/underpayments" component={Underpayments} meta={{}}/>
 
-                            <GuardedRoute exact path="/addPayment" component={InternalError} meta={{}}/>
                             <GuardedRoute exact path="/generateReport" component={Forbidden} meta={{}}/>
                             <GuardedRoute exact path="/lectureGroups" component={InternalError} meta={{}}/>
                             <GuardedRoute exact path="/addLectureGroup" component={Forbidden} meta={{}}/>
