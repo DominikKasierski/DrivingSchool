@@ -333,5 +333,9 @@
   "generate.report.from": "Od dnia",
   "generate.report.to": "Do dnia",
   "generate.report.generate": "Generuj raport",
-  "generate.report.time": "Czas"
+  "generate.report.time": "Czas",
+
+  "lecture.groups.group.name": "Nazwa grupy wykładowej",
+  "lecture.groups.add.participants": "Dodaj uczestników",
+  "lecture.groups.add.lecture": "Dodaj wykłady"
 }

@@ -16,7 +16,6 @@ import Breadcrumb from "../../bars/Breadcrumb";
 import {Link} from "react-router-dom";
 import {Col, Container, Row} from "react-bootstrap";
 import CustomDatePicker from "./CustomDatePicker";
-import {dateConverter} from "../../../i18n";
 
 function GenerateReport(props) {
     const {t, i18n} = props

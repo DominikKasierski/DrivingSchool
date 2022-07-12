@@ -333,5 +333,9 @@
   "generate.report.from": "From date",
   "generate.report.to": "To date",
   "generate.report.generate": "Generate report",
-  "generate.report.time": "Time"
+  "generate.report.time": "Time",
+
+  "lecture.groups.group.name": "Lecture group name",
+  "lecture.groups.add.participants": "Add participants",
+  "lecture.groups.add.lecture": "Add lectures"
 }

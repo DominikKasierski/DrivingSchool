@@ -56,9 +56,9 @@ VALUES (-1, 'A', 2000, 30, 20, now(), null, -1, null, 1),
 
 ---- Create lecture groups ----
 INSERT INTO lecture_group (id, name, course_category, creation_date, modification_date, created_by, modified_by, version)
-VALUES (-1, 'PierwszaGrupaA', 'A', now(), null, -1, null, 1),
-       (-2, 'PierwszaGrupaB', 'B', now(), null, -1, null, 1),
-       (-3, 'PierwszaGrupaC', 'C', now(), null, -1, null, 1);
+VALUES (-1, 'Ghost Riderzy', 'A', now(), null, -1, null, 1),
+       (-2, 'Driverzy', 'B', now(), null, -1, null, 1),
+       (-3, 'Rajdowcy', 'C', now(), null, -1, null, 1);
 
 ---- Create courses ----
 INSERT INTO course (id, trainee_id, course_details_id, lecture_group_id, advance, paid, lectures_completion, driving_completion,
