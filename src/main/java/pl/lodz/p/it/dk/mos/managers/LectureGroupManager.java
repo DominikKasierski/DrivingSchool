@@ -74,7 +74,7 @@ public class LectureGroupManager {
 
         if (course.getLectureGroup() != null) {
             throw LectureGroupException.alreadyAssigned();
-        } else if (!course.isPaid()) {
+        } else if (!course.isAdvance()) {
             throw LectureGroupException.unpaidCourse();
         } else if (!lectureGroup.getLectures().isEmpty()) {
             throw LectureGroupException.lecturesStarted();

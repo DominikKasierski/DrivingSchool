@@ -337,5 +337,14 @@
 
   "lecture.groups.group.name": "Nazwa grupy wykładowej",
   "lecture.groups.add.participants": "Dodaj uczestników",
-  "lecture.groups.add.lecture": "Dodaj wykłady"
+  "lecture.groups.add.lecture": "Dodaj wykłady",
+  "lecture.groups.group.size": "Liczba uczestników",
+
+  "add.participants": "Add participants",
+  "add.participants.selected.group": "Selected group",
+  "add.participants.add.success": "Kursant został pomyślnie przypisany do grupy",
+
+  "exception.lecture_group_exception.already_assigned_exception": "Kursant posiada już grupę wykładową",
+  "exception.lecture_group_exception.unpaid_course_exception": "Zaliczka nie została jeszcze wpłacona",
+  "exception.lecture_group_exception.lectures_already_started_exception": "Wykłady dla grupy już się rozpoczęły"
 }

@@ -337,5 +337,14 @@
 
   "lecture.groups.group.name": "Lecture group name",
   "lecture.groups.add.participants": "Add participants",
-  "lecture.groups.add.lecture": "Add lectures"
+  "lecture.groups.add.lecture": "Add lectures",
+  "lecture.groups.group.size": "Participants number",
+
+  "add.participants": "Add participants",
+  "add.participants.selected.group": "Selected group",
+  "add.participants.add.success": "Trainee has been successfully assigned to the group",
+
+  "exception.lecture_group_exception.already_assigned_exception": "Trainee already has lecture group",
+  "exception.lecture_group_exception.unpaid_course_exception": "Advance has not yet been paid",
+  "exception.lecture_group_exception.lectures_already_started_exception": "Lectures for the group have already started"
 }

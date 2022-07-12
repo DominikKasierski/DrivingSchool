@@ -2,7 +2,7 @@
 INSERT INTO account (id, enabled, confirmed, login, email_address, new_email_address, password, firstname, lastname, language,
                      phone_number, failed_login_attempts, creation_date, modification_date, created_by, modified_by, version)
 VALUES (-1, true, true, 'kszczesniak', 'kszczeniak@gmail.com', null,
-        'bdd2297f93550f01452cbd838c276f0dd22f498b4661394f1528ab88d6e63e6f', 'Krzysztof', 'Szczesniak', 'pl', '999888777', 0,
+        'bdd2297f93550f01452cbd838c276f0dd22f498b4661394f1528ab88d6e63e6f', 'Krzysztof', 'Szcześniak', 'pl', '999888777', 0,
         now(), null, -1, null, 1),
        (-2, true, true, 'aadamski', 'adamadamski131@gmail.com', null,
         'bdd2297f93550f01452cbd838c276f0dd22f498b4661394f1528ab88d6e63e6f', 'Adam', 'Adamski', 'pl', '999888666', 0,
@@ -15,6 +15,15 @@ VALUES (-1, true, true, 'kszczesniak', 'kszczeniak@gmail.com', null,
         now(), null, -1, null, 1),
        (-5, true, true, 'tomek', 'tomek@gmail.com', null,
         'bdd2297f93550f01452cbd838c276f0dd22f498b4661394f1528ab88d6e63e6f', 'Tomasz', 'Tomkowski', 'pl', '999223555', 0,
+        now(), null, -1, null, 1),
+       (-6, true, true, 'KonradL', 'konrad@gmail.com', null,
+        'bdd2297f93550f01452cbd838c276f0dd22f498b4661394f1528ab88d6e63e6f', 'Konrad', 'Lis', 'pl', '999000555', 0,
+        now(), null, -1, null, 1),
+       (-7, true, true, 'Bartek20', 'bartek@gmail.com', null,
+        'bdd2297f93550f01452cbd838c276f0dd22f498b4661394f1528ab88d6e63e6f', 'Bartek', 'Barański', 'pl', '123223555', 0,
+        now(), null, -1, null, 1),
+       (-8, true, true, 'WojTas', 'wojtek@gmail.com', null,
+        'bdd2297f93550f01452cbd838c276f0dd22f498b4661394f1528ab88d6e63e6f', 'Wojtek', 'Kowalski', 'pl', '532223555', 0,
         now(), null, -1, null, 1);
 
 ---- Create user accesses ----
@@ -24,7 +33,10 @@ VALUES (-1, 'ADMIN', true, -1, now(), null, -1, null, 1),
        (-3, 'INSTRUCTOR', true, -2, now(), null, -1, null, 1),
        (-4, 'TRAINEE', true, -3, now(), null, -1, null, 1),
        (-5, 'TRAINEE', true, -4, now(), null, -1, null, 1),
-       (-6, 'TRAINEE', true, -5, now(), null, -1, null, 1);
+       (-6, 'TRAINEE', true, -5, now(), null, -1, null, 1),
+       (-7, 'TRAINEE', true, -6, now(), null, -1, null, 1),
+       (-8, 'TRAINEE', true, -7, now(), null, -1, null, 1),
+       (-9, 'TRAINEE', true, -8, now(), null, -1, null, 1);
 
 ---- Create access extension tables ----
 INSERT INTO admin_access (id)
@@ -39,6 +51,12 @@ INSERT INTO trainee_access (id)
 VALUES (-5);
 INSERT INTO trainee_access (id)
 VALUES (-6);
+INSERT INTO trainee_access (id)
+VALUES (-7);
+INSERT INTO trainee_access (id)
+VALUES (-8);
+INSERT INTO trainee_access (id)
+VALUES (-9);
 
 INSERT INTO instructors_permissions(instructor_id, permissions)
 VALUES (-2, 'A'),
@@ -64,7 +82,11 @@ VALUES (-1, 'Ghost Riderzy', 'A', now(), null, -1, null, 1),
 INSERT INTO course (id, trainee_id, course_details_id, lecture_group_id, advance, paid, lectures_completion, driving_completion,
                     course_completion, creation_date, modification_date, created_by, modified_by, version)
 VALUES (-1, -4, -1, -1, false, false, false, false, false, now(), null, -3, null, 1),
-       (-2, -5, -2, -2, false, false, false, false, false, now(), null, -4, null, 1);
+       (-2, -5, -2, -2, false, false, false, false, false, now(), null, -4, null, 1),
+       (-3, -6, -2, null, true, false, false, false, false, now(), null, -5, null, 1),
+       (-4, -7, -1, null, true, true, false, false, false, now(), null, -6, null, 1),
+       (-5, -8, -1, null, true, false, false, false, false, now(), null, -7, null, 1),
+       (-6, -9, -3, null, true, false, false, false, false, now(), null, -8, null, 1);
 
 ---- Create payments ----
 INSERT INTO payment (id, payment_status, course_id, value, trainee_comment, admin_comment, creation_date, modification_date,
@@ -72,7 +94,12 @@ INSERT INTO payment (id, payment_status, course_id, value, trainee_comment, admi
 VALUES (-1, 'REJECTED', -1, 750, 'Pierwsza wpłata', 'Błędna kwota', now() - INTERVAL '1 day', null, -3, null, 1),
        (-2, 'IN_PROGRESS', -1, 700, 'Pierwsza wpłata - poprawiona', null, now() - INTERVAL '12 hour', null, -3, null, 1),
        (-3, 'CONFIRMED', -2, 500, 'Wpłata za kurs', null, now() - INTERVAL '4 hour', null, -4, null, 1),
-       (-4, 'IN_PROGRESS', -2, 500, 'Wpłata z 8.05.2021r.', null, now() - INTERVAL '1 hour', null, -4, null, 1);
+       (-4, 'IN_PROGRESS', -2, 500, 'Wpłata z wczoraj', null, now() - INTERVAL '1 hour', null, -4, null, 1),
+       (-5, 'CONFIRMED', -3, 1500, null, null, now() - INTERVAL '2 day', null, -1, null, 1),
+       (-6, 'CONFIRMED', -4, 2000, null, 'Opłacone pierwszego dnia', now() - INTERVAL '1 day', null, -1, null, 1),
+       (-7, 'Cancelled', -5, 1000, 'Wpłata z poniedziałku', null, now() - INTERVAL '2 day', null, -7, null, 1),
+       (-8, 'CONFIRMED', -5, 1050, 'Wpłata z poniedziałku', null, now() - INTERVAL '2 day', null, -7, null, 1),
+       (-9, 'CONFIRMED', -6, 2000, null, null, now() - INTERVAL '5 day', null, -1, null, 1);
 
 ---- Create cars ----
 INSERT INTO car (id, course_category, image, brand, model, registration_number, production_year, deleted, creation_date,

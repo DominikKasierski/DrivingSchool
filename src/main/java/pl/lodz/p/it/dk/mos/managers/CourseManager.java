@@ -99,7 +99,7 @@ public class CourseManager {
     public List<Course> getPaidCoursesWithoutLectureGroup(CourseCategory courseCategory) throws BaseException {
         List<Course> courses = courseFacade.findByCategory(courseCategory);
         return courses.stream()
-                .filter(x -> x.isPaid() && x.getLectureGroup() == null)
+                .filter(x -> x.isAdvance() && x.getLectureGroup() == null)
                 .collect(Collectors.toList());
     }
 

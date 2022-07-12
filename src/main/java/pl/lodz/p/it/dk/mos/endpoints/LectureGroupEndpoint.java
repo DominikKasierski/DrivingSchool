@@ -65,7 +65,7 @@ public class LectureGroupEndpoint extends AbstractEndpoint implements LectureGro
         List<LectureGroupDto> lectureGroupsDto = new ArrayList<>();
 
         for (LectureGroup lectureGroup : lectureGroups) {
-            lectureGroupsDto.add(Mappers.getMapper(LectureGroupMapper.class).toLectureGroupDto(lectureGroup));
+            lectureGroupsDto.add(Mappers.getMapper(LectureGroupMapper.class).toLectureGroupDto(lectureGroup, lectureGroup.getCourses().size()));
         }
 
         return lectureGroupsDto;
@@ -75,14 +75,14 @@ public class LectureGroupEndpoint extends AbstractEndpoint implements LectureGro
     @RolesAllowed("getLectureGroup")
     public LectureGroupDto getLectureGroup(Long id) throws BaseException {
         LectureGroup lectureGroup = lectureGroupManager.findById(id);
-        return Mappers.getMapper(LectureGroupMapper.class).toLectureGroupDto(lectureGroup);
+        return Mappers.getMapper(LectureGroupMapper.class).toLectureGroupDto(lectureGroup, lectureGroup.getCourses().size());
     }
 
     @Override
     @RolesAllowed("assignToLectureGroup")
     public void assignToLectureGroup(Long lectureGroupId, Long courseId) throws BaseException {
         LectureGroup lectureGroup = lectureGroupManager.findById(lectureGroupId);
-        LectureGroupDto lectureGroupDto = Mappers.getMapper(LectureGroupMapper.class).toLectureGroupDto(lectureGroup);
+        LectureGroupDto lectureGroupDto = Mappers.getMapper(LectureGroupMapper.class).toLectureGroupDto(lectureGroup, lectureGroup.getCourses().size());
         verifyEntityIntegrity(lectureGroupDto);
         lectureGroupManager.assignToLectureGroup(lectureGroup, courseId, getLogin());
     }
@@ -91,7 +91,7 @@ public class LectureGroupEndpoint extends AbstractEndpoint implements LectureGro
     @RolesAllowed("addLectureForGroup")
     public void addLectureForGroup(@NotNull @Valid NewLectureDto newLectureDto) throws BaseException {
         LectureGroup lectureGroup = lectureGroupManager.findById(newLectureDto.getLectureGroupId());
-        LectureGroupDto lectureGroupDto = Mappers.getMapper(LectureGroupMapper.class).toLectureGroupDto(lectureGroup);
+        LectureGroupDto lectureGroupDto = Mappers.getMapper(LectureGroupMapper.class).toLectureGroupDto(lectureGroup, lectureGroup.getCourses().size());
         verifyEntityIntegrity(lectureGroupDto);
         lectureGroupManager.addLectureForGroup(lectureGroup, newLectureDto.getDateFrom(), newLectureDto.getDateTo(),
                 newLectureDto.getInstructorLogin(), getLogin());

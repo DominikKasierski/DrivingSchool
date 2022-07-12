@@ -8,7 +8,7 @@ public class LectureGroupException extends BaseException {
     private static final String UNPAID_COURSE_EXCEPTION =
             "exception.lecture_group_exception.unpaid_course_exception";
     private static final String LECTURES_STARTED_EXCEPTION =
-            "exception.lecture_group_exception.already_assigned_exception";
+            "exception.lecture_group_exception.lectures_already_started_exception";
     private static final String INVALID_DATE_RANGE_EXCEPTION =
             "exception.lecture_group_exception.invalid_date_range_exception";
     private static final String TIME_FOR_ADDING_EXCEEDED_EXCEPTION =

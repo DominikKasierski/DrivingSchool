@@ -1,6 +1,6 @@
 import {withNamespaces} from "react-i18next";
 import {useLocale} from "../../utils/login/LoginProvider";
-import {Link, useHistory} from "react-router-dom";
+import {Link, useHistory, useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import Breadcrumb from "../../bars/Breadcrumb";
@@ -9,15 +9,18 @@ import {Col, Container, Row} from "react-bootstrap";
 function LectureGroupList(props) {
     const {t, i18n} = props
     const {token, setToken} = useLocale();
+    const {search} = useLocation();
     const [data, setData] = useState([
         {
             id: "",
             name: "",
             courseCategory: "",
+            coursesNumber: "",
         }
     ]);
 
     const history = useHistory()
+    const searchParams = new URLSearchParams(search);
 
     useEffect(() => {
         fetchData();
@@ -62,6 +65,7 @@ function LectureGroupList(props) {
                             <tr>
                                 <th className={"font-weight-normal text-center"} scope="col">{t("lecture.groups.group.name")}</th>
                                 <th className={"font-weight-normal text-center"} scope="col">{t("courseCategory")}</th>
+                                <th className={"font-weight-normal text-center"} scope="col">{t("lecture.groups.group.size")}</th>
                                 <th className={"font-weight-normal text-center"}
                                     scope="col">{t("lecture.groups.add.participants")}</th>
                                 <th className={"font-weight-normal text-center"}
@@ -74,10 +78,18 @@ function LectureGroupList(props) {
                                 <tr>
                                     <td className={"text-center align-middle"}>{item.name}</td>
                                     <td className={"text-center align-middle"}>{item.courseCategory}</td>
+                                    <td className={"text-center align-middle"}>{item.coursesNumber}</td>
                                     <td className={"text-center align-middle"}>
                                         <div className="d-flex justify-content-center align-items-center px-3">
                                             <button className="btn btn-dark btn-block dim"
-                                                    onClick={() => history.push("/addParticipants?id=" + item.id)}>
+                                                    onClick={() => {
+                                                        searchParams.set("id", item.id);
+                                                        searchParams.set("lectureGroupName", item.name);
+                                                        history.push({
+                                                            pathname: "/addParticipants",
+                                                            search: searchParams.toString()
+                                                        });
+                                                    }}>
                                                 {t('add')}
                                             </button>
                                         </div>

@@ -13,6 +13,7 @@ public class LectureGroupDto implements EntityToSign {
     private Long id;
     private String name;
     private String courseCategory;
+    private int coursesNumber;
     private Long version;
 
     @Override
