@@ -143,6 +143,12 @@ const validateVehicleModel = (data) => {
     return errors.filter(err => err !== undefined);
 }
 
+const validateLectureGroupName = (data) => {
+    let errors = [];
+    errors.push(sizeValidator(data, 4, 50));
+    return errors.filter(err => err !== undefined);
+}
+
 const changeValidationMessages = (errors, identity) => {
     return errors.map(x => {
         const translationString = x.replace("field", "field." + identity.toLowerCase());
@@ -167,7 +173,8 @@ export const ValidatorType = {
     VEHICLE_MODEL: "VEHICLE_MODEL",
     COURSE_CATEGORY: "COURSE_CATEGORY",
     REGISTRATION_NUMBER: "REGISTRATION_NUMBER",
-    PRODUCTION_YEAR: "PRODUCTION_YEAR"
+    PRODUCTION_YEAR: "PRODUCTION_YEAR",
+    LECTURE_GROUP_NAME: "LECTURE_GROUP_NAME"
 };
 
 export const validatorFactory = (data, validatorType) => {
@@ -204,6 +211,8 @@ export const validatorFactory = (data, validatorType) => {
             return changeValidationMessages(validateRegistrationNumber(data), 'REGISTRATION_NUMBER');
         case ValidatorType.PRODUCTION_YEAR:
             return changeValidationMessages(validateProductionYear(data), 'PRODUCTION_YEAR');
+        case ValidatorType.LECTURE_GROUP_NAME:
+            return changeValidationMessages(validateLectureGroupName(data), 'LECTURE_GROUP_NAME');
         default:
             return [];
     }

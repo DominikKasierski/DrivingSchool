@@ -101,6 +101,9 @@
   "form.validation.field.vehicle_model.max.size": "Model może mieć maksymalnie 20 znaków",
   "form.validation.field.vehicle_model.pattern": "Model może składać się tylko z małych liter i cyfr",
 
+  "form.validation.field.lecture_group_name.min.size": "Nazwa grupy wykładowej musi mieć minimum 4 znaki",
+  "form.validation.field.lecture_group_name.max.size": "Nazwa grupy wykładowe może mieć maksymalnie 50 znaków",
+
   "landing.page.courses": "Kursy na prawo jazdy",
   "landing.page.left": "kategoria A",
   "landing.page.center": "kategoria B",
@@ -122,7 +125,7 @@
   "navigation.bar.timetable": "Terminarz",
   "navigation.bar.lecture.groups": "Grupy wykładowe",
   "navigation.bar.lecture.groups.list": "Lista grup wykładowych",
-  "navigation.bar.add.lecture.group": "Dodaj grupę wykładową",
+  "navigation.bar.create.lecture.group": "Dodaj grupę wykładową",
   "navigation.bar.my.account": "Moje konto",
   "navigation.bar.logout": "Wyloguj się",
   "navigation.bar.main.page": "Strona główna",
@@ -340,11 +343,17 @@
   "lecture.groups.add.lecture": "Dodaj wykłady",
   "lecture.groups.group.size": "Liczba uczestników",
 
-  "add.participants": "Add participants",
-  "add.participants.selected.group": "Selected group",
+  "add.participants": "Dodaj uczestników",
+  "add.participants.selected.group": "Wybrana grupa",
   "add.participants.add.success": "Kursant został pomyślnie przypisany do grupy",
 
   "exception.lecture_group_exception.already_assigned_exception": "Kursant posiada już grupę wykładową",
   "exception.lecture_group_exception.unpaid_course_exception": "Zaliczka nie została jeszcze wpłacona",
-  "exception.lecture_group_exception.lectures_already_started_exception": "Wykłady dla grupy już się rozpoczęły"
+  "exception.lecture_group_exception.lectures_already_started_exception": "Wykłady dla grupy już się rozpoczęły",
+  "exception.lecture_group_exception.name_invalid_exception": "Nazwa grupy jest niepoprawna lub zajęta",
+
+  "create.lecture.group.success": "Grupa wykładowa została pomyślnie utworzona",
+  "create.lecture.group.title": "Utwórz grupę wykładową",
+  "create.lecture.group.create": "Utwórz"
+
 }

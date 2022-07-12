@@ -34,6 +34,7 @@ import BeginCourse from "./components/mos/course/BeginCourse";
 import GenerateReport from "./components/mos/report/GenerateReport";
 import LectureGroupList from "./components/mos/lecturegroups/LectureGroupList";
 import AddParticipants from "./components/mos/lecturegroups/AddParticipants";
+import CreateLectureGroup from "./components/mos/lecturegroups/CreateLectureGroup";
 
 function App() {
     const {token, currentRole, setCurrentRole, setUsername} = useLocale();
@@ -99,9 +100,9 @@ function App() {
                             <GuardedRoute exact path="/generateReport" component={GenerateReport} meta={{}}/>
                             <GuardedRoute exact path="/lectureGroups" component={LectureGroupList} meta={{}}/>
                             <GuardedRoute exact path="/addParticipants" component={AddParticipants} meta={{}}/>
-                            <GuardedRoute exact path="/addLectures" component={Forbidden} meta={{}}/>
+                            <GuardedRoute exact path="/addLectureGroup" component={CreateLectureGroup} meta={{}}/>
 
-                            <GuardedRoute exact path="/addLectureGroup" component={Forbidden} meta={{}}/>
+                            <GuardedRoute exact path="/addLectures" component={Forbidden} meta={{}}/>
                             <GuardedRoute exact path="/timetableInstructor" component={NotFound} meta={{}}/>
                             <GuardedRoute exact path="/timetableTrainee" component={Forbidden} meta={{}}/>
                             <Route component={NotFound}/>

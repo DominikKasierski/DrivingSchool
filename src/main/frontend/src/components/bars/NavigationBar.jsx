@@ -114,7 +114,7 @@ function NavigationBar(props) {
                                                 {t('navigation.bar.lecture.groups.list')}
                                             </Dropdown.Item>
                                             <Dropdown.Item as={Link} to="/addLectureGroup">
-                                                {t('navigation.bar.add.lecture.group')}
+                                                {t('navigation.bar.create.lecture.group')}
                                             </Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>

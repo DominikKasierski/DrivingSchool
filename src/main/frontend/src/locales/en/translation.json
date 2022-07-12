@@ -101,6 +101,9 @@
   "form.validation.field.vehicle_model.max.size": "Model can be up to 20 characters long",
   "form.validation.field.vehicle_model.pattern": "Model can only consist of letters and digits",
 
+  "form.validation.field.lecture_group_name.min.size": "Lecture group name must be at least 4 characters long",
+  "form.validation.field.lecture_group_name.max.size": "Lecture group name can be up to 50 characters long",
+
   "landing.page.courses": "Driving license courses",
   "landing.page.left": "Category A",
   "landing.page.center": "Category B",
@@ -122,7 +125,7 @@
   "navigation.bar.timetable": "Timetable",
   "navigation.bar.lecture.groups": "Lecture groups",
   "navigation.bar.lecture.groups.list": "Lecture group list",
-  "navigation.bar.add.lecture.group": "Add lecture group",
+  "navigation.bar.create.lecture.group": "Add lecture group",
   "navigation.bar.my.account": "My account",
   "navigation.bar.logout": "Log out",
   "navigation.bar.main.page": "Main page",
@@ -346,5 +349,10 @@
 
   "exception.lecture_group_exception.already_assigned_exception": "Trainee already has lecture group",
   "exception.lecture_group_exception.unpaid_course_exception": "Advance has not yet been paid",
-  "exception.lecture_group_exception.lectures_already_started_exception": "Lectures for the group have already started"
+  "exception.lecture_group_exception.lectures_already_started_exception": "Lectures for the group have already started",
+  "exception.lecture_group_exception.name_invalid_exception": "Invalid name or already taken",
+
+  "create.lecture.group.success": "Lecture group has been successfully created",
+  "create.lecture.group.title": "Create lecture group",
+  "create.lecture.group.create": "Create"
 }
