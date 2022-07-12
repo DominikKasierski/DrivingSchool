@@ -283,6 +283,7 @@
   "exception.course_exception.already_assigned_exception": "Kursant jest już zapisany na inny kurs",
   "exception.course_exception.already_completed_exception": "Kursant ukończył już wcześniej ten kurs",
   "exception.not_found_exception.course_details_not_found_exception": "Szczegóły kursu nie zostały znalezione",
+  "exception.not_found_exception.payment_not_found_exception": "Wpłata nie została znaleziona",
   "exception.course_exception.no_ongoing_course_exception": "Kursant nie posiada aktualnie żadnego rozpoczętego kursu",
 
   "my.payments.cancel.success": "Wpłata została pomyślnie anulowana",
@@ -293,7 +294,7 @@
   "creationDate": "Data zgłoszenia",
   "modificationDate": "Data ostatniej modyfikacji",
 
-  "CANCELLED": "Anulowana albo i nie",
+  "CANCELLED": "Anulowana",
   "IN_PROGRESS": "W trakcie",
   "CONFIRMED": "Zatwierdzona",
   "REJECTED": "Odrzucona",
@@ -304,15 +305,15 @@
   "report.payment.value": "Wartość wpłaty",
   "report.payment.comment": "Komentarz",
 
-  "exception.payment_exception.no_payment_in_progress_exception": "Brak płatności oczekujących na zatwierdzenie",
-  "exception.payment_exception.payment_in_progress_exception": "Inna płatność została już zgłoszona i oczekuje aktualnie na zatwierdzenie",
+  "exception.payment_exception.no_payment_in_progress_exception": "Brak wpłat oczekujących na zatwierdzenie",
+  "exception.payment_exception.payment_in_progress_exception": "Inna wpłata została już zgłoszona i oczekuje aktualnie na zatwierdzenie",
   "exception.payment_exception.course_overpaid_exception": "Wartość wpłat przekracza cenę kursu",
 
   "confirm/reject": "Potwierdź/Odrzuć",
   "navigation.bar.payments.for.approval": "Wpłaty do zatwierdzenia",
   "edit.payment.confirm.success": "Wpłata została pomyślnie zatwierdzona",
   "edit.payment": "Edytuj wpłatę",
-  "edit.payment.title": "Zatwierdź/odrzuć wpłatę od",
+  "edit.payment.title": "Potwierdź/Odrzuć wpłatę od",
   "edit.payment.reject.success": "Wpłata została pomyślnie odrzucona",
   "edit.payment.comment.not.required": "Komentarz jest opcjonalny",
   "edit.payment.confirm": "Zatwierdź wpłatę",
@@ -324,5 +325,13 @@
   "underpayments.selected.category": "Wybrana kategoria",
 
   "add.payment.title": "Dodaj wpłatę dla",
-  "add.payment.success": "Wpłata została pomyślnie dodana"
+  "add.payment.success": "Wpłata została pomyślnie dodana",
+
+  "generate.report.success": "Raport został pomyślnie wygenerowany",
+  "generate.report.no.results": "Brak rezultatów do wyświetlenia",
+  "generate.report.title": "Raport wpłat",
+  "generate.report.from": "Od dnia",
+  "generate.report.to": "Do dnia",
+  "generate.report.generate": "Generuj raport",
+  "generate.report.time": "Czas"
 }

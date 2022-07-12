@@ -31,6 +31,7 @@ import AddPayment from "./components/mos/payments/AddPayment";
 import AddVehicle from "./components/mos/vehicles/AddVehicle";
 import EditVehicle from "./components/mos/vehicles/EditVehicle";
 import BeginCourse from "./components/mos/course/BeginCourse";
+import GenerateReport from "./components/mos/report/GenerateReport";
 
 function App() {
     const {token, currentRole, setCurrentRole, setUsername} = useLocale();
@@ -93,8 +94,8 @@ function App() {
                             <GuardedRoute exact path="/editPayment" component={EditPayment} meta={{}}/>
                             <GuardedRoute exact path="/underpayments" component={Underpayments} meta={{}}/>
                             <GuardedRoute exact path="/addPayment" component={AddPayment} meta={{}}/>
+                            <GuardedRoute exact path="/generateReport" component={GenerateReport} meta={{}}/>
 
-                            <GuardedRoute exact path="/generateReport" component={Forbidden} meta={{}}/>
                             <GuardedRoute exact path="/lectureGroups" component={InternalError} meta={{}}/>
                             <GuardedRoute exact path="/addLectureGroup" component={Forbidden} meta={{}}/>
                             <GuardedRoute exact path="/timetableInstructor" component={NotFound} meta={{}}/>

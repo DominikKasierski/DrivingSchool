@@ -60,7 +60,7 @@ public class DrivingLessonFacade extends AbstractFacade<DrivingLesson> {
             drivingLessonQuery.setParameter("date", date);
             return drivingLessonQuery.getResultList();
         } catch (NoResultException e) {
-            throw NotFoundException.paymentNotFound(e.getCause());
+            throw NotFoundException.drivingLessonNotFound(e.getCause());
         } catch (PersistenceException e) {
             throw DatabaseException.queryException(e.getCause());
         }
@@ -74,7 +74,7 @@ public class DrivingLessonFacade extends AbstractFacade<DrivingLesson> {
             drivingLessonQuery.setParameter("date", date);
             return drivingLessonQuery.getResultList();
         } catch (NoResultException e) {
-            throw NotFoundException.paymentNotFound(e.getCause());
+            throw NotFoundException.drivingLessonNotFound(e.getCause());
         } catch (PersistenceException e) {
             throw DatabaseException.queryException(e.getCause());
         }

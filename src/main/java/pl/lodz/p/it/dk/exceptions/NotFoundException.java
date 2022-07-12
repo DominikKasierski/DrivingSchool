@@ -15,6 +15,8 @@ public class NotFoundException extends BaseException {
             "exception.not_found_exception.lecture_group_not_found_exception";
     private static final String PAYMENT_NOT_FOUND_EXCEPTION =
             "exception.not_found_exception.payment_not_found_exception";
+    private static final String DRIVING_LESSON_NOT_FOUND_EXCEPTION =
+            "exception.not_found_exception.driving_lesson_not_found_exception";
 
     private NotFoundException(String message) {
         super(message);
@@ -50,6 +52,10 @@ public class NotFoundException extends BaseException {
 
     public static NotFoundException paymentNotFound(Throwable cause) {
         return new NotFoundException(PAYMENT_NOT_FOUND_EXCEPTION, cause);
+    }
+
+    public static NotFoundException drivingLessonNotFound(Throwable cause) {
+        return new NotFoundException(DRIVING_LESSON_NOT_FOUND_EXCEPTION, cause);
     }
 
 }

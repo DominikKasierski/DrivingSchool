@@ -80,7 +80,7 @@ function Underpayments(props) {
                                 <Dropdown>
                                     <DropdownToggle id="dropdown-basic" className="pl-0 pl-lg-2 pr-0 pr-lg-2 dim"
                                                     variant="Secondary">
-                                        <span>Wybierz kategorię</span>
+                                        <span>{t("course.category")}</span>
                                     </DropdownToggle>
                                     <Dropdown.Menu>
                                         <Dropdown.Item as="button"

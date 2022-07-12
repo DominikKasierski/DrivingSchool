@@ -283,6 +283,7 @@
   "exception.course_exception.already_assigned_exception": "Trainee is already enrolled in another course",
   "exception.course_exception.already_completed_exception": "Trainee has already completed this course",
   "exception.not_found_exception.course_details_not_found_exception": "Course details not found",
+  "exception.not_found_exception.payment_not_found_exception": "Payment not found",
   "exception.course_exception.no_ongoing_course_exception": "Trainee does not currently have any started course",
 
   "my.payments.cancel.success": "Payment has been successfully cancelled",
@@ -324,5 +325,13 @@
   "underpayments.selected.category": "Selected category",
 
   "add.payment.title": "Add payment for",
-  "add.payment.success": "Payment has been successfully added"
+  "add.payment.success": "Payment has been successfully added",
+
+  "generate.report.success": "Report has been successfully generated",
+  "generate.report.no.results": "No results to display",
+  "generate.report.title": "Payment report",
+  "generate.report.from": "From date",
+  "generate.report.to": "To date",
+  "generate.report.generate": "Generate report",
+  "generate.report.time": "Time"
 }
