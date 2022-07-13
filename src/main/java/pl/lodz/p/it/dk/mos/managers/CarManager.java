@@ -62,7 +62,7 @@ public class CarManager {
         carFacade.edit(car);
     }
 
-    @RolesAllowed({"editCar", "removeCar", "getCar"})
+    @RolesAllowed({"editCar", "removeCar", "getCar", "getCourseStatistics"})
     public Car find(Object id) throws BaseException {
         return carFacade.find(id);
     }

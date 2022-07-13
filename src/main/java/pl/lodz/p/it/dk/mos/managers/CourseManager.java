@@ -3,10 +3,12 @@ package pl.lodz.p.it.dk.mos.managers;
 import pl.lodz.p.it.dk.common.utils.LoggingInterceptor;
 import pl.lodz.p.it.dk.entities.*;
 import pl.lodz.p.it.dk.entities.enums.CourseCategory;
+import pl.lodz.p.it.dk.entities.enums.LessonStatus;
 import pl.lodz.p.it.dk.entities.enums.PaymentStatus;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.exceptions.CourseException;
 import pl.lodz.p.it.dk.mos.dtos.BriefCourseInfoDto;
+import pl.lodz.p.it.dk.mos.dtos.CourseStatisticsDto;
 import pl.lodz.p.it.dk.mos.facades.CourseFacade;
 
 import javax.annotation.security.RolesAllowed;
@@ -17,8 +19,11 @@ import javax.inject.Inject;
 import javax.interceptor.Interceptors;
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Stateless
@@ -31,6 +36,9 @@ public class CourseManager {
 
     @Inject
     TraineeAccessManager traineeAccessManager;
+
+    @Inject
+    CarManager carManager;
 
     @Inject
     AccountManager accountManager;
@@ -67,7 +75,8 @@ public class CourseManager {
         courseDetailsManager.edit(courseDetails);
     }
 
-    @RolesAllowed({"createPayment", "cancelPayment", "confirmPayment", "rejectPayment", "addDrivingLesson", "getOtherCourse"})
+    @RolesAllowed(
+            {"createPayment", "cancelPayment", "confirmPayment", "rejectPayment", "addDrivingLesson", "getOtherCourse"})
     public Course getOngoingCourse(String login) throws BaseException {
         Account account = accountManager.findByLogin(login);
         TraineeAccess traineeAccess = traineeAccessManager.find(account);
@@ -113,5 +122,73 @@ public class CourseManager {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
         return new BriefCourseInfoDto(courseCategory, price, valueOfPayments);
+    }
+
+    @RolesAllowed("getCourseStatistics")
+    public CourseStatisticsDto getCourseStatistics(Course course) throws BaseException {
+        String instructorDetails = "";
+        String carDetails = "";
+
+        List<Lecture> lectures = course.getLectureGroup().getLectures().stream()
+                .filter(x -> x.getDateFrom().before(Date.from(Instant.now())))
+                .collect(Collectors.toList());
+        long lecturesHours = countLectureHours(lectures);
+
+        List<DrivingLesson> takenDrivingLessons = course.getDrivingLessons().stream()
+                .filter(x -> x.getLessonStatus().equals(LessonStatus.FINISHED) ||
+                        x.getLessonStatus().equals(LessonStatus.IN_PROGRESS))
+                .collect(Collectors.toList());
+        long takenDrivingLessonsHours = countDrivingHours(takenDrivingLessons);
+
+        List<DrivingLesson> futureDrivingLessons = course.getDrivingLessons().stream()
+                .filter(x -> x.getLessonStatus().equals(LessonStatus.PENDING))
+                .collect(Collectors.toList());
+        long futureDrivingLessonsHours = countDrivingHours(futureDrivingLessons);
+
+        Map<String, Long> occurrenceOfInstructors = course.getDrivingLessons().stream()
+                .filter(x -> !x.getLessonStatus().equals(LessonStatus.CANCELLED))
+                .collect(Collectors.groupingBy(w -> w.getInstructor().getAccount().getLogin(), Collectors.counting()));
+        if (occurrenceOfInstructors.size() > 0) {
+            String favouriteInstructorLogin =
+                    Collections.max(occurrenceOfInstructors.entrySet(), Map.Entry.comparingByValue()).getKey();
+            Account favouriteInstructor = accountManager.findByLogin(favouriteInstructorLogin);
+            instructorDetails =
+                    favouriteInstructor.getFirstname().concat(" ").concat(favouriteInstructor.getLastname());
+        }
+
+        Map<Long, Long> occurrenceOfCars = course.getDrivingLessons().stream()
+                .filter(x -> !x.getLessonStatus().equals(LessonStatus.CANCELLED))
+                .collect(Collectors.groupingBy(w -> w.getCar().getId(), Collectors.counting()));
+        if (occurrenceOfCars.size() > 0) {
+            Long favouriteCarId = Collections.max(occurrenceOfCars.entrySet(), Map.Entry.comparingByValue()).getKey();
+            Car favouriteCar = carManager.find(favouriteCarId);
+            carDetails = favouriteCar.getBrand().concat(" ").concat(favouriteCar.getModel());
+        }
+
+
+        return new CourseStatisticsDto(lecturesHours, takenDrivingLessonsHours, futureDrivingLessonsHours,
+                instructorDetails, carDetails);
+    }
+
+    private long countLectureHours(List<Lecture> lectures) {
+        long totalNumberOfHours = 0;
+
+        for (Lecture lecture : lectures) {
+            long diffInMillis = lecture.getDateTo().getTime() - lecture.getDateFrom().getTime();
+            totalNumberOfHours += TimeUnit.HOURS.convert(diffInMillis, TimeUnit.MILLISECONDS);
+        }
+
+        return totalNumberOfHours;
+    }
+
+    private long countDrivingHours(List<DrivingLesson> drivingLessons) {
+        long totalNumberOfHours = 0;
+
+        for (DrivingLesson drivingLesson : drivingLessons) {
+            long diffInMillis = drivingLesson.getDateTo().getTime() - drivingLesson.getDateFrom().getTime();
+            totalNumberOfHours += TimeUnit.HOURS.convert(diffInMillis, TimeUnit.MILLISECONDS);
+        }
+
+        return totalNumberOfHours;
     }
 }

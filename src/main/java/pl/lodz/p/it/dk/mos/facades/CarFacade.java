@@ -62,7 +62,7 @@ public class CarFacade extends AbstractFacade<Car> {
     }
 
     @Override
-    @RolesAllowed("editCar")
+    @RolesAllowed({"editCar", "getCourseStatistics"})
     public Car find(Object id) throws BaseException {
         return super.find(id);
     }

@@ -196,6 +196,9 @@
     <security-role>
         <role-name>getCoursesDetails</role-name>
     </security-role>
+    <security-role>
+        <role-name>getCourseStatistics</role-name>
+    </security-role>
 
     <security-constraint>
         <web-resource-collection>

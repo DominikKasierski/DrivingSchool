@@ -22,7 +22,7 @@ VALUES (-1, true, true, 'kszczesniak', 'kszczeniak@gmail.com', null,
        (-7, true, true, 'Bartek20', 'bartek@gmail.com', null,
         'bdd2297f93550f01452cbd838c276f0dd22f498b4661394f1528ab88d6e63e6f', 'Bartek', 'Barański', 'pl', '123223555', 0,
         now(), null, -1, null, 1),
-       (-8, true, true, 'WojTas', 'wojtek@gmail.com', null,
+       (-8, true, true, 'wkowalski', 'wojtek@gmail.com', null,
         'bdd2297f93550f01452cbd838c276f0dd22f498b4661394f1528ab88d6e63e6f', 'Wojtek', 'Kowalski', 'pl', '532223555', 0,
         now(), null, -1, null, 1);
 
@@ -63,7 +63,8 @@ VALUES (-2, 'A'),
        (-2, 'B'),
        (-2, 'C'),
        (-3, 'A'),
-       (-3, 'B');
+       (-3, 'B'),
+       (-3, 'C');
 
 ---- Create course details ----
 INSERT INTO course_details (id, course_category, price, lectures_hours, driving_hours, creation_date, modification_date,
@@ -86,7 +87,7 @@ VALUES (-1, -4, -1, -1, false, false, false, false, false, now(), null, -3, null
        (-3, -6, -2, null, true, false, false, false, false, now(), null, -5, null, 1),
        (-4, -7, -1, null, true, true, false, false, false, now(), null, -6, null, 1),
        (-5, -8, -1, null, true, false, false, false, false, now(), null, -7, null, 1),
-       (-6, -9, -3, null, true, false, false, false, false, now(), null, -8, null, 1);
+       (-6, -9, -3, -3, true, true, true, false, false, now(), null, -8, null, 1);
 
 ---- Create payments ----
 INSERT INTO payment (id, payment_status, course_id, value, trainee_comment, admin_comment, creation_date, modification_date,
@@ -99,7 +100,7 @@ VALUES (-1, 'REJECTED', -1, 750, 'Pierwsza wpłata', 'Błędna kwota', now() - I
        (-6, 'CONFIRMED', -4, 2000, null, 'Opłacone pierwszego dnia', now() - INTERVAL '1 day', null, -1, null, 1),
        (-7, 'Cancelled', -5, 1000, 'Wpłata z poniedziałku', null, now() - INTERVAL '2 day', null, -7, null, 1),
        (-8, 'CONFIRMED', -5, 1050, 'Wpłata z poniedziałku', null, now() - INTERVAL '2 day', null, -7, null, 1),
-       (-9, 'CONFIRMED', -6, 2000, null, null, now() - INTERVAL '5 day', null, -1, null, 1);
+       (-9, 'CONFIRMED', -6, 3000, null, null, now() - INTERVAL '5 day', null, -1, null, 1);
 
 ---- Create cars ----
 INSERT INTO car (id, course_category, image, brand, model, registration_number, production_year, deleted, creation_date,
@@ -107,3 +108,22 @@ INSERT INTO car (id, course_category, image, brand, model, registration_number, 
 VALUES (-1, 'A', '/static/motorcycle1.jpg', 'Yamaha', 'MT-07', 'ELEF646', 2015, false, now(), null, -1, null, 1),
        (-2, 'B', '/static/car1.jpg', 'KIA', 'Rio', 'ELE4646', 2016, false, now(), null, -1, null, 1),
        (-3, 'C', '/static/truck1.jpg', 'MAN', 'TGL 12.240', 'ELE646', 2014, false, now(), null, -1, null, 1);
+
+---- Create lectures ----
+INSERT INTO lecture (id, instructor_id, lecture_group_id, date_from, date_to, creation_date, modification_date, created_by, modified_by,
+                      version)
+VALUES (-1, -2, -3, date '2022-07-01' + time '16:00', date '2022-07-01' + time '20:00', date '2022-06-30', null, -1, null, 1),
+       (-2, -2, -3, date '2022-07-04' + time '16:00', date '2022-07-04' + time '20:00', date '2022-06-30', null, -1, null, 1),
+       (-3, -3, -3, date '2022-07-06' + time '16:00', date '2022-07-06' + time '20:00', date '2022-07-04', null, -1, null, 1),
+       (-4, -3, -3, date '2022-07-07' + time '16:00', date '2022-07-07' + time '20:00', date '2022-07-04', null, -1, null, 1),
+       (-5, -2, -3, date '2022-07-08' + time '16:00', date '2022-07-08' + time '20:00', date '2022-07-06', null, -1, null, 1);
+
+---- Create driving lessons ----
+INSERT INTO driving_lesson (id, lesson_status, instructor_id, course_id, car_id, date_from, date_to, creation_date, modification_date,
+                             created_by, modified_by, version)
+VALUES (-1, 'FINISHED', -3, -6, -3, date '2022-07-11' + time '16:00', date '2022-07-11' + time '18:00',
+        date '2022-07-08' + time '21:00', null, -8, null, 1),
+       (-2, 'IN_PROGRESS', -2, -6, -3, date '2022-07-12' + time '17:00', date '2022-07-12' + time '19:00',
+        date '2022-07-08' + time '21:00', null, -8, null, 1),
+       (-3, 'PENDING', -3, -6, -3, date '2022-07-20' + time '15:00', date '2022-07-20' + time '17:00',
+        date '2022-07-08' + time '21:00', null, -8, null, 1);

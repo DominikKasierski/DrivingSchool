@@ -5,6 +5,7 @@ import pl.lodz.p.it.dk.entities.enums.CourseCategory;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.mos.dtos.BriefCourseInfoDto;
 import pl.lodz.p.it.dk.mos.dtos.CourseDto;
+import pl.lodz.p.it.dk.mos.dtos.CourseStatisticsDto;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Local;
@@ -23,4 +24,7 @@ public interface CourseEndpointLocal extends TransactionStarter {
 
     @RolesAllowed("getBriefCourseInfo")
     public BriefCourseInfoDto getBriefCourseInfo() throws BaseException;
+
+    @RolesAllowed("getCourseStatistics")
+    public CourseStatisticsDto getCourseStatistics() throws BaseException;
 }

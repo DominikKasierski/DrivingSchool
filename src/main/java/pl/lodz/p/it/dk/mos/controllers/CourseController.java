@@ -5,6 +5,7 @@ import pl.lodz.p.it.dk.entities.enums.CourseCategory;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.mos.dtos.BriefCourseInfoDto;
 import pl.lodz.p.it.dk.mos.dtos.CourseDto;
+import pl.lodz.p.it.dk.mos.dtos.CourseStatisticsDto;
 import pl.lodz.p.it.dk.mos.endpoints.CourseEndpointLocal;
 import pl.lodz.p.it.dk.security.etag.EtagFilterBinding;
 import pl.lodz.p.it.dk.security.etag.Signer;
@@ -60,5 +61,13 @@ public class CourseController extends AbstractController {
     @Produces(MediaType.APPLICATION_JSON)
     public BriefCourseInfoDto getBriefCourseInfo() throws BaseException {
         return repeat(() -> courseEndpoint.getBriefCourseInfo(), courseEndpoint);
+    }
+
+    @GET
+    @RolesAllowed("getCourseStatistics")
+    @Path("/getCourseStatistics")
+    @Produces(MediaType.APPLICATION_JSON)
+    public CourseStatisticsDto getCourseStatistics() throws BaseException {
+        return repeat(() -> courseEndpoint.getCourseStatistics(), courseEndpoint);
     }
 }
