@@ -132,7 +132,8 @@
   "navigation.bar.begin.course": "Rozpocznij kurs",
   "navigation.bar.report.payment": "Zgłoś wpłatę",
   "navigation.bar.cancel.driving.lesson": "Odwołaj lekcje jazdy",
-  "navigation.bar.driving.statistics": "Statystyki jazd",
+  "navigation.bar.course.statistics": "Statystyki kursu",
+  "navigation.bar.course": "Kurs",
 
   "footer.role": "Rola: ",
   "footer.role.change": "Zmień rolę",
@@ -354,6 +355,13 @@
 
   "create.lecture.group.success": "Grupa wykładowa została pomyślnie utworzona",
   "create.lecture.group.title": "Utwórz grupę wykładową",
-  "create.lecture.group.create": "Utwórz"
+  "create.lecture.group.create": "Utwórz",
 
+  "course.statistics.lectures": "Liczba godzin wykładów",
+  "course.statistics.taken.lessons": "Ukończone godziny praktycznych",
+  "course.statistics.future.lessons": "Zaplanowane godziny praktycznych",
+  "course.statistics.instructor": "Najczęściej wybierany instruktor",
+  "course.statistics.car": "Najczęściej wybierany samochód",
+  "course.statistics.no.results": "Brak rezultatów do wyświetlenia",
+  "course.statistics.refresh.success": "Dane zostały pomyślnie odświeżone"
 }

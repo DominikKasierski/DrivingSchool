@@ -132,7 +132,8 @@
   "navigation.bar.begin.course": "Start course",
   "navigation.bar.report.payment": "Report payment",
   "navigation.bar.cancel.driving.lesson": "Cancel driving lesson",
-  "navigation.bar.driving.statistics": "Driving statistics",
+  "navigation.bar.course.statistics": "Course statistics",
+  "navigation.bar.course": "Course",
 
   "footer.role": "Role: ",
   "footer.role.change": "Change role ",
@@ -354,5 +355,13 @@
 
   "create.lecture.group.success": "Lecture group has been successfully created",
   "create.lecture.group.title": "Create lecture group",
-  "create.lecture.group.create": "Create"
+  "create.lecture.group.create": "Create",
+
+  "course.statistics.lectures": "Number of lecture hours",
+  "course.statistics.taken.lessons": "Completed practical hours",
+  "course.statistics.future.lessons": "Scheduled practical hours",
+  "course.statistics.instructor": "Most frequently chosen instructor",
+  "course.statistics.car": "Most frequently chosen car",
+  "course.statistics.no.results": "No results to display",
+  "course.statistics.refresh.success": "Data has been successfully refreshed"
 }

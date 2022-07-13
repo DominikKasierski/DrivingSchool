@@ -144,9 +144,24 @@ function NavigationBar(props) {
                                     <LinkContainer to="/vehicles">
                                         <Nav.Link className={"mr-3"}>{t('navigation.bar.vehicles')}</Nav.Link>
                                     </LinkContainer>
-                                    <LinkContainer to="/beginCourse">
-                                        <Nav.Link className={"mr-3"}>{t('navigation.bar.begin.course')}</Nav.Link>
-                                    </LinkContainer>
+                                    <Dropdown>
+                                        <DropdownToggle id="dropdown-basic" className="pl-0 pl-lg-2 pr-0 pr-lg-2 mr-3 dim"
+                                                        variant="Secondary">
+                                            <span style={{
+                                                fontSize: "1.2rem",
+                                                marginRight: "10px"
+                                            }}>{t('navigation.bar.course')}</span>
+                                        </DropdownToggle>
+
+                                        <Dropdown.Menu>
+                                            <Dropdown.Item as={Link} to="/courseStatistics">
+                                                {t('navigation.bar.course.statistics')}
+                                            </Dropdown.Item>
+                                            <Dropdown.Item as={Link} to="/beginCourse">
+                                                {t('navigation.bar.begin.course')}
+                                            </Dropdown.Item>
+                                        </Dropdown.Menu>
+                                    </Dropdown>
                                     <Dropdown>
                                         <DropdownToggle id="dropdown-basic" className="pl-0 pl-lg-2 pr-0 pr-lg-2 mr-3 dim"
                                                         variant="Secondary">
@@ -183,11 +198,6 @@ function NavigationBar(props) {
                                     <Dropdown.Item as={Link} to="/myAccount">
                                         {t('navigation.bar.my.account')}
                                     </Dropdown.Item>
-                                    {currentRole === rolesConstant.trainee && (
-                                        <Dropdown.Item as={Link} to="/drivingStatistics">
-                                            {t('navigation.bar.driving.statistics')}
-                                        </Dropdown.Item>
-                                    )}
                                     <Dropdown.Item onSelect={handleLogout} as={Link} to="/">
                                         {t('navigation.bar.logout')}
                                     </Dropdown.Item>
