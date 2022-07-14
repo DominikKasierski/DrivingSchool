@@ -13,6 +13,7 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.interceptor.Interceptors;
 import javax.persistence.*;
+import java.util.List;
 
 @Stateless
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
@@ -42,5 +43,11 @@ public class AccountFacade extends AbstractFacade<Account> {
         } catch (PersistenceException e) {
             throw DatabaseException.queryException(e.getCause());
         }
+    }
+
+    @Override
+    @PermitAll
+    public List<Account> findAll() throws BaseException {
+        return super.findAll();
     }
 }

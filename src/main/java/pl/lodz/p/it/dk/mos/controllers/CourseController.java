@@ -6,6 +6,7 @@ import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.mos.dtos.BriefCourseInfoDto;
 import pl.lodz.p.it.dk.mos.dtos.CourseDto;
 import pl.lodz.p.it.dk.mos.dtos.CourseStatisticsDto;
+import pl.lodz.p.it.dk.mos.dtos.InstructorStatisticsDto;
 import pl.lodz.p.it.dk.mos.endpoints.CourseEndpointLocal;
 import pl.lodz.p.it.dk.security.etag.EtagFilterBinding;
 import pl.lodz.p.it.dk.security.etag.Signer;
@@ -69,5 +70,14 @@ public class CourseController extends AbstractController {
     @Produces(MediaType.APPLICATION_JSON)
     public CourseStatisticsDto getCourseStatistics() throws BaseException {
         return repeat(() -> courseEndpoint.getCourseStatistics(), courseEndpoint);
+    }
+
+    @GET
+    @RolesAllowed("getInstructorStatistics")
+    @Path("/getInstructorStatistics/{from}/{to}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public InstructorStatisticsDto getInstructorStatistics(@PathParam("from") Long from, @PathParam("to") Long to)
+            throws BaseException {
+        return repeat(() -> courseEndpoint.getInstructorStatistics(from, to), courseEndpoint);
     }
 }

@@ -55,6 +55,4 @@ public class InstructorAccessFacade extends AbstractFacade<InstructorAccess> {
     public List<InstructorAccess> findAll() throws BaseException {
         return super.findAll();
     }
-
-    //TODO: Znajdz instruktorów posiadających wskazane uprawnienia?
 }

@@ -6,6 +6,7 @@ import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.mos.dtos.BriefCourseInfoDto;
 import pl.lodz.p.it.dk.mos.dtos.CourseDto;
 import pl.lodz.p.it.dk.mos.dtos.CourseStatisticsDto;
+import pl.lodz.p.it.dk.mos.dtos.InstructorStatisticsDto;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Local;
@@ -27,4 +28,7 @@ public interface CourseEndpointLocal extends TransactionStarter {
 
     @RolesAllowed("getCourseStatistics")
     public CourseStatisticsDto getCourseStatistics() throws BaseException;
+
+    @RolesAllowed("getInstructorStatistics")
+    public InstructorStatisticsDto getInstructorStatistics(Long from, Long to) throws BaseException;
 }

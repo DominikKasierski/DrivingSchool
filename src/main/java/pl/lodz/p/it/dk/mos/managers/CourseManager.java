@@ -2,13 +2,16 @@ package pl.lodz.p.it.dk.mos.managers;
 
 import pl.lodz.p.it.dk.common.utils.LoggingInterceptor;
 import pl.lodz.p.it.dk.entities.*;
+import pl.lodz.p.it.dk.entities.enums.AccessType;
 import pl.lodz.p.it.dk.entities.enums.CourseCategory;
 import pl.lodz.p.it.dk.entities.enums.LessonStatus;
 import pl.lodz.p.it.dk.entities.enums.PaymentStatus;
+import pl.lodz.p.it.dk.exceptions.AccessException;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.exceptions.CourseException;
 import pl.lodz.p.it.dk.mos.dtos.BriefCourseInfoDto;
 import pl.lodz.p.it.dk.mos.dtos.CourseStatisticsDto;
+import pl.lodz.p.it.dk.mos.dtos.InstructorStatisticsDto;
 import pl.lodz.p.it.dk.mos.facades.CourseFacade;
 
 import javax.annotation.security.RolesAllowed;
@@ -19,10 +22,7 @@ import javax.inject.Inject;
 import javax.interceptor.Interceptors;
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -42,6 +42,9 @@ public class CourseManager {
 
     @Inject
     AccountManager accountManager;
+
+    @Inject
+    InstructorAccessManager instructorAccessManager;
 
     @Inject
     CourseFacade courseFacade;
@@ -170,6 +173,28 @@ public class CourseManager {
                 instructorDetails, carDetails);
     }
 
+    @RolesAllowed("getInstructorStatistics")
+    public InstructorStatisticsDto getInstructorStatistics(Long from, Long to) throws BaseException {
+        List<Account> accounts = accountManager.getAllAccounts();
+        List<String> instructors = new ArrayList<>();
+        List<Long> numberOfHours = new ArrayList<>();
+
+        for (Account account : accounts) {
+            boolean isInstructor = account.getAccesses().stream()
+                    .anyMatch(x -> x.getAccessType() == AccessType.INSTRUCTOR && x.isActivated());
+
+            if (isInstructor) {
+                InstructorAccess instructorAccess = findInstructorAccess(account);
+                instructors.add(account.getFirstname().concat(" ").concat(account.getLastname()));
+                List<DrivingLesson> filteredDrivingLessons =
+                        filterDrivingLessons(instructorAccess.getDrivingLessons(), from, to);
+                numberOfHours.add(countDrivingHours(filteredDrivingLessons));
+            }
+        }
+
+        return new InstructorStatisticsDto(instructors, numberOfHours);
+    }
+
     private long countLectureHours(List<Lecture> lectures) {
         long totalNumberOfHours = 0;
 
@@ -190,5 +215,22 @@ public class CourseManager {
         }
 
         return totalNumberOfHours;
+    }
+
+    private InstructorAccess findInstructorAccess(Account account) throws BaseException {
+        Access access = account.getAccesses().stream()
+                .filter(x -> x.getAccessType() == AccessType.INSTRUCTOR)
+                .findAny()
+                .orElseThrow(AccessException::noProperAccess);
+
+        return instructorAccessManager.find(account);
+    }
+
+    private List<DrivingLesson> filterDrivingLessons(Set<DrivingLesson> drivingLessons, Long from, Long to)
+            throws BaseException {
+        return drivingLessons.stream()
+                .filter(x -> x.getDateFrom().after(new Date(from)))
+                .filter(x -> x.getDateTo().before(new Date(to)))
+                .collect(Collectors.toList());
     }
 }
