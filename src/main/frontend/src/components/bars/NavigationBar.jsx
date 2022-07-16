@@ -122,7 +122,10 @@ function NavigationBar(props) {
                                         <Nav.Link className={"mr-3"}>{t('navigation.bar.accounts.list')}</Nav.Link>
                                     </LinkContainer>
                                     <LinkContainer to="/timetable">
-                                        <Nav.Link>{t('navigation.bar.timetable')}</Nav.Link>
+                                        <Nav.Link className={"mr-3"}>{t('navigation.bar.timetable')}</Nav.Link>
+                                    </LinkContainer>
+                                    <LinkContainer to="/instructorStatistics">
+                                        <Nav.Link>{t('navigation.bar.instructors.statistics')}</Nav.Link>
                                     </LinkContainer>
                                 </>
                             )}

@@ -15,7 +15,7 @@ import axios from "axios";
 import Breadcrumb from "../../bars/Breadcrumb";
 import {Link} from "react-router-dom";
 import {Col, Container, Row} from "react-bootstrap";
-import CustomDatePicker from "./CustomDatePicker";
+import CustomDatePicker from "../../utils/pickers/CustomDatePicker";
 
 function GenerateReport(props) {
     const {t, i18n} = props
@@ -68,7 +68,7 @@ function GenerateReport(props) {
             <Container>
                 <Row>
                     <Col xs={12} sm={12} md={11} lg={10} xl={10} className={"floating pt-2 pb-0 mx-auto mb-5 mt-3"}>
-                        <div className="py-2">
+                        <div className="pt-2">
                             <Row className="text-center">
                                 <Col className="mb-sm-3">
                                     <h1 className="font-weight-light">{t("generate.report.title")}</h1>
@@ -80,11 +80,11 @@ function GenerateReport(props) {
                                                       pickDate={startDate}
                                                       setEndDate={setEndDate}
                                                       currentEndDate={endDate}
-                                                      label={i18n.t('generate.report.from')}/>
+                                                      label={i18n.t('date.from')}/>
                                     <CustomDatePicker setPickDate={setEndDate}
                                                       pickDate={endDate}
                                                       minDate={startDate}
-                                                      label={i18n.t('generate.report.to')}/>
+                                                      label={i18n.t('date.to')}/>
                                 </Col>
                             </Row>
                             <Row className="justify-content-center">

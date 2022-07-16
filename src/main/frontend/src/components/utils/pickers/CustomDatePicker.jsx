@@ -18,6 +18,7 @@ function CustomDatePicker({pickDate, setPickDate, setEndDate, label, minDate, cu
             <h5>{label}</h5>
             <DatePicker locale={i18n.language === "pl" ? pl : enNz} selected={pickDate}
                         onChange={handleDateChange}
+                        className="text-center"
                         dateFormat="Pp"
                         minDate={minDate}
                         showTimeSelect

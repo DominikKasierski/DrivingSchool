@@ -133,6 +133,7 @@
   "navigation.bar.report.payment": "Report payment",
   "navigation.bar.cancel.driving.lesson": "Cancel driving lesson",
   "navigation.bar.course.statistics": "Course statistics",
+  "navigation.bar.instructors.statistics": "Instructors statistics",
   "navigation.bar.course": "Course",
 
   "footer.role": "Role: ",
@@ -334,8 +335,8 @@
   "generate.report.success": "Report has been successfully generated",
   "generate.report.no.results": "No results to display",
   "generate.report.title": "Payment report",
-  "generate.report.from": "From date",
-  "generate.report.to": "To date",
+  "date.from": "From date",
+  "date.to": "To date",
   "generate.report.generate": "Generate report",
   "generate.report.time": "Time",
 
@@ -363,5 +364,9 @@
   "course.statistics.instructor": "Most frequently chosen instructor",
   "course.statistics.car": "Most frequently chosen car",
   "course.statistics.no.results": "No results to display",
-  "course.statistics.refresh.success": "Data has been successfully refreshed"
+  "course.statistics.refresh.success": "Data has been successfully refreshed",
+
+  "instructors.statistics.title": "Instructor statistics",
+  "instructors.statistics.display.statistics": "Display statistics",
+  "instructors.statistics.chart.title": "Number of practical hours"
 }

@@ -133,6 +133,7 @@
   "navigation.bar.report.payment": "Zgłoś wpłatę",
   "navigation.bar.cancel.driving.lesson": "Odwołaj lekcje jazdy",
   "navigation.bar.course.statistics": "Statystyki kursu",
+  "navigation.bar.instructors.statistics": "Statystyki instruktorów",
   "navigation.bar.course": "Kurs",
 
   "footer.role": "Rola: ",
@@ -334,8 +335,8 @@
   "generate.report.success": "Raport został pomyślnie wygenerowany",
   "generate.report.no.results": "Brak rezultatów do wyświetlenia",
   "generate.report.title": "Raport wpłat",
-  "generate.report.from": "Od dnia",
-  "generate.report.to": "Do dnia",
+  "date.from": "Od dnia",
+  "date.to": "Do dnia",
   "generate.report.generate": "Generuj raport",
   "generate.report.time": "Czas",
 
@@ -363,5 +364,9 @@
   "course.statistics.instructor": "Najczęściej wybierany instruktor",
   "course.statistics.car": "Najczęściej wybierany samochód",
   "course.statistics.no.results": "Brak rezultatów do wyświetlenia",
-  "course.statistics.refresh.success": "Dane zostały pomyślnie odświeżone"
+  "course.statistics.refresh.success": "Dane zostały pomyślnie odświeżone",
+
+  "instructors.statistics.title": "Statystyki instruktorów",
+  "instructors.statistics.display.statistics": "Wyświetl statystyki",
+  "instructors.statistics.chart.title": "Liczba godzin praktycznych"
 }
