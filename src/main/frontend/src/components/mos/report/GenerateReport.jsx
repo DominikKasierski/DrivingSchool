@@ -67,7 +67,7 @@ function GenerateReport(props) {
             </Breadcrumb>
             <Container>
                 <Row>
-                    <Col xs={12} sm={12} md={12} lg={12} xl={12} className={"floating py-3 mx-auto mb-3 mt-4"}>
+                    <Col xs={12} sm={12} md={11} lg={10} xl={10} className={"floating pt-2 pb-0 mx-auto mb-5 mt-3"}>
                         <div className="py-2">
                             <Row className="text-center">
                                 <Col className="mb-sm-3">
@@ -96,7 +96,7 @@ function GenerateReport(props) {
                                 </Col>
                             </Row>
                             <Row className="justify-content-center">
-                                <table className="table table-hover table-bordered mt-2">
+                                <table className="table table-hover table-bordered">
                                     <thead className="dim">
                                     {data.length > 1 &&
                                         <tr>
@@ -110,7 +110,9 @@ function GenerateReport(props) {
                                     </thead>
                                     <tbody>
 
-                                    {data.length > 1 && data.slice(0).reverse().map((item) => (
+                                    {data.length > 1 && data.sort(function (a, b) {
+                                        return new Date(b.creationDate) - new Date(a.creationDate);
+                                    }).map((item) => (
                                         <tr>
                                             <td className={"text-center align-middle"}>{t(item.paymentStatus)}</td>
                                             <td className={"text-center align-middle"}>{item.creationDate !== undefined && item.creationDate !== "" ?

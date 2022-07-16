@@ -24,8 +24,8 @@ public interface PaymentMapper {
     PaymentForApprovalDto toPaymentForApprovalDto(Payment payment);
 
     @Mappings({
-            @Mapping(target = "firstname", source = "createdBy.firstname"),
-            @Mapping(target = "lastname", source = "createdBy.lastname"),
+            @Mapping(target = "firstname", source = "course.createdBy.firstname"),
+            @Mapping(target = "lastname", source = "course.createdBy.lastname"),
     })
     ReportRowDto toReportRowDto(Payment payment);
 

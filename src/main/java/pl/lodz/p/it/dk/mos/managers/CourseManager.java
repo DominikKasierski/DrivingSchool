@@ -229,8 +229,8 @@ public class CourseManager {
     private List<DrivingLesson> filterDrivingLessons(Set<DrivingLesson> drivingLessons, Long from, Long to)
             throws BaseException {
         return drivingLessons.stream()
-                .filter(x -> x.getDateFrom().after(new Date(from)))
-                .filter(x -> x.getDateTo().before(new Date(to)))
+                .filter(x -> x.getDateFrom().getTime() >= from)
+                .filter(x -> x.getDateTo().getTime() <= to)
                 .collect(Collectors.toList());
     }
 }
