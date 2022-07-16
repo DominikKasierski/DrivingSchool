@@ -368,5 +368,6 @@
 
   "instructors.statistics.title": "Statystyki instruktorów",
   "instructors.statistics.display.statistics": "Wyświetl statystyki",
-  "instructors.statistics.chart.title": "Liczba godzin praktycznych"
+  "instructors.statistics.chart.theoretical.title": "Liczba godzin teoretycznych",
+  "instructors.statistics.chart.practical.title": "Liczba godzin praktycznych"
 }

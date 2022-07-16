@@ -20,7 +20,8 @@ function InstructorStatistics(props) {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     const [instructors, setInstructors] = useState([]);
-    const [hours, setHours] = useState([]);
+    const [theoreticalHours, setTheoreticalHours] = useState([]);
+    const [practicalHours, setPracticalHours] = useState([]);
 
     const dispatchDangerNotification = useDangerNotification();
     const history = useHistory();
@@ -33,7 +34,8 @@ function InstructorStatistics(props) {
                 }
             }).then(r => {
                 setInstructors(r.data.instructors)
-                setHours(r.data.numberOfHours)
+                setTheoreticalHours(r.data.numberOfTheoreticalHours)
+                setPracticalHours(r.data.numberOfPracticalHours)
             }).catch(r => {
                 if (r.response != null) {
                     if (r.response.status === 403) {
@@ -53,7 +55,6 @@ function InstructorStatistics(props) {
             labels: instructors,
             datasets: [
                 {
-                    title: 'Dupa',
                     label: '# of Votes',
                     data: hours,
                     backgroundColor: [
@@ -78,24 +79,26 @@ function InstructorStatistics(props) {
         }
     };
 
-    const chartOptions = {
-        plugins: {
-            title: {
-                display: true,
-                text: i18n.t('instructors.statistics.chart.title'),
-                padding: {
-                    bottom: 20
+    const chartOptions = (title) => {
+        return {
+            plugins: {
+                title: {
+                    display: true,
+                    text: title,
+                    padding: {
+                        bottom: 20
+                    },
+                    font: {
+                        size: 14
+                    },
                 },
-                font: {
-                    size: 14
-                },
-            },
-            legend: {
-                display: true,
-                position: 'bottom',
-                labels: {
-                    padding: 15
-                },
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        padding: 15
+                    },
+                }
             }
         }
     };
@@ -130,17 +133,24 @@ function InstructorStatistics(props) {
                                 </Col>
                             </Row>
                             <Row className="justify-content-center">
-                                <Col sm={7} className="mt-5 mb-4">
+                                <Col sm={7} className="mt-5 mb-5">
                                     <button className="btn btn-block btn-dark dim"
                                             type="submit" onClick={fetchData} disabled={!startDate || !endDate}>
                                         {i18n.t('instructors.statistics.display.statistics')}
                                     </button>
                                 </Col>
                             </Row>
-                            {instructors.length > 0 && hours.length > 0 &&
+                            {instructors.length > 0 && theoreticalHours.length > 0 && practicalHours.length &&
                                 <Row className="justify-content-center">
-                                    <Col sm={7} className="mt-1 mb-2">
-                                        <Doughnut data={getChartData(instructors, hours)} options={chartOptions}/>
+                                    <Col sm={12} className="mt-1 mb-2">
+                                        <div className="row justify-content-center">
+                                            <div className="col-md-6"><Doughnut data={getChartData(instructors, theoreticalHours)}
+                                                                                options={chartOptions(i18n.t('instructors.statistics.chart.theoretical.title'))}/>
+                                            </div>
+                                            <div className="col-md-6"><Doughnut data={getChartData(instructors, practicalHours)}
+                                                                                options={chartOptions(i18n.t('instructors.statistics.chart.practical.title'))}/>
+                                            </div>
+                                        </div>
                                     </Col>
                                 </Row>
                             }

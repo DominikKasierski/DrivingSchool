@@ -368,5 +368,6 @@
 
   "instructors.statistics.title": "Instructor statistics",
   "instructors.statistics.display.statistics": "Display statistics",
-  "instructors.statistics.chart.title": "Number of practical hours"
+  "instructors.statistics.chart.theoretical.title": "Number of theoretical hours",
+  "instructors.statistics.chart.practical.title": "Number of practical hours"
 }

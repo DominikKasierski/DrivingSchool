@@ -112,8 +112,7 @@ VALUES (-1, 'A', '/static/motorcycle1.jpg', 'Yamaha', 'MT-07', 'ELEF646', 2015, 
 
 ---- Create lectures ----
 INSERT INTO lecture (id, instructor_id, lecture_group_id, date_from, date_to, creation_date, modification_date, created_by,
-                     modified_by,
-                     version)
+                     modified_by, version)
 VALUES (-1, -2, -3, date '2022-07-01' + time '16:00', date '2022-07-01' + time '20:00', date '2022-06-30', null, -1, null, 1),
        (-2, -2, -3, date '2022-07-04' + time '16:00', date '2022-07-04' + time '20:00', date '2022-06-30', null, -1, null, 1),
        (-3, -3, -3, date '2022-07-06' + time '16:00', date '2022-07-06' + time '20:00', date '2022-07-04', null, -1, null, 1),

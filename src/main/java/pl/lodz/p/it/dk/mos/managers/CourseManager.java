@@ -177,7 +177,8 @@ public class CourseManager {
     public InstructorStatisticsDto getInstructorStatistics(Long from, Long to) throws BaseException {
         List<Account> accounts = accountManager.getAllAccounts();
         List<String> instructors = new ArrayList<>();
-        List<Long> numberOfHours = new ArrayList<>();
+        List<Long> numberOfTheoreticalHours = new ArrayList<>();
+        List<Long> numberOfPracticalHours = new ArrayList<>();
 
         for (Account account : accounts) {
             boolean isInstructor = account.getAccesses().stream()
@@ -186,13 +187,16 @@ public class CourseManager {
             if (isInstructor) {
                 InstructorAccess instructorAccess = findInstructorAccess(account);
                 instructors.add(account.getFirstname().concat(" ").concat(account.getLastname()));
+
+                List<Lecture> filteredLectures = filterLectures(instructorAccess.getLectures(), from, to);
                 List<DrivingLesson> filteredDrivingLessons =
                         filterDrivingLessons(instructorAccess.getDrivingLessons(), from, to);
-                numberOfHours.add(countDrivingHours(filteredDrivingLessons));
+                numberOfTheoreticalHours.add(countLectureHours(filteredLectures));
+                numberOfPracticalHours.add(countDrivingHours(filteredDrivingLessons));
             }
         }
 
-        return new InstructorStatisticsDto(instructors, numberOfHours);
+        return new InstructorStatisticsDto(instructors, numberOfTheoreticalHours, numberOfPracticalHours);
     }
 
     private long countLectureHours(List<Lecture> lectures) {
@@ -226,8 +230,14 @@ public class CourseManager {
         return instructorAccessManager.find(account);
     }
 
-    private List<DrivingLesson> filterDrivingLessons(Set<DrivingLesson> drivingLessons, Long from, Long to)
-            throws BaseException {
+    private List<Lecture> filterLectures(Set<Lecture> lectures, Long from, Long to) {
+        return lectures.stream()
+                .filter(x -> x.getDateFrom().getTime() / 1000 >= from)
+                .filter(x -> x.getDateTo().getTime() / 1000 <= to)
+                .collect(Collectors.toList());
+    }
+
+    private List<DrivingLesson> filterDrivingLessons(Set<DrivingLesson> drivingLessons, Long from, Long to) {
         return drivingLessons.stream()
                 .filter(x -> x.getDateFrom().getTime() / 1000 >= from)
                 .filter(x -> x.getDateTo().getTime() / 1000 <= to)

@@ -12,6 +12,7 @@ import java.util.List;
 public class InstructorStatisticsDto {
 
     private List<String> instructors;
-    private List<Long> numberOfHours;
+    private List<Long> numberOfTheoreticalHours;
+    private List<Long> numberOfPracticalHours;
 
 }
