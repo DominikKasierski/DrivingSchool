@@ -15,7 +15,7 @@ import axios from "axios";
 import Breadcrumb from "../../bars/Breadcrumb";
 import {Link} from "react-router-dom";
 import {Col, Container, Row} from "react-bootstrap";
-import CustomDatePicker from "../../utils/pickers/CustomDatePicker";
+import CustomDatePicker from "../../utils/customs/CustomDatePicker";
 
 function GenerateReport(props) {
     const {t, i18n} = props

@@ -3,10 +3,7 @@ package pl.lodz.p.it.dk.mos.controllers;
 import pl.lodz.p.it.dk.common.abstracts.AbstractController;
 import pl.lodz.p.it.dk.entities.enums.CourseCategory;
 import pl.lodz.p.it.dk.exceptions.BaseException;
-import pl.lodz.p.it.dk.mos.dtos.LectureGroupDto;
-import pl.lodz.p.it.dk.mos.dtos.NewLectureDto;
-import pl.lodz.p.it.dk.mos.dtos.NewLectureGroupDto;
-import pl.lodz.p.it.dk.mos.dtos.TraineeForGroupDto;
+import pl.lodz.p.it.dk.mos.dtos.*;
 import pl.lodz.p.it.dk.mos.endpoints.LectureGroupEndpointLocal;
 import pl.lodz.p.it.dk.security.etag.EtagFilterBinding;
 import pl.lodz.p.it.dk.security.etag.Signer;
@@ -81,5 +78,13 @@ public class LectureGroupController extends AbstractController {
     @Produces(MediaType.APPLICATION_JSON)
     public void addLectureForGroup(@NotNull @Valid NewLectureDto newLectureDto) throws BaseException {
         repeat(() -> lectureGroupEndpoint.addLectureForGroup(newLectureDto), lectureGroupEndpoint);
+    }
+
+    @GET
+    @RolesAllowed("getGroupCalendar")
+    @Path("/getGroupCalendar/{id}/{from}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public GroupCalendarDto getGroupCalendar(@NotNull @PathParam("id") Long id, @PathParam("from") Long from) throws BaseException {
+        return repeat(() -> lectureGroupEndpoint.getGroupCalendar(id, from), lectureGroupEndpoint);
     }
 }

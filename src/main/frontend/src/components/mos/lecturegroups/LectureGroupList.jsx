@@ -97,7 +97,7 @@ function LectureGroupList(props) {
                                     <td className={"text-center align-middle"}>
                                         <div className="d-flex justify-content-center align-items-center px-3">
                                             <button className="btn btn-dark btn-block dim"
-                                                    onClick={() => history.push("/addLectures?id=" + item.id)}>
+                                                    onClick={() => history.push("/addLecture?id=" + item.id)}>
                                                 {t('add')}
                                             </button>
                                         </div>

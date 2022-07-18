@@ -4,7 +4,7 @@ import {useState} from "react";
 import Breadcrumb from "../../bars/Breadcrumb";
 import {Link, useHistory} from "react-router-dom";
 import {Col, Container, Row} from "react-bootstrap";
-import CustomDatePicker from "../../utils/pickers/CustomDatePicker";
+import CustomDatePicker from "../../utils/customs/CustomDatePicker";
 import axios from "axios";
 import {ResponseErrorsHandler} from "../../utils/handlers/ResponseErrorsHandler";
 import moment from "moment";

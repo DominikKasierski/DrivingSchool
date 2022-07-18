@@ -202,6 +202,9 @@
     <security-role>
         <role-name>getInstructorStatistics</role-name>
     </security-role>
+    <security-role>
+        <role-name>getGroupCalendar</role-name>
+    </security-role>
 
     <security-constraint>
         <web-resource-collection>

@@ -4,6 +4,8 @@ import pl.lodz.p.it.dk.common.utils.LoggingInterceptor;
 import pl.lodz.p.it.dk.entities.*;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.exceptions.LectureGroupException;
+import pl.lodz.p.it.dk.mos.dtos.EventDto;
+import pl.lodz.p.it.dk.mos.dtos.GroupCalendarDto;
 import pl.lodz.p.it.dk.mos.facades.LectureFacade;
 import pl.lodz.p.it.dk.mos.facades.LectureGroupFacade;
 
@@ -14,6 +16,7 @@ import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -63,7 +66,7 @@ public class LectureGroupManager {
         return openLectureGroups;
     }
 
-    @RolesAllowed({"getLectureGroup", "addLectureForGroup"})
+    @RolesAllowed({"getLectureGroup", "addLectureForGroup", "getGroupCalendar"})
     public LectureGroup findById(Long id) throws BaseException {
         return lectureGroupFacade.find(id);
     }
@@ -132,6 +135,17 @@ public class LectureGroupManager {
         instructorAccessManager.edit(instructorAccess);
     }
 
+    @RolesAllowed("getGroupCalendar")
+    public GroupCalendarDto getGroupCalendar(LectureGroup lectureGroup, Long from) throws BaseException {
+        List<EventDto> mondayEvents = getEventsForDay(lectureGroup, from, 0);
+        List<EventDto> tuesdayEvents = getEventsForDay(lectureGroup, from, 1);
+        List<EventDto> wednesdayEvents = getEventsForDay(lectureGroup, from, 2);
+        List<EventDto> thursdayEvents = getEventsForDay(lectureGroup, from, 3);
+        List<EventDto> fridayEvents = getEventsForDay(lectureGroup, from, 4);
+
+        return new GroupCalendarDto(mondayEvents, tuesdayEvents, wednesdayEvents, thursdayEvents, fridayEvents);
+    }
+
     private void checkAvailabilityOfDate(LectureGroup lectureGroup, Date dateFrom, Date dateTo,
                                          InstructorAccess instructorAccess) throws LectureGroupException {
         for (Lecture lecture : lectureGroup.getLectures()) {
@@ -177,5 +191,19 @@ public class LectureGroupManager {
                 courseManager.edit(x);
             }
         }
+    }
+
+    private List<EventDto> getEventsForDay(LectureGroup lectureGroup, Long from, int delay) {
+        List<EventDto> events = new ArrayList<>();
+        Instant date = Instant.ofEpochMilli(from).plus(delay, ChronoUnit.DAYS).truncatedTo(ChronoUnit.DAYS);
+
+        for (Lecture lecture : lectureGroup.getLectures()) {
+            if (date.equals(lecture.getDateFrom().toInstant().truncatedTo(ChronoUnit.DAYS))) {
+                events.add(
+                        new EventDto(lecture.getId(), "LECTURE", "custom", lecture.getDateFrom(), lecture.getDateTo()));
+            }
+        }
+
+        return events;
     }
 }
