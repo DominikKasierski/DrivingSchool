@@ -195,7 +195,7 @@ public class LectureGroupManager {
 
     private List<EventDto> getEventsForDay(LectureGroup lectureGroup, Long from, int delay) {
         List<EventDto> events = new ArrayList<>();
-        Instant date = Instant.ofEpochMilli(from).plus(delay, ChronoUnit.DAYS).truncatedTo(ChronoUnit.DAYS);
+        Instant date = Instant.ofEpochMilli(from/1000).plus(delay, ChronoUnit.DAYS).truncatedTo(ChronoUnit.DAYS);
 
         for (Lecture lecture : lectureGroup.getLectures()) {
             if (date.equals(lecture.getDateFrom().toInstant().truncatedTo(ChronoUnit.DAYS))) {

@@ -337,12 +337,13 @@
   "generate.report.title": "Raport wpłat",
   "date.from": "Od dnia",
   "date.to": "Do dnia",
+  "begin.date": "Wybierz dowolny dzień z interesującego Cię tygodnia",
   "generate.report.generate": "Generuj raport",
   "generate.report.time": "Czas",
 
   "lecture.groups.group.name": "Nazwa grupy wykładowej",
   "lecture.groups.add.participants": "Dodaj uczestników",
-  "lecture.groups.add.lecture": "Dodaj wykłady",
+  "lecture.groups.add.lecture": "Dodaj wykład",
   "lecture.groups.group.size": "Liczba uczestników",
 
   "add.participants": "Dodaj uczestników",
@@ -369,5 +370,7 @@
   "instructors.statistics.title": "Statystyki instruktorów",
   "instructors.statistics.display.statistics": "Wyświetl statystyki",
   "instructors.statistics.chart.theoretical.title": "Liczba godzin teoretycznych",
-  "instructors.statistics.chart.practical.title": "Liczba godzin praktycznych"
+  "instructors.statistics.chart.practical.title": "Liczba godzin praktycznych",
+
+  "add.lecture.display.calendar": "Wyświetl kalendarz"
 }

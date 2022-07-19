@@ -337,12 +337,13 @@
   "generate.report.title": "Payment report",
   "date.from": "From date",
   "date.to": "To date",
+  "begin.date": "Choose any day from the week you are interested in",
   "generate.report.generate": "Generate report",
   "generate.report.time": "Time",
 
   "lecture.groups.group.name": "Lecture group name",
   "lecture.groups.add.participants": "Add participants",
-  "lecture.groups.add.lecture": "Add lectures",
+  "lecture.groups.add.lecture": "Add lecture",
   "lecture.groups.group.size": "Participants number",
 
   "add.participants": "Add participants",
@@ -369,5 +370,7 @@
   "instructors.statistics.title": "Instructor statistics",
   "instructors.statistics.display.statistics": "Display statistics",
   "instructors.statistics.chart.theoretical.title": "Number of theoretical hours",
-  "instructors.statistics.chart.practical.title": "Number of practical hours"
+  "instructors.statistics.chart.practical.title": "Number of practical hours",
+
+  "add.lecture.display.calendar": "Display calendar"
 }

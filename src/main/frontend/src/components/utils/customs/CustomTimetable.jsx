@@ -1,15 +1,11 @@
-import TimeTable from 'react-timetable-events'
+import {Col, Container, Row, Table} from "react-bootstrap";
+import TimetableEvent from "./TimetableEvent";
 
-export default function CustomTimetable({mondayEvents, tuesdayEvents, wednesdayEvents, thursdayEvents, fridayEvents}) {
+export default function CustomTimetable(days, mEvents = [], tuEvents = [], wEvents = [], thEvents = [], fEvents = []) {
+
     return (
-        <TimeTable
-            events={{
-                monday: [mondayEvents,],
-                tuesday: [tuesdayEvents],
-                wednesday: [wednesdayEvents],
-                thursday: [thursdayEvents],
-                friday: [fridayEvents],
-            }}
-        />
+        <Container>
+
+        </Container>
     )
 }

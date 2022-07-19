@@ -33,6 +33,7 @@
     "chart.js": "^3.8.0",
     "react-chartjs-2": "^4.2.0",
     "react-timetable-events": "2.0.0",
+    "bootstrap-arrow-buttons": "1.0.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
