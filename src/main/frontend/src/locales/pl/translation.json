@@ -337,7 +337,6 @@
   "generate.report.title": "Raport wpłat",
   "date.from": "Od dnia",
   "date.to": "Do dnia",
-  "begin.date": "Wybierz dowolny dzień z interesującego Cię tygodnia",
   "generate.report.generate": "Generuj raport",
   "generate.report.time": "Czas",
 
@@ -372,5 +371,6 @@
   "instructors.statistics.chart.theoretical.title": "Liczba godzin teoretycznych",
   "instructors.statistics.chart.practical.title": "Liczba godzin praktycznych",
 
-  "add.lecture.display.calendar": "Wyświetl kalendarz"
+  "add.lecture.display.calendar": "Wyświetl kalendarz",
+  "add.lecture.begin.date": "Wybierz dowolny dzień z interesującego Cię tygodnia"
 }

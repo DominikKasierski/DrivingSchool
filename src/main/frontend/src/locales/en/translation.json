@@ -337,7 +337,6 @@
   "generate.report.title": "Payment report",
   "date.from": "From date",
   "date.to": "To date",
-  "begin.date": "Choose any day from the week you are interested in",
   "generate.report.generate": "Generate report",
   "generate.report.time": "Time",
 
@@ -372,5 +371,6 @@
   "instructors.statistics.chart.theoretical.title": "Number of theoretical hours",
   "instructors.statistics.chart.practical.title": "Number of practical hours",
 
-  "add.lecture.display.calendar": "Display calendar"
+  "add.lecture.display.calendar": "Display calendar",
+  "add.lecture.begin.date": "Choose any day from the week you are interested in"
 }
