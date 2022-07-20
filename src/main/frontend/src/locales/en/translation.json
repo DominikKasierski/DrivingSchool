@@ -372,5 +372,15 @@
   "instructors.statistics.chart.practical.title": "Number of practical hours",
 
   "add.lecture.display.calendar": "Display calendar",
-  "add.lecture.begin.date": "Choose any day from the week you are interested in"
+  "add.lecture.begin.date": "Choose any day from the week you are interested in",
+  "lecture.groups.previous.week": "Previous week",
+  "lecture.groups.next.week": "Next week",
+  "lecture.groups.change.week.success": "Date has been changed",
+  "monday": "Monday",
+  "tuesday": "Tuesday",
+  "wednesday": "Wednesday",
+  "thursday": "Thursday",
+  "friday": "Friday",
+  "saturday": "Saturday",
+  "sunday": "Sunday"
 }

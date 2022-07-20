@@ -372,5 +372,15 @@
   "instructors.statistics.chart.practical.title": "Liczba godzin praktycznych",
 
   "add.lecture.display.calendar": "Wyświetl kalendarz",
-  "add.lecture.begin.date": "Wybierz dowolny dzień z interesującego Cię tygodnia"
+  "add.lecture.begin.date": "Wybierz dowolny dzień z interesującego Cię tygodnia",
+  "lecture.groups.previous.week": "Poprzedni tydzień",
+  "lecture.groups.next.week": "Następny tydzień",
+  "lecture.groups.change.week.success": "Data została zmieniona",
+  "monday": "Poniedziałek",
+  "tuesday": "Wtorek",
+  "wednesday": "Środa",
+  "thursday": "Czwartek",
+  "friday": "Piątek",
+  "saturday": "Sobota",
+  "sunday": "Niedziela"
 }

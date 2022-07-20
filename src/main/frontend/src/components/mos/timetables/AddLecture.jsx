@@ -1,17 +1,15 @@
 import React from "react";
 
 import {withNamespaces} from "react-i18next";
-import CustomTimetable from "../../utils/customs/CustomTimetable";
 import {useLocale} from "../../utils/login/LoginProvider";
 import Breadcrumb from "../../bars/Breadcrumb";
 import {Link, useLocation} from "react-router-dom";
-import {Card, CardGroup, Col, Container, Row, Table} from "react-bootstrap";
-import CustomDatePicker from "../../utils/customs/CustomDatePicker";
+import {Col, Container, Row, Table} from "react-bootstrap";
 import {useState, useEffect} from "react";
 import queryString from "query-string";
 import axios from "axios";
 import {ResponseErrorsHandler} from "../../utils/handlers/ResponseErrorsHandler";
-import {useDangerNotification} from "../../utils/notifications/NotificationProvider";
+import {useDangerNotification, useSuccessNotification} from "../../utils/notifications/NotificationProvider";
 import moment from "moment";
 import TimetableEvent from "../../utils/customs/TimetableEvent";
 
@@ -37,23 +35,22 @@ function AddLecture(props) {
     const [wednesdayEvents, setWednesdayEvents] = useState([eventSchema]);
     const [thursdayEvents, setThursdayEvents] = useState([eventSchema]);
     const [fridayEvents, setFridayEvents] = useState([eventSchema]);
-    let days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+    let days = [t("monday"), t("tuesday"), t("wednesday"), t("thursday"), t("friday"), t("saturday"), t("sunday")];
     const [dateHeading, setDateHeading] = useState("");
 
     const dispatchDangerNotification = useDangerNotification();
+    const dispatchSuccessNotification = useSuccessNotification();
 
     useEffect(() => {
         if (token) {
-            debugger;
             getGroupCalendar(new Date());
             getEtag();
         }
     }, [token]);
 
-    function getGroupCalendar(date) {
-        debugger
+    function getGroupCalendar(date, notification = false) {
         setDates(date);
-        axios.get(`/resources/lectureGroup/getGroupCalendar/` + parsedQuery.id + "/" + startOfWeek(date).getTime(), {
+        axios.get(`/resources/lectureGroup/getGroupCalendar/` + parsedQuery.id + "/" + moment(startOfWeek(date)).unix(), {
             headers: {
                 "Authorization": token,
             }
@@ -63,23 +60,23 @@ function AddLecture(props) {
             setWednesdayEvents(res.data.wednesdayEvents);
             setThursdayEvents(res.data.thursdayEvents);
             setFridayEvents(res.data.fridayEvents);
+            if (notification) {
+                dispatchSuccessNotification({message: i18n.t('lecture.groups.change.week.success')})
+            }
         }).catch((e) => ResponseErrorsHandler(e, dispatchDangerNotification));
     }
 
     function startOfWeek(date) {
-        let dupa = new Date(moment(date).startOf('isoWeek').toDate());
-        return dupa;
+        return new Date(moment(date).startOf('isoWeek').toDate());
     }
 
     function endOfWeek(date) {
-        let dupa = new Date(moment(date).endOf('isoWeek').toDate());
-        return dupa;
+        return new Date(moment(date).endOf('isoWeek').toDate());
     }
 
     function setDates(date) {
         let dateOfFirstDayOfWeek = startOfWeek(date);
         let dateOfLastDayOfWeek = endOfWeek(dateOfFirstDayOfWeek);
-        debugger;
         setDateHeading(padTo2Digits(dateOfFirstDayOfWeek.getDate()) + "/" + padTo2Digits(dateOfFirstDayOfWeek.getMonth() + 1) + "/" +
             dateOfFirstDayOfWeek.getFullYear() + " - " + padTo2Digits(dateOfLastDayOfWeek.getDate()) + "/" +
             padTo2Digits(dateOfLastDayOfWeek.getMonth() + 1) + "/" + dateOfLastDayOfWeek.getFullYear());
@@ -103,6 +100,8 @@ function AddLecture(props) {
         <div className="container-fluid">
             <Breadcrumb>
                 <li className="breadcrumb-item"><Link className={"text-dark"} to="/">{t("navigation.bar.main.page")}</Link></li>
+                <li className="breadcrumb-item"><Link className={"text-dark"}
+                                                      to="/lectureGroups">{t("navigation.bar.lecture.groups")}</Link></li>
                 <li className="breadcrumb-item active text-secondary"
                     aria-current="page">{t("lecture.groups.add.lecture")}</li>
             </Breadcrumb>
@@ -115,54 +114,27 @@ function AddLecture(props) {
                                     <h1 className="font-weight-light">{t("lecture.groups.add.lecture")}</h1>
                                 </Col>
                             </Row>
-
-                            {/*<Row className="text-center">*/}
-                            {/*    <div className="col-12 text-center mt-2">*/}
-                            {/*        <span>{t("add.lecture.begin.date")}</span>*/}
-                            {/*    </div>*/}
-                            {/*</Row>*/}
-
-                            {/*<Row className="text-center mb-3">*/}
-                            {/*    <Col className="d-flex justify-content-center text-center">*/}
-                            {/*        <CustomDatePicker setPickDate={setStartDate}*/}
-                            {/*                          pickDate={startDate}*/}
-                            {/*                          setEndDate={setEndDate}*/}
-                            {/*                          currentEndDate={endDate}*/}
-                            {/*                          className={"date-picker-custom mt-0"}*/}
-                            {/*                          time={false}/>*/}
-                            {/*    </Col>*/}
-                            {/*</Row>*/}
-
-                            {/*<Row className="justify-content-center">*/}
-                            {/*    <Col sm={7} className="mt-4 mb-4">*/}
-                            {/*        <button className="btn btn-block btn-dark dim"*/}
-                            {/*                type="submit" disabled={!startDate || !endDate}*/}
-                            {/*                onClick={() => getGroupCalendar(startDate)}>*/}
-                            {/*            {i18n.t('add.lecture.display.calendar')}*/}
-                            {/*        </button>*/}
-                            {/*    </Col>*/}
-                            {/*</Row>*/}
                             <Row className="text-center">
                                 <Col className="mt-1 mb-2 d-inline-block">
                                     <button className="btn btn-dark dim" type="submit" onClick={() => {
                                         let dateString = dateHeading.substring(0, 10).replaceAll("/", "-");
-                                        const date = new Date(moment(dateString, 'DD-MM-YYYY').subtract(1, 'd').add(1, 'h').toDate());
+                                        const date = new Date(moment(dateString, 'DD-MM-YYYY').add(1, 'm').subtract(1, 'd').add(1, 'h').toDate());
                                         debugger;
-                                        getGroupCalendar(date);
+                                        getGroupCalendar(date, true);
                                     }
                                     }>
-                                        Poprzedni tydzień
+                                        {i18n.t("lecture.groups.previous.week")}
                                     </button>
 
                                     <span style={{fontSize: "1.2rem"}} className={"mx-4"}>{dateHeading}</span>
 
                                     <button className="btn btn-dark dim" type="submit" onClick={() => {
                                         let dateString = dateHeading.substring(0, 10).replaceAll("/", "-");
-                                        const date = new Date(moment(dateString, 'DD-MM-YYYY').add(8, 'd').toDate());
-                                        getGroupCalendar(date);
+                                        const date = new Date(moment(dateString, 'DD-MM-YYYY').add(1, 'm').add(8, 'd').toDate());
+                                        getGroupCalendar(date, true);
                                     }
                                     }>
-                                        Następny tydzień
+                                        {i18n.t("lecture.groups.next.week")}
                                     </button>
                                 </Col>
                             </Row>
@@ -184,39 +156,42 @@ function AddLecture(props) {
                                 </Col>
                             </Row>
                             <Row>
-                                <Col className="mt-2 mb-2">
-                                    {mondayEvents.length > 1 && mondayEvents.map((item) => (
+                                {mondayEvents.length > 0 && mondayEvents.map((item) => (
+                                    <Col className="mt-2 mb-2">
                                         <TimetableEvent id={item.id}/>
-                                    ))}
-                                </Col>
+                                    </Col>
+                                ))}
+                            </Row>
+
+                            <Row>
+                                {tuesdayEvents.length > 0 && tuesdayEvents.map((item) => (
+                                    <Col className="mt-2 mb-2">
+                                        <TimetableEvent id={item.id}/>
+                                    </Col>
+                                ))}
+                            </Row>
+
+                            <Row>
+                                {wednesdayEvents.length > 0 && wednesdayEvents.map((item) => (
+                                    <Col className="mt-2 mb-2">
+                                        <TimetableEvent id={item.id}/>
+                                    </Col>
+                                ))}
+
                             </Row>
                             <Row>
-                                <Col className="mt-2 mb-2">
-                                    {tuesdayEvents.length > 1 && tuesdayEvents.map((item) => (
+                                {thursdayEvents.length > 0 && thursdayEvents.map((item) => (
+                                    <Col className="mt-2 mb-2">
                                         <TimetableEvent id={item.id}/>
-                                    ))}
-                                </Col>
+                                    </Col>
+                                ))}
                             </Row>
                             <Row>
-                                <Col className="mt-2 mb-2">
-                                    {wednesdayEvents.length > 1 && wednesdayEvents.map((item) => (
+                                {fridayEvents.length > 0 && fridayEvents.map((item) => (
+                                    <Col className="mt-2 mb-2">
                                         <TimetableEvent id={item.id}/>
-                                    ))}
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col className="mt-2 mb-2">
-                                    {thursdayEvents.length > 1 && thursdayEvents.map((item) => (
-                                        <TimetableEvent id={item.id}/>
-                                    ))}
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col className="mt-2 mb-2">
-                                    {fridayEvents.length > 1 && fridayEvents.map((item) => (
-                                        <TimetableEvent id={item.id}/>
-                                    ))}
-                                </Col>
+                                    </Col>
+                                ))}
                             </Row>
                         </div>
                     </Col>
