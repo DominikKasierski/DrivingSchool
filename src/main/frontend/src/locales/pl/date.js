@@ -13,8 +13,6 @@ export const plMonths = [
     'Grudzień'
 ]
 
-//TODO: Zastanowić się czy zmienić na "prawdziwe" skróty - wt, śr itd. To samo w en
-
 export const plDays = [
     'Nie',
     'Pon',

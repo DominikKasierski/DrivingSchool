@@ -12,6 +12,7 @@ import {ResponseErrorsHandler} from "../../utils/handlers/ResponseErrorsHandler"
 import {useDangerNotification, useSuccessNotification} from "../../utils/notifications/NotificationProvider";
 import moment from "moment";
 import TimetableEvent from "../../utils/customs/TimetableEvent";
+import {getDays} from "../../../i18n";
 
 function AddLecture(props) {
     const {t, i18n} = props
@@ -107,7 +108,7 @@ function AddLecture(props) {
             </Breadcrumb>
             <Container>
                 <Row>
-                    <Col xs={12} sm={12} md={10} lg={10} xl={10} className={"floating pt-2 pb-0 mx-auto mb-5 mt-3"}>
+                    <Col xs={12} sm={12} md={12} lg={12} xl={12} className={"floating pt-2 pb-0 mx-auto mb-5 mt-3"}>
                         <div className="py-2">
                             <Row className="text-center">
                                 <Col className="mb-sm-3">
@@ -138,60 +139,64 @@ function AddLecture(props) {
                                     </button>
                                 </Col>
                             </Row>
-                            <Row className="text-center">
-                                <Col className="mt-4 mb-2">
-                                    <Table striped>
-                                        <thead>
-                                        <tr>
-                                            <th>{days[0]}</th>
-                                            <th>{days[1]}</th>
-                                            <th>{days[2]}</th>
-                                            <th>{days[3]}</th>
-                                            <th>{days[4]}</th>
-                                            <th>{days[5]}</th>
-                                            <th>{days[6]}</th>
-                                        </tr>
-                                        </thead>
-                                    </Table>
+                            <Row className="text-center mt-4 mb-2 px-2" style={{fontSize: "1.2rem"}}>
+                                <Col className="dim py-2">
+                                    <span>{days[0]}</span>
                                 </Col>
-                            </Row>
-                            <Row>
-                                {mondayEvents.length > 0 && mondayEvents.map((item) => (
-                                    <Col className="mt-2 mb-2">
-                                        <TimetableEvent id={item.id}/>
-                                    </Col>
-                                ))}
-                            </Row>
+                                <Col className="dim py-2">
+                                    <span>{days[1]}</span>
+                                </Col>
+                                <Col className="dim py-2">
+                                    <span>{days[2]}</span>
+                                </Col>
+                                <Col className="dim py-2">
+                                    <span>{days[3]}</span>
+                                </Col>
+                                <Col className="dim py-2">
+                                    <span>{days[4]}</span>
+                                </Col>
+                                <Col className="dim py-2">
+                                    <span>{days[5]}</span>
+                                </Col>
+                                <Col className="dim py-2">
+                                    <span>{days[6]}</span>
+                                </Col>
 
-                            <Row>
-                                {tuesdayEvents.length > 0 && tuesdayEvents.map((item) => (
-                                    <Col className="mt-2 mb-2">
-                                        <TimetableEvent id={item.id}/>
-                                    </Col>
-                                ))}
+                                <div className="divider"></div>
                             </Row>
+                            <Row>
+                                <Col className="mt-2 mb-2">
+                                    {mondayEvents.length > 0 && mondayEvents.map((item) => (
+                                        <TimetableEvent id={item.name}/>
+                                    ))}
+                                </Col>
 
-                            <Row>
-                                {wednesdayEvents.length > 0 && wednesdayEvents.map((item) => (
-                                    <Col className="mt-2 mb-2">
-                                        <TimetableEvent id={item.id}/>
-                                    </Col>
-                                ))}
+                                <Col className="mt-2 mb-2">
+                                    {tuesdayEvents.length > 0 && tuesdayEvents.map((item) => (
+                                        <TimetableEvent id={item.name}/>
+                                    ))}
+                                </Col>
 
-                            </Row>
-                            <Row>
-                                {thursdayEvents.length > 0 && thursdayEvents.map((item) => (
-                                    <Col className="mt-2 mb-2">
-                                        <TimetableEvent id={item.id}/>
-                                    </Col>
-                                ))}
-                            </Row>
-                            <Row>
-                                {fridayEvents.length > 0 && fridayEvents.map((item) => (
-                                    <Col className="mt-2 mb-2">
-                                        <TimetableEvent id={item.id}/>
-                                    </Col>
-                                ))}
+                                <Col className="mt-2 mb-2">
+                                    {wednesdayEvents.length > 0 && wednesdayEvents.map((item) => (
+                                        <TimetableEvent id={item.name}/>
+                                    ))}
+                                </Col>
+
+                                <Col className="mt-2 mb-2">
+                                    {thursdayEvents.length > 0 && thursdayEvents.map((item) => (
+                                        <TimetableEvent id={item.name}/>
+                                    ))}
+                                </Col>
+                                <Col className="mt-2 mb-2">
+                                    {fridayEvents.length > 0 && fridayEvents.map((item) => (
+                                        <TimetableEvent id={item.name}/>
+                                    ))}
+                                </Col>
+                                <Col className="mt-2 mb-2">
+                                </Col>
+                                <Col className="mt-2 mb-2">
+                                </Col>
                             </Row>
                         </div>
                     </Col>

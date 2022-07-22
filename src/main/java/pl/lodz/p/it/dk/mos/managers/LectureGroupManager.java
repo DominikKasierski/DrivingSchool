@@ -16,8 +16,8 @@ import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -137,11 +137,14 @@ public class LectureGroupManager {
 
     @RolesAllowed("getGroupCalendar")
     public GroupCalendarDto getGroupCalendar(LectureGroup lectureGroup, Long from) throws BaseException {
-        List<EventDto> mondayEvents = getEventsForDay(lectureGroup, from, 0);
-        List<EventDto> tuesdayEvents = getEventsForDay(lectureGroup, from, 1);
-        List<EventDto> wednesdayEvents = getEventsForDay(lectureGroup, from, 2);
-        List<EventDto> thursdayEvents = getEventsForDay(lectureGroup, from, 3);
-        List<EventDto> fridayEvents = getEventsForDay(lectureGroup, from, 4);
+        Calendar dateFrom = Calendar.getInstance();
+        dateFrom.setTime(new Date(from * 1000));
+
+        List<EventDto> mondayEvents = getEventsForDay(lectureGroup, dateFrom);
+        List<EventDto> tuesdayEvents = getEventsForDay(lectureGroup, dateFrom);
+        List<EventDto> wednesdayEvents = getEventsForDay(lectureGroup, dateFrom);
+        List<EventDto> thursdayEvents = getEventsForDay(lectureGroup, dateFrom);
+        List<EventDto> fridayEvents = getEventsForDay(lectureGroup, dateFrom);
 
         return new GroupCalendarDto(mondayEvents, tuesdayEvents, wednesdayEvents, thursdayEvents, fridayEvents);
     }
@@ -193,17 +196,25 @@ public class LectureGroupManager {
         }
     }
 
-    private List<EventDto> getEventsForDay(LectureGroup lectureGroup, Long from, int delay) {
+    private List<EventDto> getEventsForDay(LectureGroup lectureGroup, Calendar dateFrom) {
         List<EventDto> events = new ArrayList<>();
-        Instant date = Instant.ofEpochSecond(from).plus(delay, ChronoUnit.DAYS).truncatedTo(ChronoUnit.DAYS);
 
         for (Lecture lecture : lectureGroup.getLectures()) {
-            if (date.equals(lecture.getDateFrom().toInstant().truncatedTo(ChronoUnit.DAYS))) {
+            if (checkIfDatesAreInTheSameDay(dateFrom, lecture.getDateFrom())) {
                 events.add(
                         new EventDto(lecture.getId(), "LECTURE", "custom", lecture.getDateFrom(), lecture.getDateTo()));
             }
         }
 
+        dateFrom.add(Calendar.DATE, 1);
         return events;
+    }
+
+    private boolean checkIfDatesAreInTheSameDay(Calendar dateFrom, Date lectureDate) {
+        Calendar tmpCalendar = Calendar.getInstance();
+        tmpCalendar.setTime(lectureDate);
+
+        return dateFrom.get(Calendar.DAY_OF_YEAR) == tmpCalendar.get(Calendar.DAY_OF_YEAR) &&
+                dateFrom.get(Calendar.YEAR) == tmpCalendar.get(Calendar.YEAR);
     }
 }

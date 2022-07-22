@@ -117,16 +117,19 @@ VALUES (-1, -2, -3, date '2022-07-01' + time '16:00', date '2022-07-01' + time '
        (-2, -2, -3, date '2022-07-04' + time '16:00', date '2022-07-04' + time '20:00', date '2022-06-30', null, -1, null, 1),
        (-3, -3, -3, date '2022-07-06' + time '16:00', date '2022-07-06' + time '20:00', date '2022-07-04', null, -1, null, 1),
        (-4, -3, -3, date '2022-07-07' + time '16:00', date '2022-07-07' + time '20:00', date '2022-07-04', null, -1, null, 1),
-       (-5, -2, -3, date '2022-07-08' + time '16:00', date '2022-07-08' + time '20:00', date '2022-07-06', null, -1, null, 1);
+       (-5, -2, -3, date '2022-07-12' + time '16:00', date '2022-07-12' + time '20:00', date '2022-07-06', null, -1, null, 1),
+       (-6, -2, -2, date '2022-06-30' + time '16:00', date '2022-06-30' + time '20:00', date '2022-06-24', null, -1, null, 1),
+       (-7, -2, -2, date '2022-07-05' + time '16:00', date '2022-07-05' + time '20:00', date '2022-06-30', null, -1, null, 1),
+       (-8, -3, -2, date '2022-07-07' + time '16:00', date '2022-07-07' + time '20:00', date '2022-07-03', null, -1, null, 1);
 
 ---- Create driving lessons ----
 INSERT INTO driving_lesson (id, lesson_status, instructor_id, course_id, car_id, date_from, date_to, creation_date,
                             modification_date, created_by, modified_by, version)
-VALUES (-1, 'FINISHED', -3, -6, -3, date '2022-07-12' + time '12:00', date '2022-07-12' + time '14:00',
+VALUES (-1, 'FINISHED', -3, -6, -3, date '2022-07-13' + time '12:00', date '2022-07-13' + time '14:00',
         date '2022-07-08' + time '21:00', null, -8, null, 1),
-       (-2, 'FINISHED', -2, -6, -3, date '2022-07-13' + time '13:00', date '2022-07-13' + time '15:00',
+       (-2, 'FINISHED', -2, -6, -3, date '2022-07-14' + time '13:00', date '2022-07-14' + time '15:00',
         date '2022-07-08' + time '21:00', null, -8, null, 1),
-       (-3, 'FINISHED', -3, -6, -3, date '2022-07-14' + time '15:00', date '2022-07-14' + time '16:00',
+       (-3, 'FINISHED', -3, -6, -3, date '2022-07-15' + time '15:00', date '2022-07-15' + time '16:00',
         date '2022-07-08' + time '21:00', null, -8, null, 1),
        (-4, 'PENDING', -10, -6, -3, date '2022-07-21' + time '14:00', date '2022-07-21' + time '16:00',
         date '2022-07-14' + time '21:00', null, -8, null, 1),
