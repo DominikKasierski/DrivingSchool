@@ -201,8 +201,12 @@ public class LectureGroupManager {
 
         for (Lecture lecture : lectureGroup.getLectures()) {
             if (checkIfDatesAreInTheSameDay(dateFrom, lecture.getDateFrom())) {
+                Account instructorAccount = lecture.getInstructor().getAccount();
+                String instructorDetails =
+                        instructorAccount.getFirstname().concat(" ").concat(instructorAccount.getLastname());
                 events.add(
-                        new EventDto(lecture.getId(), "LECTURE", "custom", lecture.getDateFrom(), lecture.getDateTo()));
+                        new EventDto(lecture.getId(), "LECTURE", instructorDetails, lecture.getDateFrom().getTime(),
+                                lecture.getDateTo().getTime()));
             }
         }
 

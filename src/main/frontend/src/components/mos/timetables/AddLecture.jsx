@@ -18,15 +18,13 @@ function AddLecture(props) {
     const {t, i18n} = props
     const {token, setToken} = useLocale();
     const [etag, setEtag] = useState();
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(new Date());
     const location = useLocation();
     const parsedQuery = queryString.parse(location.search);
     const eventSchema = [
         {
             id: "",
-            name: "",
-            type: "",
+            title: "",
+            instructor: "",
             startTime: "",
             endTime: "",
         }
@@ -62,7 +60,7 @@ function AddLecture(props) {
             setThursdayEvents(res.data.thursdayEvents);
             setFridayEvents(res.data.fridayEvents);
             if (notification) {
-                dispatchSuccessNotification({message: i18n.t('lecture.groups.change.week.success')})
+                dispatchSuccessNotification({message: i18n.t('add.lecture.change.week.success')})
             }
         }).catch((e) => ResponseErrorsHandler(e, dispatchDangerNotification));
     }
@@ -124,7 +122,7 @@ function AddLecture(props) {
                                         getGroupCalendar(date, true);
                                     }
                                     }>
-                                        {i18n.t("lecture.groups.previous.week")}
+                                        {i18n.t("add.lecture.previous.week")}
                                     </button>
 
                                     <span style={{fontSize: "1.2rem"}} className={"mx-4"}>{dateHeading}</span>
@@ -135,7 +133,7 @@ function AddLecture(props) {
                                         getGroupCalendar(date, true);
                                     }
                                     }>
-                                        {i18n.t("lecture.groups.next.week")}
+                                        {i18n.t("add.lecture.next.week")}
                                     </button>
                                 </Col>
                             </Row>
@@ -167,30 +165,35 @@ function AddLecture(props) {
                             <Row>
                                 <Col className="mt-2 mb-2">
                                     {mondayEvents.length > 0 && mondayEvents.map((item) => (
-                                        <TimetableEvent id={item.name}/>
+                                        <TimetableEvent title={item.title} startTime={item.startTime} endTime={item.endTime}
+                                                        instructor={item.instructor}/>
                                     ))}
                                 </Col>
 
                                 <Col className="mt-2 mb-2">
                                     {tuesdayEvents.length > 0 && tuesdayEvents.map((item) => (
-                                        <TimetableEvent id={item.name}/>
+                                        <TimetableEvent title={item.title} startTime={item.startTime} endTime={item.endTime}
+                                                        instructor={item.instructor}/>
                                     ))}
                                 </Col>
 
                                 <Col className="mt-2 mb-2">
                                     {wednesdayEvents.length > 0 && wednesdayEvents.map((item) => (
-                                        <TimetableEvent id={item.name}/>
+                                        <TimetableEvent title={item.title} startTime={item.startTime} endTime={item.endTime}
+                                                        instructor={item.instructor}/>
                                     ))}
                                 </Col>
 
                                 <Col className="mt-2 mb-2">
                                     {thursdayEvents.length > 0 && thursdayEvents.map((item) => (
-                                        <TimetableEvent id={item.name}/>
+                                        <TimetableEvent title={item.title} startTime={item.startTime} endTime={item.endTime}
+                                                        instructor={item.instructor}/>
                                     ))}
                                 </Col>
                                 <Col className="mt-2 mb-2">
                                     {fridayEvents.length > 0 && fridayEvents.map((item) => (
-                                        <TimetableEvent id={item.name}/>
+                                        <TimetableEvent title={item.title} startTime={item.startTime} endTime={item.endTime}
+                                                        instructor={item.instructor}/>
                                     ))}
                                 </Col>
                                 <Col className="mt-2 mb-2">
