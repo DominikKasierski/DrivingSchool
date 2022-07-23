@@ -33,5 +33,5 @@ public interface LectureGroupEndpointLocal extends TransactionStarter {
     public void addLectureForGroup(@NotNull @Valid NewLectureDto newLectureDto) throws BaseException;
 
     @RolesAllowed("getGroupCalendar")
-    public GroupCalendarDto getGroupCalendar(Long lectureGroupId, Long from) throws BaseException;
+    public CalendarDto getGroupCalendar(Long lectureGroupId, Long from) throws BaseException;
 }

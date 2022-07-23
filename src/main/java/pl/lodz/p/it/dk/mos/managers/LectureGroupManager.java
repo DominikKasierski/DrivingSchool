@@ -5,7 +5,7 @@ import pl.lodz.p.it.dk.entities.*;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.exceptions.LectureGroupException;
 import pl.lodz.p.it.dk.mos.dtos.EventDto;
-import pl.lodz.p.it.dk.mos.dtos.GroupCalendarDto;
+import pl.lodz.p.it.dk.mos.dtos.CalendarDto;
 import pl.lodz.p.it.dk.mos.facades.LectureGroupFacade;
 
 import javax.annotation.security.RolesAllowed;
@@ -132,7 +132,7 @@ public class LectureGroupManager {
     }
 
     @RolesAllowed("getGroupCalendar")
-    public GroupCalendarDto getGroupCalendar(LectureGroup lectureGroup, Long from) throws BaseException {
+    public CalendarDto getGroupCalendar(LectureGroup lectureGroup, Long from) throws BaseException {
         Calendar dateFrom = Calendar.getInstance();
         dateFrom.setTime(new Date(from * 1000));
 
@@ -142,7 +142,7 @@ public class LectureGroupManager {
         List<EventDto> thursdayEvents = getEventsForDay(lectureGroup, dateFrom);
         List<EventDto> fridayEvents = getEventsForDay(lectureGroup, dateFrom);
 
-        return new GroupCalendarDto(mondayEvents, tuesdayEvents, wednesdayEvents, thursdayEvents, fridayEvents);
+        return new CalendarDto(mondayEvents, tuesdayEvents, wednesdayEvents, thursdayEvents, fridayEvents);
     }
 
     private void checkAvailabilityOfDate(LectureGroup lectureGroup, Date dateFrom, Date dateTo,

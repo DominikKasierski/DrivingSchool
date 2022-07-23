@@ -3,10 +3,7 @@ package pl.lodz.p.it.dk.mos.controllers;
 import pl.lodz.p.it.dk.common.abstracts.AbstractController;
 import pl.lodz.p.it.dk.entities.enums.CourseCategory;
 import pl.lodz.p.it.dk.exceptions.BaseException;
-import pl.lodz.p.it.dk.mos.dtos.BriefCourseInfoDto;
-import pl.lodz.p.it.dk.mos.dtos.CourseDto;
-import pl.lodz.p.it.dk.mos.dtos.CourseStatisticsDto;
-import pl.lodz.p.it.dk.mos.dtos.InstructorStatisticsDto;
+import pl.lodz.p.it.dk.mos.dtos.*;
 import pl.lodz.p.it.dk.mos.endpoints.CourseEndpointLocal;
 import pl.lodz.p.it.dk.security.etag.EtagFilterBinding;
 import pl.lodz.p.it.dk.security.etag.Signer;
@@ -79,5 +76,15 @@ public class CourseController extends AbstractController {
     public InstructorStatisticsDto getInstructorStatistics(@PathParam("from") Long from, @PathParam("to") Long to)
             throws BaseException {
         return repeat(() -> courseEndpoint.getInstructorStatistics(from, to), courseEndpoint);
+    }
+
+    @GET
+    @RolesAllowed("getCalendar")
+    @Path("/getCalendar/{login}/{from}/{trainee}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public CalendarDto getCalendar(@NotNull @Login @PathParam("login") @Valid String login,
+                                   @PathParam("from") Long from, @NotNull @PathParam("trainee") Boolean trainee)
+            throws BaseException {
+        return repeat(() -> courseEndpoint.getCalendar(login, from, trainee), courseEndpoint);
     }
 }

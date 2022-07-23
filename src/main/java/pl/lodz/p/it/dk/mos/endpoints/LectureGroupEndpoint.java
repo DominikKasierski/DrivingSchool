@@ -101,7 +101,7 @@ public class LectureGroupEndpoint extends AbstractEndpoint implements LectureGro
 
     @Override
     @RolesAllowed("getGroupCalendar")
-    public GroupCalendarDto getGroupCalendar(Long lectureGroupId, Long from) throws BaseException {
+    public CalendarDto getGroupCalendar(Long lectureGroupId, Long from) throws BaseException {
         LectureGroup lectureGroup = lectureGroupManager.findById(lectureGroupId);
         return lectureGroupManager.getGroupCalendar(lectureGroup, from);
     }

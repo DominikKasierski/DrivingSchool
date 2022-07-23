@@ -5,18 +5,17 @@ import pl.lodz.p.it.dk.common.abstracts.AbstractEndpoint;
 import pl.lodz.p.it.dk.common.utils.LoggingInterceptor;
 import pl.lodz.p.it.dk.entities.Account;
 import pl.lodz.p.it.dk.entities.Course;
+import pl.lodz.p.it.dk.entities.InstructorAccess;
 import pl.lodz.p.it.dk.entities.TraineeAccess;
 import pl.lodz.p.it.dk.entities.enums.CourseCategory;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.mappers.AccessMapper;
 import pl.lodz.p.it.dk.mappers.CourseMapper;
 import pl.lodz.p.it.dk.mok.dtos.TraineeAccessDto;
-import pl.lodz.p.it.dk.mos.dtos.BriefCourseInfoDto;
-import pl.lodz.p.it.dk.mos.dtos.CourseDto;
-import pl.lodz.p.it.dk.mos.dtos.CourseStatisticsDto;
-import pl.lodz.p.it.dk.mos.dtos.InstructorStatisticsDto;
+import pl.lodz.p.it.dk.mos.dtos.*;
 import pl.lodz.p.it.dk.mos.managers.AccountManager;
 import pl.lodz.p.it.dk.mos.managers.CourseManager;
+import pl.lodz.p.it.dk.mos.managers.InstructorAccessManager;
 import pl.lodz.p.it.dk.mos.managers.TraineeAccessManager;
 
 import javax.annotation.security.RolesAllowed;
@@ -36,6 +35,9 @@ public class CourseEndpoint extends AbstractEndpoint implements CourseEndpointLo
 
     @Inject
     TraineeAccessManager traineeAccessManager;
+
+    @Inject
+    InstructorAccessManager instructorAccessManager;
 
     @Inject
     CourseManager courseManager;
@@ -82,5 +84,18 @@ public class CourseEndpoint extends AbstractEndpoint implements CourseEndpointLo
     @RolesAllowed("getInstructorStatistics")
     public InstructorStatisticsDto getInstructorStatistics(Long from, Long to) throws BaseException {
         return courseManager.getInstructorStatistics(from, to);
+    }
+
+    @Override
+    @RolesAllowed("getCalendar")
+    public CalendarDto getCalendar(String login, Long from, Boolean trainee) throws BaseException {
+        if (trainee) {
+            Course course = courseManager.getOngoingCourse(login);
+            return courseManager.getCalendar(course.getLectureGroup().getLectures(), course.getDrivingLessons(), from);
+        } else {
+            Account account = accountManager.findByLogin(getLogin());
+            InstructorAccess instructorAccess = instructorAccessManager.find(account);
+            return courseManager.getCalendar(instructorAccess.getLectures(), instructorAccess.getDrivingLessons(), from);
+        }
     }
 }

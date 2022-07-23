@@ -84,7 +84,7 @@ public class LectureGroupController extends AbstractController {
     @RolesAllowed("getGroupCalendar")
     @Path("/getGroupCalendar/{id}/{from}")
     @Produces(MediaType.APPLICATION_JSON)
-    public GroupCalendarDto getGroupCalendar(@NotNull @PathParam("id") Long id, @PathParam("from") Long from)
+    public CalendarDto getGroupCalendar(@NotNull @PathParam("id") Long id, @PathParam("from") Long from)
             throws BaseException {
         return repeat(() -> lectureGroupEndpoint.getGroupCalendar(id, from), lectureGroupEndpoint);
     }

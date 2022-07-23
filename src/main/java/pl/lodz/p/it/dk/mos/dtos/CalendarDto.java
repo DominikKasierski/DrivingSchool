@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class GroupCalendarDto {
+public class CalendarDto {
 
     private List<EventDto> mondayEvents;
     private List<EventDto> tuesdayEvents;

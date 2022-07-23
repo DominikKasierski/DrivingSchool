@@ -9,9 +9,7 @@ import pl.lodz.p.it.dk.entities.enums.PaymentStatus;
 import pl.lodz.p.it.dk.exceptions.AccessException;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.exceptions.CourseException;
-import pl.lodz.p.it.dk.mos.dtos.BriefCourseInfoDto;
-import pl.lodz.p.it.dk.mos.dtos.CourseStatisticsDto;
-import pl.lodz.p.it.dk.mos.dtos.InstructorStatisticsDto;
+import pl.lodz.p.it.dk.mos.dtos.*;
 import pl.lodz.p.it.dk.mos.facades.CourseFacade;
 
 import javax.annotation.security.RolesAllowed;
@@ -199,6 +197,21 @@ public class CourseManager {
         return new InstructorStatisticsDto(instructors, numberOfTheoreticalHours, numberOfPracticalHours);
     }
 
+    @RolesAllowed("getCalendar")
+    public CalendarDto getCalendar(Set<Lecture> lectures, Set<DrivingLesson> drivingLessons, Long from)
+            throws BaseException {
+        Calendar dateFrom = Calendar.getInstance();
+        dateFrom.setTime(new Date(from * 1000));
+
+        List<EventDto> mondayEvents = getEventsForDay(lectures, drivingLessons, dateFrom);
+        List<EventDto> tuesdayEvents = getEventsForDay(lectures, drivingLessons, dateFrom);
+        List<EventDto> wednesdayEvents = getEventsForDay(lectures, drivingLessons, dateFrom);
+        List<EventDto> thursdayEvents = getEventsForDay(lectures, drivingLessons, dateFrom);
+        List<EventDto> fridayEvents = getEventsForDay(lectures, drivingLessons, dateFrom);
+
+        return new CalendarDto(mondayEvents, tuesdayEvents, wednesdayEvents, thursdayEvents, fridayEvents);
+    }
+
     private long countLectureHours(List<Lecture> lectures) {
         long totalNumberOfHours = 0;
 
@@ -242,5 +255,41 @@ public class CourseManager {
                 .filter(x -> x.getDateFrom().getTime() / 1000 >= from)
                 .filter(x -> x.getDateTo().getTime() / 1000 <= to)
                 .collect(Collectors.toList());
+    }
+
+    private List<EventDto> getEventsForDay(Set<Lecture> lectures, Set<DrivingLesson> drivingLessons,
+                                           Calendar dateFrom) {
+        List<EventDto> events = new ArrayList<>();
+
+        for (Lecture lecture : lectures) {
+            if (checkIfDatesAreInTheSameDay(dateFrom, lecture.getDateFrom())) {
+                events.add(new EventDto(lecture.getId(), "LECTURE",
+                        getInstructorDetails(lecture.getInstructor().getAccount()),
+                        lecture.getDateFrom().getTime(), lecture.getDateTo().getTime()));
+            }
+        }
+
+        for (DrivingLesson drivingLesson : drivingLessons) {
+            if (checkIfDatesAreInTheSameDay(dateFrom, drivingLesson.getDateFrom())) {
+                events.add(new EventDto(drivingLesson.getId(), "DRIVING",
+                        getInstructorDetails(drivingLesson.getInstructor().getAccount()),
+                        drivingLesson.getDateFrom().getTime(), drivingLesson.getDateTo().getTime()));
+            }
+        }
+
+        dateFrom.add(Calendar.DATE, 1);
+        return events;
+    }
+
+    private boolean checkIfDatesAreInTheSameDay(Calendar dateFrom, Date eventDate) {
+        Calendar tmpCalendar = Calendar.getInstance();
+        tmpCalendar.setTime(eventDate);
+
+        return dateFrom.get(Calendar.DAY_OF_YEAR) == tmpCalendar.get(Calendar.DAY_OF_YEAR) &&
+                dateFrom.get(Calendar.YEAR) == tmpCalendar.get(Calendar.YEAR);
+    }
+
+    private String getInstructorDetails(Account account) {
+        return account.getFirstname().concat(" ").concat(account.getLastname());
     }
 }
