@@ -5,7 +5,7 @@ import pl from "date-fns/locale/pl";
 import enNz from "date-fns/locale/en-NZ";
 import moment from "moment";
 
-function CustomDatePicker({pickDate, setPickDate, setEndDate, label, minDate, currentEndDate, className="date-picker-custom"}) {
+function CustomDatePicker({pickDate, setPickDate, setEndDate, label, minDate, currentEndDate, report = false, className= "date-picker-custom"}) {
     const handleDateChange = (date) => {
         if (currentEndDate && moment(date).isAfter(currentEndDate)) {
             setEndDate(date);
@@ -15,7 +15,8 @@ function CustomDatePicker({pickDate, setPickDate, setEndDate, label, minDate, cu
 
     return (
         <div className={className}>
-            <h5>{label}</h5>
+            {report ? <h5>{label}</h5> : <span className="font-weight-bold">{label}</span>}
+
             <DatePicker locale={i18n.language === "pl" ? pl : enNz} selected={pickDate}
                         onChange={handleDateChange}
                         className={"text-center"}

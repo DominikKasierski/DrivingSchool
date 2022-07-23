@@ -6,7 +6,6 @@ import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.exceptions.LectureGroupException;
 import pl.lodz.p.it.dk.mos.dtos.EventDto;
 import pl.lodz.p.it.dk.mos.dtos.GroupCalendarDto;
-import pl.lodz.p.it.dk.mos.facades.LectureFacade;
 import pl.lodz.p.it.dk.mos.facades.LectureGroupFacade;
 
 import javax.annotation.security.RolesAllowed;
@@ -41,9 +40,6 @@ public class LectureGroupManager {
 
     @Inject
     LectureGroupFacade lectureGroupFacade;
-
-    @Inject
-    LectureFacade lectureFacade;
 
     @RolesAllowed("createLectureGroup")
     public void createLectureGroup(LectureGroup lectureGroup, String login) throws BaseException {

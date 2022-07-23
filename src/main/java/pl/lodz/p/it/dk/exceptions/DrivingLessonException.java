@@ -16,7 +16,7 @@ public class DrivingLessonException extends BaseException {
     private static final String INCORRECT_LESSON_STATUS_EXCEPTION =
             "exception.driving_lesson_exception.incorrect_lesson_status_exception";
     private static final String DATE_RANGES_OVERLAP_EXCEPTION =
-            "exception.lecture_group_exception.date_ranges_overlap_exception";
+            "exception.driving_lesson_exception.date_ranges_overlap_exception";
     private static final String ACCESS_DENIED_EXCEPTION =
             "exception.driving_lesson_exception.access_denied_exception";
 

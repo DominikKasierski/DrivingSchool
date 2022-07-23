@@ -378,6 +378,12 @@
   "add.lecture.begin.date": "początek",
   "add.lecture.end.date": "koniec",
   "add.lecture.instructor": "instruktor",
+  "add.lecture.add.lecture": "Dodaj wykład",
+  "add.lecture.add.start.date": "Data rozpoczęcia",
+  "add.lecture.add.end.date": "Data zakończenia",
+  "add.lecture.select.instructor": "Wybierz instruktora",
+  "add.lecture.no.instructor.selected": "Instructor nie został wybrany",
+  "add.lecture.success": "Wykład został pomyślnie dodany",
   "LECTURE": "Wykład",
 
   "monday": "Poniedziałek",
@@ -386,5 +392,11 @@
   "thursday": "Czwartek",
   "friday": "Piątek",
   "saturday": "Sobota",
-  "sunday": "Niedziela"
+  "sunday": "Niedziela",
+
+  "exception.lecture_group_exception.invalid_date_range_exception": "Wprowadzona data jest niepoprawna",
+  "exception.lecture_group_exception.time_for_adding_exceeded_exception": "Wykłady należy dodać do kalendarza minimum 72 godziny przed ich rozpoczęciem",
+  "exception.lecture_group_exception.no_permits_exception": "Instruktor nie ma uprawnień do prowadzenia zajęć w tej kategorii",
+  "exception.lecture_group_exception.date_ranges_overlap_exception": "Grupa albo instruktor posiadają już zajęcia w tym czasie",
+  "exception.lecture_group_exception.too_many_lecture_hours_exception": "Przekroczono liczbę wykładów dla grupy"
 }

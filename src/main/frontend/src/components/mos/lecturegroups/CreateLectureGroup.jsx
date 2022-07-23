@@ -28,7 +28,6 @@ function CreateLectureGroup(props) {
 
     function addLectureGroup(values, setSubmitting) {
         setSubmitting(true);
-        debugger;
         axios.post(`/resources/lectureGroup/createLectureGroup`, {
             name: values.name,
             courseCategory: values.courseCategory

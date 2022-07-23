@@ -3,16 +3,21 @@ import React from "react";
 import {withNamespaces} from "react-i18next";
 import {useLocale} from "../../utils/login/LoginProvider";
 import Breadcrumb from "../../bars/Breadcrumb";
-import {Link, useLocation} from "react-router-dom";
-import {Col, Container, Row, Table} from "react-bootstrap";
+import {Link, useHistory, useLocation} from "react-router-dom";
+import {Col, Container, Dropdown, Row, Table} from "react-bootstrap";
 import {useState, useEffect} from "react";
 import queryString from "query-string";
 import axios from "axios";
 import {ResponseErrorsHandler} from "../../utils/handlers/ResponseErrorsHandler";
-import {useDangerNotification, useSuccessNotification} from "../../utils/notifications/NotificationProvider";
+import {
+    useDangerNotification,
+    useSuccessNotification,
+    useWarningNotification
+} from "../../utils/notifications/NotificationProvider";
 import moment from "moment";
 import TimetableEvent from "../../utils/customs/TimetableEvent";
-import {getDays} from "../../../i18n";
+import CustomDatePicker from "../../utils/customs/CustomDatePicker";
+import DropdownToggle from "react-bootstrap/DropdownToggle";
 
 function AddLecture(props) {
     const {t, i18n} = props
@@ -34,18 +39,43 @@ function AddLecture(props) {
     const [wednesdayEvents, setWednesdayEvents] = useState([eventSchema]);
     const [thursdayEvents, setThursdayEvents] = useState([eventSchema]);
     const [fridayEvents, setFridayEvents] = useState([eventSchema]);
+    const [instructorsData, setInstructorsData] = useState([
+        {
+            login: "",
+            firstname: "",
+            lastname: "",
+            permissions: "",
+        }
+    ]);
     let days = [t("monday"), t("tuesday"), t("wednesday"), t("thursday"), t("friday"), t("saturday"), t("sunday")];
     const [dateHeading, setDateHeading] = useState("");
+    const [startDate, setStartDate] = useState(new Date().setMinutes(0));
+    const [endDate, setEndDate] = useState(new Date().setMinutes(0));
+    const [instructor, setInstructor] = useState("");
 
+    const dispatchWarningNotification = useWarningNotification();
     const dispatchDangerNotification = useDangerNotification();
     const dispatchSuccessNotification = useSuccessNotification();
+    const history = useHistory();
 
     useEffect(() => {
         if (token) {
+            getInstructors();
             getGroupCalendar(new Date());
             getEtag();
         }
     }, [token]);
+
+    function getInstructors() {
+        axios.get(`/resources/access/getInstructors`, {
+            headers: {
+                "Authorization": token,
+            }
+        }).then((res) => {
+            setInstructorsData(res.data)
+            debugger
+        }).catch((e) => ResponseErrorsHandler(e, dispatchDangerNotification));
+    }
 
     function getGroupCalendar(date, notification = false) {
         setDates(date);
@@ -65,6 +95,41 @@ function AddLecture(props) {
         }).catch((e) => ResponseErrorsHandler(e, dispatchDangerNotification));
     }
 
+    function getEtag() {
+        axios.get(`/resources/lectureGroup/getLectureGroup/` + parsedQuery.id, {
+            headers: {
+                "Authorization": token,
+            }
+        }).then((res) => {
+            setEtag(res.headers.etag);
+        }).catch((e) => ResponseErrorsHandler(e, dispatchDangerNotification));
+    }
+
+    function addLecture() {
+        let name = instructor.split(' ')[0];
+        if (name === "") {
+            dispatchWarningNotification({message: i18n.t('add.lecture.no.instructor.selected')})
+        } else {
+            let instructorLogin = instructorsData.find(x => x.firstname === name).login;
+            axios.post(`/resources/lectureGroup/addLectureForGroup`, {
+                instructorLogin: instructorLogin,
+                lectureGroupId: parsedQuery.id,
+                dateFrom: moment(startDate).unix(),
+                dateTo: moment(endDate).unix(),
+            }, {
+                headers: {
+                    "If-Match": etag,
+                    "Authorization": token
+                }
+            }).then((res) => {
+                history.push("/lectureGroups");
+                dispatchSuccessNotification({message: i18n.t('add.lecture.success')})
+            }).catch(err => {
+                ResponseErrorsHandler(err, dispatchDangerNotification);
+            });
+        }
+    };
+
     function startOfWeek(date) {
         return new Date(moment(date).startOf('isoWeek').toDate());
     }
@@ -83,16 +148,6 @@ function AddLecture(props) {
 
     function padTo2Digits(num) {
         return num.toString().padStart(2, '0');
-    }
-
-    function getEtag() {
-        axios.get(`/resources/lectureGroup/getLectureGroup/` + parsedQuery.id, {
-            headers: {
-                "Authorization": token,
-            }
-        }).then((res) => {
-            setEtag(res.headers.etag);
-        }).catch((e) => ResponseErrorsHandler(e, dispatchDangerNotification));
     }
 
     return (
@@ -118,7 +173,6 @@ function AddLecture(props) {
                                     <button className="btn btn-dark dim" type="submit" onClick={() => {
                                         let dateString = dateHeading.substring(0, 10).replaceAll("/", "-");
                                         const date = new Date(moment(dateString, 'DD-MM-YYYY').add(1, 'm').subtract(1, 'd').add(1, 'h').toDate());
-                                        debugger;
                                         getGroupCalendar(date, true);
                                     }
                                     }>
@@ -159,46 +213,96 @@ function AddLecture(props) {
                                 <Col className="dim py-2">
                                     <span>{days[6]}</span>
                                 </Col>
-
-                                <div className="divider"></div>
                             </Row>
                             <Row>
-                                <Col className="mt-2 mb-2">
+                                <Col>
                                     {mondayEvents.length > 0 && mondayEvents.map((item) => (
                                         <TimetableEvent title={item.title} startTime={item.startTime} endTime={item.endTime}
                                                         instructor={item.instructor}/>
                                     ))}
                                 </Col>
 
-                                <Col className="mt-2 mb-2">
+                                <Col>
                                     {tuesdayEvents.length > 0 && tuesdayEvents.map((item) => (
                                         <TimetableEvent title={item.title} startTime={item.startTime} endTime={item.endTime}
                                                         instructor={item.instructor}/>
                                     ))}
                                 </Col>
 
-                                <Col className="mt-2 mb-2">
+                                <Col>
                                     {wednesdayEvents.length > 0 && wednesdayEvents.map((item) => (
                                         <TimetableEvent title={item.title} startTime={item.startTime} endTime={item.endTime}
                                                         instructor={item.instructor}/>
                                     ))}
                                 </Col>
 
-                                <Col className="mt-2 mb-2">
+                                <Col>
                                     {thursdayEvents.length > 0 && thursdayEvents.map((item) => (
                                         <TimetableEvent title={item.title} startTime={item.startTime} endTime={item.endTime}
                                                         instructor={item.instructor}/>
                                     ))}
                                 </Col>
-                                <Col className="mt-2 mb-2">
+                                <Col>
                                     {fridayEvents.length > 0 && fridayEvents.map((item) => (
                                         <TimetableEvent title={item.title} startTime={item.startTime} endTime={item.endTime}
                                                         instructor={item.instructor}/>
                                     ))}
                                 </Col>
-                                <Col className="mt-2 mb-2">
+                                <Col>
                                 </Col>
-                                <Col className="mt-2 mb-2">
+                                <Col>
+                                </Col>
+                            </Row>
+                            <Row className="mt-1 align-items-center">
+                                <div className="col">
+                                    <hr/>
+                                </div>
+                                <div className="col-auto font-weight-bold">{i18n.t("add.lecture.add.lecture")}</div>
+                                <div className="col">
+                                    <hr/>
+                                </div>
+                            </Row>
+                            <Row className="text-center">
+                                <Col className="text-center my-3">
+                                    <Dropdown>
+                                        <DropdownToggle id="dropdown-basic" className="pl-0 pl-lg-2 pr-0 pr-lg-2 dim"
+                                                        variant="Secondary">
+                                            <span>{instructor ? instructor : t("add.lecture.select.instructor")}</span>
+                                        </DropdownToggle>
+                                        <Dropdown.Menu>
+                                            {instructorsData.length > 0 && instructorsData.map((item) => (
+                                                <Dropdown.Item as="button"
+                                                               onClick={() => {
+                                                                   setInstructor(item.firstname + " " + item.lastname);
+                                                               }}>{item.firstname + " " + item.lastname}</Dropdown.Item>
+                                            ))}
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+                                </Col>
+                            </Row>
+
+                            <Row className="text-center">
+                                <Col className="d-flex justify-content-center">
+                                    <CustomDatePicker setPickDate={setStartDate}
+                                                      pickDate={startDate}
+                                                      setEndDate={setEndDate}
+                                                      currentEndDate={endDate}
+                                                      className={"date-picker-custom mt-0 mr-1"}
+                                                      label={i18n.t("add.lecture.add.start.date")}/>
+                                    <CustomDatePicker setPickDate={setEndDate}
+                                                      pickDate={endDate}
+                                                      minDate={startDate}
+                                                      className={"date-picker-custom mt-0 ml-1"}
+                                                      label={i18n.t("add.lecture.add.end.date")}/>
+                                </Col>
+                            </Row>
+
+                            <Row className="justify-content-center">
+                                <Col sm={6} className="mt-4 mb-3">
+                                    <button className="btn btn-block btn-dark dim"
+                                            type="submit" disabled={!startDate || !endDate} onClick={() => addLecture()}>
+                                        {i18n.t('add')}
+                                    </button>
                                 </Col>
                             </Row>
                         </div>

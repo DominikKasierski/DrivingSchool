@@ -80,10 +80,12 @@ function GenerateReport(props) {
                                                       pickDate={startDate}
                                                       setEndDate={setEndDate}
                                                       currentEndDate={endDate}
+                                                      report={true}
                                                       label={i18n.t('date.from')}/>
                                     <CustomDatePicker setPickDate={setEndDate}
                                                       pickDate={endDate}
                                                       minDate={startDate}
+                                                      report={true}
                                                       label={i18n.t('date.to')}/>
                                 </Col>
                             </Row>

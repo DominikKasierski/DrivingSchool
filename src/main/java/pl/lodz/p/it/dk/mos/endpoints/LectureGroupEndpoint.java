@@ -22,6 +22,7 @@ import javax.interceptor.Interceptors;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Stateful
@@ -94,8 +95,8 @@ public class LectureGroupEndpoint extends AbstractEndpoint implements LectureGro
         LectureGroupDto lectureGroupDto = Mappers.getMapper(LectureGroupMapper.class)
                 .toLectureGroupDto(lectureGroup, lectureGroup.getCourses().size());
         verifyEntityIntegrity(lectureGroupDto);
-        lectureGroupManager.addLectureForGroup(lectureGroup, newLectureDto.getDateFrom(), newLectureDto.getDateTo(),
-                newLectureDto.getInstructorLogin(), getLogin());
+        lectureGroupManager.addLectureForGroup(lectureGroup, new Date(newLectureDto.getDateFrom() * 1000),
+                new Date(newLectureDto.getDateTo() * 1000), newLectureDto.getInstructorLogin(), getLogin());
     }
 
     @Override

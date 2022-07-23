@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import pl.lodz.p.it.dk.validation.annotations.Login;
 
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -21,8 +20,8 @@ public class NewLectureDto {
     private Long lectureGroupId;
 
     @NotNull
-    private Date dateFrom;
+    private Long dateFrom;
 
     @NotNull
-    private Date dateTo;
+    private Long dateTo;
 }

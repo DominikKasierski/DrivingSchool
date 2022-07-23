@@ -17,15 +17,15 @@ export default function TimetableEvent({title, startTime, endTime, instructor}) 
     }
 
     return (
-        <Card className="text-center mb-2" style={style}>
+        <Card className="text-center mt-2 mb-2" style={style}>
             <Card.Body className="p-2">
                 <Card.Title>{i18n.t(title)}</Card.Title>
                 <Card.Text>
-                    <small className="text-muted d-block">{i18n.t("add.lecture.begin.date")}</small>
+                    <small className="text-muted d-block font-italic">{i18n.t("add.lecture.begin.date")}</small>
                     <span>{startTime ? moment(startTime).locale(momentHelper()).local().format('LLL').toString() : "-"}</span>
-                    <small className="text-muted d-block mt-2">{i18n.t("add.lecture.end.date")}</small>
+                    <small className="text-muted d-block mt-2 font-italic">{i18n.t("add.lecture.end.date")}</small>
                     <span>{endTime ? moment(endTime).locale(momentHelper()).local().format('LLL').toString() : "-"}</span>
-                    <small className="text-muted d-block mt-2">{i18n.t("add.lecture.instructor")}</small>
+                    <small className="text-muted d-block mt-2 font-italic">{i18n.t("add.lecture.instructor")}</small>
                     <span>{instructor}</span>
                 </Card.Text>
             </Card.Body>

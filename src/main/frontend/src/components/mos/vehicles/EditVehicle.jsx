@@ -65,7 +65,6 @@ function EditVehicle(props) {
                 "Authorization": token,
             }
         }).then(res => {
-            debugger;
             history.push("/vehicles");
             dispatchSuccessNotification({message: t("edit.vehicle.success")})
         }).catch(err => {
