@@ -11,7 +11,7 @@ public class EventDto {
 
     private Long id;
     private String title;
-    private String instructor;
+    private String participant;
     private Long startTime;
     private Long endTime;
 }

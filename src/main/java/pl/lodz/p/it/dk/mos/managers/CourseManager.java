@@ -198,16 +198,16 @@ public class CourseManager {
     }
 
     @RolesAllowed("getCalendar")
-    public CalendarDto getCalendar(Set<Lecture> lectures, Set<DrivingLesson> drivingLessons, Long from)
+    public CalendarDto getCalendar(Set<Lecture> lectures, Set<DrivingLesson> drivingLessons, Long from, Boolean trainee)
             throws BaseException {
         Calendar dateFrom = Calendar.getInstance();
         dateFrom.setTime(new Date(from * 1000));
 
-        List<EventDto> mondayEvents = getEventsForDay(lectures, drivingLessons, dateFrom);
-        List<EventDto> tuesdayEvents = getEventsForDay(lectures, drivingLessons, dateFrom);
-        List<EventDto> wednesdayEvents = getEventsForDay(lectures, drivingLessons, dateFrom);
-        List<EventDto> thursdayEvents = getEventsForDay(lectures, drivingLessons, dateFrom);
-        List<EventDto> fridayEvents = getEventsForDay(lectures, drivingLessons, dateFrom);
+        List<EventDto> mondayEvents = getEventsForDay(lectures, drivingLessons, dateFrom, trainee);
+        List<EventDto> tuesdayEvents = getEventsForDay(lectures, drivingLessons, dateFrom, trainee);
+        List<EventDto> wednesdayEvents = getEventsForDay(lectures, drivingLessons, dateFrom, trainee);
+        List<EventDto> thursdayEvents = getEventsForDay(lectures, drivingLessons, dateFrom, trainee);
+        List<EventDto> fridayEvents = getEventsForDay(lectures, drivingLessons, dateFrom, trainee);
 
         return new CalendarDto(mondayEvents, tuesdayEvents, wednesdayEvents, thursdayEvents, fridayEvents);
     }
@@ -258,21 +258,26 @@ public class CourseManager {
     }
 
     private List<EventDto> getEventsForDay(Set<Lecture> lectures, Set<DrivingLesson> drivingLessons,
-                                           Calendar dateFrom) {
+                                           Calendar dateFrom, Boolean trainee) {
         List<EventDto> events = new ArrayList<>();
 
         for (Lecture lecture : lectures) {
-            if (checkIfDatesAreInTheSameDay(dateFrom, lecture.getDateFrom())) {
-                events.add(new EventDto(lecture.getId(), "LECTURE",
-                        getInstructorDetails(lecture.getInstructor().getAccount()),
-                        lecture.getDateFrom().getTime(), lecture.getDateTo().getTime()));
+            if (datesAreInTheSameDay(dateFrom, lecture.getDateFrom())) {
+                String participant = trainee ? getPersonDetails(lecture.getInstructor().getAccount()) :
+                        lecture.getLectureGroup().getName();
+
+                events.add(new EventDto(lecture.getId(), "LECTURE", participant, lecture.getDateFrom().getTime(),
+                        lecture.getDateTo().getTime()));
             }
         }
 
         for (DrivingLesson drivingLesson : drivingLessons) {
-            if (checkIfDatesAreInTheSameDay(dateFrom, drivingLesson.getDateFrom())) {
+            if (datesAreInTheSameDay(dateFrom, drivingLesson.getDateFrom())) {
+                String participant = trainee ? getPersonDetails(drivingLesson.getInstructor().getAccount()) :
+                        getPersonDetails(drivingLesson.getCourse().getTrainee().getAccount());
+
                 events.add(new EventDto(drivingLesson.getId(), "DRIVING",
-                        getInstructorDetails(drivingLesson.getInstructor().getAccount()),
+                        getPersonDetails(drivingLesson.getInstructor().getAccount()),
                         drivingLesson.getDateFrom().getTime(), drivingLesson.getDateTo().getTime()));
             }
         }
@@ -281,7 +286,7 @@ public class CourseManager {
         return events;
     }
 
-    private boolean checkIfDatesAreInTheSameDay(Calendar dateFrom, Date eventDate) {
+    private boolean datesAreInTheSameDay(Calendar dateFrom, Date eventDate) {
         Calendar tmpCalendar = Calendar.getInstance();
         tmpCalendar.setTime(eventDate);
 
@@ -289,7 +294,7 @@ public class CourseManager {
                 dateFrom.get(Calendar.YEAR) == tmpCalendar.get(Calendar.YEAR);
     }
 
-    private String getInstructorDetails(Account account) {
+    private String getPersonDetails(Account account) {
         return account.getFirstname().concat(" ").concat(account.getLastname());
     }
 }

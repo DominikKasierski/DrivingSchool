@@ -91,11 +91,13 @@ public class CourseEndpoint extends AbstractEndpoint implements CourseEndpointLo
     public CalendarDto getCalendar(String login, Long from, Boolean trainee) throws BaseException {
         if (trainee) {
             Course course = courseManager.getOngoingCourse(login);
-            return courseManager.getCalendar(course.getLectureGroup().getLectures(), course.getDrivingLessons(), from);
+            return courseManager.getCalendar(course.getLectureGroup().getLectures(), course.getDrivingLessons(), from,
+                    true);
         } else {
             Account account = accountManager.findByLogin(getLogin());
             InstructorAccess instructorAccess = instructorAccessManager.find(account);
-            return courseManager.getCalendar(instructorAccess.getLectures(), instructorAccess.getDrivingLessons(), from);
+            return courseManager.getCalendar(instructorAccess.getLectures(), instructorAccess.getDrivingLessons(), from,
+                    false);
         }
     }
 }

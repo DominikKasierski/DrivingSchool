@@ -3,13 +3,13 @@ import {Card} from "react-bootstrap";
 import moment from "moment";
 import i18n from "i18next";
 
-export default function TimetableEvent({title, startTime, endTime, instructor}) {
+export default function TimetableEvent({title, startTime, endTime, participant, labelsType = 1}) {
     let style = "";
 
     if (title === "LECTURE") {
-        style = {borderColor: "rgb(24, 26, 27)", border: "3px solid"};
+        style = {backgroundColor: "rgb(135,206,235)", border: "3px black solid"};
     } else {
-        style = {backgroundColor: "rgb(211, 211, 211)", border: "3px black solid"};
+        style = {backgroundColor: "rgb(144,238,144)", border: "3px black solid"};
     }
 
     const momentHelper = () => {
@@ -21,12 +21,41 @@ export default function TimetableEvent({title, startTime, endTime, instructor}) 
             <Card.Body className="p-2">
                 <Card.Title>{i18n.t(title)}</Card.Title>
                 <Card.Text>
-                    <small className="text-muted d-block font-italic">{i18n.t("add.lecture.begin.date")}</small>
+                    {labelsType === 1 &&
+                        <small className="text-muted d-block font-italic">{i18n.t("add.lecture.begin.date")}</small>
+                    }
+                    {labelsType === 2 &&
+                        <small className="text-muted d-block font-italic">{i18n.t("add.lecture.begin.date")}</small>
+                    }
+                    {labelsType === 3 &&
+                        <small className="text-muted d-block font-italic">{i18n.t("add.lecture.begin.date")}</small>
+                    }
+
                     <span>{startTime ? moment(startTime).locale(momentHelper()).local().format('LLL').toString() : "-"}</span>
-                    <small className="text-muted d-block mt-2 font-italic">{i18n.t("add.lecture.end.date")}</small>
+
+                    {labelsType === 1 &&
+                        <small className="text-muted d-block mt-2 font-italic">{i18n.t("add.lecture.end.date")}</small>
+                    }
+                    {labelsType === 2 &&
+                        <small className="text-muted d-block mt-2 font-italic">{i18n.t("add.lecture.end.date")}</small>
+                    }
+                    {labelsType === 3 &&
+                        <small className="text-muted d-block mt-2 font-italic">{i18n.t("add.lecture.end.date")}</small>
+                    }
+
                     <span>{endTime ? moment(endTime).locale(momentHelper()).local().format('LLL').toString() : "-"}</span>
-                    <small className="text-muted d-block mt-2 font-italic">{i18n.t("add.lecture.instructor")}</small>
-                    <span>{instructor}</span>
+
+                    {labelsType === 1 &&
+                        <small className="text-muted d-block mt-2 font-italic">{i18n.t("add.lecture.instructor")}</small>
+                    }
+                    {labelsType === 2 &&
+                        <small className="text-muted d-block mt-2 font-italic">{i18n.t("add.lecture.instructor")}</small>
+                    }
+                    {labelsType === 3 &&
+                        <small className="text-muted d-block mt-2 font-italic">{i18n.t("add.lecture.instructor")}</small>
+                    }
+
+                    <span>{participant}</span>
                 </Card.Text>
             </Card.Body>
         </Card>

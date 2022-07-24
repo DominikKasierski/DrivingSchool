@@ -131,7 +131,7 @@ function NavigationBar(props) {
                                     <LinkContainer to="/vehicles">
                                         <Nav.Link className={"mr-3"}>{t('navigation.bar.vehicles')}</Nav.Link>
                                     </LinkContainer>
-                                    <LinkContainer to="/timetableInstructor">
+                                    <LinkContainer to="/timetable">
                                         <Nav.Link className={"mr-3"}>{t('navigation.bar.timetable')}</Nav.Link>
                                     </LinkContainer>
                                     <LinkContainer to="/cancelDrivingLesson">
@@ -180,7 +180,7 @@ function NavigationBar(props) {
                                             </Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>
-                                    <LinkContainer to="/timetableTrainee">
+                                    <LinkContainer to="/timetable">
                                         <Nav.Link className={"mr-3"}>{t('navigation.bar.timetable')}</Nav.Link>
                                     </LinkContainer>
                                 </>
