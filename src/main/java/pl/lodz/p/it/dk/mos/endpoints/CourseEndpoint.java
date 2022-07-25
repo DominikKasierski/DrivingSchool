@@ -94,7 +94,7 @@ public class CourseEndpoint extends AbstractEndpoint implements CourseEndpointLo
             return courseManager.getCalendar(course.getLectureGroup().getLectures(), course.getDrivingLessons(), from,
                     true);
         } else {
-            Account account = accountManager.findByLogin(getLogin());
+            Account account = accountManager.findByLogin(login);
             InstructorAccess instructorAccess = instructorAccessManager.find(account);
             return courseManager.getCalendar(instructorAccess.getLectures(), instructorAccess.getDrivingLessons(), from,
                     false);

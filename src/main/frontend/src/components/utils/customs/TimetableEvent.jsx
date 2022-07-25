@@ -21,41 +21,26 @@ export default function TimetableEvent({title, startTime, endTime, participant, 
             <Card.Body className="p-2">
                 <Card.Title>{i18n.t(title)}</Card.Title>
                 <Card.Text>
-                    {labelsType === 1 &&
-                        <small className="text-muted d-block font-italic">{i18n.t("add.lecture.begin.date")}</small>
-                    }
-                    {labelsType === 2 &&
-                        <small className="text-muted d-block font-italic">{i18n.t("add.lecture.begin.date")}</small>
-                    }
-                    {labelsType === 3 &&
-                        <small className="text-muted d-block font-italic">{i18n.t("add.lecture.begin.date")}</small>
-                    }
+                    <small className="text-muted d-block font-italic">{i18n.t("add.lecture.begin.date")}</small>
+                    <span style={{fontSize: "1.1rem"}}><u>{startTime ? moment(startTime).locale(momentHelper()).local().format('LT').toString() : "-"}</u></span>
 
-                    <span>{startTime ? moment(startTime).locale(momentHelper()).local().format('LLL').toString() : "-"}</span>
+                    <small className="text-muted d-block mt-2 font-italic">{i18n.t("add.lecture.end.date")}</small>
+                    <span style={{fontSize: "1.1rem"}}><u>{endTime ? moment(endTime).locale(momentHelper()).local().format('LT').toString() : "-"}</u></span>
 
-                    {labelsType === 1 &&
-                        <small className="text-muted d-block mt-2 font-italic">{i18n.t("add.lecture.end.date")}</small>
-                    }
-                    {labelsType === 2 &&
-                        <small className="text-muted d-block mt-2 font-italic">{i18n.t("add.lecture.end.date")}</small>
-                    }
-                    {labelsType === 3 &&
-                        <small className="text-muted d-block mt-2 font-italic">{i18n.t("add.lecture.end.date")}</small>
-                    }
-
-                    <span>{endTime ? moment(endTime).locale(momentHelper()).local().format('LLL').toString() : "-"}</span>
-
-                    {labelsType === 1 &&
+                    {labelsType === 1 || labelsType === 2 &&
                         <small className="text-muted d-block mt-2 font-italic">{i18n.t("add.lecture.instructor")}</small>
                     }
-                    {labelsType === 2 &&
-                        <small className="text-muted d-block mt-2 font-italic">{i18n.t("add.lecture.instructor")}</small>
-                    }
-                    {labelsType === 3 &&
-                        <small className="text-muted d-block mt-2 font-italic">{i18n.t("add.lecture.instructor")}</small>
+                    {/*{labelsType === 3 && title === "LECTURE" &&*/}
+                    {/*    <small className="text-muted d-block mt-2 font-italic">{i18n.t("timetable.group")}</small>*/}
+                    {/*}*/}
+                    {/*{labelsType === 3 && title === "DRIVING" &&*/}
+                    {/*    <small className="text-muted d-block mt-2 font-italic">{i18n.t("timetable.trainee")}</small>*/}
+                    {/*}*/}
+
+                    {labelsType === 1 || labelsType === 2 &&
+                        <span style={{fontSize: "1.1rem"}}>{participant}</span>
                     }
 
-                    <span>{participant}</span>
                 </Card.Text>
             </Card.Body>
         </Card>

@@ -385,6 +385,7 @@
   "add.lecture.no.instructor.selected": "Instructor nie został wybrany",
   "add.lecture.success": "Wykład został pomyślnie dodany",
   "LECTURE": "Wykład",
+  "DRIVING": "Jazdy",
 
   "monday": "Poniedziałek",
   "tuesday": "Wtorek",
@@ -398,5 +399,12 @@
   "exception.lecture_group_exception.time_for_adding_exceeded_exception": "Wykłady należy dodać do kalendarza minimum 72 godziny przed ich rozpoczęciem",
   "exception.lecture_group_exception.no_permits_exception": "Instruktor nie ma uprawnień do prowadzenia zajęć w tej kategorii",
   "exception.lecture_group_exception.date_ranges_overlap_exception": "Grupa albo instruktor posiadają już zajęcia w tym czasie",
-  "exception.lecture_group_exception.too_many_lecture_hours_exception": "Przekroczono liczbę wykładów dla grupy"
+  "exception.lecture_group_exception.too_many_lecture_hours_exception": "Przekroczono liczbę wykładów dla grupy",
+
+  "timetable.add.driving.lesson": "Dodaj jazdy",
+  "timetable.cancel.driving.lesson": "Anuluj jazdy",
+  "timetable.show.instructor.calendar": "Kalendarz instruktora",
+  "timetable.show.trainee.calendar": "Kalendarz kursanta",
+  "timetable.group": "grupa",
+  "timetable.trainee": "kursant"
 }

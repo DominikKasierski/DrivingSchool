@@ -385,6 +385,7 @@
   "add.lecture.no.instructor.selected": "Instructor was not selected",
   "add.lecture.success": "Lecture has been successfully added",
   "LECTURE": "Lecture",
+  "DRIVING": "Driving",
 
   "monday": "Monday",
   "tuesday": "Tuesday",
@@ -398,5 +399,12 @@
   "exception.lecture_group_exception.time_for_adding_exceeded_exception": "Lectures must be added to the calendar 72 hours before they start",
   "exception.lecture_group_exception.no_permits_exception": "Instructor does not have permissions to conduct classes in this category",
   "exception.lecture_group_exception.date_ranges_overlap_exception": "The group or instructor already has classes on this date",
-  "exception.lecture_group_exception.too_many_lecture_hours_exception": "The number of lectures for the group has been exceeded"
+  "exception.lecture_group_exception.too_many_lecture_hours_exception": "The number of lectures for the group has been exceeded",
+
+  "timetable.add.driving.lesson": "Add driving lesson",
+  "timetable.cancel.driving.lesson": "Cancel driving lesson",
+  "timetable.show.instructor.calendar": "Instructor calendar",
+  "timetable.show.trainee.calendar": "Trainee calendar",
+  "timetable.group": "group",
+  "timetable.trainee": "trainee"
 }

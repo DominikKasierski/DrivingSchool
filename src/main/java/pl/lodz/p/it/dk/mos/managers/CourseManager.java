@@ -277,8 +277,7 @@ public class CourseManager {
                         getPersonDetails(drivingLesson.getCourse().getTrainee().getAccount());
 
                 events.add(new EventDto(drivingLesson.getId(), "DRIVING",
-                        getPersonDetails(drivingLesson.getInstructor().getAccount()),
-                        drivingLesson.getDateFrom().getTime(), drivingLesson.getDateTo().getTime()));
+                        participant, drivingLesson.getDateFrom().getTime(), drivingLesson.getDateTo().getTime()));
             }
         }
 
