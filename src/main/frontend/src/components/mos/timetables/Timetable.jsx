@@ -1,6 +1,6 @@
 import {withNamespaces} from "react-i18next";
 import Breadcrumb from "../../bars/Breadcrumb";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import {Col, Container, Dropdown, Row} from "react-bootstrap";
 import moment from "moment";
 import TimetableEvent from "../../utils/customs/TimetableEvent";
@@ -56,6 +56,7 @@ function Timetable(props) {
     const dispatchWarningNotification = useWarningNotification();
     const dispatchDangerNotification = useDangerNotification();
     const dispatchSuccessNotification = useSuccessNotification();
+    const history = useHistory();
 
     useEffect(() => {
         if (token && currentRole === rolesConstant.trainee) {
@@ -169,7 +170,31 @@ function Timetable(props) {
     }
 
     function addDrivingLesson() {
+        let numberOfHours = new Date(endDate).getHours() - new Date(startDate).getHours();
+        let requestUsername = "";
+        let name = instructor.split(' ')[0];
 
+        if (name === "") {
+            dispatchWarningNotification({message: i18n.t('add.lecture.no.instructor.selected')})
+        } else {
+            requestUsername = instructorsData.find(x => x.firstname === name).login;
+
+            axios.post(`/resources/drivingLesson/addDrivingLesson`, {
+                numberOfHours: numberOfHours,
+                dateFrom: moment(new Date(startDate)).unix(),
+                instructorLogin: requestUsername
+            }, {
+                headers: {
+                    "If-Match": courseEtag,
+                    "Authorization": token
+                }
+            }).then(res => {
+                history.push("/userPage");
+                dispatchSuccessNotification({message: t("timetable.add.driving.lesson.success")})
+            }).catch(err => {
+                ResponseErrorsHandler(err, dispatchDangerNotification)
+            })
+        }
     };
 
     return (
@@ -180,7 +205,7 @@ function Timetable(props) {
             </Breadcrumb>
             <Container>
                 <Row>
-                    <Col xs={12} sm={12} md={12} lg={12} xl={12} className={"floating pt-2 pb-0 mx-auto mb-5 mt-3"}>
+                    <Col xs={12} sm={12} md={12} lg={12} xl={12} className={"floating pt-2 pb-0 mx-auto mb-5 mt-1"}>
 
                         <div className="py-2">
                             <Row className="text-center">

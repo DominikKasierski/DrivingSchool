@@ -56,14 +56,14 @@ public class DrivingLessonManager {
     private EmailService emailService;
 
     @RolesAllowed("addDrivingLesson")
-    public void addDrivingLesson(Course course, int numberOfHours, Date dateFrom, String instructorLogin)
+    public void addDrivingLesson(Course course, int numberOfHours, Long dateFrom, String instructorLogin)
             throws BaseException {
 
         if (!course.isAdvance() || !course.isLecturesCompletion()) {
             throw DrivingLessonException.conditionsNotMet();
         }
 
-        Date truncatedDateFrom = new Date(dateFrom
+        Date truncatedDateFrom = new Date(new Date(dateFrom * 1000)
                 .toInstant()
                 .atZone(ZoneId.systemDefault())
                 .truncatedTo(ChronoUnit.HOURS)

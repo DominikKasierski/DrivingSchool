@@ -8,7 +8,6 @@ import pl.lodz.p.it.dk.validation.annotations.Login;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -21,7 +20,7 @@ public class NewDrivingLesson {
     private Integer numberOfHours;
 
     @NotNull
-    private Date dateFrom;
+    private Long dateFrom;
 
     @NotNull
     @Login
