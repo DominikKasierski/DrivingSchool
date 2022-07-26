@@ -281,7 +281,7 @@ public class CourseManager {
         }
 
         for (DrivingLesson drivingLesson : drivingLessons) {
-            if (datesAreInTheSameDay(dateFrom, drivingLesson.getDateFrom())) {
+            if (datesAreInTheSameDay(dateFrom, drivingLesson.getDateFrom()) && !drivingLesson.getLessonStatus().equals(LessonStatus.CANCELLED)) {
                 String participant = trainee ? getPersonDetails(drivingLesson.getInstructor().getAccount()) :
                         getPersonDetails(drivingLesson.getCourse().getTrainee().getAccount());
                 String participantLogin = trainee ? drivingLesson.getInstructor().getAccount().getLogin() :

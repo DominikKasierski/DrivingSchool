@@ -195,6 +195,29 @@ function Timetable(props) {
         }
     };
 
+    function cancelDrivingLesson() {
+        if (lessonToCancelId === "") {
+            dispatchWarningNotification({message: i18n.t('timetable.no.lesson.selected')})
+        } else {
+            let requestEtag = courseEtag;
+            if (currentRole === rolesConstant.instructor) {
+                requestEtag = cancellationList.find(x => x.id === lessonToCancelId).title;
+            }
+
+            axios.put(`/resources/drivingLesson/cancelDrivingLesson/` + lessonToCancelId, {}, {
+                headers: {
+                    "If-Match": requestEtag,
+                    "Authorization": token
+                }
+            }).then((res) => {
+                history.push("/userPage");
+                dispatchSuccessNotification({message: i18n.t('timetable.cancel.driving.lesson.success')})
+            }).catch(err => {
+                ResponseErrorsHandler(err, dispatchDangerNotification);
+            });
+        }
+    };
+
     function getLabelsType() {
         if (currentRole === rolesConstant.trainee && !instructorView) {
             return 2;
@@ -489,6 +512,19 @@ function Timetable(props) {
                                                     </Dropdown.Item>))}
                                             </Dropdown.Menu>
                                         </Dropdown>
+                                    </Col>
+                                </Row>
+                            }
+
+                            {(currentRole === rolesConstant.instructor || !addingView) &&
+                                <Row className="justify-content-center">
+                                    <Col sm={6} className="mt-4 mb-3">
+                                        <button className="btn btn-block btn-dark dim"
+                                                type="submit" onClick={() => {
+                                            cancelDrivingLesson()
+                                        }}>
+                                            {i18n.t('timetable.cancel.driving.lesson')}
+                                        </button>
                                     </Col>
                                 </Row>
                             }

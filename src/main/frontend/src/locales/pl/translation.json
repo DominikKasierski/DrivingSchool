@@ -411,6 +411,8 @@
   "timetable.adding.driving.lesson": "Dodawanie lekcji",
   "timetable.canceling.driving.lesson": "Anulowanie lekcji",
   "timetable.select.lesson.to.cancel": "Wybierz lekcję do anulowania",
+  "timetable.no.lesson.selected": "Nie wybrano lekcji do anulowania",
+  "timetable.cancel.driving.lesson.success": "Jazdy zostały pomyślnie odwołane",
 
   "exception.driving_lesson_exception.conditions_not_met_exception": "Kursant nie spełnia wymagań",
   "exception.driving_lesson_exception.time_for_adding_exceeded_exception": "Jazdy muszą być rezerwowane z minimum 3 dniowym wyprzedzeniem",

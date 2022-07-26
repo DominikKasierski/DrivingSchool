@@ -411,6 +411,8 @@
   "timetable.adding.driving.lesson": "Adding lessons",
   "timetable.canceling.driving.lesson": "Canceling lessons",
   "timetable.select.lesson.to.cancel": "Select lesson to be canceled",
+  "timetable.no.lesson.selected": "Lesson to cancel was not selected",
+  "timetable.cancel.driving.lesson.success": "Driving lesson has been successfully canceled",
 
   "exception.driving_lesson_exception.conditions_not_met_exception": "Trainee does not meet the conditions",
   "exception.driving_lesson_exception.time_for_adding_exceeded_exception": "Driving lessons must be booked at least 3 days in advance",
