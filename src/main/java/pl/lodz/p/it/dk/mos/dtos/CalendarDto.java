@@ -16,4 +16,6 @@ public class CalendarDto {
     private List<EventDto> wednesdayEvents;
     private List<EventDto> thursdayEvents;
     private List<EventDto> fridayEvents;
+    private List<EventDto> saturdayEvents;
+    private List<EventDto> cancellationList;
 }

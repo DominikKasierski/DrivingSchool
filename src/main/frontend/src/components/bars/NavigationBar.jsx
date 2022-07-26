@@ -134,9 +134,6 @@ function NavigationBar(props) {
                                     <LinkContainer to="/timetable">
                                         <Nav.Link className={"mr-3"}>{t('navigation.bar.timetable')}</Nav.Link>
                                     </LinkContainer>
-                                    <LinkContainer to="/cancelDrivingLesson">
-                                        <Nav.Link>{t('navigation.bar.cancel.driving.lesson')}</Nav.Link>
-                                    </LinkContainer>
                                 </>
                             )}
                             {currentRole === rolesConstant.trainee && (

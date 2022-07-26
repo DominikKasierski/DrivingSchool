@@ -141,8 +141,10 @@ public class LectureGroupManager {
         List<EventDto> wednesdayEvents = getEventsForDay(lectureGroup, dateFrom);
         List<EventDto> thursdayEvents = getEventsForDay(lectureGroup, dateFrom);
         List<EventDto> fridayEvents = getEventsForDay(lectureGroup, dateFrom);
+        List<EventDto> saturdayEvents = getEventsForDay(lectureGroup, dateFrom);
 
-        return new CalendarDto(mondayEvents, tuesdayEvents, wednesdayEvents, thursdayEvents, fridayEvents);
+        return new CalendarDto(mondayEvents, tuesdayEvents, wednesdayEvents, thursdayEvents, fridayEvents, saturdayEvents,
+                new ArrayList<>());
     }
 
     private void checkAvailabilityOfDate(LectureGroup lectureGroup, Date dateFrom, Date dateTo,
@@ -201,7 +203,7 @@ public class LectureGroupManager {
                 String instructorDetails =
                         instructorAccount.getFirstname().concat(" ").concat(instructorAccount.getLastname());
                 events.add(
-                        new EventDto(lecture.getId(), "LECTURE", instructorDetails, lecture.getDateFrom().getTime(),
+                        new EventDto(lecture.getId(), "LECTURE", instructorDetails, "NaN", lecture.getDateFrom().getTime(),
                                 lecture.getDateTo().getTime()));
             }
         }

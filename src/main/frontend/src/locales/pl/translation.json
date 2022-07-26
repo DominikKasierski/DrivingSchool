@@ -408,11 +408,17 @@
   "timetable.group": "grupa",
   "timetable.trainee": "kursant",
   "timetable.add.driving.lesson.success": "Jazdy zostały pomyślnie dodane",
+  "timetable.adding.driving.lesson": "Dodawanie lekcji",
+  "timetable.canceling.driving.lesson": "Anulowanie lekcji",
+  "timetable.select.lesson.to.cancel": "Wybierz lekcję do anulowania",
 
   "exception.driving_lesson_exception.conditions_not_met_exception": "Kursant nie spełnia wymagań",
   "exception.driving_lesson_exception.time_for_adding_exceeded_exception": "Jazdy muszą być rezerwowane z minimum 3 dniowym wyprzedzeniem",
   "exception.driving_lesson_exception.invalid_date_range_exception": "Jazdy muszą się odbywać od poniedziałku do soboty w godzinach 8 - 16",
   "exception.driving_lesson_exception.no_permits_exception": "Instruktor nie ma odpowiednich uprawnień",
   "exception.driving_lesson_exception.date_ranges_overlap_exception": "Kursant lub instruktor ma zajęty termin",
-  "exception.driving_lesson_exception.too_many_driving_hours_exception": "Liczba jazd została przekroczona"
+  "exception.driving_lesson_exception.too_many_driving_hours_exception": "Liczba jazd została przekroczona",
+  "exception.driving_lesson_exception.access_denied_exception": "Użytkownik nie jest uprawniony do anulowania jazd",
+  "exception.driving_lesson_exception.incorrect_lesson_status_exception": "Jazdy posiadają nieprawidłowy status",
+  "exception.driving_lesson_exception.time_for_cancellation_exceeded_exception": "Jazdy mogą być anulowane do dwóch dni przed ich rozpoczęciem"
 }

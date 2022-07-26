@@ -15,16 +15,17 @@ import {
     useSuccessNotification,
     useWarningNotification
 } from "../../utils/notifications/NotificationProvider";
-import {rolesConstant} from "../../utils/constants/Constants";
+import {permissionsConstant, rolesConstant} from "../../utils/constants/Constants";
 
 function Timetable(props) {
     const {t, i18n} = props
     const {token, setToken, username, currentRole} = useLocale();
     const [courseEtag, setCourseEtag] = useState();
-    const [instructorEtag, setInstructorEtag] = useState();
+
     const eventSchema = [
         {
             id: "",
+            login: "",
             title: "",
             participant: "",
             startTime: "",
@@ -37,6 +38,8 @@ function Timetable(props) {
     const [wednesdayEvents, setWednesdayEvents] = useState([eventSchema]);
     const [thursdayEvents, setThursdayEvents] = useState([eventSchema]);
     const [fridayEvents, setFridayEvents] = useState([eventSchema]);
+    const [saturdayEvents, setSaturdayEvents] = useState([eventSchema]);
+
     const [namesOfDays, setNamesOfDays] = useState([t("monday"), t("tuesday"), t("wednesday"), t("thursday"), t("friday"), t("saturday"), t("sunday")]);
     const [datesOfDays, setDatesOfDays] = useState([]);
     const [instructor, setInstructor] = useState("");
@@ -52,6 +55,10 @@ function Timetable(props) {
     const [endDate, setEndDate] = useState(new Date().setMinutes(0));
     const [instructorView, setInstructorView] = useState(false);
     const [isTrainee, setIsTrainee] = useState(false);
+    const [addingView, setAddingView] = useState(currentRole === rolesConstant.trainee);
+    const [lessonToCancel, setLessonToCancel] = useState("");
+    const [lessonToCancelId, setLessonToCancelId] = useState("");
+    const [cancellationList, setCancellationList] = useState([eventSchema]);
 
     const dispatchWarningNotification = useWarningNotification();
     const dispatchDangerNotification = useDangerNotification();
@@ -67,7 +74,6 @@ function Timetable(props) {
         } else if (token && currentRole === rolesConstant.instructor) {
             setIsTrainee(false);
             getCalendar(new Date(), false);
-            getInstructorEtag();
         }
     }, [token]);
 
@@ -110,6 +116,8 @@ function Timetable(props) {
                 setWednesdayEvents(res.data.wednesdayEvents);
                 setThursdayEvents(res.data.thursdayEvents);
                 setFridayEvents(res.data.fridayEvents);
+                setSaturdayEvents(res.data.saturdayEvents);
+                setCancellationList(res.data.cancellationList);
                 if (notification) {
                     dispatchSuccessNotification({message: i18n.t('add.lecture.change.week.success')})
                 }
@@ -124,16 +132,6 @@ function Timetable(props) {
             }
         }).then((res) => {
             setCourseEtag(res.headers.etag);
-        }).catch((e) => ResponseErrorsHandler(e, dispatchDangerNotification));
-    }
-
-    function getInstructorEtag() {
-        axios.get(`/resources/access/getInstructorAccess/` + username, {
-            headers: {
-                "Authorization": token,
-            }
-        }).then((res) => {
-            setInstructorEtag(res.headers.etag);
         }).catch((e) => ResponseErrorsHandler(e, dispatchDangerNotification));
     }
 
@@ -197,6 +195,30 @@ function Timetable(props) {
         }
     };
 
+    function getLabelsType() {
+        if (currentRole === rolesConstant.trainee && !instructorView) {
+            return 2;
+        } else if (currentRole === rolesConstant.trainee && instructorView) {
+            return 3;
+        } else if (currentRole === rolesConstant.instructor) {
+            return 4;
+        }
+    }
+
+    const momentHelper = () => {
+        return i18n.language === "pl" ? 'pl' : 'en';
+    }
+
+    function getInstructorCourseEtag(login) {
+        axios.get(`/resources/course/getCourse/` + login, {
+            headers: {
+                "Authorization": token,
+            }
+        }).then((res) => {
+            return res.headers.etag;
+        }).catch((e) => ResponseErrorsHandler(e, dispatchDangerNotification));
+    }
+
     return (
         <div className="container-fluid">
             <Breadcrumb>
@@ -208,11 +230,40 @@ function Timetable(props) {
                     <Col xs={12} sm={12} md={12} lg={12} xl={12} className={"floating pt-2 pb-0 mx-auto mb-5 mt-1"}>
 
                         <div className="py-2">
-                            <Row className="text-center">
-                                <Col className="mb-sm-3">
-                                    <h1 className="font-weight-light">{t("navigation.bar.timetable")}</h1>
-                                </Col>
-                            </Row>
+
+                            {currentRole === rolesConstant.trainee &&
+                                <div className="col-md-12 d-flex align-items-center justify-content-between ml-4">
+                                    <div className="ml-5">
+                                    </div>
+
+                                    <h1 className="font-weight-light ml-5">{t("navigation.bar.timetable")}</h1>
+
+                                    <Dropdown>
+                                        <DropdownToggle id="dropdown-basic" className="pl-0 pl-lg-2 pr-0 pr-lg-2 dim"
+                                                        variant="Secondary">
+                                            <span>{addingView ? t("timetable.adding.driving.lesson") : t("timetable.canceling.driving.lesson")}</span>
+                                        </DropdownToggle>
+                                        <Dropdown.Menu>
+                                            <Dropdown.Item as="button" onClick={() => {
+                                                setAddingView(true);
+                                            }
+                                            }>{t("timetable.adding.driving.lesson")}</Dropdown.Item>
+                                            <Dropdown.Item as="button" onClick={() => {
+                                                setAddingView(false);
+                                            }
+                                            }>{t("timetable.canceling.driving.lesson")}</Dropdown.Item>
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+                                </div>
+                            }
+
+                            {currentRole === rolesConstant.instructor &&
+                                <Row className="text-center">
+                                    <Col className="mb-sm-3">
+                                        <h1 className="font-weight-light">{t("navigation.bar.timetable")}</h1>
+                                    </Col>
+                                </Row>
+                            }
 
                             <Row className="text-center">
                                 <Col className="mt-1 mb-2 d-inline-block">
@@ -267,53 +318,62 @@ function Timetable(props) {
                             </Row>
                             <Row>
                                 <Col>
-                                    {mondayEvents.length > 0 && mondayEvents.map((item) => (
+                                    {mondayEvents.length > 0 && mondayEvents.sort(function (a, b) {
+                                        return new Date(a.startTime) - new Date(b.startTime);
+                                    }).map((item) => (
                                         <TimetableEvent title={item.title} startTime={item.startTime} endTime={item.endTime}
                                                         participant={item.participant}
-                                                        labelsType={currentRole === rolesConstant.trainee && !instructorView ? 2 : 3}/>))}
+                                                        labelsType={getLabelsType()}/>))}
                                 </Col>
 
                                 <Col>
-                                    {tuesdayEvents.length > 0 && tuesdayEvents.map((item) => (
+                                    {tuesdayEvents.length > 0 && tuesdayEvents.sort(function (a, b) {
+                                        return new Date(a.startTime) - new Date(b.startTime);
+                                    }).map((item) => (
                                         <TimetableEvent title={item.title} startTime={item.startTime} endTime={item.endTime}
                                                         participant={item.participant}
-                                                        labelsType={currentRole === rolesConstant.trainee && !instructorView ? 2 : 3}/>))}
+                                                        labelsType={getLabelsType()}/>))}
                                 </Col>
 
                                 <Col>
-                                    {wednesdayEvents.length > 0 && wednesdayEvents.map((item) => (
-                                        <TimetableEvent title={item.title} startTime={item.startTime} endTime={item.endTime}
+                                    {wednesdayEvents.length > 0 && wednesdayEvents.sort(function (a, b) {
+                                        return new Date(a.startTime) - new Date(b.startTime);
+                                    }).map((item) => (
+                                        <TimetableEvent title={item.title} startTime={item.startTime}
+                                                        endTime={item.endTime}
                                                         participant={item.participant}
-                                                        labelsType={currentRole === rolesConstant.trainee && !instructorView ? 2 : 3}/>))}
+                                                        labelsType={getLabelsType()}/>))}
                                 </Col>
 
                                 <Col>
-                                    {thursdayEvents.length > 0 && thursdayEvents.map((item) => (
+                                    {thursdayEvents.length > 0 && thursdayEvents.sort(function (a, b) {
+                                        return new Date(a.startTime) - new Date(b.startTime);
+                                    }).map((item) => (
                                         <TimetableEvent title={item.title} startTime={item.startTime} endTime={item.endTime}
                                                         participant={item.participant}
-                                                        labelsType={currentRole === rolesConstant.trainee && !instructorView ? 2 : 3}/>))}
+                                                        labelsType={getLabelsType()}/>))}
                                 </Col>
                                 <Col>
-                                    {fridayEvents.length > 0 && fridayEvents.map((item) => (
+                                    {fridayEvents.length > 0 && fridayEvents.sort(function (a, b) {
+                                        return new Date(a.startTime) - new Date(b.startTime);
+                                    }).map((item) => (
                                         <TimetableEvent title={item.title} startTime={item.startTime} endTime={item.endTime}
                                                         participant={item.participant}
-                                                        labelsType={currentRole === rolesConstant.trainee && !instructorView ? 2 : 3}/>))}
+                                                        labelsType={getLabelsType()}/>))}
                                 </Col>
                                 <Col>
+                                    {saturdayEvents.length > 0 && saturdayEvents.sort(function (a, b) {
+                                        return new Date(a.startTime) - new Date(b.startTime);
+                                    }).map((item) => (
+                                        <TimetableEvent title={item.title} startTime={item.startTime} endTime={item.endTime}
+                                                        participant={item.participant}
+                                                        labelsType={getLabelsType()}/>))}
                                 </Col>
                                 <Col>
                                 </Col>
                             </Row>
-                            {currentRole === rolesConstant.trainee ?
-                                <Row className="mt-1 align-items-center">
-                                    <div className="col">
-                                        <hr/>
-                                    </div>
-                                    <div className="col-auto font-weight-bold">{i18n.t("timetable.add.driving.lesson")}</div>
-                                    <div className="col">
-                                        <hr/>
-                                    </div>
-                                </Row> :
+
+                            {(currentRole === rolesConstant.trainee && addingView) &&
                                 <Row className="mt-1 align-items-center">
                                     <div className="col">
                                         <hr/>
@@ -324,14 +384,27 @@ function Timetable(props) {
                                     </div>
                                 </Row>
                             }
-                            {currentRole === rolesConstant.trainee &&
+
+                            {(currentRole === rolesConstant.instructor || !addingView) &&
+                                <Row className="mt-1 align-items-center">
+                                    <div className="col">
+                                        <hr/>
+                                    </div>
+                                    <div className="col-auto font-weight-bold">{i18n.t("timetable.cancel.driving.lesson")}</div>
+                                    <div className="col">
+                                        <hr/>
+                                    </div>
+                                </Row>
+                            }
+
+                            {(currentRole === rolesConstant.trainee && addingView) &&
                                 <Row className="text-center">
                                     <Col className="text-center d-flex justify-content-center my-3">
                                         {!instructorView ?
                                             <>
                                                 <Dropdown>
                                                     <DropdownToggle id="dropdown-basic"
-                                                                    className="pl-0 pl-lg-2 pr-0 pr-lg-2 dim mr-3"
+                                                                    className="pl-0 pl-lg-2 pr-0 pr-lg-2 dim"
                                                                     variant="Secondary">
                                                         <span>{instructor ? instructor : t("add.lecture.select.instructor")}</span>
                                                     </DropdownToggle>
@@ -364,7 +437,7 @@ function Timetable(props) {
                                 </Row>
                             }
 
-                            {currentRole === rolesConstant.trainee &&
+                            {(currentRole === rolesConstant.trainee && addingView) &&
                                 <Row className="text-center">
                                     <Col className="d-flex justify-content-center">
                                         <CustomDatePicker setPickDate={setStartDate}
@@ -382,7 +455,7 @@ function Timetable(props) {
                                 </Row>
                             }
 
-                            {currentRole === rolesConstant.trainee &&
+                            {(currentRole === rolesConstant.trainee && addingView) &&
                                 <Row className="justify-content-center">
                                     <Col sm={6} className="mt-4 mb-3">
                                         <button className="btn btn-block btn-dark dim"
@@ -390,6 +463,32 @@ function Timetable(props) {
                                                 onClick={() => addDrivingLesson()}>
                                             {i18n.t('add')}
                                         </button>
+                                    </Col>
+                                </Row>
+                            }
+
+                            {(currentRole === rolesConstant.instructor || !addingView) &&
+                                <Row className="justify-content-center">
+                                    <Col xs={11} sm={10} md={8} lg={7} xl={6}
+                                         className={"text-center d-flex justify-content-center my-3"}>
+                                        <Dropdown>
+                                            <DropdownToggle id="dropdown-basic"
+                                                            className="dim"
+                                                            variant="Secondary">
+                                                <span>{lessonToCancel ? lessonToCancel : t("timetable.select.lesson.to.cancel")}</span>
+                                            </DropdownToggle>
+                                            <Dropdown.Menu>
+                                                {cancellationList.length > 0 && cancellationList.sort(function (a, b) {
+                                                    return new Date(a.startTime) - new Date(b.startTime);
+                                                }).map((item) => (
+                                                    <Dropdown.Item as="button"
+                                                                   onClick={() => {
+                                                                       setLessonToCancel(moment(item.startTime).locale(momentHelper()).local().format('LLLL').toString());
+                                                                       setLessonToCancelId(item.id);
+                                                                   }}>{moment(item.startTime).locale(momentHelper()).local().format('LLLL').toString()}
+                                                    </Dropdown.Item>))}
+                                            </Dropdown.Menu>
+                                        </Dropdown>
                                     </Col>
                                 </Row>
                             }

@@ -408,11 +408,17 @@
   "timetable.group": "group",
   "timetable.trainee": "trainee",
   "timetable.add.driving.lesson.success": "Driving lesson has been successfully added",
+  "timetable.adding.driving.lesson": "Adding lessons",
+  "timetable.canceling.driving.lesson": "Canceling lessons",
+  "timetable.select.lesson.to.cancel": "Select lesson to be canceled",
 
   "exception.driving_lesson_exception.conditions_not_met_exception": "Trainee does not meet the conditions",
   "exception.driving_lesson_exception.time_for_adding_exceeded_exception": "Driving lessons must be booked at least 3 days in advance",
   "exception.driving_lesson_exception.invalid_date_range_exception": "Driving lessons must take place from Monday to Saturday from 8 am to 4 pm",
   "exception.driving_lesson_exception.no_permits_exception": "The instructor does not have the appropriate permissions",
   "exception.driving_lesson_exception.date_ranges_overlap_exception": "The trainee or instructor has this date already taken",
-  "exception.driving_lesson_exception.too_many_driving_hours_exception": "The number of driving lessons has been exceeded"
+  "exception.driving_lesson_exception.too_many_driving_hours_exception": "The number of driving lessons has been exceeded",
+  "exception.driving_lesson_exception.access_denied_exception": "User is not entitled to cancel driving lessons",
+  "exception.driving_lesson_exception.incorrect_lesson_status_exception": "Driving lesson has an invalid status",
+  "exception.driving_lesson_exception.time_for_cancellation_exceeded_exception": "Driving lessons can be canceled up to two days before they start"
 }

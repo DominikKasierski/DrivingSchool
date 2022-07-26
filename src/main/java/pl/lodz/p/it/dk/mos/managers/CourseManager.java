@@ -1,5 +1,6 @@
 package pl.lodz.p.it.dk.mos.managers;
 
+import org.mapstruct.factory.Mappers;
 import pl.lodz.p.it.dk.common.utils.LoggingInterceptor;
 import pl.lodz.p.it.dk.entities.*;
 import pl.lodz.p.it.dk.entities.enums.AccessType;
@@ -9,8 +10,10 @@ import pl.lodz.p.it.dk.entities.enums.PaymentStatus;
 import pl.lodz.p.it.dk.exceptions.AccessException;
 import pl.lodz.p.it.dk.exceptions.BaseException;
 import pl.lodz.p.it.dk.exceptions.CourseException;
+import pl.lodz.p.it.dk.mappers.CourseMapper;
 import pl.lodz.p.it.dk.mos.dtos.*;
 import pl.lodz.p.it.dk.mos.facades.CourseFacade;
+import pl.lodz.p.it.dk.security.etag.Signer;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
@@ -46,6 +49,9 @@ public class CourseManager {
 
     @Inject
     CourseFacade courseFacade;
+
+    @Inject
+    private Signer signer;
 
     @RolesAllowed("createCourse")
     public void createCourse(CourseCategory courseCategory, TraineeAccess traineeAccess) throws BaseException {
@@ -208,8 +214,11 @@ public class CourseManager {
         List<EventDto> wednesdayEvents = getEventsForDay(lectures, drivingLessons, dateFrom, trainee);
         List<EventDto> thursdayEvents = getEventsForDay(lectures, drivingLessons, dateFrom, trainee);
         List<EventDto> fridayEvents = getEventsForDay(lectures, drivingLessons, dateFrom, trainee);
+        List<EventDto> saturdayEvents = getEventsForDay(lectures, drivingLessons, dateFrom, trainee);
+        List<EventDto> cancellationList = getCancellationList(drivingLessons, trainee);
 
-        return new CalendarDto(mondayEvents, tuesdayEvents, wednesdayEvents, thursdayEvents, fridayEvents);
+        return new CalendarDto(mondayEvents, tuesdayEvents, wednesdayEvents, thursdayEvents, fridayEvents, saturdayEvents,
+                cancellationList);
     }
 
     private long countLectureHours(List<Lecture> lectures) {
@@ -266,7 +275,7 @@ public class CourseManager {
                 String participant = trainee ? getPersonDetails(lecture.getInstructor().getAccount()) :
                         lecture.getLectureGroup().getName();
 
-                events.add(new EventDto(lecture.getId(), "LECTURE", participant, lecture.getDateFrom().getTime(),
+                events.add(new EventDto(lecture.getId(), "LECTURE", participant, "NaN", lecture.getDateFrom().getTime(),
                         lecture.getDateTo().getTime()));
             }
         }
@@ -275,9 +284,12 @@ public class CourseManager {
             if (datesAreInTheSameDay(dateFrom, drivingLesson.getDateFrom())) {
                 String participant = trainee ? getPersonDetails(drivingLesson.getInstructor().getAccount()) :
                         getPersonDetails(drivingLesson.getCourse().getTrainee().getAccount());
+                String participantLogin = trainee ? drivingLesson.getInstructor().getAccount().getLogin() :
+                        drivingLesson.getCourse().getTrainee().getAccount().getLogin();
 
                 events.add(new EventDto(drivingLesson.getId(), "DRIVING",
-                        participant, drivingLesson.getDateFrom().getTime(), drivingLesson.getDateTo().getTime()));
+                        participant, participantLogin, drivingLesson.getDateFrom().getTime(),
+                        drivingLesson.getDateTo().getTime()));
             }
         }
 
@@ -295,5 +307,36 @@ public class CourseManager {
 
     private String getPersonDetails(Account account) {
         return account.getFirstname().concat(" ").concat(account.getLastname());
+    }
+
+    private List<EventDto> getCancellationList(Set<DrivingLesson> drivingLessons, Boolean trainee) {
+        List<EventDto> cancellationList = new ArrayList<>();
+
+        if (trainee) {
+            Date now = new Date(new Date().getTime());
+            for (DrivingLesson lesson : drivingLessons) {
+                long diffInMillis = lesson.getDateFrom().getTime() - now.getTime();
+                long diffInDays = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
+
+                if (diffInDays >= 2) {
+                    cancellationList.add(
+                            new EventDto(lesson.getId(), "NaN", "NaN", "NaN", lesson.getDateFrom().getTime(),
+                                    lesson.getDateTo().getTime()));
+                }
+            }
+        } else {
+            for (DrivingLesson lesson : drivingLessons) {
+                if (lesson.getLessonStatus().equals(LessonStatus.PENDING)) {
+                    CourseDto courseDto = Mappers.getMapper(CourseMapper.class).toCourseDto(lesson.getCourse());
+                    String participantLogin = lesson.getCourse().getTrainee().getAccount().getLogin();
+
+                    cancellationList.add(
+                            new EventDto(lesson.getId(), signer.sign(courseDto), "NaN", participantLogin,
+                                    lesson.getDateFrom().getTime(), lesson.getDateTo().getTime()));
+                }
+            }
+        }
+
+        return cancellationList;
     }
 }

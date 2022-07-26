@@ -133,7 +133,7 @@ VALUES (-1, 'FINISHED', -3, -6, -3, date '2022-07-13' + time '12:00', date '2022
         date '2022-07-08' + time '21:00', null, -8, null, 1),
        (-3, 'FINISHED', -3, -6, -3, date '2022-07-15' + time '10:00', date '2022-07-15' + time '12:00',
         date '2022-07-08' + time '21:00', null, -8, null, 1),
-       (-4, 'PENDING', -10, -6, -3, date '2022-07-21' + time '10:00', date '2022-07-21' + time '12:00',
+       (-4, 'FINISHED', -10, -6, -3, date '2022-07-26' + time '10:00', date '2022-07-26' + time '12:00',
         date '2022-07-14' + time '21:00', null, -8, null, 1),
-       (-5, 'PENDING', -3, -6, -3, date '2022-07-22' + time '11:00', date '2022-07-22' + time '12:00',
+       (-5, 'PENDING', -3, -6, -3, date '2022-07-30' + time '11:00', date '2022-07-30' + time '12:00',
         date '2022-07-14' + time '21:00', null, -8, null, 1);

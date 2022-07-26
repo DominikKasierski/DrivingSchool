@@ -12,6 +12,7 @@ public class EventDto {
     private Long id;
     private String title;
     private String participant;
+    private String participantLogin;
     private Long startTime;
     private Long endTime;
 }
